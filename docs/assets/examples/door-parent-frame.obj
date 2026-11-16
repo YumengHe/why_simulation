@@ -1,0 +1,17 @@
+# A door panel saved in the parent frame. Units: meters.
+# Hinge axis: x=1, y=0, parallel to Z. Width 0.6, height 1, thickness 0.04.
+o door
+v 1 -0.02 0
+v 1.6 -0.02 0
+v 1.6 0.02 0
+v 1 0.02 0
+v 1 -0.02 1
+v 1.6 -0.02 1
+v 1.6 0.02 1
+v 1 0.02 1
+f 4 3 2 1
+f 5 6 7 8
+f 1 2 6 5
+f 2 3 7 6
+f 3 4 8 7
+f 4 1 5 8

@@ -1,0 +1,27 @@
+{
+  "title": "Why Simulation?",
+  "repository": "https://github.com/YumengHe/why_simulation",
+  "chapters": [
+    {
+      "number": "1",
+      "title": "Articulated objects",
+      "source": "chapters/articulated-objects.html",
+      "output": "index.html",
+      "description": "Learn how articulated objects work through a moving cabinet, joint controls, and an interactive connection tree."
+    },
+    {
+      "number": "2",
+      "title": "Frames, orientation & URDF",
+      "source": "chapters/frames-and-urdf.html",
+      "output": "frames-and-urdf.html",
+      "description": "Learn about base frames, object orientation, meshes, and URDF origins through a cabinet and its drawer."
+    },
+    {
+      "number": "3",
+      "title": "Reading a URDF file",
+      "source": "chapters/reading-urdf.html",
+      "output": "reading-urdf.html",
+      "description": "Read a cabinet URDF with illustrated examples of links, visual shapes, sliding and rotating joints, collision shapes, and the base link."
+    }
+  ]
+}

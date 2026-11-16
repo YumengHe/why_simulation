@@ -1,0 +1,59 @@
+(() => {
+  'use strict';
+  if (!document.getElementById('base-frame-scene')) return;
+
+  const C = { ink:'#1f1e1b', muted:'#656158', line:'#d5d0c5', blue:'#5b8db8', teal:'#6c9996', gold:'#9a7422', door:'#dbb555', pale:'#f0e7d4', red:'#b76456' };
+  const text = (x,y,s,extra='') => `<text x="${x}" y="${y}" ${extra}>${s}</text>`;
+  const line = (x1,y1,x2,y2,color=C.line,width=2,extra='') => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${width}" ${extra}/>`;
+  const arrow = (x1,y1,x2,y2,color=C.gold,width=2.5) => {
+    const a = Math.atan2(y2-y1,x2-x1), n = 7;
+    return line(x1,y1,x2,y2,color,width) + `<path d="M${x2-n*Math.cos(a-.5)},${y2-n*Math.sin(a-.5)} L${x2},${y2} L${x2-n*Math.cos(a+.5)},${y2-n*Math.sin(a+.5)}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linejoin="round"/>`;
+  };
+  const circle = (x,y,r,fill,extra='') => `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" ${extra}/>`;
+  const polygon = (points,fill,stroke='none') => `<polygon points="${points}" fill="${fill}" stroke="${stroke}" stroke-linejoin="round"/>`;
+  // A compact cabinet illustration, with its front on the left face.
+  function cabinet(x,y,scale=1,drawer=0) {
+    return `<g transform="translate(${x} ${y}) scale(${scale})">` +
+      polygon('0,20 60,0 120,20 60,42','#9ebfbb') +
+      polygon('60,42 120,20 120,165 60,188',C.teal) +
+      polygon('0,20 60,42 60,188 0,165','#7eaaa5') +
+      polygon('5,68 54,86 54,178 5,160',C.door) +
+      line(44,119,44,139,'#a58132',4) +
+      `<g transform="translate(${-drawer} ${drawer*.5})">` +
+      polygon('5,27 55,45 55,78 5,60',C.blue) +
+      polygon('5,27 55,45 70,40 20,22','#8ab2d0') +
+      line(19,43,40,51,'#d0e1ed',4) + '</g></g>';
+  }
+  function axes(x,y,size,labels=true) {
+    return arrow(x,y,x-size*.8,y+size*.4,C.red) + arrow(x,y,x+size*.8,y+size*.4,C.teal) + arrow(x,y,x,y-size,C.blue) + circle(x,y,3.5,C.ink) + (labels ? text(x-size*.8-15,y+size*.4+8,'X') + text(x+size*.8+8,y+size*.4+8,'Y') + text(x+8,y-size+5,'Z') : '');
+  }
+  document.getElementById('base-frame-scene').innerHTML =
+    polygon('65,240 280,140 660,240 440,286','#f5f2eb') +
+    cabinet(367,27,1.05) +
+    axes(160,224,68) + axes(430,224,55) +
+    text(105,112,'World frame','class="svg-heading"') + line(174,123,174,142,C.line,1.5) +
+    text(521,95,'Base frame','class="svg-heading"') + line(524,107,457,191,C.line,1.5) +
+    text(106,284,'Room reference') + text(465,284,'Attached to the body');
+
+  document.getElementById('front-cabinet').innerHTML = cabinet(90,8,.72,20) + arrow(91,81,40,107,C.gold) + text(23,138,'Front');
+  document.getElementById('front-glasses').innerHTML =
+    '<g fill="none" stroke="#658f8b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">' +
+    '<path d="M40 96 L65 29 Q70 16 80 23 M197 96 L209 35 Q210 23 219 27"/>' +
+    '<rect x="28" y="82" width="72" height="51" rx="18" fill="#e6f0ee"/><rect x="136" y="82" width="72" height="51" rx="18" fill="#e6f0ee"/><path d="M100 100 Q118 88 136 100"/>' +
+    '</g>' + arrow(118,121,118,156) + text(134,162,'Front');
+  document.getElementById('front-box').innerHTML =
+    polygon('57,54 127,28 193,56 123,83','#e9ddc5') +
+    polygon('57,54 123,83 123,152 57,123','#d6c29a') +
+    polygon('123,83 193,56 193,124 123,152','#bdac88') +
+    text(81,106,'?','class="box-question"') + text(150,109,'?','class="box-question"');
+
+  document.getElementById('urdf-tree-scene').innerHTML =
+    '<path d="M380 65 V89 H186 V108 M380 89 H574 V108" stroke="#c2b9a5" stroke-width="2" fill="none"/>' +
+    '<rect x="289" y="16" width="182" height="51" rx="3" fill="#e4eeec"/>' +
+    '<rect x="95" y="147" width="182" height="51" rx="3" fill="#e3edf5"/>' +
+    '<rect x="483" y="147" width="182" height="51" rx="3" fill="#f0e7d4"/>' +
+    text(380,49,'Body · root','text-anchor="middle" class="svg-heading"') +
+    text(186,180,'Drawer','text-anchor="middle" class="svg-heading"') +
+    text(574,180,'Door','text-anchor="middle" class="svg-heading"') +
+    text(186,132,'Prismatic · slides','text-anchor="middle"') + text(574,132,'Revolute · turns','text-anchor="middle"');
+})();

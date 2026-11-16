@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reading a URDF file · Why Simulation?</title>
+  <meta name="description" content="Read a cabinet URDF with illustrated examples of links, visual shapes, sliding and rotating joints, collision shapes, and the base link.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=b4057508262e">
+  <script src="assets/book.js?v=b4057508262e" defer></script>
+  <script src="assets/articulation.js?v=b4057508262e" defer></script>
+  <script src="assets/frames.js?v=b4057508262e" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="index.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">1.</span>Articulated objects</a><ol class="section-list"><li><a href="index.html#links-and-joints">1.1 Links and joints</a></li><li><a href="index.html#joint-motion">1.2 How joints let parts move</a></li><li><a href="index.html#degrees-of-freedom">1.3 Degrees of freedom</a></li><li><a href="index.html#kinematic-tree">1.4 Kinematic trees</a></li><li><a href="index.html#further-reading">Further reading</a></li></ol></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">2.</span>Frames, orientation &amp; URDF</a><ol class="section-list"><li><a href="frames-and-urdf.html#base-and-world">2.1 The base and the world</a></li><li><a href="frames-and-urdf.html#up-and-front">2.2 Which way is up? Which way is front?</a></li><li><a href="frames-and-urdf.html#tree-to-urdf">2.3 From a tree to a URDF file</a></li><li><a href="frames-and-urdf.html#what-is-a-mesh">2.4 What is a mesh?</a></li><li><a href="frames-and-urdf.html#three-origins">2.5 Joint, link, and visual origins</a></li></ol></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">3.</span>Reading a URDF file</a><ol class="section-list"><li><a href="#file-and-tree">3.1 One file, parts and connections</a></li><li><a href="#link-and-visual">3.2 Link: shapes that move together</a></li><li><a href="#sliding-joint">3.3 Joint: let the drawer slide</a></li><li><a href="#rotating-joint">3.4 Joint: let the door rotate</a></li><li><a href="#visual-collision-inertial">3.5 How a part looks and behaves</a></li><li><a href="#base-and-fixed-joint">3.6 Why is there an extra base link?</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="index.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this chapter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">3.</span> Reading a URDF file</h1>
+  <p class="lead">A URDF file tells us what the parts are, what they look like, and how they connect. Let’s read one using the cabinet we already know.</p>
+</header>
+
+<section id="file-and-tree" data-title="One file, parts and connections">
+  <h2><span class="section-number">3.1</span> One file, parts and connections</h2>
+  <p>The whole model sits inside <code>&lt;robot&gt;</code>. Inside it, <code>&lt;link&gt;</code> describes a part, and <code>&lt;joint&gt;</code> connects two parts. The word “robot” is simply the format’s name for the whole model; this one is a cabinet.</p>
+  <p>A pair such as <code>&lt;link&gt; … &lt;/link&gt;</code> marks the beginning and end of a block. A tag ending in <code>/&gt;</code> is complete on its own.</p>
+  <div class="urdf-overview">
+    <div>
+      <h3>The file’s outline</h3>
+      <pre class="urdf-code"><code>&lt;robot name="cabinet"&gt;
+  &lt;link name="base" /&gt;
+  &lt;link name="link_2"&gt; … &lt;/link&gt;
+  &lt;link name="link_0"&gt; … &lt;/link&gt;
+  &lt;link name="link_1"&gt; … &lt;/link&gt;
+
+  &lt;joint name="joint_2"
+         type="fixed"&gt; … &lt;/joint&gt;
+  &lt;joint name="joint_0"
+         type="prismatic"&gt; … &lt;/joint&gt;
+  &lt;joint name="joint_1"
+         type="revolute"&gt; … &lt;/joint&gt;
+&lt;/robot&gt;</code></pre>
+      <p>This outline leaves out the details. Each <code>…</code> stands for lines inside that block.</p>
+    </div>
+    <div>
+      <h3>The connections it describes</h3>
+      <div class="urdf-connection-tree" role="img" aria-label="The base connects to the cabinet body link_2 through fixed joint_2. The body connects to drawer link_0 through sliding joint_0 and door link_1 through rotating joint_1.">
+        <div class="urdf-tree-root"><strong>base</strong><span>Reference link · no shape</span></div>
+        <div class="urdf-tree-edge">joint_2 · fixed<span aria-hidden="true">↓</span></div>
+        <div class="urdf-tree-body"><strong>Cabinet body</strong><code>link_2</code></div>
+        <div class="urdf-tree-branches">
+          <div><div class="urdf-tree-edge">joint_0 · slides<span aria-hidden="true">↓</span></div><div class="urdf-tree-drawer"><strong>Drawer</strong><code>link_0</code></div></div>
+          <div><div class="urdf-tree-edge">joint_1 · rotates<span aria-hidden="true">↓</span></div><div class="urdf-tree-door"><strong>Door</strong><code>link_1</code></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p><strong>The file lists the parts; the joints make the tree.</strong> The drawer’s link is not written inside the body’s link. A joint connects them by naming one as its <code>parent</code> and the other as its <code>child</code>.</p>
+  <p>Names such as <code>link_0</code> are identifiers. Here they mean “drawer”; another model could use <code>drawer</code> directly. What matters is using the same name when referring to that part.</p>
+</section>
+
+<section id="link-and-visual" data-title="Link: shapes that move together">
+  <h2><span class="section-number">3.2</span> Link: shapes that move together</h2>
+  <p>The drawer’s sides, bottom, front, and handle all move together, so they belong to <strong>one link</strong>. A link can contain several <code>&lt;visual&gt;</code> blocks, each describing a shape to draw.</p>
+  <figure class="urdf-plate">
+    <a href="assets/figures/drawer-front-meshes.svg" data-enlarge aria-label="Enlarge the drawer front diagram"><img src="assets/figures/drawer-front-meshes.svg" width="760" height="520" alt="The drawer front has five labeled colored pieces: a top strip, a bottom strip, two side strips, and a center panel. The rest of the drawer is shown faintly."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+    <figcaption>These five pieces form the drawer front. They move together as part of <strong>one drawer</strong>, so they share one sliding joint.</figcaption>
+  </figure>
+  <h3>Reading one visual block</h3>
+  <p>This excerpt describes the <strong>red top strip</strong> in the picture. Positions are rounded here to make the code easier to read.</p>
+  <pre class="urdf-code"><code>&lt;link name="link_0"&gt;
+  &lt;visual name="drawer_front-14"&gt;
+    &lt;origin xyz="0.0142 -0.5376 -0.4921" /&gt;
+    &lt;geometry&gt;
+      &lt;mesh filename="textured_objs/original-34.obj" /&gt;
+    &lt;/geometry&gt;
+  &lt;/visual&gt;
+  &lt;!-- The other drawer shapes go here too. --&gt;
+&lt;/link&gt;</code></pre>
+  <dl class="urdf-terms">
+    <div><dt><code>link</code></dt><dd>The whole drawer. All shapes inside this link follow the drawer’s motion.</dd></div>
+    <div><dt><code>visual</code></dt><dd>One visible shape belonging to that drawer.</dd></div>
+    <div><dt><code>origin</code></dt><dd>Places this shape relative to the drawer’s own zero point.</dd></div>
+    <div><dt><code>geometry</code><br><code>mesh</code></dt><dd>Describes the shape. Here, <code>mesh</code> tells the viewer which 3D shape file to open.</dd></div>
+  </dl>
+  <p><code>&lt;geometry&gt;</code> can also contain a simple <code>&lt;box&gt;</code>, <code>&lt;cylinder&gt;</code>, or <code>&lt;sphere&gt;</code>. A separate mesh file is not required for every shape.</p>
+  <p>This drawer has <strong>14 visual blocks but only one sliding joint</strong>. More shape files do not mean more degrees of freedom.</p>
+</section>
+
+<section id="sliding-joint" data-title="Joint: let the drawer slide">
+  <h2><span class="section-number">3.3</span> Joint: let the drawer slide</h2>
+  <p>A <code>&lt;joint&gt;</code> answers a different question: <strong>how can this part move relative to the part it is attached to?</strong> Here the body is the parent, and the drawer is the child.</p>
+  <pre class="urdf-code"><code>&lt;joint name="joint_0" type="prismatic"&gt;
+  &lt;parent link="link_2" /&gt;
+  &lt;child link="link_0" /&gt;
+  &lt;origin xyz="-0.0142 0.5376 0.4921" /&gt;
+  &lt;axis xyz="0 0 1" /&gt;
+  &lt;limit lower="0" upper="0.76" /&gt;
+&lt;/joint&gt;</code></pre>
+  <dl class="urdf-terms">
+    <div><dt><code>type</code></dt><dd><strong>Prismatic means sliding.</strong> The drawer moves along a straight line.</dd></div>
+    <div><dt><code>parent</code><br><code>child</code></dt><dd>Connect the body (<code>link_2</code>) to the drawer (<code>link_0</code>).</dd></div>
+    <div><dt><code>origin</code></dt><dd>Locates the joint’s starting frame relative to the body. The red dot marks the drawer’s starting point when closed, called J in the previous chapter.</dd></div>
+    <div><dt><code>axis</code></dt><dd><code>0 0 1</code> means the joint’s positive Z direction. For this drawer, that points outward.</dd></div>
+    <div><dt><code>limit</code></dt><dd>The allowed travel is <strong>0 to 0.76 meters</strong>: from closed to 76 cm open.</dd></div>
+  </dl>
+  <figure class="urdf-plate urdf-plate-tall">
+    <a href="assets/figures/drawer-prismatic-joint.svg" data-enlarge aria-label="Enlarge the sliding joint diagram"><img src="assets/figures/drawer-prismatic-joint.svg" width="760" height="500" loading="lazy" alt="The blue drawer is fully open at 76 centimeters. A dashed outline marks its closed position. A red arrow points from the joint start outward along the sliding direction."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+    <figcaption>The dashed outline marks the closed drawer. Here, <strong>q = 76 cm</strong>: the blue drawer is fully open.</figcaption>
+  </figure>
+  <h3>One degree of freedom, one number</h3>
+  <p>The drawer’s sliding joint has <strong>one degree of freedom</strong>: it lets the drawer move in and out. One number is enough to describe its position. We call that number <strong>q</strong>, the distance the drawer has opened.</p>
+  <ul class="urdf-position-examples">
+    <li><strong>q = 0 cm:</strong> the drawer is closed.</li>
+    <li><strong>q = 30 cm:</strong> it is partly open.</li>
+    <li><strong>q = 76 cm:</strong> it is fully open in this model.</li>
+  </ul>
+  <p>The <code>limit</code> sets the allowed range, <strong>0–76 cm</strong>. The value of <strong>q</strong> tells us where the drawer is <strong>right now</strong> within that range.</p>
+</section>
+
+<section id="rotating-joint" data-title="Joint: let the door rotate">
+  <h2><span class="section-number">3.4</span> Joint: let the door rotate</h2>
+  <p>The door uses the same structure, with a different motion type. <strong>Revolute means a hinge with a limited angle.</strong></p>
+  <pre class="urdf-code"><code>&lt;joint name="joint_1" type="revolute"&gt;
+  &lt;parent link="link_2" /&gt;
+  &lt;child link="link_1" /&gt;
+  &lt;origin xyz="-0.3577 -0.5906 0.4916" /&gt;
+  &lt;axis xyz="0 -1 0" /&gt;
+  &lt;limit lower="0" upper="1.5708" /&gt;
+&lt;/joint&gt;</code></pre>
+  <p>The <code>origin</code> places the joint’s starting point at the hinge. The <code>axis</code> gives the direction of the hinge line through that point. Here <code>0 -1 0</code> points downward in the joint’s frame.</p>
+  <figure class="urdf-plate urdf-plate-tall">
+    <a href="assets/figures/door-revolute-joint.svg" data-enlarge aria-label="Enlarge the rotating joint diagram"><img src="assets/figures/door-revolute-joint.svg" width="760" height="500" loading="lazy" alt="The gold door is open ninety degrees around a purple hinge axis. A dashed outline marks the closed door. A curved arrow shows how it swings open."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+    <figcaption>The door turns around the <strong>purple hinge line</strong>. The dashed outline shows it closed. Here, <strong>q = 90°</strong>: the solid door is fully open.</figcaption>
+  </figure>
+  <p>Rotating joints use <strong>radians</strong> in the file: <strong>1.5708 radians is approximately 90°</strong>. So this door is allowed to open from 0° to 90°. The picture shows it at that upper limit.</p>
+  <p>This hinge also has <strong>one degree of freedom</strong>. For the door, <strong>q is the opening angle</strong>; for the drawer, q is the opening distance.</p>
+  <p>A wheel that can keep turning without an angular stop would use <code>type="continuous"</code> instead. It has a rotation axis but no lower or upper position limit.</p>
+</section>
+
+<section id="visual-collision-inertial" data-title="How a part looks and behaves">
+  <h2><span class="section-number">3.5</span> How a part looks and behaves</h2>
+  <p>A link can describe three things about a part, such as this cabinet body:</p>
+  <dl class="urdf-terms">
+    <div><dt><code>visual</code></dt><dd><strong>The shape you see.</strong> Draws the cabinet body and the shelf inside it.</dd></div>
+    <div><dt><code>collision</code></dt><dd><strong>The shape used to check contact.</strong> For example, it tells the simulator whether a box touches the shelf.</dd></div>
+    <div><dt><code>inertial</code></dt><dd><strong>How heavy the part is and how its mass is spread out.</strong> Helps calculate how it responds to pushes and turns.</dd></div>
+  </dl>
+  <figure class="urdf-plate">
+    <a href="assets/figures/body-shelf-visual.svg" data-enlarge aria-label="Enlarge the shelf diagram"><img src="assets/figures/body-shelf-visual.svg" width="760" height="565" loading="lazy" alt="An orange shelf inside a translucent cabinet. Visual describes the surface we see; collision describes the surface used to check contact."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+    <figcaption>This shelf uses the <strong>same 3D shape</strong> for <code>visual</code> and <code>collision</code>: one shape for drawing it and checking contact.</figcaption>
+  </figure>
+  <p>This cabinet file includes <code>visual</code> and <code>collision</code> data. It has no <code>inertial</code> blocks, so it does not specify how heavy the parts are.</p>
+</section>
+
+<section id="base-and-fixed-joint" data-title="Why is there an extra base link?">
+  <h2><span class="section-number">3.6</span> Why is there an extra base link?</h2>
+  <p>Our cabinet has three visible parts, yet the file has four links. The extra one is <code>base</code>, an <strong>invisible reference for the whole cabinet</strong>. The fixed joint <code>joint_2</code> places the cabinet body relative to that reference.</p>
+  <pre class="urdf-code"><code>&lt;link name="base" /&gt;
+
+&lt;joint name="joint_2" type="fixed"&gt;
+  &lt;parent link="base" /&gt;
+  &lt;child link="link_2" /&gt;
+  &lt;origin xyz="0 0 0"
+          rpy="1.5708 0 -1.5708" /&gt;
+&lt;/joint&gt;</code></pre>
+  <h3>A fixed joint can set an orientation</h3>
+  <p>The <code>rpy</code> numbers store a rotation. In this example, that rotation turns the cabinet body into the intended orientation. <strong>Fixed means the body keeps that orientation relative to the base.</strong> There is no extra movement to control.</p>
+  <figure class="urdf-plate">
+    <a href="assets/figures/base-fixed-joint.svg" data-enlarge aria-label="Enlarge the base and fixed-joint comparison"><img src="assets/figures/base-fixed-joint.svg" width="760" height="435" loading="lazy" alt="Three starting orientations: keep base and fixed joint, upright; remove both without replacing the rotation, sideways; remove both and rotate the whole model in the scene, upright."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+    <figcaption><strong>Both the middle and right examples remove the base and fixed joint.</strong> The right example takes one extra step: it rotates the whole cabinet in the scene to restore the original orientation. These pictures show starting poses, before any physics simulation.</figcaption>
+  </figure>
+  <h3>Can we leave out the base and fixed joint?</h3>
+  <p><strong>Yes, with two steps:</strong> remove both elements so the cabinet body becomes the root, then apply the original fixed joint’s rotation to the whole cabinet when placing it in the scene. The drawer and door can then move exactly as before.</p>
+  <p>Keeping <code>base</code> and <code>joint_2</code> stores the rotation inside the URDF. Removing both moves that responsibility to how we place the model in the scene.</p>
+  <h3>What if we remove only the fixed joint?</h3>
+  <p>The <code>base</code> link would be left disconnected from the cabinet. We would have two separate roots: <code>base</code> and the cabinet body. A URDF needs one connected tree, so a standard URDF loader rejects this arrangement. None of the three pictures shows this disconnected case.</p>
+  <p>The fixed joint adds <strong>zero degrees of freedom</strong>. With the cabinet held still, the drawer and door still provide two independent movements: one slide and one rotation.</p>
+  <p class="urdf-source-links"><a href="https://github.com/YumengHe/ArticulateArena/blob/11e49256b8e839f04e5da2f481cbea20c54bc2ce/sample_data/45168/mobility.urdf">Cabinet URDF ↗</a><a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">URDF reference ↗</a></p>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="frames-and-urdf.html">← Frames, orientation &amp; URDF</a></nav>
+      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/reading-urdf.html">Edit this chapter ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

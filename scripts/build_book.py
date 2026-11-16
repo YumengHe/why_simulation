@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+"""Build a portable static webbook with Python's standard library."""
+from pathlib import Path
+from html import escape
+from html.parser import HTMLParser
+from hashlib import sha256
+import json
+import shutil
+
+ROOT = Path(__file__).resolve().parents[1]
+SOURCE = ROOT / 'book'
+OUTPUT = ROOT / 'docs'
+
+
+class ChapterParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.sections = []
+        self.current = None
+        self.in_heading = False
+        self.heading = []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'header' and attrs.get('id') == 'chapter-start':
+            self.current = {'id': 'chapter-start', 'title': '', 'chunks': []}
+            self.sections.append(self.current)
+        if tag == 'section' and 'data-title' in attrs:
+            self.current = {'id': attrs['id'], 'title': attrs['data-title'], 'chunks': []}
+            self.sections.append(self.current)
+        if tag in ('h1', 'h2'):
+            self.in_heading = True
+            self.heading = []
+
+    def handle_endtag(self, tag):
+        if tag in ('h1', 'h2') and self.current:
+            self.current['heading'] = ' '.join(''.join(self.heading).split())
+            if not self.current['title']:
+                self.current['title'] = self.current['heading']
+            self.in_heading = False
+
+    def handle_data(self, data):
+        if self.current:
+            self.current['chunks'].append(data)
+        if self.in_heading:
+            self.heading.append(data)
+
+
+def build():
+    config = json.loads((SOURCE / 'book.json').read_text())
+    layout = (SOURCE / 'layout.html').read_text()
+    asset_version = sha256(b''.join((SOURCE / 'assets' / name).read_bytes() for name in ('book.css', 'book.js', 'articulation.js', 'frames.js'))).hexdigest()[:12]
+    chapters = []
+    for chapter in config['chapters']:
+        content = (SOURCE / chapter['source']).read_text()
+        parser = ChapterParser()
+        parser.feed(content)
+        chapters.append({**chapter, 'content': content, 'sections': parser.sections})
+    OUTPUT.mkdir(exist_ok=True)
+    shutil.copytree(SOURCE / 'assets', OUTPUT / 'assets', dirs_exist_ok=True)
+    navigation = '<ol class="chapter-list">'
+    for chapter in chapters:
+        navigation += f'<li><a class="chapter-link" href="{escape(chapter["output"])}#chapter-start"><span class="nav-number">{escape(chapter["number"])}.</span>{escape(chapter["title"])}</a><ol class="section-list">'
+        for section in chapter['sections'][1:]:
+            navigation += f'<li><a href="{escape(chapter["output"])}#{escape(section["id"])}">{escape(section["heading"])}</a></li>'
+        navigation += '</ol></li>'
+    navigation += '</ol>'
+    search_index = []
+    for i, chapter in enumerate(chapters):
+        pagination = ''
+        if i > 0:
+            prev = chapters[i-1]
+            pagination += f'<a href="{escape(prev["output"])}">← {escape(prev["title"])}</a>'
+        if i+1 < len(chapters):
+            following = chapters[i+1]
+            pagination += f'<a href="{escape(following["output"])}">{escape(following["title"])} →</a>'
+        replacements = {
+            'page_title': escape(chapter['title']), 'book_title': escape(config['title']),
+            'description': escape(chapter.get('description', chapter['title'])),
+            'repository': escape(config['repository']), 'navigation': navigation.replace('href="'+escape(chapter['output'])+'#', 'href="#'),
+            'content': chapter['content'], 'pagination': pagination, 'source': escape(chapter['source']),
+            'asset_version': asset_version
+        }
+        html = layout
+        for key, value in replacements.items():
+            html = html.replace('{{'+key+'}}', value)
+        (OUTPUT / chapter['output']).write_text(html)
+        for section in chapter['sections']:
+            search_index.append({'title': section['title'], 'url': chapter['output']+'#'+section['id'], 'text': ' '.join(' '.join(section['chunks']).split())})
+    (OUTPUT / 'search-index.json').write_text(json.dumps(search_index, ensure_ascii=False, indent=2)+'\n')
+    (OUTPUT / '.nojekyll').touch()
+    print(f'Built {len(chapters)} chapter(s) into {OUTPUT}')
+
+
+if __name__ == '__main__':
+    build()

@@ -1,0 +1,97 @@
+[
+  {
+    "title": "1. What is an articulated object?",
+    "url": "index.html#chapter-start",
+    "text": "1. What is an articulated object? An articulated object is made of parts that can move relative to one another. A drawer slides. A door swings. The cabinet holds them together. Watch the cabinet animation. Body Stays fixed in this example. Drawer Slides in and out along a straight line. Door Rotates around its hinge."
+  },
+  {
+    "title": "Links and joints",
+    "url": "index.html#links-and-joints",
+    "text": "1.1 Links and joints We describe this cabinet using two building blocks: links and joints . Link A rigid part: its shape stays the same as it moves. The body, drawer, and door are three links. Joint A connection that defines how two links can move relative to each other. The door’s hinge connects the door to the body and lets it rotate. A handle fixed to the door moves together with the door, so it can be included in the same link. A handle that turns independently needs its own link and joint."
+  },
+  {
+    "title": "How joints let parts move",
+    "url": "index.html#joint-motion",
+    "text": "1.2 How joints let parts move The drawer and door move in different ways. Move the sliders to try each joint. Sliding Prismatic joint Drawer opening 20 cm 0 cm 50 cm The direction stays the same. Only the distance changes. Rotating Revolute joint Door opening 35° 0° 90° The hinge stays in place. Only the angle changes. The allowed range is the joint’s motion limit . Here, the drawer opens from 0 to 50 cm, and the door from 0° to 90°. These are illustrative limits; another cabinet may allow different motion."
+  },
+  {
+    "title": "Degrees of freedom",
+    "url": "index.html#degrees-of-freedom",
+    "text": "1.3 Degrees of freedom One articulated object can have several degrees of freedom. This cabinet is one object, but it has two movable joints: one for the drawer and one for the door. A degree of freedom (DOF) is an independent motion you can control. With the cabinet body held fixed: Part Independent control DOF Drawer How far it slides 1 Door How far it rotates 1 Whole cabinet Drawer and door move independently 2 You can leave the door still and move the drawer. You can also leave the drawer still and move the door. So describing the whole cabinet’s pose takes two numbers : the drawer’s opening distance and the door’s opening angle. Here, each joint has 1 DOF; the whole cabinet has 2 DOF. Opening the drawer farther changes its position, but it still has the same one degree of freedom."
+  },
+  {
+    "title": "Kinematic trees",
+    "url": "index.html#kinematic-tree",
+    "text": "1.4 Kinematic trees A kinematic tree records which parts are connected. Each node is a link; each connecting line is a joint. The body is the root : the starting link of this tree. It is the parent of the drawer and door; they are its children . The tree describes connections, not the parts’ positions on the page. In the example below, we add a turning latch to the drawer. The latch can turn independently, adding one more degree of freedom: this version has 3 DOF . Select a part in the tree, then play its motion. The object Its connections hinge slide turn Body Door Drawer Latch Drawer. Slides relative to the body. The latch comes along because it is attached to the drawer. Play drawer motion Motion position Reset A moving part carries its children The drawer is the latch’s parent in this tree. When the drawer slides, the latch travels with it. The latch can also turn relative to the drawer. The door is on a different branch, so moving the drawer does not move the door. Not every articulated object forms a tree. Some mechanisms contain closed loops. This example focuses on a tree, where each link other than the root has one parent."
+  },
+  {
+    "title": "Further reading",
+    "url": "index.html#further-reading",
+    "text": "Further reading To compare the motion and connections of a reconstructed object with a reference, continue to the ArticulateArena documentation ↗ ."
+  },
+  {
+    "title": "2. Frames, orientation & URDF",
+    "url": "frames-and-urdf.html#chapter-start",
+    "text": "2. Frames, orientation & URDF A model needs more than its shape. We also need to know which way it faces, where its joints are, and what each position is measured from."
+  },
+  {
+    "title": "The base and the world",
+    "url": "frames-and-urdf.html#base-and-world",
+    "text": "2.1 The base and the world A coordinate frame is a reference point with three directions: X, Y, and Z. Its reference point is the origin . World frame The scene’s reference. It lets us place the whole cabinet in a room. Base frame The object’s reference, attached to its root link. Here we use the cabinet body as the base. Move the whole cabinet: its base frame moves with it. The room’s world frame stays in place. The base is not necessarily the object’s bottom or its geometric center. Choosing a base also does not lock the object in place. Holding it fixed is a separate choice in the simulator."
+  },
+  {
+    "title": "Which way is up? Which way is front?",
+    "url": "frames-and-urdf.html#up-and-front",
+    "text": "2.2 Which way is up? Which way is front? For this chapter’s diagrams, we choose +Z up, +X front, and +Y left in the object’s base frame. “Left” is the object’s own left when facing forward. Other models may use different axes for up and front. First find the object’s usual upright pose. Then use its function to choose the front. Left–right symmetry can suggest an orientation, but it does not always distinguish front from back. Cabinet The side you open is the front. An outward drawer motion is a useful clue. Eyeglasses Use how they are worn: here, front points away from the wearer, through the lenses. The arms extend toward the back. Unmarked box Shape alone may not reveal a unique front. Choose a convention and record it."
+  },
+  {
+    "title": "From a tree to a URDF file",
+    "url": "frames-and-urdf.html#tree-to-urdf",
+    "text": "2.3 From a tree to a URDF file URDF stands for Unified Robot Description Format. It is a text file that records links and joints, along with their geometry and other properties. Despite its name, it can describe a cabinet too. A joint names its parent and child links. Its type gives the motion rule, axis gives the motion direction in the joint frame, and limit gives the allowed range. Its origin places the joint frame relative to the parent. Before placing the drawer, let’s look at how its shape is stored."
+  },
+  {
+    "title": "What is a mesh?",
+    "url": "frames-and-urdf.html#what-is-a-mesh",
+    "text": "2.4 What is a mesh? A mesh describes a 3D shape using points and flat faces. For the drawer’s orange side panel, those points are its corners. The faces join the points to form its surface. The whole drawer Its sides, bottom, front, and handle move together as one link. One side panel This is one of the drawer’s shapes. The panel’s mesh The file records the points’ positions and which points form each face. The second and third pictures show the same panel . The dots and lines reveal how its shape is represented; they are not extra physical pieces. Several meshes can belong to one link. Here, the drawer’s shape files describe what to draw, while its joint tells the whole drawer how to slide."
+  },
+  {
+    "title": "Joint, link, and visual origins",
+    "url": "frames-and-urdf.html#three-origins",
+    "text": "2.5 Joint, link, and visual origins Now place the drawer in the cabinet. The body is the parent link and the drawer is the child link . URDF needs to know where the drawer starts and where to draw its shapes. Body Drawer One side panel O The body’s starting point We measure positions on the cabinet from here. In this model, the points in the drawer’s shape files were also measured from O. J The drawer’s starting point The drawer uses J as its own zero point. At this closed position, J is also the joint’s starting point. The shape files still use O as their zero. The visual origin tells URDF where that saved zero is relative to J. O → J Joint origin Start at the body’s origin O. Where is the drawer’s starting point J? The joint origin gives that offset. J → O Visual origin, in this model Now start at J. Where is the mesh file’s old zero point O? The visual origin gives the offset back, so the panel is placed correctly around the drawer. The cabinet uses O as its zero point; the drawer uses J as its zero point. In this closed pose, the two frames point the same way. The offsets O → J and J → O are therefore equal and opposite: their coordinates add to zero."
+  },
+  {
+    "title": "3. Reading a URDF file",
+    "url": "reading-urdf.html#chapter-start",
+    "text": "3. Reading a URDF file A URDF file tells us what the parts are, what they look like, and how they connect. Let’s read one using the cabinet we already know."
+  },
+  {
+    "title": "One file, parts and connections",
+    "url": "reading-urdf.html#file-and-tree",
+    "text": "3.1 One file, parts and connections The whole model sits inside <robot> . Inside it, <link> describes a part, and <joint> connects two parts. The word “robot” is simply the format’s name for the whole model; this one is a cabinet. A pair such as <link> … </link> marks the beginning and end of a block. A tag ending in /> is complete on its own. The file’s outline <robot name=\"cabinet\"> <link name=\"base\" /> <link name=\"link_2\"> … </link> <link name=\"link_0\"> … </link> <link name=\"link_1\"> … </link> <joint name=\"joint_2\" type=\"fixed\"> … </joint> <joint name=\"joint_0\" type=\"prismatic\"> … </joint> <joint name=\"joint_1\" type=\"revolute\"> … </joint> </robot> This outline leaves out the details. Each … stands for lines inside that block. The connections it describes base Reference link · no shape joint_2 · fixed ↓ Cabinet body link_2 joint_0 · slides ↓ Drawer link_0 joint_1 · rotates ↓ Door link_1 The file lists the parts; the joints make the tree. The drawer’s link is not written inside the body’s link. A joint connects them by naming one as its parent and the other as its child . Names such as link_0 are identifiers. Here they mean “drawer”; another model could use drawer directly. What matters is using the same name when referring to that part."
+  },
+  {
+    "title": "Link: shapes that move together",
+    "url": "reading-urdf.html#link-and-visual",
+    "text": "3.2 Link: shapes that move together The drawer’s sides, bottom, front, and handle all move together, so they belong to one link . A link can contain several <visual> blocks, each describing a shape to draw. ⤢ These five pieces form the drawer front. They move together as part of one drawer , so they share one sliding joint. Reading one visual block This excerpt describes the red top strip in the picture. Positions are rounded here to make the code easier to read. <link name=\"link_0\"> <visual name=\"drawer_front-14\"> <origin xyz=\"0.0142 -0.5376 -0.4921\" /> <geometry> <mesh filename=\"textured_objs/original-34.obj\" /> </geometry> </visual> <!-- The other drawer shapes go here too. --> </link> link The whole drawer. All shapes inside this link follow the drawer’s motion. visual One visible shape belonging to that drawer. origin Places this shape relative to the drawer’s own zero point. geometry mesh Describes the shape. Here, mesh tells the viewer which 3D shape file to open. <geometry> can also contain a simple <box> , <cylinder> , or <sphere> . A separate mesh file is not required for every shape. This drawer has 14 visual blocks but only one sliding joint . More shape files do not mean more degrees of freedom."
+  },
+  {
+    "title": "Joint: let the drawer slide",
+    "url": "reading-urdf.html#sliding-joint",
+    "text": "3.3 Joint: let the drawer slide A <joint> answers a different question: how can this part move relative to the part it is attached to? Here the body is the parent, and the drawer is the child. <joint name=\"joint_0\" type=\"prismatic\"> <parent link=\"link_2\" /> <child link=\"link_0\" /> <origin xyz=\"-0.0142 0.5376 0.4921\" /> <axis xyz=\"0 0 1\" /> <limit lower=\"0\" upper=\"0.76\" /> </joint> type Prismatic means sliding. The drawer moves along a straight line. parent child Connect the body ( link_2 ) to the drawer ( link_0 ). origin Locates the joint’s starting frame relative to the body. The red dot marks the drawer’s starting point when closed, called J in the previous chapter. axis 0 0 1 means the joint’s positive Z direction. For this drawer, that points outward. limit The allowed travel is 0 to 0.76 meters : from closed to 76 cm open. ⤢ The dashed outline marks the closed drawer. Here, q = 76 cm : the blue drawer is fully open. One degree of freedom, one number The drawer’s sliding joint has one degree of freedom : it lets the drawer move in and out. One number is enough to describe its position. We call that number q , the distance the drawer has opened. q = 0 cm: the drawer is closed. q = 30 cm: it is partly open. q = 76 cm: it is fully open in this model. The limit sets the allowed range, 0–76 cm . The value of q tells us where the drawer is right now within that range."
+  },
+  {
+    "title": "Joint: let the door rotate",
+    "url": "reading-urdf.html#rotating-joint",
+    "text": "3.4 Joint: let the door rotate The door uses the same structure, with a different motion type. Revolute means a hinge with a limited angle. <joint name=\"joint_1\" type=\"revolute\"> <parent link=\"link_2\" /> <child link=\"link_1\" /> <origin xyz=\"-0.3577 -0.5906 0.4916\" /> <axis xyz=\"0 -1 0\" /> <limit lower=\"0\" upper=\"1.5708\" /> </joint> The origin places the joint’s starting point at the hinge. The axis gives the direction of the hinge line through that point. Here 0 -1 0 points downward in the joint’s frame. ⤢ The door turns around the purple hinge line . The dashed outline shows it closed. Here, q = 90° : the solid door is fully open. Rotating joints use radians in the file: 1.5708 radians is approximately 90° . So this door is allowed to open from 0° to 90°. The picture shows it at that upper limit. This hinge also has one degree of freedom . For the door, q is the opening angle ; for the drawer, q is the opening distance. A wheel that can keep turning without an angular stop would use type=\"continuous\" instead. It has a rotation axis but no lower or upper position limit."
+  },
+  {
+    "title": "How a part looks and behaves",
+    "url": "reading-urdf.html#visual-collision-inertial",
+    "text": "3.5 How a part looks and behaves A link can describe three things about a part, such as this cabinet body: visual The shape you see. Draws the cabinet body and the shelf inside it. collision The shape used to check contact. For example, it tells the simulator whether a box touches the shelf. inertial How heavy the part is and how its mass is spread out. Helps calculate how it responds to pushes and turns. ⤢ This shelf uses the same 3D shape for visual and collision : one shape for drawing it and checking contact. This cabinet file includes visual and collision data. It has no inertial blocks, so it does not specify how heavy the parts are."
+  },
+  {
+    "title": "Why is there an extra base link?",
+    "url": "reading-urdf.html#base-and-fixed-joint",
+    "text": "3.6 Why is there an extra base link? Our cabinet has three visible parts, yet the file has four links. The extra one is base , an invisible reference for the whole cabinet . The fixed joint joint_2 places the cabinet body relative to that reference. <link name=\"base\" /> <joint name=\"joint_2\" type=\"fixed\"> <parent link=\"base\" /> <child link=\"link_2\" /> <origin xyz=\"0 0 0\" rpy=\"1.5708 0 -1.5708\" /> </joint> A fixed joint can set an orientation The rpy numbers store a rotation. In this example, that rotation turns the cabinet body into the intended orientation. Fixed means the body keeps that orientation relative to the base. There is no extra movement to control. ⤢ Both the middle and right examples remove the base and fixed joint. The right example takes one extra step: it rotates the whole cabinet in the scene to restore the original orientation. These pictures show starting poses, before any physics simulation. Can we leave out the base and fixed joint? Yes, with two steps: remove both elements so the cabinet body becomes the root, then apply the original fixed joint’s rotation to the whole cabinet when placing it in the scene. The drawer and door can then move exactly as before. Keeping base and joint_2 stores the rotation inside the URDF. Removing both moves that responsibility to how we place the model in the scene. What if we remove only the fixed joint? The base link would be left disconnected from the cabinet. We would have two separate roots: base and the cabinet body. A URDF needs one connected tree, so a standard URDF loader rejects this arrangement. None of the three pictures shows this disconnected case. The fixed joint adds zero degrees of freedom . With the cabinet held still, the drawer and door still provide two independent movements: one slide and one rotation. Cabinet URDF ↗ URDF reference ↗"
+  }
+]
