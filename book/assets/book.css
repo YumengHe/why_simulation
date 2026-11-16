@@ -222,6 +222,24 @@ code{font:.86em/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;background:#
 @media print{.urdf-plate{max-width:420px}.urdf-plate-tall{max-width:360px}.figure-enlarge,.figure-dialog{display:none!important}.urdf-overview{grid-template-columns:1fr 1fr}.urdf-shelf-example{grid-template-columns:1fr 1fr}.urdf-connection-tree,.urdf-code{-webkit-print-color-adjust:exact;print-color-adjust:exact}.urdf-code{break-inside:avoid}.urdf-source-links{display:none}}
 @media(max-width:600px){.definitions.frame-definitions>div{grid-template-columns:1fr;gap:7px}.orientation-examples{grid-template-columns:1fr;gap:28px}.orientation-examples figure{display:grid;grid-template-columns:125px 1fr;gap:20px;align-items:center}.orientation-examples strong{margin-top:0}.orientation-examples svg{min-width:0}.origin-panels{grid-template-columns:1fr;gap:25px}.origin-panels figure+figure{padding-top:22px;border-top:1px solid var(--line)}.origin-panels svg{max-width:380px;margin:auto}.origin-control label{width:100%}.origin-control .text-button{padding-right:0}.frame-figure svg text{font-size:24px}.frame-figure svg .svg-heading{font-size:25px}.urdf-code{padding:13px;font-size:12px}.origin-equation{font-size:25px}.worked-origin,.origin-rule{padding-left:16px}}
 @media print{.origin-control{display:none}.origin-panels{grid-template-columns:1fr 1fr}.origin-demo{break-inside:avoid}.orientation-examples{grid-template-columns:repeat(3,1fr)}.urdf-code mark{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+.experiment-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin:30px 0 34px}
+.experiment{min-width:0}
+.experiment h3{font-size:23px;margin:0 0 12px}
+.experiment>a{position:relative;display:block;border:1px solid var(--line);background:var(--paper)}
+.experiment picture,.experiment img{display:block;width:100%;height:auto}
+.experiment figcaption{font-size:16px;line-height:1.75;color:var(--muted);margin-top:14px}
+.experiment .urdf-code{font-size:12px;padding:15px 12px;margin:16px 0 0}
+.experiment>a:hover .figure-enlarge{border-color:var(--gold);background:var(--gold-soft)}
+.experiment-explained{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;gap:28px;margin:38px 0 30px;padding-top:28px;border-top:1px solid var(--line)}
+.experiment-explained .urdf-code{font-size:12px;padding:15px 12px;margin-top:0}
+.experiment-explained p,.experiment-steps{font-size:16px}
+.experiment-steps{padding-left:24px;margin:0 0 20px}.experiment-steps li{padding-left:3px;margin:9px 0}
+.experiment-tree{font:14px/1.9 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;min-height:110px;margin:16px 0 0;padding:12px 0;color:var(--ink)}
+.experiment-table{width:100%;border-collapse:collapse;font-size:15px;margin:25px 0 28px;text-align:left}
+.experiment-table th,.experiment-table td{padding:14px 10px;border-bottom:1px solid var(--line)}
+.experiment-table th:first-child{padding-left:0}.experiment-table thead th{font-weight:400;color:var(--muted)}
+@media(max-width:600px){.experiment-pair,.experiment-explained{grid-template-columns:1fr;gap:30px}.experiment-explained{gap:22px}.experiment{max-width:560px;width:100%;margin:auto}.experiment-tree{min-height:0}.experiment-table{font-size:13px}.experiment-table th,.experiment-table td{padding:12px 5px}.experiment figcaption{font-size:15px}}
+@media print{.experiment-pair,.experiment-explained{grid-template-columns:1fr 1fr;break-inside:avoid}.experiment img{max-height:240px;object-fit:contain}.experiment figcaption{font-size:10pt}.experiment .urdf-code{font-size:9pt}}
 .further-reading h2{font-size:25px}
 .page-footer{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:13px;border-top:1px solid var(--line);padding-top:22px;margin-top:52px}
 .page-footer a{text-decoration:none;color:var(--muted)}

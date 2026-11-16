@@ -1,0 +1,23 @@
+{
+  "source": "ArticulateArena sample_data/45168 at 11e49256b8e839f04e5da2f481cbea20c54bc2ce",
+  "size": [
+    560,
+    540
+  ],
+  "frames": 86,
+  "duration_ms": 6340,
+  "rendering": "Forward kinematics; cabinet shown translucent; no collision response",
+  "axis_annotations": "Moving-joint reference frame at q=0: X red, Y green, Z blue; motion axis purple",
+  "examples": [
+    "drawer-outward",
+    "drawer-inward",
+    "drawer-diagonal",
+    "door-hinge",
+    "door-type-only",
+    "door-sliding",
+    "drawer-present",
+    "drawer-removed",
+    "shapes-original",
+    "shapes-swapped"
+  ]
+}

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Changing a URDF · Why Simulation?</title>
+  <meta name="description" content="Watch what happens when we change a drawer’s direction, turn a hinge into a slide, remove a part, or swap shapes while keeping the joints.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=b2362bc2ec8a">
+  <script src="assets/book.js?v=b2362bc2ec8a" defer></script>
+  <script src="assets/articulation.js?v=b2362bc2ec8a" defer></script>
+  <script src="assets/frames.js?v=b2362bc2ec8a" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="index.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">1.</span>Articulated objects</a><ol class="section-list"><li><a href="index.html#links-and-joints">1.1 Links and joints</a></li><li><a href="index.html#joint-motion">1.2 How joints let parts move</a></li><li><a href="index.html#degrees-of-freedom">1.3 Degrees of freedom</a></li><li><a href="index.html#kinematic-tree">1.4 Kinematic trees</a></li><li><a href="index.html#further-reading">Further reading</a></li></ol></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">2.</span>Frames, orientation &amp; URDF</a><ol class="section-list"><li><a href="frames-and-urdf.html#base-and-world">2.1 The base and the world</a></li><li><a href="frames-and-urdf.html#up-and-front">2.2 Which way is up? Which way is front?</a></li><li><a href="frames-and-urdf.html#tree-to-urdf">2.3 From a tree to a URDF file</a></li><li><a href="frames-and-urdf.html#what-is-a-mesh">2.4 What is a mesh?</a></li><li><a href="frames-and-urdf.html#three-origins">2.5 Joint, link, and visual origins</a></li></ol></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.</span>Reading a URDF file</a><ol class="section-list"><li><a href="reading-urdf.html#file-and-tree">3.1 One file, parts and connections</a></li><li><a href="reading-urdf.html#link-and-visual">3.2 Link: shapes that move together</a></li><li><a href="reading-urdf.html#sliding-joint">3.3 Joint: let the drawer slide</a></li><li><a href="reading-urdf.html#rotating-joint">3.4 Joint: let the door rotate</a></li><li><a href="reading-urdf.html#visual-collision-inertial">3.5 How a part looks and behaves</a></li><li><a href="reading-urdf.html#base-and-fixed-joint">3.6 Why is there an extra base link?</a></li></ol></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">4.</span>Changing a URDF</a><ol class="section-list"><li><a href="#change-direction">4.1 Change the drawer’s direction</a></li><li><a href="#change-joint-type">4.2 Turn a hinged door into a sliding door</a></li><li><a href="#remove-drawer">4.3 Remove the drawer</a></li><li><a href="#swap-shapes">4.4 Swap the shapes, keep the joints</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="index.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this chapter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">4.</span> What happens when we change the URDF?</h1>
+  <p class="lead">Use the same cabinet to see what changes when we edit its joints and shapes.</p>
+</header>
+
+<section id="change-direction" data-title="Change the drawer’s direction">
+  <h2><span class="section-number">4.1</span> Change the drawer’s direction</h2>
+  <p>The drawer’s <code>axis</code> tells it which way to slide. Here we change only that direction. The starting point and the <strong>0–76 cm</strong> travel range stay the same.</p>
+  <p>The <strong>+X, +Y, and +Z arrows</strong> show the joint’s reference directions at its closed pose. In this cabinet, <strong>+X points sideways, +Y points up, and +Z points out of the front</strong>. These are the joint’s local axes; the scene can use a different up axis. The purple arrow shows the chosen sliding direction.</p>
+  <div class="experiment-pair">
+    <figure class="experiment">
+      <h3>Out of the cabinet</h3>
+      <a href="assets/experiments/drawer-outward.gif" data-enlarge aria-label="Enlarge the drawer sliding outward"><picture><source media="(prefers-reduced-motion: reduce), print" srcset="assets/experiments/drawer-outward.png"><img src="assets/experiments/drawer-outward.gif" width="560" height="540" alt="Red +X, green +Y and blue +Z arrows mark the joint’s reference frame. The drawer slides outward along +Z, following the purple arrow, from q zero to 76 centimeters and back."></picture><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <pre class="urdf-code"><code>&lt;axis xyz="<mark>0 0 1</mark>" /&gt;</code></pre>
+      <figcaption><strong>0 0 1 means +Z:</strong> increasing q pulls the drawer outward.</figcaption>
+    </figure>
+    <figure class="experiment">
+      <h3>Into the cabinet</h3>
+      <a href="assets/experiments/drawer-inward.gif" data-enlarge aria-label="Enlarge the drawer sliding inward"><picture><source media="(prefers-reduced-motion: reduce), print" srcset="assets/experiments/drawer-inward.png"><img src="assets/experiments/drawer-inward.gif" width="560" height="540" alt="The labeled joint axes stay fixed. The drawer slides inward along the purple arrow, opposite the blue +Z arrow."></picture><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <pre class="urdf-code"><code>&lt;axis xyz="<mark>0 0 -1</mark>" /&gt;</code></pre>
+      <figcaption><strong>0 0 −1 means −Z:</strong> the purple arrow points opposite +Z. Keeping the same positive range now sends the drawer inward.</figcaption>
+    </figure>
+  </div>
+  <div class="experiment-explained" id="diagonal-slide">
+    <figure class="experiment">
+      <h3>Along a diagonal</h3>
+      <a href="assets/experiments/drawer-diagonal.gif" data-enlarge aria-label="Enlarge the drawer sliding diagonally"><picture><source media="(prefers-reduced-motion: reduce), print" srcset="assets/experiments/drawer-diagonal.png"><img src="assets/experiments/drawer-diagonal.gif" width="560" height="540" loading="lazy" alt="The drawer slides along a purple diagonal between red +X and green +Y. Blue +Z points outward, but there is no movement along Z. The joint’s reference axes remain fixed at the starting point."></picture><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <figcaption>The purple arrow combines <strong>+X and +Y</strong>: sideways and upward together.</figcaption>
+    </figure>
+    <div>
+      <pre class="urdf-code"><code>&lt;axis xyz="<mark>0.707107 0.707107 0</mark>" /&gt;</code></pre>
+      <p>Read <code>xyz</code> in order: <strong>X, then Y, then Z</strong>. The two equal positive numbers mean “move sideways along +X and upward along +Y by equal amounts.” The final <strong>0</strong> means no movement along Z.</p>
+      <p>For example, after sliding <strong>10 cm</strong> along the purple arrow, the drawer has moved about <strong>7.1 cm sideways and 7.1 cm upward</strong>.</p>
+      <p><strong>This is still one degree of freedom.</strong> The drawer follows one straight line. It cannot choose its upward and sideways movements separately.</p>
+      <p>One number, <strong>q</strong>, tells us how far it has moved along that line.</p>
+    </div>
+  </div>
+  <p>The cabinet is transparent so you can see the path. These animations follow the motion written in the file; they do not stop parts at collisions.</p>
+</section>
+
+<section id="change-joint-type" data-title="Turn a hinged door into a sliding door">
+  <h2><span class="section-number">4.2</span> Turn a hinged door into a sliding door</h2>
+  <p>For a hinge, <code>axis</code> gives the line the door <strong>rotates around</strong>. For a slide, it gives the direction the door <strong>moves along</strong>. Changing <code>revolute</code> to <code>prismatic</code> also changes the limit from an angle to a distance.</p>
+  <div class="experiment-pair">
+    <figure class="experiment">
+      <h3>Original hinged door</h3>
+      <a href="assets/experiments/door-hinge.gif" data-enlarge aria-label="Enlarge the original hinged door"><picture><source media="(prefers-reduced-motion: reduce), print" srcset="assets/experiments/door-hinge.png"><img src="assets/experiments/door-hinge.gif" width="560" height="540" loading="lazy" alt="The gold door swings around a vertical hinge, from zero to ninety degrees. The reference axes are labeled +X, +Y and +Z. The purple hinge-axis arrow points down along -Y."></picture><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <pre class="urdf-code"><code>type="revolute"
+&lt;axis xyz="0 -1 0" /&gt;
+&lt;limit lower="0" upper="1.5708" /&gt;</code></pre>
+      <figcaption><strong>0 −1 0 points along −Y</strong>, down the vertical hinge. The door turns around that line. <strong>1.5708 radians is about 90°.</strong></figcaption>
+    </figure>
+    <figure class="experiment">
+      <h3>Change only the type</h3>
+      <a href="assets/experiments/door-type-only.gif" data-enlarge aria-label="Enlarge the door sliding downward after changing only the type"><picture><source media="(prefers-reduced-motion: reduce), print" srcset="assets/experiments/door-type-only.png"><img src="assets/experiments/door-type-only.gif" width="560" height="540" loading="lazy" alt="Labeled joint axes show +Y upward. With only the type changed to prismatic, the gold door follows the purple arrow down along -Y by 1.57 meters and returns."></picture><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <pre class="urdf-code"><code>type="<mark>prismatic</mark>"
+&lt;axis xyz="0 -1 0" /&gt;
+&lt;limit lower="0" upper="1.5708" /&gt;</code></pre>
+      <figcaption>The same <strong>−Y axis</strong> now means <strong>slide downward</strong>. The same upper limit now means <strong>1.5708 meters</strong>. This movement is set by the joint, not by gravity.</figcaption>
+    </figure>
+  </div>
+  <div class="experiment-explained">
+    <figure class="experiment">
+      <h3>Make it slide sideways</h3>
+      <a href="assets/experiments/door-sliding.gif" data-enlarge aria-label="Enlarge the door sliding sideways"><picture><source media="(prefers-reduced-motion: reduce), print" srcset="assets/experiments/door-sliding.png"><img src="assets/experiments/door-sliding.gif" width="560" height="540" loading="lazy" alt="The gold door slides sideways along +X. The long purple motion arrow points in the same direction as the short red +X arrow. +Y and +Z are also labeled."></picture><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <figcaption><strong>1 0 0 means +X:</strong> the door slides sideways across the front of the cabinet.</figcaption>
+    </figure>
+    <div>
+      <pre class="urdf-code"><code>type="<mark>prismatic</mark>"
+&lt;axis xyz="<mark>1 0 0</mark>" /&gt;
+&lt;limit lower="0" upper="<mark>0.7</mark>" /&gt;</code></pre>
+      <p>We change three things together:</p>
+      <ol class="experiment-steps">
+        <li><strong>Type:</strong> slide instead of rotate.</li>
+        <li><strong>Axis:</strong> move sideways instead of downward.</li>
+        <li><strong>Limit:</strong> travel 70 cm.</li>
+      </ol>
+      <p>The door still has <strong>one DOF</strong>. Its <strong>q</strong> now measures distance instead of angle.</p>
+    </div>
+  </div>
+</section>
+
+<section id="remove-drawer" data-title="Remove the drawer">
+  <h2><span class="section-number">4.3</span> Remove the drawer</h2>
+  <p>To remove this drawer, delete both <strong>its link</strong> and <strong>the joint connecting it to the cabinet</strong>.</p>
+  <div class="experiment-pair">
+    <figure class="experiment">
+      <h3>With the drawer</h3>
+      <a href="assets/experiments/drawer-present.gif" data-enlarge aria-label="Enlarge the cabinet with drawer and door"><picture><source media="(prefers-reduced-motion: reduce), print" srcset="assets/experiments/drawer-present.png"><img src="assets/experiments/drawer-present.gif" width="560" height="540" loading="lazy" alt="The cabinet has a blue sliding drawer and a gold hinged door. Both open and close."></picture><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <pre class="experiment-tree" aria-label="Body connects to drawer and door">Cabinet body
+├── Drawer · joint_0
+└── Door · joint_1</pre>
+      <figcaption>Two movable parts: the drawer and the door.</figcaption>
+    </figure>
+    <figure class="experiment">
+      <h3>Without the drawer</h3>
+      <a href="assets/experiments/drawer-removed.gif" data-enlarge aria-label="Enlarge the cabinet after removing the drawer"><picture><source media="(prefers-reduced-motion: reduce), print" srcset="assets/experiments/drawer-removed.png"><img src="assets/experiments/drawer-removed.gif" width="560" height="540" loading="lazy" alt="The drawer is absent and the upper opening is empty. The gold door continues to swing exactly as before."></picture><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <pre class="experiment-tree" aria-label="Body connects only to door">Cabinet body
+└── Door · joint_1</pre>
+      <figcaption>The door still works. The drawer opening remains because it is part of the cabinet body.</figcaption>
+    </figure>
+  </div>
+  <p>In this file, remove the entire <code>&lt;link name="link_0"&gt;</code> block and the entire <code>&lt;joint name="joint_0"&gt;</code> block.</p>
+  <p>Deleting only the link would leave a joint pointing to a drawer that no longer exists. Deleting only the joint would leave the drawer disconnected.</p>
+  <p>This drawer has no parts attached beneath it in the tree, so the other connections can stay as they are.</p>
+</section>
+
+<section id="swap-shapes" data-title="Swap the shapes, keep the joints">
+  <h2><span class="section-number">4.4</span> Swap the shapes, keep the joints</h2>
+  <p>What if the drawer used the door’s joint, and the door used the drawer’s joint?</p>
+  <div class="experiment-pair">
+    <figure class="experiment">
+      <h3>Original shapes</h3>
+      <a href="assets/experiments/shapes-original.gif" data-enlarge aria-label="Enlarge the original shape and joint arrangement"><picture><source media="(prefers-reduced-motion: reduce), print" srcset="assets/experiments/shapes-original.png"><img src="assets/experiments/shapes-original.gif" width="560" height="540" loading="lazy" alt="The blue drawer slides forward and the gold door rotates around its hinge."></picture><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <figcaption>The blue drawer slides. The gold door swings.</figcaption>
+    </figure>
+    <figure class="experiment">
+      <h3>Shapes swapped</h3>
+      <a href="assets/experiments/shapes-swapped.gif" data-enlarge aria-label="Enlarge the swapped shapes following unchanged joints"><picture><source media="(prefers-reduced-motion: reduce), print" srcset="assets/experiments/shapes-swapped.png"><img src="assets/experiments/shapes-swapped.gif" width="560" height="540" loading="lazy" alt="The blue drawer shape now swings around the door hinge. The gold door panel slides forward on the drawer joint. Both begin in their original closed positions."></picture><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <figcaption>The blue drawer shape swings. The gold door panel slides.</figcaption>
+    </figure>
+  </div>
+  <p><strong>The joint sets the movement, whatever shape we attach to it.</strong> Calling a link “drawer” or giving it a drawer shape does not automatically make it slide.</p>
+  <table class="experiment-table">
+    <thead><tr><th>Link and joint</th><th>Original shape</th><th>New shape</th></tr></thead>
+    <tbody><tr><th><code>link_0</code> · sliding joint</th><td>Drawer</td><td>Door panel</td></tr><tr><th><code>link_1</code> · hinge joint</th><td>Door panel</td><td>Drawer</td></tr></tbody>
+  </table>
+  <p>For this example, we exchange the two links’ <code>visual</code> and <code>collision</code> blocks. We also adjust their placement offsets so both shapes still start in the same closed positions. The joints keep their original locations, directions, and limits.</p>
+  <p>The result is an unusual cabinet, but it makes the roles clear: <strong>the shapes describe the parts; the joints describe their movement.</strong></p>
+  <p class="urdf-source-links"><a href="https://github.com/YumengHe/ArticulateArena/blob/11e49256b8e839f04e5da2f481cbea20c54bc2ce/sample_data/45168/mobility.urdf">Cabinet URDF ↗</a><a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">URDF reference ↗</a></p>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="reading-urdf.html">← Reading a URDF file</a></nav>
+      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/changing-urdf.html">Edit this chapter ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

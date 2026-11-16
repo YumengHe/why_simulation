@@ -22,6 +22,13 @@
       "source": "chapters/reading-urdf.html",
       "output": "reading-urdf.html",
       "description": "Read a cabinet URDF with illustrated examples of links, visual shapes, sliding and rotating joints, collision shapes, and the base link."
+    },
+    {
+      "number": "4",
+      "title": "Changing a URDF",
+      "source": "chapters/changing-urdf.html",
+      "output": "changing-urdf.html",
+      "description": "Watch what happens when we change a drawer’s direction, turn a hinge into a slide, remove a part, or swap shapes while keeping the joints."
     }
   ]
 }

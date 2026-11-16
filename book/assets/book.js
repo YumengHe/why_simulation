@@ -97,7 +97,7 @@
       event.preventDefault();
       figureTrigger = link;
       const original = link.querySelector('img');
-      image.src = link.href; image.alt = original.alt;
+      image.src = original.currentSrc || link.href; image.alt = original.alt;
       caption.textContent = link.closest('figure').querySelector('figcaption')?.textContent || '';
       dialog.showModal(); dialog.scrollTop = 0;
     });
