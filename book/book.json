@@ -29,6 +29,14 @@
       "source": "chapters/changing-urdf.html",
       "output": "changing-urdf.html",
       "description": "Watch what happens when we change a drawer’s direction, turn a hinge into a slide, remove a part, or swap shapes while keeping the joints."
+    },
+    {
+      "number": "5",
+      "title": "From animation to simulation",
+      "source": "chapters/animation-and-simulation.html",
+      "output": "animation-and-simulation.html",
+      "scripts": ["physics-demo.js"],
+      "description": "Compare chosen positions with simulated motion, then see how pulling force, mass, friction, and letting go change a drawer’s movement."
     }
   ]
 }

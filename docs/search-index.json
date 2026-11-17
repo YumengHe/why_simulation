@@ -118,5 +118,45 @@
     "title": "Swap the shapes, keep the joints",
     "url": "changing-urdf.html#swap-shapes",
     "text": "4.4 Swap the shapes, keep the joints What if the drawer used the door’s joint, and the door used the drawer’s joint? Original shapes ⤢ The blue drawer slides. The gold door swings. Shapes swapped ⤢ The blue drawer shape swings. The gold door panel slides. The joint sets the movement, whatever shape we attach to it. Calling a link “drawer” or giving it a drawer shape does not automatically make it slide. Link and joint Original shape New shape link_0 · sliding joint Drawer Door panel link_1 · hinge joint Door panel Drawer For this example, we exchange the two links’ visual and collision blocks. We also adjust their placement offsets so both shapes still start in the same closed positions. The joints keep their original locations, directions, and limits. The result is an unusual cabinet, but it makes the roles clear: the shapes describe the parts; the joints describe their movement. Cabinet URDF ↗ URDF reference ↗"
+  },
+  {
+    "title": "5. From animation to simulation",
+    "url": "animation-and-simulation.html#chapter-start",
+    "text": "5. From animation to simulation A box moves down toward a table. We can create that movement in two different ways."
+  },
+  {
+    "title": "Two ways to move a box",
+    "url": "animation-and-simulation.html#two-ways-to-move",
+    "text": "5.1 Two ways to move a box We choose the positions “Start here. Move down. Stop here.” The box follows the positions we chose. We do not calculate gravity or contact for this animation. We calculate the motion “Put the box here, then let go.” The simulator calculates the movement. Gravity makes the box fall; contact with the table stops it. Table height 40 cm Lower Higher Gravity on Both boxes reach the table. Raise the table to see the difference. Both examples repeat from the same starting position. The box on the right starts at rest, with no air resistance or bounce. The interactive comparison needs JavaScript. The explanations below describe what each change would do."
+  },
+  {
+    "title": "Change the scene",
+    "url": "animation-and-simulation.html#change-the-scene",
+    "text": "5.2 Change the scene Raise the table On the left, the box keeps following its saved path. It passes through the raised tabletop because we have not changed its positions or added a contact rule. On the right, the box meets the higher table sooner and rests on its surface. The simulator calculates a new result from the changed scene. Turn gravity off On the left, the saved movement continues. On the right, the box stays where we release it. It starts with no speed, and there is now no force pulling it down. We could edit the left animation to match either result. With the simulation, we change the scene or its physical settings and calculate the movement again."
+  },
+  {
+    "title": "Back to the drawer",
+    "url": "animation-and-simulation.html#back-to-the-drawer",
+    "text": "5.3 Back to the drawer The cabinet GIFs in the previous chapter work like the box on the left. We choose the drawer’s opening distance, q , at each moment: closed, a little open, farther open, and back again. To simulate a pull, we give the drawer mass, describe friction, and apply a pulling force. Its joint still restricts it to sliding. The simulator calculates how fast it moves and how its opening distance changes. The examples below do this. Our current GIF We choose q → draw the drawer there. Physics simulation We apply a pull → calculate the movement → get q. A simulation can also produce an animation. Either result can be saved as a GIF or video. The difference is how the positions were produced. A falling-box example in MuJoCo ↗"
+  },
+  {
+    "title": "Pull the drawer",
+    "url": "animation-and-simulation.html#pull-the-drawer",
+    "text": "5.4 Pull the drawer A force is a push or a pull. We measure it in newtons, written N . A 3 N pull is three times as strong as a 1 N pull. It does not tell us how many centimeters the drawer will open. Here we pull each drawer for half a second , then let go. Both start closed and still. Both have a mass of 2 kg, and we leave out friction for this first comparison. ⤢ The stronger pull makes the same drawer gain speed faster. After the same amount of time, it has opened farther. The green arrow shows the pull; the blue measurement shows q. We chose the force, not the ending position. The opening distances come from calculating the motion and drawing each resulting position. These are side-view teaching examples with chosen values, not measurements of the earlier cabinet. The cabinet stays fixed, and its rails keep the drawer moving horizontally. Only forces along the slide are shown. The GIFs play slowly and hold their last frame before replaying."
+  },
+  {
+    "title": "Same pull, different mass",
+    "url": "animation-and-simulation.html#drawer-mass",
+    "text": "5.5 Same pull, different mass Now keep the pull the same: 3 N for half a second . Change only the moving mass, from 2 kg to 4 kg . Think of adding items to the drawer. Friction is still left out so we can see the effect of mass by itself. ⤢ The heavier drawer gains speed more slowly under the same pull. It opens less during this example. This is why the simulator needs mass. Two drawers can look identical and have the same sliding joint, yet respond differently to the same pull."
+  },
+  {
+    "title": "Friction can resist the pull",
+    "url": "animation-and-simulation.html#drawer-friction",
+    "text": "5.6 Friction can resist the pull Have you pulled a drawer gently and found that it would not budge? Friction can balance a weak pull and keep the drawer still. Once the drawer slides, friction acts against that sliding movement. Both drawers below have a mass of 2 kg and receive the same 3 N pull . Only the friction in their rails changes. ⤢ Green points in the pulling direction. Orange shows friction pushing against the pull or the sliding movement. The easy-sliding drawer starts moving, with 0.8 N of friction opposing the 3 N pull. The stiff rails can resist a pull of up to 4 N before sliding starts . With our 3 N pull, their friction only needs to provide 3 N in the opposite direction. The forces balance, so that drawer stays still. Applying a force does not guarantee movement. We have to account for the other forces too."
+  },
+  {
+    "title": "What happens after letting go?",
+    "url": "animation-and-simulation.html#after-letting-go",
+    "text": "5.7 What happens after letting go? Removing the pull does not instantly stop a moving drawer. In this example, both drawers are already moving outward at 40 cm per second . They are both 10 cm open when we let go. ⤢ Without friction or another opposing force, the drawer keeps its speed. With friction, it slows down and stops. Neither drawer reaches its 76 cm travel limit in this clip. The drawer does not automatically close when we let go. That would need something else, such as a spring or a closing force. Here, each replay simply restarts the example. The sliding joint still has one degree of freedom : q tells us the opening distance. The force changes how q develops over time; it does not add another degree of freedom. Force and mass ↗ Friction ↗ Motion after release ↗"
   }
 ]

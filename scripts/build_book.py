@@ -49,7 +49,8 @@ class ChapterParser(HTMLParser):
 def build():
     config = json.loads((SOURCE / 'book.json').read_text())
     layout = (SOURCE / 'layout.html').read_text()
-    asset_version = sha256(b''.join((SOURCE / 'assets' / name).read_bytes() for name in ('book.css', 'book.js', 'articulation.js', 'frames.js'))).hexdigest()[:12]
+    chapter_scripts = sorted({name for chapter in config['chapters'] for name in chapter.get('scripts', [])})
+    asset_version = sha256(b''.join((SOURCE / 'assets' / name).read_bytes() for name in ['book.css', 'book.js', 'articulation.js', 'frames.js'] + chapter_scripts)).hexdigest()[:12]
     chapters = []
     for chapter in config['chapters']:
         content = (SOURCE / chapter['source']).read_text()
@@ -79,7 +80,8 @@ def build():
             'description': escape(chapter.get('description', chapter['title'])),
             'repository': escape(config['repository']), 'navigation': navigation.replace('href="'+escape(chapter['output'])+'#', 'href="#'),
             'content': chapter['content'], 'pagination': pagination, 'source': escape(chapter['source']),
-            'asset_version': asset_version
+            'asset_version': asset_version,
+            'chapter_scripts': '\n'.join(f'  <script src="assets/{escape(name)}?v={asset_version}" defer></script>' for name in chapter.get('scripts', []))
         }
         html = layout
         for key, value in replacements.items():

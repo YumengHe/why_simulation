@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From animation to simulation · Why Simulation?</title>
+  <meta name="description" content="Compare chosen positions with simulated motion, then see how pulling force, mass, friction, and letting go change a drawer’s movement.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=4a4fe08a655f">
+  <script src="assets/book.js?v=4a4fe08a655f" defer></script>
+  <script src="assets/articulation.js?v=4a4fe08a655f" defer></script>
+  <script src="assets/frames.js?v=4a4fe08a655f" defer></script>
+  <script src="assets/physics-demo.js?v=4a4fe08a655f" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="index.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">1.</span>Articulated objects</a><ol class="section-list"><li><a href="index.html#links-and-joints">1.1 Links and joints</a></li><li><a href="index.html#joint-motion">1.2 How joints let parts move</a></li><li><a href="index.html#degrees-of-freedom">1.3 Degrees of freedom</a></li><li><a href="index.html#kinematic-tree">1.4 Kinematic trees</a></li><li><a href="index.html#further-reading">Further reading</a></li></ol></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">2.</span>Frames, orientation &amp; URDF</a><ol class="section-list"><li><a href="frames-and-urdf.html#base-and-world">2.1 The base and the world</a></li><li><a href="frames-and-urdf.html#up-and-front">2.2 Which way is up? Which way is front?</a></li><li><a href="frames-and-urdf.html#tree-to-urdf">2.3 From a tree to a URDF file</a></li><li><a href="frames-and-urdf.html#what-is-a-mesh">2.4 What is a mesh?</a></li><li><a href="frames-and-urdf.html#three-origins">2.5 Joint, link, and visual origins</a></li></ol></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.</span>Reading a URDF file</a><ol class="section-list"><li><a href="reading-urdf.html#file-and-tree">3.1 One file, parts and connections</a></li><li><a href="reading-urdf.html#link-and-visual">3.2 Link: shapes that move together</a></li><li><a href="reading-urdf.html#sliding-joint">3.3 Joint: let the drawer slide</a></li><li><a href="reading-urdf.html#rotating-joint">3.4 Joint: let the door rotate</a></li><li><a href="reading-urdf.html#visual-collision-inertial">3.5 How a part looks and behaves</a></li><li><a href="reading-urdf.html#base-and-fixed-joint">3.6 Why is there an extra base link?</a></li></ol></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">4.</span>Changing a URDF</a><ol class="section-list"><li><a href="changing-urdf.html#change-direction">4.1 Change the drawer’s direction</a></li><li><a href="changing-urdf.html#change-joint-type">4.2 Turn a hinged door into a sliding door</a></li><li><a href="changing-urdf.html#remove-drawer">4.3 Remove the drawer</a></li><li><a href="changing-urdf.html#swap-shapes">4.4 Swap the shapes, keep the joints</a></li></ol></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">5.</span>From animation to simulation</a><ol class="section-list"><li><a href="#two-ways-to-move">5.1 Two ways to move a box</a></li><li><a href="#change-the-scene">5.2 Change the scene</a></li><li><a href="#back-to-the-drawer">5.3 Back to the drawer</a></li><li><a href="#pull-the-drawer">5.4 Pull the drawer</a></li><li><a href="#drawer-mass">5.5 Same pull, different mass</a></li><li><a href="#drawer-friction">5.6 Friction can resist the pull</a></li><li><a href="#after-letting-go">5.7 What happens after letting go?</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="index.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this chapter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">5.</span> From animation to simulation</h1>
+  <p class="lead">A box moves down toward a table. We can create that movement in two different ways.</p>
+</header>
+
+<section id="two-ways-to-move" data-title="Two ways to move a box">
+  <h2><span class="section-number">5.1</span> Two ways to move a box</h2>
+  <div class="physics-comparison" id="physics-comparison">
+    <figure>
+      <h3>We choose the positions</h3>
+      <p>“Start here. Move down. Stop here.”</p>
+      <svg id="prescribed-box" viewBox="0 0 420 350" role="img" aria-label="A box follows a fixed downward path and stops at its saved ending height."></svg>
+      <figcaption>The box follows the positions we chose. We do not calculate gravity or contact for this animation.</figcaption>
+    </figure>
+    <figure>
+      <h3>We calculate the motion</h3>
+      <p>“Put the box here, then let go.”</p>
+      <svg id="simulated-box" viewBox="0 0 420 350" role="img" aria-label="A box is released from rest. Gravity makes it fall; contact with the table stops it."></svg>
+      <figcaption>The simulator calculates the movement. Gravity makes the box fall; contact with the table stops it.</figcaption>
+    </figure>
+  </div>
+  <div class="physics-controls" id="physics-controls">
+    <div class="physics-table-control"><label for="table-height">Table height <output id="table-height-value" for="table-height">40 cm</output></label><input id="table-height" type="range" min="20" max="120" step="10" value="40"><div class="range-ends"><span>Lower</span><span>Higher</span></div></div>
+    <label class="physics-gravity-control"><input id="gravity-enabled" type="checkbox" checked> Gravity on</label>
+  </div>
+  <p id="physics-observation" class="physics-observation" aria-live="polite">Both boxes reach the table. Raise the table to see the difference.</p>
+  <p>Both examples repeat from the same starting position. The box on the right starts at rest, with no air resistance or bounce.</p>
+  <noscript><p>The interactive comparison needs JavaScript. The explanations below describe what each change would do.</p></noscript>
+</section>
+
+<section id="change-the-scene" data-title="Change the scene">
+  <h2><span class="section-number">5.2</span> Change the scene</h2>
+  <h3>Raise the table</h3>
+  <p><strong>On the left,</strong> the box keeps following its saved path. It passes through the raised tabletop because we have not changed its positions or added a contact rule.</p>
+  <p><strong>On the right,</strong> the box meets the higher table sooner and rests on its surface. The simulator calculates a new result from the changed scene.</p>
+  <h3 class="subheading">Turn gravity off</h3>
+  <p><strong>On the left,</strong> the saved movement continues.</p>
+  <p><strong>On the right,</strong> the box stays where we release it. It starts with no speed, and there is now no force pulling it down.</p>
+  <p>We could edit the left animation to match either result. With the simulation, we change the scene or its physical settings and calculate the movement again.</p>
+</section>
+
+<section id="back-to-the-drawer" data-title="Back to the drawer">
+  <h2><span class="section-number">5.3</span> Back to the drawer</h2>
+  <p>The cabinet GIFs in the previous chapter work like the box on the left. We choose the drawer’s opening distance, <strong>q</strong>, at each moment: closed, a little open, farther open, and back again.</p>
+  <p>To simulate a pull, we give the drawer mass, describe friction, and apply a pulling force. Its joint still restricts it to sliding. The simulator calculates how fast it moves and how its opening distance changes. The examples below do this.</p>
+  <div class="physics-drawer-summary">
+    <p><strong>Our current GIF</strong>We choose q → draw the drawer there.</p>
+    <p><strong>Physics simulation</strong>We apply a pull → calculate the movement → get q.</p>
+  </div>
+  <p><strong>A simulation can also produce an animation.</strong> Either result can be saved as a GIF or video. The difference is how the positions were produced.</p>
+  <p class="urdf-source-links"><a href="https://mujoco.readthedocs.io/en/stable/overview.html#examples">A falling-box example in MuJoCo ↗</a></p>
+</section>
+
+<section id="pull-the-drawer" data-title="Pull the drawer">
+  <h2><span class="section-number">5.4</span> Pull the drawer</h2>
+  <p><strong>A force is a push or a pull.</strong> We measure it in newtons, written <strong>N</strong>. A 3 N pull is three times as strong as a 1 N pull. It does not tell us how many centimeters the drawer will open.</p>
+  <p>Here we pull each drawer for <strong>half a second</strong>, then let go. Both start closed and still. Both have a mass of 2 kg, and we leave out friction for this first comparison.</p>
+  <figure class="urdf-plate force-plate">
+    <a href="assets/forces/stronger-pull.gif" data-enlarge aria-label="Enlarge the comparison of gentle and stronger pulls">
+      <picture>
+        <source width="560" height="860" media="(prefers-reduced-motion: reduce) and (max-width:1100px)" srcset="assets/forces/stronger-pull-stacked.png">
+        <source media="(prefers-reduced-motion: reduce), print" srcset="assets/forces/stronger-pull.png">
+        <source width="560" height="860" media="(max-width:1100px)" srcset="assets/forces/stronger-pull-stacked.gif">
+        <img src="assets/forces/stronger-pull.gif" width="1120" height="430" loading="lazy" alt="Two 2 kg drawers receive 1 N and 3 N pulls for half a second. Green arrows show the pulls, then disappear. After one second the drawers are 18.8 cm and 56.3 cm open.">
+      </picture><span class="figure-enlarge" aria-hidden="true">⤢</span>
+    </a>
+    <figcaption>The stronger pull makes the same drawer gain speed faster. After the same amount of time, it has opened farther. The green arrow shows the pull; the blue measurement shows q.</figcaption>
+  </figure>
+  <p><strong>We chose the force, not the ending position.</strong> The opening distances come from calculating the motion and drawing each resulting position.</p>
+  <p>These are side-view teaching examples with chosen values, not measurements of the earlier cabinet. The cabinet stays fixed, and its rails keep the drawer moving horizontally. Only forces along the slide are shown. The GIFs play slowly and hold their last frame before replaying.</p>
+</section>
+
+<section id="drawer-mass" data-title="Same pull, different mass">
+  <h2><span class="section-number">5.5</span> Same pull, different mass</h2>
+  <p>Now keep the pull the same: <strong>3 N for half a second</strong>. Change only the moving mass, from <strong>2 kg to 4 kg</strong>. Think of adding items to the drawer. Friction is still left out so we can see the effect of mass by itself.</p>
+  <figure class="urdf-plate force-plate">
+    <a href="assets/forces/heavier-drawer.gif" data-enlarge aria-label="Enlarge the comparison of lighter and heavier drawers">
+      <picture>
+        <source width="560" height="860" media="(prefers-reduced-motion: reduce) and (max-width:1100px)" srcset="assets/forces/heavier-drawer-stacked.png">
+        <source media="(prefers-reduced-motion: reduce), print" srcset="assets/forces/heavier-drawer.png">
+        <source width="560" height="860" media="(max-width:1100px)" srcset="assets/forces/heavier-drawer-stacked.gif">
+        <img src="assets/forces/heavier-drawer.gif" width="1120" height="430" loading="lazy" alt="The same 3 N pull acts on 2 kg and 4 kg drawers for half a second. After one second, the lighter drawer is 56.3 cm open and the heavier drawer is 28.1 cm open.">
+      </picture><span class="figure-enlarge" aria-hidden="true">⤢</span>
+    </a>
+    <figcaption>The heavier drawer gains speed more slowly under the same pull. It opens less during this example.</figcaption>
+  </figure>
+  <p>This is why the simulator needs mass. Two drawers can look identical and have the same sliding joint, yet respond differently to the same pull.</p>
+</section>
+
+<section id="drawer-friction" data-title="Friction can resist the pull">
+  <h2><span class="section-number">5.6</span> Friction can resist the pull</h2>
+  <p>Have you pulled a drawer gently and found that it would not budge? <strong>Friction can balance a weak pull and keep the drawer still.</strong> Once the drawer slides, friction acts against that sliding movement.</p>
+  <p>Both drawers below have a mass of <strong>2 kg</strong> and receive the same <strong>3 N pull</strong>. Only the friction in their rails changes.</p>
+  <figure class="urdf-plate force-plate">
+    <a href="assets/forces/rail-friction.gif" data-enlarge aria-label="Enlarge the comparison of easy-sliding and stiff rails">
+      <picture>
+        <source width="560" height="860" media="(prefers-reduced-motion: reduce) and (max-width:1100px)" srcset="assets/forces/rail-friction-stacked.png">
+        <source media="(prefers-reduced-motion: reduce), print" srcset="assets/forces/rail-friction.png">
+        <source width="560" height="860" media="(max-width:1100px)" srcset="assets/forces/rail-friction-stacked.gif">
+        <img src="assets/forces/rail-friction.gif" width="1120" height="430" loading="lazy" alt="The easy-sliding drawer opens against 0.8 N of sliding friction. The stiff drawer stays closed: its orange 3 N friction arrow balances its green 3 N pull arrow. Both pull arrows disappear after half a second.">
+      </picture><span class="figure-enlarge" aria-hidden="true">⤢</span>
+    </a>
+    <figcaption>Green points in the pulling direction. Orange shows friction pushing against the pull or the sliding movement.</figcaption>
+  </figure>
+  <p>The easy-sliding drawer starts moving, with <strong>0.8 N of friction</strong> opposing the 3 N pull. The stiff rails can resist a pull of up to <strong>4 N before sliding starts</strong>. With our 3 N pull, their friction only needs to provide 3 N in the opposite direction. The forces balance, so that drawer stays still.</p>
+  <p><strong>Applying a force does not guarantee movement.</strong> We have to account for the other forces too.</p>
+</section>
+
+<section id="after-letting-go" data-title="What happens after letting go?">
+  <h2><span class="section-number">5.7</span> What happens after letting go?</h2>
+  <p><strong>Removing the pull does not instantly stop a moving drawer.</strong> In this example, both drawers are already moving outward at <strong>40 cm per second</strong>. They are both 10 cm open when we let go.</p>
+  <figure class="urdf-plate force-plate">
+    <a href="assets/forces/after-release.gif" data-enlarge aria-label="Enlarge the drawers moving after the pull is removed">
+      <picture>
+        <source width="560" height="860" media="(prefers-reduced-motion: reduce) and (max-width:1100px)" srcset="assets/forces/after-release-stacked.png">
+        <source media="(prefers-reduced-motion: reduce), print" srcset="assets/forces/after-release.png">
+        <source width="560" height="860" media="(max-width:1100px)" srcset="assets/forces/after-release-stacked.gif">
+        <img src="assets/forces/after-release.gif" width="1120" height="430" loading="lazy" alt="After release, the drawer without friction keeps sliding at the same speed and reaches 70 cm. Friction slows the other drawer until it stops at 30 cm. No green pull arrows appear.">
+      </picture><span class="figure-enlarge" aria-hidden="true">⤢</span>
+    </a>
+    <figcaption>Without friction or another opposing force, the drawer keeps its speed. With friction, it slows down and stops. Neither drawer reaches its 76 cm travel limit in this clip.</figcaption>
+  </figure>
+  <p>The drawer does not automatically close when we let go. That would need something else, such as a spring or a closing force. Here, each replay simply restarts the example.</p>
+  <p>The sliding joint still has <strong>one degree of freedom</strong>: q tells us the opening distance. The force changes how q develops over time; it does not add another degree of freedom.</p>
+  <p class="urdf-source-links"><a href="https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law">Force and mass ↗</a><a href="https://openstax.org/books/university-physics-volume-1/pages/6-2-friction">Friction ↗</a><a href="https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law">Motion after release ↗</a></p>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="changing-urdf.html">← Changing a URDF</a></nav>
+      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/animation-and-simulation.html">Edit this chapter ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>
