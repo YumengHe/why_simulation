@@ -1,0 +1,21 @@
+<header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">2.2</span> Meshes: surfaces and useful detail</h1>
+</header>
+
+<section class="split-chapter" id="points-and-meshes" data-title="Meshes: surfaces and useful detail">
+
+  <p>A <strong>mesh describes surface shape using connected patches</strong>. For a drawer, these can describe the outside, the inner walls, and the bottom. The empty space inside the drawer stays empty: a surface mesh does not mean the whole object is filled with material.</p>
+  <p>A <strong>point cloud</strong> records sampled positions in 3D. A mesh also records how positions connect to form surfaces. The positions are called vertices, their connections are edges, and the surface patches are faces. Moving the positions changes the shape; changing their connections changes how the surface is assembled.</p>
+  <div class="representation-grid">
+    <figure><img src="assets/diagrams/representation-points.svg" width="320" height="250" alt="Unconnected samples on the surfaces of a box"><figcaption><h2>Point cloud</h2><p>Useful for recording measurements. Gaps may mean an area was never observed, rather than a real hole.</p></figcaption></figure>
+    <figure><img src="assets/diagrams/representation-triangles.svg" width="320" height="250" alt="Box surfaces represented by connected triangular patches"><figcaption><h2>Triangle mesh</h2><p>Explicit surface patches. Triangles are always planar, which makes them convenient for rendering and geometric calculations.</p></figcaption></figure>
+    <figure><img src="assets/diagrams/representation-quads.svg" width="320" height="250" alt="The same box with a grid of four-sided patches"><figcaption><h2>Quad mesh</h2><p>Four-sided patches can form regular rows useful for editing and subdivision. They can be triangulated for rendering.</p></figcaption></figure>
+  </div>
+  <p>Building a mesh from measured points is called <strong>surface reconstruction</strong>. It must infer which samples belong together; blindly filling every gap could seal the opening around a drawer. <a href="https://www.open3d.org/docs/release/tutorial/geometry/surface_reconstruction.html">Open3D’s examples</a> show several ways to estimate these surfaces.</p>
+
+  <div class="representation-lesson" id="what-is-blender">
+    <h2>What is Blender used for?</h2>
+    <p><a href="https://www.blender.org/">Blender</a> is free software for making and editing 3D content. We could open a generated cabinet in Blender, rotate it to inspect the back, build a missing handle, add a wood texture, position lights and a camera, and render an image. It is a working environment for these tasks; a mesh is one kind of data we can edit inside it.</p>
+    <p>The <a href="https://docs.blender.org/manual/en/4.5/render/materials/introduction.html">material guide</a> explains how to control the appearance of those surfaces.</p>
+  </div>
+</section>

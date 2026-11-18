@@ -16,15 +16,39 @@
       "description": "From language and images to robot actions: why opening a drawer leads us to simulation."
     },
     {
-      "number": "2",
-      "title": "3D generation",
-      "show_sections": true,
+      "number": "2.1",
+      "title": "From an image to a usable 3D object",
       "source": "chapters/3d-generation.html",
       "output": "3d-generation.html",
+      "description": "From an image to a usable 3D object",
+      "group": "3d-generation"
+    },
+    {
+      "number": "2.2",
+      "title": "Meshes: surfaces and useful detail",
+      "source": "chapters/meshes.html",
+      "output": "meshes.html",
+      "description": "Meshes: surfaces and useful detail",
+      "group": "3d-generation"
+    },
+    {
+      "number": "2.3",
+      "title": "How a 3D model produces a 2D image",
+      "source": "chapters/rendering.html",
+      "output": "rendering.html",
+      "description": "How a 3D model produces a 2D image",
+      "group": "3d-generation"
+    },
+    {
+      "number": "2.4",
+      "title": "3D Gaussian Splatting: build a scene, then render new views",
+      "source": "chapters/gaussian-splatting.html",
+      "output": "gaussian-splatting.html",
+      "description": "3D Gaussian Splatting: build a scene, then render new views",
+      "group": "3d-generation",
       "scripts": [
         "representation-demo.js"
-      ],
-      "description": "From images to 3D models: point clouds and meshes, rendering tools, Gaussian projection, cabinet videos, and interactive opacity comparisons."
+      ]
     },
     {
       "number": "3.1",
@@ -71,9 +95,16 @@
     }
   ],
   "groups": {
+    "3d-generation": {
+      "number": "2",
+      "title": "3D generation"
+    },
     "articulated-objects": {
       "number": "3",
       "title": "Articulated objects"
     }
+  },
+  "legacy_fragment_groups": {
+    "3d-generation.html": "3d-generation"
   }
 }

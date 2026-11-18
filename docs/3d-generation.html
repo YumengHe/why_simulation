@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>3D generation · Why Simulation?</title>
-  <meta name="description" content="From images to 3D models: point clouds and meshes, rendering tools, Gaussian projection, cabinet videos, and interactive opacity comparisons.">
+  <title>From an image to a usable 3D object · Why Simulation?</title>
+  <meta name="description" content="From an image to a usable 3D object">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=4b3742bde1c1">
-  <script src="assets/book.js?v=4b3742bde1c1" defer></script>
-  <script src="assets/articulation.js?v=4b3742bde1c1" defer></script>
-  <script src="assets/frames.js?v=4b3742bde1c1" defer></script>
-  <script src="assets/representation-demo.js?v=4b3742bde1c1" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=7ab077eae5cc">
+  <script src="assets/book.js?v=7ab077eae5cc" defer></script>
+  <script src="assets/articulation.js?v=7ab077eae5cc" defer></script>
+  <script src="assets/frames.js?v=7ab077eae5cc" defer></script>
+<script>(() => { const routes = {"points-and-meshes": "meshes.html", "what-is-blender": "meshes.html", "gaussians-and-nerf": "rendering.html", "rendering-tools": "rendering.html", "gaussian-example": "gaussian-splatting.html", "projection-video": "gaussian-splatting.html", "projection-player": "gaussian-splatting.html", "projection-video-description": "gaussian-splatting.html", "cabinet-projection-video": "gaussian-splatting.html", "cabinet-projection-player": "gaussian-splatting.html", "cabinet-projection-description": "gaussian-splatting.html", "opacity-example": "gaussian-splatting.html", "opacity-lab": "gaussian-splatting.html", "opacity-blue-gradient": "gaussian-splatting.html", "opacity-gold-gradient": "gaussian-splatting.html", "opacity-front-splat": "gaussian-splatting.html", "opacity-value": "gaussian-splatting.html", "front-opacity": "gaussian-splatting.html", "blended-pixel": "gaussian-splatting.html", "blend-description": "gaussian-splatting.html", "weight-front": "gaussian-splatting.html", "weight-back": "gaussian-splatting.html", "weight-background": "gaussian-splatting.html", "blend-calculation": "gaussian-splatting.html", "cabinet-opacity-example": "gaussian-splatting.html", "cabinet-opacity-image": "gaussian-splatting.html", "cabinet-opacity-caption": "gaussian-splatting.html", "cabinet-opacity-value": "gaussian-splatting.html", "cabinet-opacity": "gaussian-splatting.html", "cabinet-opacity-description": "gaussian-splatting.html", "gaussian-learning": "gaussian-splatting.html", "gaussian-fitting-loop": "gaussian-splatting.html"}; function redirect() { const hash = location.hash.slice(1); if (routes[hash]) location.replace(routes[hash]+location.hash); } redirect(); addEventListener("hashchange", redirect); })();</script>
+
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <aside id="sidebar" class="sidebar" aria-label="Book contents">
     <a class="book-name" href="overview.html">Why Simulation?</a>
-    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Text-only LLM → VLM → VLA</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">2.</span>3D generation</a><ol class="chapter-sections"><li><a class="section-link" href="#creating-an-object">2.1 From an image to a usable 3D object</a></li><li><a class="section-link" href="#points-and-meshes">2.2 Meshes: surfaces and useful detail</a></li><li><a class="section-link" href="#gaussians-and-nerf">2.3 How a 3D model produces a 2D image</a></li><li><a class="section-link" href="#gaussian-example">2.4 3D Gaussian Splatting: build a scene, then render new views</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">3.5</span>From animation to simulation</a></li></ol></li></ol></nav>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Text-only LLM → VLM → VLA</a></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">2.</span>3D generation</span><ol class="chapter-children"><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">2.1</span>From an image to a usable 3D object</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.4</span>3D Gaussian Splatting: build a scene, then render new views</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">3.5</span>From animation to simulation</a></li></ol></li></ol></nav>
     <div class="sidebar-links">
       <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
       <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
@@ -39,12 +40,12 @@
         <ul id="search-results"></ul>
       </div>
       <article><header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">2.</span> 3D generation</h1>
+  <h1><span class="chapter-number">2.1</span> From an image to a usable 3D object</h1>
   <p class="lead">A robot sees a cabinet in an image. How do we turn that image into something it can open in simulation? We need to recover a shape, decide how to represent it, and give its parts rules for movement.</p>
 </header>
 
-<section id="creating-an-object" data-title="From an image to a usable 3D object">
-  <h2><span class="section-number">2.1</span> From an image to a usable 3D object</h2>
+<section class="split-chapter" id="creating-an-object" data-title="From an image to a usable 3D object">
+
   <p>A photograph tells us which colors appeared from one camera position. It does not directly give the cabinet’s depth, the shape of its back, or the space inside its drawer. Many different 3D objects could produce a similar front view.</p>
   <p><strong>Reconstruction</strong> tries to recover the particular object or scene in the observations. Photos from several viewpoints help reveal depth and hidden surfaces. <strong>Generation</strong> uses patterns learned from other objects to create a plausible asset from a prompt or image. With one image, those learned patterns can help fill in unseen regions, but a plausible interior is not necessarily the real interior.</p>
   <div class="generation-flow" aria-label="Images or text lead to a 3D shape, then movable parts, then a physical model">
@@ -54,7 +55,7 @@
   <p>This progression—from whole shapes, to parts, to parts with motion—is also the organizing idea in <a href="https://arxiv.org/abs/2512.01629">SPARK’s related work</a>. We will first understand the shape and appearance, then connect them to simulation.</p>
 
   <div class="representation-lesson" id="image-to-3d-to-image">
-    <h3>The full path: a picture, a 3D model, and a new picture</h3>
+    <h2>The full path: a picture, a 3D model, and a new picture</h2>
     <p>Suppose we start with a picture of a cabinet and want to see its other side. We first need a 3D version of the cabinet. We can then put a virtual camera beside it and make a new picture.</p>
     <ol class="asset-pipeline">
       <li><strong>Input images</strong><p>What the original camera saw.</p></li>
@@ -64,17 +65,17 @@
       <li><strong>A new 2D image</strong><p>The same 3D result, seen from that viewpoint.</p></li>
     </ol>
     <div class="asset-routes">
-      <h4 class="representation-question">Three examples of this path</h4>
+      <h3 class="representation-question">Three examples of this path</h3>
       <div class="asset-route-grid">
-        <article><h4>TRELLIS</h4><p><strong>Input:</strong> one image.</p><p><strong>Create:</strong> a pretrained generator proposes the object’s 3D form.</p><p><strong>Save the 3D scene:</strong> a mesh or 3D Gaussians, among its supported outputs.</p><p><strong>Render a 2D image:</strong> draw the mesh surfaces, or project and blend the Gaussians.</p></article>
-        <article><h4>Original 3DGS</h4><p><strong>Input:</strong> photographs of a scene from several views, with estimated cameras.</p><p><strong>Create:</strong> adjust Gaussians until their images match those photos.</p><p><strong>Save the 3D scene:</strong> positions, shapes, opacity, and appearance of the Gaussians.</p><p><strong>Render a 2D image:</strong> project and blend them into an image.</p></article>
-        <article><h4>Original NeRF</h4><p><strong>Input:</strong> photographs of a scene from several views, with known camera poses.</p><p><strong>Create:</strong> train a network until its images match those photos.</p><p><strong>Save the 3D scene:</strong> the trained network’s weights.</p><p><strong>Render a 2D image:</strong> query the network along lines of sight and combine its answers.</p></article>
+        <article><h3>TRELLIS</h3><p><strong>Input:</strong> one image.</p><p><strong>Create:</strong> a pretrained generator proposes the object’s 3D form.</p><p><strong>Save the 3D scene:</strong> a mesh or 3D Gaussians, among its supported outputs.</p><p><strong>Render a 2D image:</strong> draw the mesh surfaces, or project and blend the Gaussians.</p></article>
+        <article><h3>Original 3DGS</h3><p><strong>Input:</strong> photographs of a scene from several views, with estimated cameras.</p><p><strong>Create:</strong> adjust Gaussians until their images match those photos.</p><p><strong>Save the 3D scene:</strong> positions, shapes, opacity, and appearance of the Gaussians.</p><p><strong>Render a 2D image:</strong> project and blend them into an image.</p></article>
+        <article><h3>Original NeRF</h3><p><strong>Input:</strong> photographs of a scene from several views, with known camera poses.</p><p><strong>Create:</strong> train a network until its images match those photos.</p><p><strong>Save the 3D scene:</strong> the trained network’s weights.</p><p><strong>Render a 2D image:</strong> query the network along lines of sight and combine its answers.</p></article>
       </div>
     </div>
     <p>These are alternative routes. TRELLIS can infer unseen sides from its prior training; the original NeRF and 3DGS methods fit one observed scene. A convincing new view does not by itself prove that the hidden geometry is correct. Sources: <a href="https://microsoft.github.io/TRELLIS/">TRELLIS</a>, <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">3DGS</a>, and <a href="https://www.matthewtancik.com/nerf">NeRF</a>.</p>
   </div>
 
-  <h3 class="lesson-heading">How rendering helps us build the 3D model</h3>
+  <h2 class="lesson-heading">How rendering helps us build the 3D model</h2>
   <p><strong>Building a 3D model and rendering an image are opposite directions, but they work together.</strong> If we have a candidate 3D cabinet, we can draw it from the same viewpoint as an input photo. Comparing the two images tells us how well the candidate explains what the camera saw.</p>
   <div class="reconstruction-loop">
     <div><strong>2D → 3D: estimate</strong><p>Use photographs to construct or adjust a 3D representation.</p></div>
@@ -87,182 +88,23 @@
     <p>For example, TRELLIS can produce a <strong>mesh of the cabinet</strong>: its shape stored as connected surface patches. It can also produce <strong>3D Gaussians</strong>: soft blobs positioned in 3D, which a renderer blends into images. TRELLIS names the system that creates the model; “mesh” or “3D Gaussians” describes the kind of data it produces. We will look at how each works below.</p>
   </div>
   <div class="representation-lesson" id="one-image-two-outputs">
-    <h3>One image, two kinds of 3D output</h3>
+    <h2>One image, two kinds of 3D output</h2>
     <p>Here is a toolbox example published by the TRELLIS authors. The input is one image; the other two pictures show views of the generated 3D outputs.</p>
     <p><strong>The output pictures use different display modes.</strong> The mesh picture shows the surface shape without the wood and metal textures. The Gaussian picture includes the generated appearance. This difference in presentation can make the Gaussian result look more finished.</p>
     <div class="trellis-comparison">
-      <figure><img src="assets/examples/trellis-toolbox/input.png" width="704" height="704" alt="TRELLIS input: a stylized wooden toolbox filled with tools"><figcaption><h4>Input image</h4><p>A single 2D picture.</p></figcaption></figure>
-      <figure><img src="assets/examples/trellis-toolbox/mesh.png" width="512" height="512" alt="Mesh geometry of the generated toolbox, displayed without the wood and metal textures"><figcaption><h4>Mesh · shape view</h4><p>The surfaces, with the wood and metal appearance omitted.</p></figcaption></figure>
-      <figure><img src="assets/examples/trellis-toolbox/gaussians.png" width="512" height="512" alt="Rendered 3D Gaussian output of the same toolbox, including wood colors and tools"><figcaption><h4>Gaussians · appearance view</h4><p>The generated colors, blended into an image.</p></figcaption></figure>
+      <figure><img src="assets/examples/trellis-toolbox/input.png" width="704" height="704" alt="TRELLIS input: a stylized wooden toolbox filled with tools"><figcaption><h3>Input image</h3><p>A single 2D picture.</p></figcaption></figure>
+      <figure><img src="assets/examples/trellis-toolbox/mesh.png" width="512" height="512" alt="Mesh geometry of the generated toolbox, displayed without the wood and metal textures"><figcaption><h3>Mesh · shape view</h3><p>The surfaces, with the wood and metal appearance omitted.</p></figcaption></figure>
+      <figure><img src="assets/examples/trellis-toolbox/gaussians.png" width="512" height="512" alt="Rendered 3D Gaussian output of the same toolbox, including wood colors and tools"><figcaption><h3>Gaussians · appearance view</h3><p>The generated colors, blended into an image.</p></figcaption></figure>
     </div>
     <p><strong>A mesh can also show wood grain and shiny metal.</strong> Its surfaces can carry textures and materials. In fact, the TRELLIS authors also export meshes with appearance transferred from the Gaussians. These pictures therefore do not establish that one representation produces better-looking images. <a href="https://microsoft.github.io/TRELLIS/">TRELLIS explains its display modes and textured mesh exports</a>.</p>
     <p>Images: <a href="https://microsoft.github.io/TRELLIS/">TRELLIS authors’ image-to-3D gallery</a>. Their input image was generated with DALL·E 3. The two output views are frames from the same published example.</p>
-    <h4 class="representation-question">Why would we choose a mesh?</h4>
+    <h3 class="representation-question">Why would we choose a mesh?</h3>
     <p>Suppose we want a robot to grasp the toolbox handle. We need to locate the handle’s surface and the gap behind it, edit the shape if necessary, and prepare shapes for contact. A mesh gives us explicit surface patches to work with. We can also organize its geometry into parts before adding joints and physical properties.</p>
     <p>If our immediate goal is to reproduce the look of a photographed scene from new viewpoints, 3DGS is designed for that rendering task. Its colored blobs can capture appearance without first building a connected surface. The choice depends on what we want to do with the result; surface geometry and Gaussian appearance can also be used together. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project</a>.</p>
   </div>
 </section>
-
-<section id="points-and-meshes" data-title="Meshes: surfaces and useful detail">
-  <h2><span class="section-number">2.2</span> Meshes: surfaces and useful detail</h2>
-  <p>A <strong>mesh describes surface shape using connected patches</strong>. For a drawer, these can describe the outside, the inner walls, and the bottom. The empty space inside the drawer stays empty: a surface mesh does not mean the whole object is filled with material.</p>
-  <p>A <strong>point cloud</strong> records sampled positions in 3D. A mesh also records how positions connect to form surfaces. The positions are called vertices, their connections are edges, and the surface patches are faces. Moving the positions changes the shape; changing their connections changes how the surface is assembled.</p>
-  <div class="representation-grid">
-    <figure><img src="assets/diagrams/representation-points.svg" width="320" height="250" alt="Unconnected samples on the surfaces of a box"><figcaption><h3>Point cloud</h3><p>Useful for recording measurements. Gaps may mean an area was never observed, rather than a real hole.</p></figcaption></figure>
-    <figure><img src="assets/diagrams/representation-triangles.svg" width="320" height="250" alt="Box surfaces represented by connected triangular patches"><figcaption><h3>Triangle mesh</h3><p>Explicit surface patches. Triangles are always planar, which makes them convenient for rendering and geometric calculations.</p></figcaption></figure>
-    <figure><img src="assets/diagrams/representation-quads.svg" width="320" height="250" alt="The same box with a grid of four-sided patches"><figcaption><h3>Quad mesh</h3><p>Four-sided patches can form regular rows useful for editing and subdivision. They can be triangulated for rendering.</p></figcaption></figure>
-  </div>
-  <p>Building a mesh from measured points is called <strong>surface reconstruction</strong>. It must infer which samples belong together; blindly filling every gap could seal the opening around a drawer. <a href="https://www.open3d.org/docs/release/tutorial/geometry/surface_reconstruction.html">Open3D’s examples</a> show several ways to estimate these surfaces.</p>
-
-  <div class="representation-lesson" id="what-is-blender">
-    <h3>What is Blender used for?</h3>
-    <p><a href="https://www.blender.org/">Blender</a> is free software for making and editing 3D content. We could open a generated cabinet in Blender, rotate it to inspect the back, build a missing handle, add a wood texture, position lights and a camera, and render an image. It is a working environment for these tasks; a mesh is one kind of data we can edit inside it.</p>
-    <p>The <a href="https://docs.blender.org/manual/en/4.5/render/materials/introduction.html">material guide</a> explains how to control the appearance of those surfaces.</p>
-  </div>
-</section>
-
-<section id="gaussians-and-nerf" data-title="How a 3D model produces a 2D image">
-  <h2><span class="section-number">2.3</span> How a 3D model produces a 2D image</h2>
-  <p>A mesh supplies <strong>the surfaces of objects in a scene</strong>. A scene also specifies where those objects are placed, where the camera looks, and how surfaces are colored and lit. The renderer uses that information to calculate an image.</p>
-  <p>A <strong>texture</strong> is often an image placed on a surface, like a printed pattern. A <strong>material</strong> controls how the surface responds to light—for example, whether a handle looks like dull plastic or shiny metal.</p>
-  <div class="representation-lesson" id="rendering-tools">
-    <h3>Which tool makes these pictures?</h3>
-    <p><strong>A renderer is the software that calculates the picture.</strong> We give it a 3D scene and a virtual camera: where the camera is, which way it looks, and how wide its view is. The software calculates the pixels and saves the result as an image.</p>
-    <p>Think of photographing a cabinet from the left, front, and right. In rendering, we place a <em>virtual</em> camera at those three positions. We keep the same 3D cabinet and calculate a new picture from each position.</p>
-    <div class="learning-table-wrap">
-      <table class="learning-table rendering-tools-table">
-        <thead><tr><th>What we have</th><th>Example tool</th><th>What we do</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">A mesh</th><td><a href="https://www.blender.org/features/rendering/">Blender</a>, using a renderer such as Eevee or Cycles.</td><td>Load the model, set its appearance, place lights and a camera, then render and save an image.</td></tr>
-          <tr><th scope="row">3D Gaussians</th><td>A Gaussian renderer, such as <a href="https://docs.gsplat.studio/main/apis/rasterization.html">gsplat</a>.</td><td>Load the blobs and choose a camera. The renderer projects the blobs and blends their colors into the image.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p><strong>For this book’s Gaussian cabinet videos, we wrote a small renderer in Python.</strong> It calculates the projected marks and their color mixtures. The left, front, and right pictures all come from the same cabinet data. Rendering many frames while moving the camera, then joining those frames into a video, gives the moving-camera example below.</p>
-    <p>A screenshot can record a picture already displayed by a viewer. Here, the renderer saves its calculated images directly.</p>
-  </div>
-  <div class="representation-examples">
-    <figure><img src="assets/diagrams/cabinet-wireframe.svg" width="320" height="300" alt="A cabinet assembled from surface meshes, shown with triangle edges"><figcaption><h4>Stored surfaces</h4><p>The mesh gives the cabinet its shape and depth.</p></figcaption></figure>
-    <figure><img src="assets/diagrams/cabinet-rendered.svg" width="320" height="300" alt="The same cabinet viewed from the same camera with teal body, blue drawer and gold door"><figcaption><h4>One camera view</h4><p>The surfaces become colored areas in an image. The construction edges need not be visible.</p></figcaption></figure>
-  </div>
-  <p>One common mesh-rendering process is <strong>rasterization</strong>:</p>
-  <ol class="representation-steps">
-    <li><strong>Project the triangles.</strong> Use the camera’s position, viewing direction, and lens to map their 3D corners to 2D image positions. With a perspective camera, a farther object generally appears smaller.</li>
-    <li><strong>Find what each pixel sees.</strong> Work out which projected triangles cover it. For opaque surfaces, keep the nearest visible surface; a closed door hides what is behind it.</li>
-    <li><strong>Calculate the color.</strong> Use the visible surface’s material, texture, direction, and lighting. Repeat across the image.</li>
-  </ol>
-  <p>Imagine walking around a real cabinet: the cabinet stays still, but you see a different side. A virtual camera works similarly. Keep the 3D cabinet in place, move the camera from the front to the side, and render again. The new image shows the surfaces visible from the side. We do not need to rebuild the mesh for that camera movement.</p>
-  <p>This is what the mesh contributes: <strong>the cabinet’s surfaces in 3D</strong>. The camera chooses the view, and the renderer calculates the picture. <a href="https://docs.blender.org/manual/en/4.0/render/introduction.html">More on rendering</a>.</p>
-  <p>We can also make new views using other kinds of stored 3D information. A mesh stores connected surface patches. <strong>3DGS stores many colored, soft 3D blobs</strong>; its renderer blends their projected colors. <strong>NeRF stores a trained network</strong>; its renderer asks the network about locations along each line of sight. All three can produce a 2D picture from a chosen camera. Next, we will look at Gaussian rendering in detail.</p>
-</section>
-
-<section id="gaussian-example" data-title="3D Gaussian Splatting: build a scene, then render new views">
-  <h2><span class="section-number">2.4</span> 3D Gaussian Splatting: build a scene, then render new views</h2>
-  <p>Imagine taking photographs while walking around a cabinet. The original 3DGS method uses views like these to build a representation that we can look at from other camera positions. <strong>Rendering helps both while building that representation and after it is ready.</strong></p>
-  <div class="reconstruction-loop">
-    <div><strong>Build from the photographs</strong><p>Render a trial set of Gaussians, compare its images with the photographs, and adjust the Gaussians to reduce the differences.</p></div>
-    <div><strong>Explore the finished result</strong><p>Keep the learned Gaussians and move the virtual camera. Render a new view without needing a matching photograph to compare against.</p></div>
-  </div>
-  <p><strong>3D Gaussian Splatting (3DGS)</strong> stores many soft 3D blobs. Each has a position, size, orientation, opacity, and appearance.</p>
-  <p>Imagine one small blue patch on the drawer front. A blob can be <strong>wide across that patch but thin from front to back</strong>. In the rendered picture, its blue color is strongest at the center and gradually fades toward the edges, like a soft spray-painted spot. Many overlapping spots can form the picture of the whole drawer.</p>
-  <h3 class="lesson-heading">How do the 3D blobs become an image?</h3>
-  <p>To render a view, the original method projects those blobs into soft 2D ellipses, orders overlapping contributions by depth, and blends their colors. “Splatting” refers to placing these projected marks onto the image. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project</a>.</p>
-  <div class="projection-film" id="projection-video">
-    <h4 class="representation-question">Watch the 3D setup become a 2D view</h4>
-    <p>The <strong>image plane</strong> is a flat rectangle where we draw the camera’s picture. In this diagram it sits in front of the camera. Seen from its edge, that rectangle looks like a line; the image still has width and height.</p>
-    <video id="projection-player" controls playsinline preload="metadata" poster="assets/projection/rays.png" width="1280" height="900" aria-label="52-second animation of a 3D camera, image plane, and two Gaussian blobs" aria-describedby="projection-video-description">
-      <source src="assets/projection/projection-explained.mp4" type="video/mp4">
-      <p><a href="assets/projection/projection-explained.mp4">Open the projection video</a>.</p>
-    </video>
-    <div class="projection-chapters" aria-label="Jump to a video step">
-      <button type="button" data-projection-time="0">0:00 · The setup</button>
-      <button type="button" data-projection-time="6">0:06 · Project the blobs</button>
-      <button type="button" data-projection-time="16">0:16 · Look from the edge</button>
-      <button type="button" data-projection-time="26">0:26 · Face the image</button>
-      <button type="button" data-projection-time="36">0:36 · Move the camera</button>
-    </div>
-    <p id="projection-video-description">First, we rotate <em>our view of the diagram</em> to see the image plane from the side and front. In the last part, the <em>camera itself</em> moves while the two 3D blobs stay in place. The picture on the right shows exactly what that camera renders.</p>
-    <p>The outlined shapes help us see the blobs in 3D. Their rendered marks have soft edges because a Gaussian fades outward.</p>
-    <p><a href="assets/projection/projection-explained.mp4" download>Download the video</a></p>
-  </div>
-  <p>In the last part, watch the gold mark move behind the blue one, then separate again. The 3D blobs have not moved: the camera now sees them along different lines of sight. Their marks are calculated again for each new camera position. This is how the same 3D scene can produce different 2D pictures.</p>
-  <p>For implementation details, see <a href="https://docs.gsplat.studio/main/apis/rasterization.html">how gsplat uses the camera and Gaussian shapes to calculate these images</a>.</p>
-
-  <div class="projection-film" id="cabinet-projection-video">
-    <h4 class="representation-question">Now try a whole cabinet</h4>
-    <p>The same idea works with many blobs. Here, blue blobs form the drawer, gold blobs form the door, and teal blobs form the cabinet body. First we enlarge one drawer blob; then we follow the cabinet’s colors onto the image plane and move the camera.</p>
-    <video id="cabinet-projection-player" controls playsinline preload="metadata" poster="assets/projection-cabinet/projection.png" width="1280" height="900" aria-label="64-second animation showing a cabinet made of 3D Gaussians, a close-up of one blob, projection, and changing camera views" aria-describedby="cabinet-projection-description">
-      <source src="assets/projection-cabinet/cabinet-projection.mp4" type="video/mp4">
-      <p><a href="assets/projection-cabinet/cabinet-projection.mp4">Open the cabinet video</a>.</p>
-    </video>
-    <div class="projection-chapters" aria-label="Jump to a cabinet video step">
-      <button type="button" data-projection-time="0">0:00 · The cabinet</button>
-      <button type="button" data-projection-time="10">0:10 · One blob, enlarged</button>
-      <button type="button" data-projection-time="24">0:24 · Project onto the image</button>
-      <button type="button" data-projection-time="38">0:38 · Move the camera</button>
-      <button type="button" data-projection-time="56">0:56 · Compare three views</button>
-    </div>
-    <p id="cabinet-projection-description">The outlined shapes make the individual blobs visible. The camera picture blends their soft marks together. The cabinet stays still throughout; only the camera moves. This is a deliberately simple teaching model we built, not a reconstruction trained from photographs.</p>
-    <p><a href="assets/projection-cabinet/cabinet-projection.mp4" download>Download the cabinet video</a></p>
-  </div>
-
-  <div class="representation-lesson" id="opacity-example">
-    <h3>What does changing opacity actually change?</h3>
-    <p><strong>Several blobs can cover the same spot in the camera’s picture.</strong> We need one final color at that spot. Opacity decides how strongly the front blob contributes and how much of the color behind it can still show through.</p>
-    <p>In the cabinet video, overlapping blue marks combine to form the drawer’s picture. Opacity is part of that blending step. It does not add paint or a texture to a mesh.</p>
-    <p>Try a blue mark in front of a gold mark. <strong>Move the slider and watch how much gold remains visible.</strong> The gold stays at 80% opacity; only the blue changes.</p>
-
-    <div class="opacity-lab" id="opacity-lab">
-      <div class="opacity-demo">
-    <figure class="representation-figure projection-pixel">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 260" role="img"><title>Two soft projected ellipses overlap at a marked pixel, with the blue contribution in front of the gold</title><defs><radialGradient id="opacity-blue-gradient"><stop offset="0.00" stop-color="#5b8db8" stop-opacity="1.00000"/><stop offset="0.05" stop-color="#5b8db8" stop-opacity="0.98881"/><stop offset="0.10" stop-color="#5b8db8" stop-opacity="0.95600"/><stop offset="0.15" stop-color="#5b8db8" stop-opacity="0.90371"/><stop offset="0.20" stop-color="#5b8db8" stop-opacity="0.83527"/><stop offset="0.25" stop-color="#5b8db8" stop-opacity="0.75484"/><stop offset="0.30" stop-color="#5b8db8" stop-opacity="0.66698"/><stop offset="0.35" stop-color="#5b8db8" stop-opacity="0.57623"/><stop offset="0.40" stop-color="#5b8db8" stop-opacity="0.48675"/><stop offset="0.45" stop-color="#5b8db8" stop-opacity="0.40202"/><stop offset="0.50" stop-color="#5b8db8" stop-opacity="0.32465"/><stop offset="0.55" stop-color="#5b8db8" stop-opacity="0.25634"/><stop offset="0.60" stop-color="#5b8db8" stop-opacity="0.19790"/><stop offset="0.65" stop-color="#5b8db8" stop-opacity="0.14938"/><stop offset="0.70" stop-color="#5b8db8" stop-opacity="0.11025"/><stop offset="0.75" stop-color="#5b8db8" stop-opacity="0.07956"/><stop offset="0.80" stop-color="#5b8db8" stop-opacity="0.05613"/><stop offset="0.85" stop-color="#5b8db8" stop-opacity="0.03873"/><stop offset="0.90" stop-color="#5b8db8" stop-opacity="0.02612"/><stop offset="0.95" stop-color="#5b8db8" stop-opacity="0.01723"/><stop offset="1.00" stop-color="#5b8db8" stop-opacity="0.01111"/><stop offset="1" stop-color="#5b8db8" stop-opacity="0"/></radialGradient><radialGradient id="opacity-gold-gradient"><stop offset="0.00" stop-color="#dbb555" stop-opacity="1.00000"/><stop offset="0.05" stop-color="#dbb555" stop-opacity="0.98881"/><stop offset="0.10" stop-color="#dbb555" stop-opacity="0.95600"/><stop offset="0.15" stop-color="#dbb555" stop-opacity="0.90371"/><stop offset="0.20" stop-color="#dbb555" stop-opacity="0.83527"/><stop offset="0.25" stop-color="#dbb555" stop-opacity="0.75484"/><stop offset="0.30" stop-color="#dbb555" stop-opacity="0.66698"/><stop offset="0.35" stop-color="#dbb555" stop-opacity="0.57623"/><stop offset="0.40" stop-color="#dbb555" stop-opacity="0.48675"/><stop offset="0.45" stop-color="#dbb555" stop-opacity="0.40202"/><stop offset="0.50" stop-color="#dbb555" stop-opacity="0.32465"/><stop offset="0.55" stop-color="#dbb555" stop-opacity="0.25634"/><stop offset="0.60" stop-color="#dbb555" stop-opacity="0.19790"/><stop offset="0.65" stop-color="#dbb555" stop-opacity="0.14938"/><stop offset="0.70" stop-color="#dbb555" stop-opacity="0.11025"/><stop offset="0.75" stop-color="#dbb555" stop-opacity="0.07956"/><stop offset="0.80" stop-color="#dbb555" stop-opacity="0.05613"/><stop offset="0.85" stop-color="#dbb555" stop-opacity="0.03873"/><stop offset="0.90" stop-color="#dbb555" stop-opacity="0.02612"/><stop offset="0.95" stop-color="#dbb555" stop-opacity="0.01723"/><stop offset="1.00" stop-color="#dbb555" stop-opacity="0.01111"/><stop offset="1" stop-color="#dbb555" stop-opacity="0"/></radialGradient></defs><rect x="20" y="20" width="280" height="200" fill="white" stroke="#e8e5de" stroke-width="1.5"/><ellipse cx="160" cy="120" rx="69" ry="53" fill="url(#opacity-gold-gradient)" opacity=".8"/><ellipse cx="160" cy="120" id="opacity-front-splat" rx="109" ry="84" fill="url(#opacity-blue-gradient)" opacity=".25"/><circle cx="160" cy="120" r="7" fill="none" stroke="white" stroke-width="4"/><circle cx="160" cy="120" r="7" fill="none" stroke="#333b3a" stroke-width="1.5"/><path d="M160 131V214" stroke="#656158" stroke-width="1.2"/><text style="font:24px Arial,sans-serif;fill:#333b3a" x="160" y="247" text-anchor="middle">One pixel</text></svg>
-      <figcaption>The marked pixel receives color from both overlapping blobs.</figcaption>
-    </figure>
-        <div class="opacity-controls">
-      <label for="front-opacity">Blue opacity at the marked pixel <output id="opacity-value" for="front-opacity">25%</output></label>
-      <input id="front-opacity" type="range" min="0" max="100" step="1" value="25">
-      <div class="opacity-presets"><button type="button" data-opacity="25">Try 25%</button><button type="button" data-opacity="85">Try 85%</button></div>
-      <div class="opacity-result">
-        <div class="pixel-swatch" id="blended-pixel" style="background:rgb(192,182,135)" aria-label="Calculated pixel color"></div>
-        <div><strong>The resulting pixel</strong><p id="blend-description">25% blue + 60% gold + 15% white background.</p></div>
-      </div>
-      <div class="blend-bar" aria-hidden="true"><span id="weight-front" style="width:25%;background:#5b8db8"></span><span id="weight-back" style="width:60%;background:#dbb555"></span><span id="weight-background" style="width:15%;background:white"></span></div>
-      <p class="opacity-calculation" id="blend-calculation">Blue uses 25% of the pixel’s weight. Gold gets 80% of the remaining 75%: 60%. The background gets the last 15%.</p>
-        </div>
-      </div>
-    </div>
-    <p><strong>Low blue opacity:</strong> more gold shows through. <strong>High blue opacity:</strong> the picture becomes mostly blue at the marked spot. Neither blob has moved; we have changed how their colors combine.</p>
-    <p>The calculation follows one pixel. Across the whole picture, each mark fades toward its edges, and many marks overlap to make the cabinet’s surfaces look continuous. The <a href="https://arxiv.org/html/2308.04079v1">3DGS paper</a> gives the projection and blending equations.</p>
-    <div class="cabinet-opacity-lab" id="cabinet-opacity-example">
-      <h4 class="representation-question">Change opacity on the whole cabinet</h4>
-      <p>Now change the opacity of <strong>every blob in the cabinet</strong>. The camera, colors, positions, and sizes stay the same. Compare your setting on the right with the fixed picture on the left.</p>
-      <div class="cabinet-opacity-comparison">
-        <figure>
-          <img src="assets/projection-cabinet/opacity/cabinet-095.webp" width="420" height="556" alt="The Gaussian cabinet rendered with 95 percent peak opacity per blob, showing strong blue, gold, and teal surfaces" loading="lazy">
-          <figcaption><strong>95% per blob · reference</strong></figcaption>
-        </figure>
-        <figure>
-          <img id="cabinet-opacity-image" src="assets/projection-cabinet/opacity/cabinet-005.webp" width="420" height="556" alt="The same Gaussian cabinet rendered with 5 percent peak opacity per blob; more of the rear surfaces and white background show through" loading="lazy">
-          <figcaption><strong id="cabinet-opacity-caption">5% per blob · your setting</strong></figcaption>
-        </figure>
-      </div>
-      <div class="cabinet-opacity-controls">
-        <label for="cabinet-opacity">Opacity of each cabinet blob <output id="cabinet-opacity-value" for="cabinet-opacity">5%</output></label>
-        <input id="cabinet-opacity" type="range" min="0" max="100" step="5" value="5">
-        <div class="opacity-presets"><button type="button" data-cabinet-opacity="5">Try 5%</button><button type="button" data-cabinet-opacity="25">Try 25%</button><button type="button" data-cabinet-opacity="95">Try 95%</button></div>
-        <p id="cabinet-opacity-description">At 5%, the faint marks let more of the rear surfaces and white background show through.</p>
-      </div>
-      <p><strong>Many blobs overlap.</strong> Their colors build up, so 25% per blob does not mean that the whole cabinet is only 25% opaque. At 0%, none of the blobs contributes color and only the white background remains.</p>
-    </div>
-  </div>
-  <div class="representation-lesson">
-    <h3>How are the blobs found from photographs?</h3>
-    <p>The original method starts with estimated cameras and sparse 3D points. It renders the blobs, compares the images with the training photos, and adjusts their positions, shapes, opacity, and appearance; it can also add or remove blobs. This repeated comparison makes their combined images resemble the observed scene.</p>
-    <p>The resulting representation is useful for viewing the scene from new camera positions. Its blobs do not automatically identify a drawer, define a joint, or give the cabinet mass.</p>
-  </div>
-</section>
 </article>
-      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="llm-vlm-vla.html">← Text-only LLM → VLM → VLA</a><a href="index.html">Parts, joints, and motion →</a></nav>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="llm-vlm-vla.html">← Text-only LLM → VLM → VLA</a><a href="meshes.html">Meshes: surfaces and useful detail →</a></nav>
       <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/3d-generation.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
     </main>
   </div>

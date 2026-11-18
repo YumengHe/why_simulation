@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meshes: surfaces and useful detail · Why Simulation?</title>
+  <meta name="description" content="Meshes: surfaces and useful detail">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=7ab077eae5cc">
+  <script src="assets/book.js?v=7ab077eae5cc" defer></script>
+  <script src="assets/articulation.js?v=7ab077eae5cc" defer></script>
+  <script src="assets/frames.js?v=7ab077eae5cc" defer></script>
+
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Text-only LLM → VLM → VLA</a></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">2.</span>3D generation</span><ol class="chapter-children"><li><a class="chapter-link" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>From an image to a usable 3D object</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.4</span>3D Gaussian Splatting: build a scene, then render new views</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">3.5</span>From animation to simulation</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">2.2</span> Meshes: surfaces and useful detail</h1>
+</header>
+
+<section class="split-chapter" id="points-and-meshes" data-title="Meshes: surfaces and useful detail">
+
+  <p>A <strong>mesh describes surface shape using connected patches</strong>. For a drawer, these can describe the outside, the inner walls, and the bottom. The empty space inside the drawer stays empty: a surface mesh does not mean the whole object is filled with material.</p>
+  <p>A <strong>point cloud</strong> records sampled positions in 3D. A mesh also records how positions connect to form surfaces. The positions are called vertices, their connections are edges, and the surface patches are faces. Moving the positions changes the shape; changing their connections changes how the surface is assembled.</p>
+  <div class="representation-grid">
+    <figure><img src="assets/diagrams/representation-points.svg" width="320" height="250" alt="Unconnected samples on the surfaces of a box"><figcaption><h2>Point cloud</h2><p>Useful for recording measurements. Gaps may mean an area was never observed, rather than a real hole.</p></figcaption></figure>
+    <figure><img src="assets/diagrams/representation-triangles.svg" width="320" height="250" alt="Box surfaces represented by connected triangular patches"><figcaption><h2>Triangle mesh</h2><p>Explicit surface patches. Triangles are always planar, which makes them convenient for rendering and geometric calculations.</p></figcaption></figure>
+    <figure><img src="assets/diagrams/representation-quads.svg" width="320" height="250" alt="The same box with a grid of four-sided patches"><figcaption><h2>Quad mesh</h2><p>Four-sided patches can form regular rows useful for editing and subdivision. They can be triangulated for rendering.</p></figcaption></figure>
+  </div>
+  <p>Building a mesh from measured points is called <strong>surface reconstruction</strong>. It must infer which samples belong together; blindly filling every gap could seal the opening around a drawer. <a href="https://www.open3d.org/docs/release/tutorial/geometry/surface_reconstruction.html">Open3D’s examples</a> show several ways to estimate these surfaces.</p>
+
+  <div class="representation-lesson" id="what-is-blender">
+    <h2>What is Blender used for?</h2>
+    <p><a href="https://www.blender.org/">Blender</a> is free software for making and editing 3D content. We could open a generated cabinet in Blender, rotate it to inspect the back, build a missing handle, add a wood texture, position lights and a camera, and render an image. It is a working environment for these tasks; a mesh is one kind of data we can edit inside it.</p>
+    <p>The <a href="https://docs.blender.org/manual/en/4.5/render/materials/introduction.html">material guide</a> explains how to control the appearance of those surfaces.</p>
+  </div>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="3d-generation.html">← From an image to a usable 3D object</a><a href="rendering.html">How a 3D model produces a 2D image →</a></nav>
+      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/meshes.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

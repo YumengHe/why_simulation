@@ -1,0 +1,20 @@
+{
+  "provenance": "Original analytic teaching cabinet. Rendered views illustrate photographs. Sparse points and parameter stages are constructed, not recovered or optimized.",
+  "initial_blob_count": 209,
+  "later_blob_count": 2146,
+  "corner_A": [
+    -0.51,
+    -0.49,
+    0.74
+  ],
+  "camera_angles": [
+    -35,
+    0,
+    35
+  ],
+  "rendering": "Same perspective projection and depth-sorted Gaussian alpha blending as the cabinet video.",
+  "references": [
+    "https://colmap.github.io/tutorial.html",
+    "https://arxiv.org/html/2308.04079v1"
+  ]
+}

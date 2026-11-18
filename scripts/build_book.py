@@ -5,6 +5,7 @@ from html import escape
 from html.parser import HTMLParser
 from hashlib import sha256
 import json
+import re
 import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -57,6 +58,15 @@ def build():
         parser = ChapterParser()
         parser.feed(content)
         chapters.append({**chapter, 'content': content, 'sections': parser.sections})
+    # Keep previously shared chapter-2 fragment links working after the split.
+    legacy_routes = {}
+    for legacy_page, group in config.get('legacy_fragment_groups', {}).items():
+        legacy_routes[legacy_page] = {
+            fragment: chapter['output']
+            for chapter in chapters if chapter.get('group') == group and chapter['output'] != legacy_page
+            for fragment in re.findall(r'\bid="([^"]+)"', chapter['content'])
+            if fragment != 'chapter-start'
+        }
     OUTPUT.mkdir(exist_ok=True)
     shutil.copytree(SOURCE / 'assets', OUTPUT / 'assets', dirs_exist_ok=True)
     navigation = '<ol class="chapter-list">'
@@ -86,6 +96,10 @@ def build():
     navigation += '</ol>'
     search_index = []
     for i, chapter in enumerate(chapters):
+        redirect_script = ''
+        if chapter['output'] in legacy_routes:
+            routes = json.dumps(legacy_routes[chapter['output']], ensure_ascii=False)
+            redirect_script = '<script>(() => { const routes = '+routes+'; function redirect() { const hash = location.hash.slice(1); if (routes[hash]) location.replace(routes[hash]+location.hash); } redirect(); addEventListener("hashchange", redirect); })();</script>\n'
         pagination = ''
         if i > 0:
             prev = chapters[i-1]
@@ -100,7 +114,7 @@ def build():
             'repository': escape(config['repository']), 'navigation': navigation.replace('href="'+escape(chapter['output'])+'#', 'href="#'),
             'content': chapter['content'], 'pagination': pagination, 'source': escape(chapter['source']),
             'asset_version': asset_version,
-            'chapter_scripts': '\n'.join(f'  <script src="assets/{escape(name)}?v={asset_version}" defer></script>' for name in chapter.get('scripts', []))
+            'chapter_scripts': redirect_script + '\n'.join(f'  <script src="assets/{escape(name)}?v={asset_version}" defer></script>' for name in chapter.get('scripts', []))
         }
         html = layout
         for key, value in replacements.items():

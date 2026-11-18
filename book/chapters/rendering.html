@@ -1,0 +1,38 @@
+<header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">2.3</span> How a 3D model produces a 2D image</h1>
+</header>
+
+<section class="split-chapter" id="gaussians-and-nerf" data-title="How a 3D model produces a 2D image">
+
+  <p>A mesh supplies <strong>the surfaces of objects in a scene</strong>. A scene also specifies where those objects are placed, where the camera looks, and how surfaces are colored and lit. The renderer uses that information to calculate an image.</p>
+  <p>A <strong>texture</strong> is often an image placed on a surface, like a printed pattern. A <strong>material</strong> controls how the surface responds to light—for example, whether a handle looks like dull plastic or shiny metal.</p>
+  <div class="representation-lesson" id="rendering-tools">
+    <h2>Which tool makes these pictures?</h2>
+    <p><strong>A renderer is the software that calculates the picture.</strong> We give it a 3D scene and a virtual camera: where the camera is, which way it looks, and how wide its view is. The software calculates the pixels and saves the result as an image.</p>
+    <p>Think of photographing a cabinet from the left, front, and right. In rendering, we place a <em>virtual</em> camera at those three positions. We keep the same 3D cabinet and calculate a new picture from each position.</p>
+    <div class="learning-table-wrap">
+      <table class="learning-table rendering-tools-table">
+        <thead><tr><th>What we have</th><th>Example tool</th><th>What we do</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">A mesh</th><td><a href="https://www.blender.org/features/rendering/">Blender</a>, using a renderer such as Eevee or Cycles.</td><td>Load the model, set its appearance, place lights and a camera, then render and save an image.</td></tr>
+          <tr><th scope="row">3D Gaussians</th><td>A Gaussian renderer, such as <a href="https://docs.gsplat.studio/main/apis/rasterization.html">gsplat</a>.</td><td>Load the blobs and choose a camera. The renderer projects the blobs and blends their colors into the image.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>For this book’s Gaussian cabinet videos, we wrote a small renderer in Python.</strong> It calculates the projected marks and their color mixtures. The left, front, and right pictures all come from the same cabinet data. Rendering many frames while moving the camera, then joining those frames into a video, gives the <a href="gaussian-splatting.html#cabinet-projection-video">moving-camera example in Section 2.4</a>.</p>
+    <p>A screenshot can record a picture already displayed by a viewer. Here, the renderer saves its calculated images directly.</p>
+  </div>
+  <div class="representation-examples">
+    <figure><img src="assets/diagrams/cabinet-wireframe.svg" width="320" height="300" alt="A cabinet assembled from surface meshes, shown with triangle edges"><figcaption><h3>Stored surfaces</h3><p>The mesh gives the cabinet its shape and depth.</p></figcaption></figure>
+    <figure><img src="assets/diagrams/cabinet-rendered.svg" width="320" height="300" alt="The same cabinet viewed from the same camera with teal body, blue drawer and gold door"><figcaption><h3>One camera view</h3><p>The surfaces become colored areas in an image. The construction edges need not be visible.</p></figcaption></figure>
+  </div>
+  <p>One common mesh-rendering process is <strong>rasterization</strong>:</p>
+  <ol class="representation-steps">
+    <li><strong>Project the triangles.</strong> Use the camera’s position, viewing direction, and lens to map their 3D corners to 2D image positions. With a perspective camera, a farther object generally appears smaller.</li>
+    <li><strong>Find what each pixel sees.</strong> Work out which projected triangles cover it. For opaque surfaces, keep the nearest visible surface; a closed door hides what is behind it.</li>
+    <li><strong>Calculate the color.</strong> Use the visible surface’s material, texture, direction, and lighting. Repeat across the image.</li>
+  </ol>
+  <p>Imagine walking around a real cabinet: the cabinet stays still, but you see a different side. A virtual camera works similarly. Keep the 3D cabinet in place, move the camera from the front to the side, and render again. The new image shows the surfaces visible from the side. We do not need to rebuild the mesh for that camera movement.</p>
+  <p>This is what the mesh contributes: <strong>the cabinet’s surfaces in 3D</strong>. The camera chooses the view, and the renderer calculates the picture. <a href="https://docs.blender.org/manual/en/4.0/render/introduction.html">More on rendering</a>.</p>
+  <p>We can also make new views using other kinds of stored 3D information. A mesh stores connected surface patches. <strong>3DGS stores many colored, soft 3D blobs</strong>; its renderer blends their projected colors. <strong>NeRF stores a trained network</strong>; its renderer asks the network about locations along each line of sight. All three can produce a 2D picture from a chosen camera. Next, we will look at Gaussian rendering in detail.</p>
+</section>
