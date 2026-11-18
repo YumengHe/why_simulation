@@ -1,0 +1,51 @@
+{
+  "duration": 52,
+  "fps": 24,
+  "width": 1280,
+  "height": 900,
+  "stages": [
+    {
+      "start": 0,
+      "title": "A camera, two 3D blobs, and a flat image plane",
+      "captions": [
+        "The rectangle is where the camera image is formed.",
+        "We are looking at the whole setup from the outside."
+      ]
+    },
+    {
+      "start": 6,
+      "title": "Follow the rays to the image plane",
+      "captions": [
+        "Each ray meets the flat plane at an image position.",
+        "The nearby blue blob makes a larger mark."
+      ]
+    },
+    {
+      "start": 16,
+      "title": "Look at the image plane from its edge",
+      "captions": [
+        "Only our view of this diagram is turning.",
+        "The flat rectangle now looks like a line."
+      ]
+    },
+    {
+      "start": 26,
+      "title": "Face the image plane again",
+      "captions": [
+        "It is still a 2D image with width and height.",
+        "The 3D blobs have not turned into lines."
+      ]
+    },
+    {
+      "start": 36,
+      "title": "Move the camera; leave the 3D blobs still",
+      "captions": [
+        "Watch the camera image on the right change.",
+        "The same 3D blobs now project to different 2D marks."
+      ]
+    }
+  ],
+  "camera": "Pinhole camera; image plane is virtual, in front of the center of projection.",
+  "gaussians": "Chosen illustrative covariances; first-order perspective projection, depth-sorted alpha blending.",
+  "source": "Original teaching animation; no trained 3DGS result."
+}

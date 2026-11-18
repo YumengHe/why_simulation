@@ -3,40 +3,77 @@
   "repository": "https://github.com/YumengHe/why_simulation",
   "chapters": [
     {
+      "title": "Overview",
+      "source": "chapters/overview.html",
+      "output": "overview.html",
+      "description": "About the Why Simulation? webbook, how to contribute, contacts, and the ArticulateArena citation."
+    },
+    {
       "number": "1",
-      "title": "Articulated objects",
-      "source": "chapters/articulated-objects.html",
-      "output": "index.html",
-      "description": "Learn how articulated objects work through a moving cabinet, joint controls, and an interactive connection tree."
+      "title": "Text-only LLM → VLM → VLA",
+      "source": "chapters/llm-vlm-vla.html",
+      "output": "llm-vlm-vla.html",
+      "description": "From language and images to robot actions: why opening a drawer leads us to simulation."
     },
     {
       "number": "2",
+      "title": "3D generation",
+      "show_sections": true,
+      "source": "chapters/3d-generation.html",
+      "output": "3d-generation.html",
+      "scripts": [
+        "representation-demo.js"
+      ],
+      "description": "From images to 3D models: point clouds and meshes, rendering tools, Gaussian projection, cabinet videos, and interactive opacity comparisons."
+    },
+    {
+      "number": "3.1",
+      "title": "Parts, joints, and motion",
+      "source": "chapters/articulated-objects.html",
+      "output": "index.html",
+      "description": "Learn how articulated objects work through a moving cabinet, joint controls, and an interactive connection tree.",
+      "group": "articulated-objects"
+    },
+    {
+      "number": "3.2",
       "title": "Frames, orientation & URDF",
       "source": "chapters/frames-and-urdf.html",
       "output": "frames-and-urdf.html",
-      "description": "Learn about base frames, object orientation, meshes, and URDF origins through a cabinet and its drawer."
+      "description": "Learn about base frames, object orientation, meshes, and URDF origins through a cabinet and its drawer.",
+      "group": "articulated-objects"
     },
     {
-      "number": "3",
+      "number": "3.3",
       "title": "Reading a URDF file",
       "source": "chapters/reading-urdf.html",
       "output": "reading-urdf.html",
-      "description": "Read a cabinet URDF with illustrated examples of links, visual shapes, sliding and rotating joints, collision shapes, and the base link."
+      "description": "Read a cabinet URDF with illustrated examples of links, visual shapes, sliding and rotating joints, collision shapes, and the base link.",
+      "group": "articulated-objects"
     },
     {
-      "number": "4",
+      "number": "3.4",
       "title": "Changing a URDF",
       "source": "chapters/changing-urdf.html",
       "output": "changing-urdf.html",
-      "description": "Watch what happens when we change a drawer’s direction, turn a hinge into a slide, remove a part, or swap shapes while keeping the joints."
+      "description": "Watch what happens when we change a drawer’s direction, turn a hinge into a slide, remove a part, or swap shapes while keeping the joints.",
+      "group": "articulated-objects"
     },
     {
-      "number": "5",
+      "number": "3.5",
       "title": "From animation to simulation",
       "source": "chapters/animation-and-simulation.html",
       "output": "animation-and-simulation.html",
-      "scripts": ["physics-demo.js"],
-      "description": "Compare chosen positions with simulated motion, then see how pulling force, mass, friction, and letting go change a drawer’s movement."
+      "scripts": [
+        "physics-demo.js"
+      ],
+      "description": "Compare chosen positions with simulated motion, then see how pulling force, mass, friction, and letting go change a drawer’s movement.",
+      "group": "articulated-objects"
     }
-  ]
+  ],
+  "groups": {
+    "articulated-objects": {
+      "number": "3",
+      "title": "Articulated objects"
+    }
+  }
 }

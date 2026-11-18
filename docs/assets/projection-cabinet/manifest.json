@@ -1,0 +1,53 @@
+{
+  "duration": 64,
+  "fps": 24,
+  "width": 1280,
+  "height": 900,
+  "gaussians": 2146,
+  "stages": [
+    {
+      "start": 0,
+      "title": "Many small blobs make one cabinet",
+      "captions": [
+        "Blue blobs describe the drawer; gold blobs describe the door.",
+        "The picture on the right blends their projected colors."
+      ]
+    },
+    {
+      "start": 10,
+      "title": "Look closely at one blue blob",
+      "captions": [
+        "It is wide along the drawer front, but thin from front to back.",
+        "Its color is strongest at the center and fades toward the edge."
+      ]
+    },
+    {
+      "start": 24,
+      "title": "Project the cabinet onto a flat image",
+      "captions": [
+        "Follow the colored lines from the cabinet to the image plane.",
+        "Many overlapping marks combine into the cabinet picture."
+      ]
+    },
+    {
+      "start": 38,
+      "title": "Move the camera around the same cabinet",
+      "captions": [
+        "The cabinet and all its blobs stay in the same places.",
+        "A new camera position gives a new picture of them."
+      ]
+    },
+    {
+      "start": 56,
+      "title": "One 3D cabinet, different 2D views",
+      "captions": [
+        "Each picture is rendered from the same set of 3D blobs.",
+        "No new cabinet is built when we change the view."
+      ]
+    }
+  ],
+  "method": "Fixed analytic scene; projected covariance and depth-sorted alpha blending; no photo fitting.",
+  "guide_outlines": "Ellipsoid shape guides; not hard Gaussian boundaries.",
+  "camera": "Virtual image plane in front of a pinhole camera. Cabinet stays fixed.",
+  "source": "Original teaching animation, not a trained reconstruction."
+}

@@ -1,0 +1,104 @@
+<header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">1.</span> Text-only LLM → VLM → VLA</h1>
+  <p class="lead">Suppose we ask a robot to open a drawer. It needs to understand the request, find the handle, and move its arm. These three kinds of model help explain those different abilities.</p>
+</header>
+
+<figure class="opening-question">
+  <img src="assets/media/cabinet-poster.png" width="300" height="300" alt="A cabinet with a blue drawer, a yellow door, and handles">
+  <figcaption><strong>“Open the drawer.”</strong><p>How do words turn into movement?</p></figcaption>
+</figure>
+
+<section id="language-models" data-title="Text-only LLM: work with language">
+  <h2><span class="section-number">1.1</span> Text-only LLM: work with language</h2>
+  <p>A <strong>text-only large language model (LLM)</strong> takes text and generates text. It cannot inspect an image directly; you need to describe it in words. It can explain a task or suggest steps to follow. <a href="https://arxiv.org/abs/2307.09288">Llama 2</a> is one example.</p>
+  <div class="model-example"><p><strong>We ask:</strong> “How do you open a drawer?”</p><p><strong>A possible answer:</strong> “Hold the handle and pull outward.”</p></div>
+  <p>That is a useful instruction, but this text-only exchange does not tell the robot where the handle is in front of it.</p>
+</section>
+
+<section id="vision-language-models" data-title="VLM: connect images and words">
+  <h2><span class="section-number">1.2</span> VLM: connect images and words</h2>
+  <p>A <strong>vision-language model (VLM)</strong> can use an image together with text. It can answer questions about what it sees. For example, <a href="https://llava-vl.github.io/">LLaVA</a> connects an image encoder to a language model.</p>
+  <div class="model-example"><p><strong>We provide:</strong> the cabinet picture and “Which handle belongs to the drawer?”</p><p><strong>A possible answer:</strong> “The handle on the blue part at the top.”</p></div>
+  <p>Now the answer is tied to this cabinet. The robot still needs commands that move its arm and gripper.</p>
+</section>
+
+<section id="vision-language-action-models" data-title="VLA: produce robot actions">
+  <h2><span class="section-number">1.3</span> VLA: produce robot actions</h2>
+  <p>A <strong>vision-language-action model (VLA)</strong> uses visual information and an instruction to produce robot actions. Depending on the model, it may also use information about the robot’s current position.</p>
+  <p>The output can be numbers telling the gripper where to move and whether to open or close. A separate <strong>robot controller</strong> carries out those commands. The next camera image shows what actually happened.</p>
+
+  <div class="vla-flow" id="vla-demo" role="region" aria-label="VLA drawer example, step by step">
+    <h3>Opening a drawer, step by step</h3>
+    <p>In this example, the gripper is already holding the handle. The diagram illustrates one possible action, not a recorded prediction from a trained model.</p>
+
+    <ol class="vla-flow-steps">
+      <li>
+        <h4><span class="vla-step-number">1</span> Camera image + instruction</h4>
+        <div class="vla-inputs">
+          <figure><img src="assets/diagrams/vla-drawer-before.svg" width="560" height="310" alt="Side view: the drawer is closed and the robot gripper is already holding the handle. An arrow marks outward to the right."><figcaption>Drawer: <strong>0 cm open</strong><br>Gripper: <strong>holding the handle</strong></figcaption></figure>
+          <div class="vla-instruction"><strong>Instruction</strong><p>“Open the drawer.”</p><p>The image shows the current situation. The words give the task.</p></div>
+        </div>
+      </li>
+      <li>
+        <h4><span class="vla-step-number">2</span> Inside the VLA</h4>
+        <ol class="vla-components">
+          <li><strong>Image encoder + adapter</strong><p>Turn the image into numerical features the main model can use.</p></li>
+          <li><strong>Vision-language backbone</strong><p>Combine those features with the instruction “Open the drawer.”</p></li>
+          <li><strong>Action output</strong><p>Produce action values. Here, a possible result is an outward movement with the gripper kept closed.</p></li>
+        </ol>
+      </li>
+      <li id="vla-command-example">
+        <h4><span class="vla-step-number">3</span> A possible command</h4>
+        <div class="vla-command-example">
+          <dl><div><dt>Move outward</dt><dd>+0.10 m</dd></div><div><dt>Gripper</dt><dd>Keep closed</dd></div></dl>
+          <p>In words: <strong>“Move the gripper 10 cm outward while holding the handle.”</strong></p>
+        </div>
+        <p>These are two readable fields for this one-direction example. A real robot’s command format can include more movement values.</p>
+      </li>
+      <li>
+        <h4><span class="vla-step-number">4</span> Controller → movement → new image</h4>
+        <p>The controller tries to execute the command. If the drawer slides freely and the grip holds, the drawer can follow the gripper outward.</p>
+        <div class="vla-result">
+          <figure><img src="assets/diagrams/vla-drawer-after.svg" width="560" height="310" alt="The gripper still holds the handle and the drawer is now 10 centimeters open, shifted outward to the right."><figcaption>Possible result: <strong>10 cm open</strong></figcaption></figure>
+          <p>If the drawer is locked, it stays at <strong>0 cm</strong> instead. The next camera image shows the actual result, so the next prediction can use that new information.</p>
+        </div>
+      </li>
+    </ol>
+    <p class="vla-return"><span aria-hidden="true">↺</span> <strong>The new camera image goes back to step 1.</strong> The model can then choose another action.</p>
+  </div>
+
+  <h3>What does “predict an action” mean?</h3>
+  <p>A VLA is trained using examples that pair observations and instructions with robot actions. It learns patterns in those examples. When given a new image and instruction, it uses what it learned to produce the next action values.</p>
+  <p>For the same instruction, “Open the drawer,” different views can call for different commands:</p>
+  <table class="vla-prediction-examples">
+    <thead><tr><th scope="col">What the image shows</th><th scope="col">Example next command</th></tr></thead>
+    <tbody>
+      <tr><td>The open gripper is positioned around the handle.</td><td>Move <strong>0 cm</strong>; <strong>close</strong> the gripper to grasp it.</td></tr>
+      <tr><td>The gripper is already holding the handle.</td><td>Move <strong>10 cm outward</strong>; <strong>keep closed</strong>.</td></tr>
+    </tbody>
+  </table>
+  <p>These are illustrative commands. Here, <strong>“predict” means propose the next action</strong></p>
+  <p>The structure is simplified from <a href="https://openvla.github.io/">OpenVLA</a>, whose predicted outputs are decoded into numerical robot commands. Other VLAs can organize their action outputs differently.</p>
+</section>
+
+<section id="why-test-actions" data-title="What happens after the robot tries to pull?">
+  <h2><span class="section-number">1.4</span> What happens after the robot tries to pull?</h2>
+  <p>Suppose the gripper is holding the handle. The VLA outputs a command: <strong>“Move the gripper 10 cm outward.”</strong> This is a requested movement. It does not guarantee that the drawer opens by 10 cm.</p>
+  <p>A freely sliding drawer may follow the gripper. A locked drawer stays shut. A heavy drawer or one with high friction may require more force than the controller can supply. The result depends on the robot, its controller, and the object.</p>
+  <p>A real robot finds out by interacting with the real cabinet. <strong>In simulation, we build a model of that interaction and calculate what happens.</strong></p>
+  <ol class="simulation-loop">
+    <li><strong>The VLA requests an action.</strong> For example, move the gripper outward while keeping it closed.</li>
+    <li><strong>The controller tries to make that movement.</strong> It turns the request into control inputs for the simulated robot.</li>
+    <li><strong>The simulation calculates the response.</strong> A <a href="https://mujoco.readthedocs.io/en/stable/overview.html">physics engine</a> computes how the robot and drawer move under the modeled forces, contacts, and joint limits.</li>
+    <li><strong>A renderer makes the next camera image.</strong> The VLA receives this updated view and can choose another action.</li>
+  </ol>
+  <p>We can reset the same scene and repeat the task, then change just the drawer’s mass or friction to compare the results. This helps us test a robot’s behavior without rebuilding a physical experiment each time. Simulated experience can also be used for training; its usefulness depends on how well the simulated conditions represent the intended task.</p>
+  <h3>What do we need to build that cabinet?</h3>
+  <dl class="simulation-needs">
+    <div><dt>A 3D shape</dt><dd>The cabinet, drawer, and handle need geometry. This gives us something to render and helps define where contact can happen.</dd></div>
+    <div><dt>Parts and joints</dt><dd>The drawer must be a separate moving part, connected so it can slide but cannot move freely in every direction.</dd></div>
+    <div><dt>Physical properties</dt><dd>Mass, friction, and contact settings help determine how the object responds to a force.</dd></div>
+  </dl>
+  <p>The diagram above illustrates the command-and-feedback loop. Later, we will calculate the drawer’s movement from forces.</p>
+  <p class="section-connection">That is the path through the next two sections: <a href="3d-generation.html">3D generation</a> explains the object’s shape; <a href="index.html">Articulated objects</a> adds its moving parts and joints, then <a href="animation-and-simulation.html#pull-the-drawer">forces and simulated motion</a>.</p>
+</section>

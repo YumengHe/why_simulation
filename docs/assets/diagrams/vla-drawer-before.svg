@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 310" role="img">
+  <title>Drawer 0 cm open; gripper holding the handle</title>
+  <path d="M30 267H535" stroke="#e8e5de" stroke-width="2"/>
+  <rect x="55" y="83" width="180" height="179" rx="2" fill="#dbe7e3" stroke="#759c94" stroke-width="2"/>
+  <rect x="68" y="185" width="154" height="66" fill="#e8d7a8" stroke="#c5a65a"/>
+  <path d="M77 177H219" stroke="#759c94" stroke-width="4"/>
+  <g transform="translate(0 0)">
+    <rect x="72" y="111" width="158" height="57" fill="#e4edf3" stroke="#5b8db8" stroke-width="2"/>
+    <path d="M72 111V168H230" fill="none" stroke="#5b8db8" stroke-width="4"/>
+    <rect x="222" y="102" width="13" height="75" fill="#5b8db8"/>
+    <path d="M235 130H248V151H235" fill="none" stroke="#3e6380" stroke-width="5"/>
+  </g>
+  <path d="M494 250V267M477 267H514" fill="none" stroke="#637278" stroke-width="10" stroke-linecap="round"/>
+  <path d="M494 250L422.027 124.124L293 140" fill="none" stroke="#b7bec0" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="422.027" cy="124.124" r="9" fill="#718288"/>
+  <circle cx="494" cy="250" r="10" fill="#718288"/>
+  <g transform="translate(248 0)">
+    <path d="M33 140H45" stroke="#637278" stroke-width="9"/>
+    <rect x="23" y="117" width="11" height="47" rx="3" fill="#637278"/>
+    <path d="M27 132H-5V138M27 148H-5V142" fill="none" stroke="#637278" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <path d="M329 286H429M422 280L429 286L422 292" fill="none" stroke="#9a7422" stroke-width="2"/>
+  <text x="219" y="294" fill="#71654c" font-size="26" font-family="sans-serif">Outward</text>
+</svg>

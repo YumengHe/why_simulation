@@ -79,6 +79,23 @@
   });
   $('print').addEventListener('click', () => window.print());
 
+  const copyCitation = $('copy-citation');
+  if (copyCitation) copyCitation.addEventListener('click', async () => {
+    const citation = $('citation-text');
+    try {
+      await navigator.clipboard.writeText(citation.textContent);
+      copyCitation.textContent = 'Copied!';
+      $('citation-copy-status').textContent = 'BibTeX citation copied.';
+      setTimeout(() => { copyCitation.textContent = 'Copy BibTeX'; }, 2000);
+    } catch {
+      const selection = getSelection(), range = document.createRange();
+      range.selectNodeContents(citation);
+      selection.removeAllRanges(); selection.addRange(range);
+      $('citation-copy-status').classList.remove('visually-hidden');
+      $('citation-copy-status').textContent = 'The citation is selected. Press Ctrl+C or Command+C to copy.';
+    }
+  });
+
   // Keep detailed figures readable without leaving the chapter.
   const figureLinks = document.querySelectorAll('a[data-enlarge]');
   if (figureLinks.length) {
@@ -109,27 +126,25 @@
     dialog.addEventListener('close', () => figureTrigger?.focus({preventScroll:true}));
   }
 
-  const sections = [...document.querySelectorAll('article [id][data-title], #chapter-start')];
-  const links = [...document.querySelectorAll('.chapter-list a[href]')];
-  let queued = false;
-  function updateSection() {
-    const active = sections.filter(section => section.getBoundingClientRect().top <= 150).at(-1) || sections[0];
-    for (const link of links) {
-      const url = new URL(link.href);
-      const samePage = (url.pathname.split('/').pop() || 'index.html') === (location.pathname.split('/').pop() || 'index.html');
-      const current = samePage && url.hash === '#'+active.id;
-      if (current) link.setAttribute('aria-current','location'); else link.removeAttribute('aria-current');
-    }
-    queued = false;
+  const links = [...document.querySelectorAll('.chapter-list a.chapter-link[href]')];
+  const currentPage = location.pathname.split('/').pop() || 'index.html';
+  for (const link of links) {
+    const samePage = (new URL(link.href).pathname.split('/').pop() || 'index.html') === currentPage;
+    if (samePage) link.setAttribute('aria-current','page');
+    else link.removeAttribute('aria-current');
   }
-  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(updateSection); } }, {passive:true});
-  updateSection();
-  // Open a long contents list near the current chapter, without collapsing it.
-  const currentChapter = links.find(link => {
-    const url = new URL(link.href);
-    return url.hash === '#chapter-start' && (url.pathname.split('/').pop() || 'index.html') === (location.pathname.split('/').pop() || 'index.html');
-  });
+  const currentChapter = links.find(link => link.hasAttribute('aria-current'));
   if (currentChapter && currentChapter.getBoundingClientRect().bottom > sidebar.getBoundingClientRect().bottom - 40) {
     sidebar.scrollTop += currentChapter.getBoundingClientRect().top - sidebar.getBoundingClientRect().top - 30;
   }
+  function markSection() {
+    for (const link of document.querySelectorAll('.chapter-sections .section-link')) {
+      const target = new URL(link.href);
+      const samePage = (target.pathname.split('/').pop() || 'index.html') === currentPage;
+      if (samePage && target.hash === location.hash) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+  }
+  window.addEventListener('hashchange', markSection);
+  markSection();
 })();

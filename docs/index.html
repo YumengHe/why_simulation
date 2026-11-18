@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Articulated objects · Why Simulation?</title>
+  <title>Parts, joints, and motion · Why Simulation?</title>
   <meta name="description" content="Learn how articulated objects work through a moving cabinet, joint controls, and an interactive connection tree.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=4a4fe08a655f">
-  <script src="assets/book.js?v=4a4fe08a655f" defer></script>
-  <script src="assets/articulation.js?v=4a4fe08a655f" defer></script>
-  <script src="assets/frames.js?v=4a4fe08a655f" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=4b3742bde1c1">
+  <script src="assets/book.js?v=4b3742bde1c1" defer></script>
+  <script src="assets/articulation.js?v=4b3742bde1c1" defer></script>
+  <script src="assets/frames.js?v=4b3742bde1c1" defer></script>
 
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <aside id="sidebar" class="sidebar" aria-label="Book contents">
-    <a class="book-name" href="index.html">Why Simulation?</a>
-    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">1.</span>Articulated objects</a><ol class="section-list"><li><a href="#links-and-joints">1.1 Links and joints</a></li><li><a href="#joint-motion">1.2 How joints let parts move</a></li><li><a href="#degrees-of-freedom">1.3 Degrees of freedom</a></li><li><a href="#kinematic-tree">1.4 Kinematic trees</a></li><li><a href="#further-reading">Further reading</a></li></ol></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">2.</span>Frames, orientation &amp; URDF</a><ol class="section-list"><li><a href="frames-and-urdf.html#base-and-world">2.1 The base and the world</a></li><li><a href="frames-and-urdf.html#up-and-front">2.2 Which way is up? Which way is front?</a></li><li><a href="frames-and-urdf.html#tree-to-urdf">2.3 From a tree to a URDF file</a></li><li><a href="frames-and-urdf.html#what-is-a-mesh">2.4 What is a mesh?</a></li><li><a href="frames-and-urdf.html#three-origins">2.5 Joint, link, and visual origins</a></li></ol></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.</span>Reading a URDF file</a><ol class="section-list"><li><a href="reading-urdf.html#file-and-tree">3.1 One file, parts and connections</a></li><li><a href="reading-urdf.html#link-and-visual">3.2 Link: shapes that move together</a></li><li><a href="reading-urdf.html#sliding-joint">3.3 Joint: let the drawer slide</a></li><li><a href="reading-urdf.html#rotating-joint">3.4 Joint: let the door rotate</a></li><li><a href="reading-urdf.html#visual-collision-inertial">3.5 How a part looks and behaves</a></li><li><a href="reading-urdf.html#base-and-fixed-joint">3.6 Why is there an extra base link?</a></li></ol></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">4.</span>Changing a URDF</a><ol class="section-list"><li><a href="changing-urdf.html#change-direction">4.1 Change the drawer’s direction</a></li><li><a href="changing-urdf.html#change-joint-type">4.2 Turn a hinged door into a sliding door</a></li><li><a href="changing-urdf.html#remove-drawer">4.3 Remove the drawer</a></li><li><a href="changing-urdf.html#swap-shapes">4.4 Swap the shapes, keep the joints</a></li></ol></li><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">5.</span>From animation to simulation</a><ol class="section-list"><li><a href="animation-and-simulation.html#two-ways-to-move">5.1 Two ways to move a box</a></li><li><a href="animation-and-simulation.html#change-the-scene">5.2 Change the scene</a></li><li><a href="animation-and-simulation.html#back-to-the-drawer">5.3 Back to the drawer</a></li><li><a href="animation-and-simulation.html#pull-the-drawer">5.4 Pull the drawer</a></li><li><a href="animation-and-simulation.html#drawer-mass">5.5 Same pull, different mass</a></li><li><a href="animation-and-simulation.html#drawer-friction">5.6 Friction can resist the pull</a></li><li><a href="animation-and-simulation.html#after-letting-go">5.7 What happens after letting go?</a></li></ol></li></ol></nav>
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Text-only LLM → VLM → VLA</a></li><li><a class="chapter-link" href="3d-generation.html#chapter-start"><span class="nav-number">2.</span>3D generation</a><ol class="chapter-sections"><li><a class="section-link" href="3d-generation.html#creating-an-object">2.1 From an image to a usable 3D object</a></li><li><a class="section-link" href="3d-generation.html#points-and-meshes">2.2 Meshes: surfaces and useful detail</a></li><li><a class="section-link" href="3d-generation.html#gaussians-and-nerf">2.3 How a 3D model produces a 2D image</a></li><li><a class="section-link" href="3d-generation.html#gaussian-example">2.4 3D Gaussian Splatting: build a scene, then render new views</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">3.5</span>From animation to simulation</a></li></ol></li></ol></nav>
     <div class="sidebar-links">
       <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
       <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
@@ -28,8 +28,8 @@
         <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
         <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
       </div>
-      <a href="index.html" class="toolbar-title">Why Simulation?</a>
-      <button id="print" class="icon-button" type="button" aria-label="Print this chapter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
     </header>
     <main id="main" tabindex="-1">
       <div id="book-search" class="search-panel" hidden>
@@ -39,8 +39,9 @@
         <ul id="search-results"></ul>
       </div>
       <article><header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">1.</span> What is an articulated object?</h1>
+  <h1><span class="chapter-number">3.1</span> What is an articulated object?</h1>
   <p class="lead">An articulated object is made of parts that can move relative to one another. A drawer slides. A door swings. The cabinet holds them together.</p>
+  <p>In the previous section, we described the cabinet’s shape. Now we add the parts and connections that let it move. We will first choose the drawer’s position ourselves, then later calculate its motion from a pulling force.</p>
 </header>
 
 <figure class="cabinet-intro">
@@ -58,7 +59,7 @@
 </figure>
 
 <section id="links-and-joints" data-title="Links and joints">
-  <h2><span class="section-number">1.1</span> Links and joints</h2>
+  <h2><span class="section-number">3.1.1</span> Links and joints</h2>
   <p>We describe this cabinet using two building blocks: <strong>links</strong> and <strong>joints</strong>.</p>
   <dl class="definitions">
     <div><dt>Link</dt><dd>A rigid part: its shape stays the same as it moves. The body, drawer, and door are three links.</dd></div>
@@ -68,7 +69,7 @@
 </section>
 
 <section id="joint-motion" data-title="How joints let parts move">
-  <h2><span class="section-number">1.2</span> How joints let parts move</h2>
+  <h2><span class="section-number">3.1.2</span> How joints let parts move</h2>
   <p>The drawer and door move in different ways. Move the sliders to try each joint.</p>
   <div class="motion-examples">
     <figure class="motion-example">
@@ -92,7 +93,7 @@
 </section>
 
 <section id="degrees-of-freedom" data-title="Degrees of freedom">
-  <h2><span class="section-number">1.3</span> Degrees of freedom</h2>
+  <h2><span class="section-number">3.1.3</span> Degrees of freedom</h2>
   <p><strong>One articulated object can have several degrees of freedom.</strong> This cabinet is one object, but it has two movable joints: one for the drawer and one for the door.</p>
   <p>A <strong>degree of freedom (DOF)</strong> is an independent motion you can control. With the cabinet body held fixed:</p>
   <table class="dof-table">
@@ -108,7 +109,7 @@
 </section>
 
 <section id="kinematic-tree" data-title="Kinematic trees">
-  <h2><span class="section-number">1.4</span> Kinematic trees</h2>
+  <h2><span class="section-number">3.1.4</span> Kinematic trees</h2>
   <p>A <strong>kinematic tree</strong> records which parts are connected. Each node is a link; each connecting line is a joint.</p>
   <p>The body is the <strong>root</strong>: the starting link of this tree. It is the <strong>parent</strong> of the drawer and door; they are its <strong>children</strong>. The tree describes connections, not the parts’ positions on the page.</p>
   <p>In the example below, we add a turning latch to the drawer. The latch can turn independently, adding one more degree of freedom: this version has <strong>3 DOF</strong>. Select a part in the tree, then play its motion.</p>
@@ -141,8 +142,8 @@
   <p>To compare the motion and connections of a reconstructed object with a reference, continue to the <a href="https://heyumeng.com/ArticulateArena-web/docs/index.html">ArticulateArena documentation ↗</a>.</p>
 </section>
 </article>
-      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="frames-and-urdf.html">Frames, orientation &amp; URDF →</a></nav>
-      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/articulated-objects.html">Edit this chapter ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="3d-generation.html">← 3D generation</a><a href="frames-and-urdf.html">Frames, orientation &amp; URDF →</a></nav>
+      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/articulated-objects.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
     </main>
   </div>
   <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>

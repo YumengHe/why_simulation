@@ -1,0 +1,32 @@
+{
+  "source": "The same original illustrative Gaussian cabinet as the cabinet projection video.",
+  "width": 420,
+  "height": 556,
+  "camera_degrees": 20,
+  "levels_percent": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    50,
+    55,
+    60,
+    65,
+    70,
+    75,
+    80,
+    85,
+    90,
+    95,
+    100
+  ],
+  "control": "Peak opacity of every Gaussian; all other scene properties fixed.",
+  "rendering": "Perspective covariance projection, depth-sorted alpha blending against white.",
+  "images": "Lossless WebP, re-rendered independently at every setting; not CSS image transparency."
+}

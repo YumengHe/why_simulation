@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 310" role="img"><title>A side view of two equally tall Gaussians projecting to different footprints on a virtual image plane</title><style>text{font-family:Arial,sans-serif;font-size:24px;fill:#333b3a}</style>
+<path d="M170 88V261" stroke="#b8ad96" stroke-width="4"/>
+<path d="M40 175L450 120M40 175L450 230" stroke="#dbb555" stroke-width="1.8" stroke-dasharray="5 5" fill="none"/>
+<path d="M40 175L300 120M40 175L300 230" stroke="#5b8db8" stroke-width="1.8" fill="none"/>
+<path d="M40 175H490" stroke="#656158" stroke-width="1.3" stroke-dasharray="4 6"/>
+<ellipse cx="450" cy="175" rx="35" ry="55" fill="#dbb555" fill-opacity=".3" stroke="#b18b31" stroke-width="2"/>
+<ellipse cx="450" cy="175" rx="13" ry="55" fill="none" stroke="#b18b31" stroke-width="1.2"/>
+<ellipse cx="300" cy="175" rx="35" ry="55" fill="#5b8db8" fill-opacity=".3" stroke="#3d6e96" stroke-width="2"/>
+<ellipse cx="300" cy="175" rx="13" ry="55" fill="none" stroke="#3d6e96" stroke-width="1.2"/>
+<path d="M170 147.5V202.5" stroke="#5b8db8" stroke-width="14" stroke-opacity=".55"/>
+<path d="M170 157.561V192.439" stroke="#dbb555" stroke-width="6"/>
+<circle cx="40" cy="175" r="7" fill="#9a7422"/>
+<path d="M40 193V251" stroke="#656158" stroke-width="1.3"/>
+<text x="4" y="282">Camera</text><text x="137" y="65">Image</text><text x="272" y="86">Near</text><text x="430" y="86">Far</text>
+</svg>

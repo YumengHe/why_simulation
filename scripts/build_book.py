@@ -60,10 +60,28 @@ def build():
     OUTPUT.mkdir(exist_ok=True)
     shutil.copytree(SOURCE / 'assets', OUTPUT / 'assets', dirs_exist_ok=True)
     navigation = '<ol class="chapter-list">'
+    current_group = None
     for chapter in chapters:
-        navigation += f'<li><a class="chapter-link" href="{escape(chapter["output"])}#chapter-start"><span class="nav-number">{escape(chapter["number"])}.</span>{escape(chapter["title"])}</a><ol class="section-list">'
-        for section in chapter['sections'][1:]:
-            navigation += f'<li><a href="{escape(chapter["output"])}#{escape(section["id"])}">{escape(section["heading"])}</a></li>'
+        group = chapter.get('group')
+        if group != current_group:
+            if current_group:
+                navigation += '</ol></li>'
+            if group:
+                group_config = config['groups'][group]
+                navigation += f'<li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">{escape(group_config["number"])}.</span>{escape(group_config["title"])}</span><ol class="chapter-children">'
+            current_group = group
+        number = f'<span class="nav-number">{escape(chapter["number"])}{"" if group else "."}</span>' if chapter.get('number') else ''
+        navigation += f'<li><a class="chapter-link" href="{escape(chapter["output"])}#chapter-start">{number}{escape(chapter["title"])}</a>'
+        if chapter.get('show_sections'):
+            navigation += '<ol class="chapter-sections">'
+            for section in chapter['sections']:
+                if section['id'] == 'chapter-start':
+                    continue
+                label = section.get('heading', section['title'])
+                navigation += f'<li><a class="section-link" href="{escape(chapter["output"])}#{escape(section["id"])}">{escape(label)}</a></li>'
+            navigation += '</ol>'
+        navigation += '</li>'
+    if current_group:
         navigation += '</ol></li>'
     navigation += '</ol>'
     search_index = []
@@ -77,6 +95,7 @@ def build():
             pagination += f'<a href="{escape(following["output"])}">{escape(following["title"])} →</a>'
         replacements = {
             'page_title': escape(chapter['title']), 'book_title': escape(config['title']),
+            'home_page': escape(chapters[0]['output']),
             'description': escape(chapter.get('description', chapter['title'])),
             'repository': escape(config['repository']), 'navigation': navigation.replace('href="'+escape(chapter['output'])+'#', 'href="#'),
             'content': chapter['content'], 'pagination': pagination, 'source': escape(chapter['source']),
@@ -91,7 +110,7 @@ def build():
             search_index.append({'title': section['title'], 'url': chapter['output']+'#'+section['id'], 'text': ' '.join(' '.join(section['chunks']).split())})
     (OUTPUT / 'search-index.json').write_text(json.dumps(search_index, ensure_ascii=False, indent=2)+'\n')
     (OUTPUT / '.nojekyll').touch()
-    print(f'Built {len(chapters)} chapter(s) into {OUTPUT}')
+    print(f'Built {len(chapters)} page(s) into {OUTPUT}')
 
 
 if __name__ == '__main__':

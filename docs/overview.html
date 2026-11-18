@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overview · Why Simulation?</title>
+  <meta name="description" content="About the Why Simulation? webbook, how to contribute, contacts, and the ArticulateArena citation.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=4b3742bde1c1">
+  <script src="assets/book.js?v=4b3742bde1c1" defer></script>
+  <script src="assets/articulation.js?v=4b3742bde1c1" defer></script>
+  <script src="assets/frames.js?v=4b3742bde1c1" defer></script>
+
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="#chapter-start">Overview</a></li><li><a class="chapter-link" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Text-only LLM → VLM → VLA</a></li><li><a class="chapter-link" href="3d-generation.html#chapter-start"><span class="nav-number">2.</span>3D generation</a><ol class="chapter-sections"><li><a class="section-link" href="3d-generation.html#creating-an-object">2.1 From an image to a usable 3D object</a></li><li><a class="section-link" href="3d-generation.html#points-and-meshes">2.2 Meshes: surfaces and useful detail</a></li><li><a class="section-link" href="3d-generation.html#gaussians-and-nerf">2.3 How a 3D model produces a 2D image</a></li><li><a class="section-link" href="3d-generation.html#gaussian-example">2.4 3D Gaussian Splatting: build a scene, then render new views</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">3.5</span>From animation to simulation</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header overview-header" id="chapter-start">
+  <h1>Overview</h1>
+  <p><strong>Why simulation?</strong> It lets us try an action in a modeled world, calculate what happens, and repeat the experiment with different conditions.</p>
+  <p>This free online book follows one familiar task: opening a drawer. We begin with how AI models understand instructions, then build the 3D object and describe how it moves. Simple explanations, illustrations, and moving examples connect these ideas.</p>
+  <ol class="overview-outline">
+    <li><a href="llm-vlm-vla.html">Text-only LLM → VLM → VLA</a> — from language to images and robot actions.</li>
+    <li><a href="3d-generation.html">3D generation</a> — creating objects and choosing how to represent them.</li>
+    <li><a href="index.html">Articulated objects</a> — parts, joints, URDF files, and simulated motion.</li>
+  </ol>
+</header>
+
+<section class="overview-section" id="contributing" data-title="Contributing">
+  <h2>Contributing</h2>
+  <p>Suggestions, corrections, and new examples are welcome. You can <a href="https://github.com/YumengHe/why_simulation/issues">open an issue</a> or submit a pull request to the <a href="https://github.com/YumengHe/why_simulation/tree/main/book">book source on GitHub</a>.</p>
+  <p>You can also contact <a href="https://heyumeng.com/">Yumeng He</a> or <a href="https://www.math.ucla.edu/~cffjiang/">Chenfanfu Jiang</a>.</p>
+</section>
+
+<section class="overview-section overview-empty" id="version" data-title="Version">
+  <h2>Version</h2>
+</section>
+
+<section class="overview-section overview-empty" id="community-contributors" data-title="Community Contributors">
+  <h2>Community Contributors</h2>
+</section>
+
+<section class="overview-section" id="citation" data-title="Citation">
+  <h2>Citation</h2>
+  <p>If you find ArticulateArena useful for your research, please cite:</p>
+  <p><a href="https://arxiv.org/abs/2609.33931"><strong>ArticulateArena: A Metric for Articulated Kinematics</strong></a><br>Yumeng He, Yongfei She, Huanyu Chen, Chun Yuan, Peihao Li, Joseph Masterjohn, Yin Yang, Ying Jiang, and Chenfanfu Jiang. 2026. arXiv:2609.33931.</p>
+  <div class="citation-block">
+    <div class="citation-actions"><h3>BibTeX</h3><button class="text-button" id="copy-citation" type="button">Copy BibTeX</button></div>
+    <pre class="citation-code" tabindex="0" aria-label="ArticulateArena BibTeX citation"><code id="citation-text"><span>@misc{he2026articulatearenametricarticulatedkinematics,</span>
+<span class="citation-field">  title={ArticulateArena: A Metric for Articulated Kinematics},</span>
+<span class="citation-field">  author={Yumeng He and Yongfei She and Huanyu Chen and Chun Yuan and Peihao Li and Joseph Masterjohn and Yin Yang and Ying Jiang and Chenfanfu Jiang},</span>
+<span class="citation-field">  year={2026},</span>
+<span class="citation-field">  eprint={2609.33931},</span>
+<span class="citation-field">  archivePrefix={arXiv},</span>
+<span class="citation-field">  primaryClass={cs.RO},</span>
+<span class="citation-field">  url={https://arxiv.org/abs/2609.33931}</span>
+<span>}</span></code></pre>
+    <p id="citation-copy-status" class="visually-hidden" role="status" aria-live="polite"></p>
+  </div>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="llm-vlm-vla.html">Text-only LLM → VLM → VLA →</a></nav>
+      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/overview.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

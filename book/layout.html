@@ -15,7 +15,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <aside id="sidebar" class="sidebar" aria-label="Book contents">
-    <a class="book-name" href="index.html">{{book_title}}</a>
+    <a class="book-name" href="{{home_page}}">{{book_title}}</a>
     <nav aria-label="Chapters">{{navigation}}</nav>
     <div class="sidebar-links">
       <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
@@ -28,8 +28,8 @@
         <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
         <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
       </div>
-      <a href="index.html" class="toolbar-title">{{book_title}}</a>
-      <button id="print" class="icon-button" type="button" aria-label="Print this chapter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+      <a href="{{home_page}}" class="toolbar-title">{{book_title}}</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
     </header>
     <main id="main" tabindex="-1">
       <div id="book-search" class="search-panel" hidden>
@@ -40,7 +40,7 @@
       </div>
       <article>{{content}}</article>
       <nav class="chapter-pagination" aria-label="Chapter navigation">{{pagination}}</nav>
-      <footer class="page-footer"><a href="{{repository}}/blob/main/book/{{source}}">Edit this chapter ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+      <footer class="page-footer"><a href="{{repository}}/blob/main/book/{{source}}">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
     </main>
   </div>
   <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
