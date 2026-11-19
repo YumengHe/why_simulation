@@ -1,0 +1,33 @@
+<header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">2.8</span> From 3D shape to a movable object</h1>
+  <p class="chapter-purpose draft-addition"><strong>Chapter conclusion</strong> · Connection to articulated objects</p>
+  <p class="lead">A reconstructed cabinet can look convincing from several views. To open its drawer, we also need to describe which part moves, how it is connected, and how it responds to a pull.</p>
+</header>
+
+<section class="simulation-lesson" id="simulation-asset" data-title="What reconstruction gives us">
+  <h2><span class="section-number">2.8.1</span> What reconstruction gives us</h2>
+  <p class="draft-addition">Chapter 2 introduced representations, then methods that reconstruct or generate them. A generator such as <a href="https://microsoft.github.io/TRELLIS/">TRELLIS</a> can propose a mesh from an image. <a href="gaussian-splatting.html">3DGS</a> and <a href="nerf.html">NeRF</a> can fit a scene to photographs and render it from new camera positions.</p>
+  <p>These outputs describe shape or appearance. They do not automatically tell us that the blue drawer should slide independently of the cabinet body, or how far a pull will move it.</p>
+  <p>For the cabinet examples that follow, we use meshes for the visible parts. A 3D editor such as Blender can help separate or rebuild those parts and check their size. A closed-cabinet reconstruction may omit the drawer’s hidden tray or the space inside the body; those details need to be checked and, where necessary, added.</p>
+</section>
+
+<section class="simulation-lesson" id="movable-cabinet" data-title="From a cabinet shape to moving parts">
+  <h2><span class="section-number">2.8.2</span> What makes the drawer movable?</h2>
+  <figure class="nerf-wide-figure">
+    <a href="assets/simulation-workflow/cabinet-parts.png" data-enlarge aria-label="Enlarge the cabinet, drawer, and door"><img src="assets/simulation-workflow/cabinet-parts.png" width="1000" height="610" alt="A blue drawer pulled out of a teal cabinet body, above a gold door." loading="lazy"></a>
+    <figcaption>The drawer is a separate moving part. Its front, tray, and handle move together.</figcaption>
+  </figure>
+  <p>A sliding joint connects the drawer to the body and restricts it to moving along the rails. Its limit specifies how far it is allowed to open. This is an <strong>articulated object</strong>: parts connected by joints that describe their relative movement.</p>
+  <p>The joint still does not say what happens under a particular pull. That also depends on properties such as mass and friction, and on contact with other objects. Those are inputs to a physics simulation.</p>
+</section>
+
+<section class="simulation-lesson" id="from-shape-to-motion" data-title="Shape, articulation, and simulation">
+  <h2><span class="section-number">2.8.3</span> From shape to motion</h2>
+  <ol class="simulation-roadmap">
+    <li><a href="3d-generation.html"><strong>Chapter 2 · 3D representations and creation</strong><span>Build the cabinet’s shape and appearance.</span></a></li>
+    <li><a href="index.html"><strong>Chapter 3 · Articulated objects</strong><span>Separate its parts and describe their joints, directions, and limits.</span></a></li>
+    <li><a href="animation-and-simulation.html"><strong>Chapter 4 · Simulation</strong><span>Prepare contact and physical properties, apply a force, and calculate the movement.</span></a></li>
+  </ol>
+  <p>For the drawer, the distinction is concrete: <strong>shape</strong> describes the drawer and handle; <strong>articulation</strong> lets the drawer slide; <strong>simulation</strong> calculates how it moves when pulled.</p>
+  <p class="section-connection"><a href="index.html">Next: parts, joints, and motion.</a> We begin by describing the cabinet’s moving parts and how they connect. The force experiments follow in Chapter 4.</p>
+</section>

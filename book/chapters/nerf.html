@@ -1,0 +1,164 @@
+<header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">2.6</span> NeRF: from cabinet photos to new views</h1>
+  <p class="chapter-purpose draft-addition"><strong>Specific method</strong> · Neural Radiance Field (NeRF)</p>
+  <p class="lead draft-addition"><strong>First, train:</strong> use multiple views of the cabinet and <a href="cameras-and-geometry.html#inputs-to-3dgs-and-nerf">their camera information</a> to train a network representing the cabinet in 3D. Repeatedly render images, compare with the photographs, and update the network.</p>
+  <p class="draft-addition"><strong>Then, render:</strong> use the saved network and a new virtual camera position and settings to produce another view of the same cabinet. No photograph from that new angle is needed.</p>
+</header>
+
+<section class="nerf-lesson" id="nerf-example" data-title="NeRF: photograph one cabinet">
+  <h2><span class="section-number">2.6.1</span> Photograph the cabinet</h2>
+  <p>Take overlapping photographs from several positions. Keep the cabinet, drawer, and door still. Each photograph shows the same scene from a different viewpoint.</p>
+  <div class="gs-grid gs-three gs-photos">
+    <figure><img src="assets/nerf-cabinet/left.png" width="360" height="430" alt="The teaching cabinet viewed from the left" loading="lazy"><figcaption>Photo 1 · from the left</figcaption></figure>
+    <figure><img src="assets/nerf-cabinet/front.png" width="360" height="430" alt="The same teaching cabinet viewed from the front" loading="lazy"><figcaption>Photo 2 · from the front</figcaption></figure>
+    <figure><img src="assets/nerf-cabinet/right.png" width="360" height="430" alt="The same teaching cabinet viewed from the right" loading="lazy"><figcaption>Photo 3 · from the right</figcaption></figure>
+  </div>
+  <p>The original NeRF is trained separately for each scene. Photographs of this cabinet provide the training images: the network learns a description of this particular cabinet from those views.</p>
+  <p>The three views illustrate the image collection step. Reconstruction may use many more photographs to cover the scene.</p>
+</section>
+
+<section class="nerf-lesson" id="nerf-cameras" data-title="Prepare NeRF inputs: images and camera parameters">
+  <h2><span class="section-number">2.6.2</span> Prepare images and camera parameters</h2>
+  <p>The <strong>NeRF training pipeline</strong> takes the scene’s images and each image’s <strong>camera position, orientation, and lens parameters</strong> as input. Position specifies where the camera was; orientation specifies which way it pointed. Lens parameters, such as focal length, determine how the scene projects onto the image.</p>
+  <figure class="nerf-wide-figure">
+    <a href="assets/nerf-cabinet/camera-poses.png" data-enlarge aria-label="Enlarge the cabinet and its three camera positions"><img src="assets/nerf-cabinet/camera-poses.png" width="1000" height="650" alt="Three camera positions around one stationary cabinet, corresponding to the three input views" loading="lazy"></a>
+    <figcaption>Each cabinet image is associated with the camera position and orientation used to capture that view.</figcaption>
+  </figure>
+  <div class="draft-addition">
+    <h3>Use the camera estimates from Section 2.4</h3>
+    <p><a href="cameras-and-geometry.html#colmap-cabinet">Section 2.4.2</a> explains how COLMAP estimates cameras from the cabinet photographs. <a href="cameras-and-geometry.html#vggt-cabinet">Section 2.4.3</a> introduces VGGT’s camera and geometry predictions. Either route must supply camera data in the form expected by the chosen NeRF implementation.</p>
+    <p><strong>In the workflow illustrated here, COLMAP supplies the camera estimates.</strong> Keep each photograph paired with its camera position, orientation, and lens parameters. The <a href="https://github.com/bmild/nerf#generating-poses-for-your-own-scenes">original NeRF code</a> describes this preparation.</p>
+    <div class="generation-flow" aria-label="Camera estimates supply rays for NeRF"><div><strong>Prepared inputs</strong><br>Cabinet photos + camera parameters</div><span aria-hidden="true">→</span><div><strong>NeRF renderer</strong><br>Rays + sampled 3D positions</div><span aria-hidden="true">→</span><div><strong>NeRF network</strong><br>Color + density per sample</div></div>
+    <p><strong>NeRF starts from the photos and cameras, not from the fitted Gaussian scene in Section 2.5.</strong> The 3DGS and NeRF routes branch after input preparation. In NeRF, the renderer calculates the sample positions sent to the network.</p>
+  </div>
+  <h3 id="nerf-training-sequence">NeRF training sequence</h3>
+  <ol class="nerf-instructions">
+    <li><strong>Estimate the cameras.</strong> COLMAP processes the cabinet photographs and estimates the camera parameters associated with each image.</li>
+    <li><strong>Calculate rays and sample positions.</strong> NeRF’s renderer uses the camera parameters to construct a ray through a selected pixel, then samples 3D positions along that ray.</li>
+    <li><strong>Query the neural network.</strong> Each sample position and its viewing direction enter the network, which predicts a color and density.</li>
+    <li><strong>Render and compare.</strong> The renderer combines those predictions into a pixel color and compares it with the corresponding pixel in the cabinet photograph.</li>
+    <li class="draft-addition"><strong>Update the network.</strong> The training algorithm adjusts the network’s numerical settings, called weights, to reduce the color error. Steps 2–5 repeat across pixels and camera views.</li>
+  </ol>
+  <p>COLMAP supplies camera estimates during data preparation. The repeated training loop updates the <strong>NeRF network</strong>. The photographs provide target colors; the renderer calculates the positions and directions sent to the network. <a href="#nerf-query-inputs">Section 2.6.4</a> illustrates the ray and sample positions for one cabinet pixel.</p>
+</section>
+
+<section class="nerf-lesson" id="nerf-network" data-title="What Neural Radiance Field means and what the network learns">
+  <h2><span class="section-number">2.6.3</span> Create a network that can answer questions about space</h2>
+  <p>NeRF stands for <strong>Neural Radiance Field</strong>. The name describes a learned rule for answering two questions at a place in 3D:</p>
+  <dl class="nerf-answers">
+    <div><dt>Color</dt><dd>The color a location contributes when viewed from a particular direction. At the blue drawer front, the expected contribution is blue.</dd></div>
+    <div><dt>Density</dt><dd>How strongly does a small interval here contribute and block what is behind it? Air should contribute almost nothing; the blue panel should strongly affect the picture.</dd></div>
+  </dl>
+  <p><em>Neural</em> refers to the learned program. <em>Radiance</em> refers to the light or color seen from a direction. <em>Field</em> means the program can answer at different positions throughout 3D space. Density here controls visibility, not the cabinet’s weight. <a href="https://www.matthewtancik.com/nerf">The original project explains this representation.</a></p>
+  <div class="generation-flow" aria-label="One network query takes a position and viewing direction and returns color and density">
+    <div><strong>One query</strong><br>3D position<br>+ viewing direction</div><span aria-hidden="true">→</span>
+    <div><strong>Neural network</strong><br>Uses its current weights</div><span aria-hidden="true">→</span>
+    <div><strong>Two answers</strong><br>Color + density</div>
+  </div>
+  <p>The network begins with untrained weights. During training, the photographs provide target pixel colors, while the renderer supplies the position-and-direction queries.</p>
+</section>
+
+<section class="nerf-lesson" id="nerf-query-inputs" data-title="How the renderer generates 3D positions and viewing directions from a pixel">
+  <h2><span class="section-number">2.6.4</span> Generate the 3D positions from a camera pixel</h2>
+  <p>In this example, <strong>COLMAP provides the estimated camera position, orientation, and lens parameters</strong>, as described in <a href="#nerf-cameras">Section 2.6.2: Prepare images and camera parameters</a>. NeRF’s renderer uses these outputs to calculate the sample positions and viewing directions:</p>
+  <ol class="nerf-instructions">
+    <li>It selects a pixel in one training photograph.</li>
+    <li>It uses <strong>COLMAP’s estimates of the camera position, orientation, and lens parameters</strong> to calculate the pixel’s <strong>ray</strong>: a line of sight extending into the scene.</li>
+    <li>It samples several distances along that ray. Each distance gives a 3D sample position.</li>
+    <li>It sends each position and the ray’s direction to the network. Points on the same ray share the same direction.</li>
+  </ol>
+  <figure class="nerf-wide-figure">
+    <a href="assets/nerf-cabinet/point-inputs.png" data-enlarge aria-label="Enlarge the pixel-to-ray-to-3D-points example"><img src="assets/nerf-cabinet/point-inputs.png" width="1150" height="700" alt="A selected pixel determines a ray from the camera toward the cabinet. Three sampled points P1, P2, and P3 share direction 0,1,0. X, Y, and Z axes are labeled." loading="lazy"></a>
+    <figcaption>P1–P3 are sample locations along the ray. The network is queried at these locations before any surface has been identified there.</figcaption>
+  </figure>
+  <h3>A small coordinate example</h3>
+  <p>Here, X points right, Y points toward the cabinet, and Z points up. Coordinates are in meters. The camera is at <code>(0, −3, 0.64)</code>. The selected ray points straight along +Y, so its direction is <code>(0, 1, 0)</code>.</p>
+  <div class="learning-table-wrap">
+    <table class="learning-table nerf-coordinates">
+      <thead><tr><th>Sample</th><th>Distance from camera</th><th>3D position sent to the network</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">P1</th><td>1 m</td><td><code>(0, −2, 0.64)</code></td></tr>
+        <tr><th scope="row">P2</th><td>2 m</td><td><code>(0, −1, 0.64)</code></td></tr>
+        <tr class="draft-addition"><th scope="row">P3</th><td>2.54 m</td><td><code>(0, −0.46, 0.64)</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>For P2, start at the camera and move 2 m along +Y: the Y coordinate changes from −3 to −1. X and Z stay the same. Other pixels generally produce rays pointing in different directions. In practice, the renderer uses many samples, not just these three.</p>
+  <p><strong>Each sampled 3D position, together with the ray’s viewing direction, forms an input to the NeRF neural network.</strong> For P2, the input is position <code>(0, −1, 0.64)</code> and direction <code>(0, 1, 0)</code>. The network predicts a color and density for each sample. <a href="#nerf-rendering">Section 2.6.5</a> explains how the renderer combines these predictions along the ray to produce one pixel’s color.</p>
+</section>
+
+<section class="nerf-lesson" id="nerf-rendering" data-title="How NeRF renders cabinet samples into one pixel and then an image">
+  <h2><span class="section-number">2.6.5</span> From network outputs to the selected pixel</h2>
+  <p><a href="#nerf-query-inputs">Section 2.6.4</a> calculated P1, P2, and P3 along the ray for one selected image pixel. Each position and the shared viewing direction are supplied <strong>as input</strong> to the same NeRF network. The network uses its current weights to calculate a color and density for each sample <strong>as output</strong>.</p>
+  <p>For example, a prediction at P3, near the blue drawer front, could be:</p>
+  <div class="generation-flow" aria-label="P3 input passes through the NeRF network to produce color and density">
+    <div><strong>P3 input</strong><br>Position: (0, −0.46, 0.64)<br>Direction: (0, 1, 0)</div><span aria-hidden="true">→</span>
+    <div><strong>NeRF network</strong><br>Evaluates this input</div><span aria-hidden="true">→</span>
+    <div><strong>P3 output</strong><br>Color: blue<br>Density: high</div>
+  </div>
+  <p>These outputs describe individual samples. The renderer still needs to combine them into <strong>one color for the original selected pixel</strong>. The diagram continues with the same camera, ray, and sample positions:</p>
+  <figure class="nerf-wide-figure">
+    <a href="assets/nerf-cabinet/one-pixel.png" data-enlarge aria-label="Enlarge the same P1–P3 ray and its resulting pixel"><img src="assets/nerf-cabinet/one-pixel.png" width="1200" height="700" alt="The same ray as Section 2.6.4 passes P1 and P2 in air, then P3 at the blue drawer front. The corresponding central pixel in the rendered camera view is marked blue." loading="lazy"></a>
+    <figcaption>P1–P3 keep the positions defined in Section 2.6.4. The marked pixel on the right is the pixel whose ray supplied those positions.</figcaption>
+  </figure>
+  <p>A prediction that represents this cabinet well assigns low density to the air and blue color with high density near the drawer front:</p>
+  <dl class="nerf-answers">
+    <div><dt>P1 · air</dt><dd>Low density gives this sample little influence on the pixel’s color.</dd></div>
+    <div><dt>P2 · air</dt><dd>Low density again: most of the view continues toward the drawer.</dd></div>
+    <div><dt>P3 · drawer</dt><dd>Blue color and high density: samples around the front panel supply most of the pixel’s color and reduce the contribution from farther behind.</dd></div>
+  </dl>
+  <p>The renderer combines the sample colors from near to far. Density and the distance represented by each sample determine how strongly it contributes and how much of the view passes through to later samples. This calculation is called <strong>volume rendering</strong>. It uses many samples along the ray; P1–P3 are three labeled locations within that process. <a href="https://arxiv.org/html/2003.08934v2#S4">Rendering details in the paper.</a></p>
+  <p><strong>The combined color is written into the original selected pixel.</strong> In this example, the drawer front makes that pixel blue.</p>
+  <h3 id="nerf-complete-image">From one pixel to a complete cabinet image</h3>
+  <p>The renderer repeats the same calculation for every pixel, using a different ray for each one. The result is an ordinary <strong>2D color image</strong>, like this cabinet view:</p>
+  <div class="nerf-image-result">
+    <figure>
+      <a href="assets/nerf-cabinet/ray-camera.png" data-enlarge aria-label="Enlarge the complete rendered cabinet image"><img src="assets/nerf-cabinet/ray-camera.png" width="321" height="481" alt="Complete rendered view from the example camera: a blue drawer above a gold door, surrounded by a teal cabinet body against white" loading="lazy"></a>
+      <figcaption>Complete rendered view from the same camera.</figcaption>
+    </figure>
+    <div>
+      <p><strong>One ray gives one pixel.</strong> The ray through P1–P3 gives the blue pixel discussed above.</p>
+      <p><strong>All the rays give the whole picture.</strong> Rays through the drawer produce blue pixels; rays through the door produce gold pixels; rays through the body produce teal pixels. Rays that pass through empty space leave the white background visible.</p>
+      <p><strong>Color and density work together.</strong> Color supplies the possible colors along a ray. Density helps determine how much each sample contributes and how much is hidden behind it. After combining them, the finished pixel contains a single color.</p>
+    </div>
+  </div>
+  <p>The prediction can still be wrong. <a href="#nerf-training">Section 2.6.6</a> compares the rendered pixels with the corresponding photograph pixels and uses their differences to update the network.</p>
+</section>
+
+<section class="nerf-lesson" id="nerf-training" data-title="The complete NeRF training loop: compare cabinet images and update weights">
+  <h2><span class="section-number">2.6.6</span> Compare with the photograph, then learn</h2>
+  <p>In this example, the predicted drawer is gray, but the reference image shows blue. Both images use the same camera, so corresponding pixel colors can be compared directly.</p>
+  <div class="gs-grid gs-two nerf-comparison">
+    <figure><img src="assets/nerf-cabinet/trial-front.png" width="360" height="430" alt="An illustrative trial field renders the drawer gray and its edges softly" loading="lazy"><figcaption><strong>Current prediction</strong><br>The drawer color and edges are wrong.</figcaption></figure>
+    <figure><img src="assets/nerf-cabinet/front.png" width="360" height="430" alt="The reference front view has a blue drawer with clearer edges" loading="lazy"><figcaption><strong>Photograph to match</strong><br>The reference drawer is blue.</figcaption></figure>
+  </div>
+  <ol class="nerf-training-loop">
+    <li><strong>Render a prediction.</strong> Generate rays, query the network, and combine its answers.</li>
+    <li><strong>Measure the error.</strong> Compare the predicted colors with the corresponding photo pixels.</li>
+    <li><strong>Adjust the network’s weights.</strong> The training algorithm calculates changes intended to reduce that error.</li>
+    <li><strong>Repeat with more pixels and views.</strong> Render again with the updated network and compare again.</li>
+  </ol>
+  <p>The photographs provide target pixel colors, without labeling the density at P3 or the drawer’s surface position. Views from other cameras help constrain the 3D arrangement: a misplaced panel might match one view but appear in the wrong place in another.</p>
+  <p><strong>Rendering and comparison are repeated throughout training.</strong> As the network’s weights change to reduce image errors, its 3D description improves. One network is trained to account for the cabinet across the input views. <a href="https://arxiv.org/html/2003.08934v2#S5.SS3">The original training procedure.</a></p>
+</section>
+
+<section class="nerf-lesson" id="nerf-new-views" data-title="Save the trained NeRF and render another view of the same cabinet">
+  <h2><span class="section-number">2.6.7</span> Save the trained NeRF and render another view</h2>
+  <p><strong>Training produces a NeRF network that represents this cabinet.</strong> Its learned weights are saved so the same network can be used again. The images rendered during training help check and improve that network, as described in <a href="#nerf-training">Section 2.6.6</a>.</p>
+  <table class="learning-table">
+    <thead><tr><th scope="col">Stage</th><th scope="col">Input</th><th scope="col">Result</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Train the NeRF</th><td>Cabinet photographs + their camera parameters</td><td>A trained network representing the cabinet in 3D</td></tr>
+      <tr><th scope="row">Render a view</th><td>The trained network + a chosen virtual camera</td><td>A 2D image of the same cabinet from that camera</td></tr>
+    </tbody>
+  </table>
+  <p>To view the cabinet from farther to the right, move the virtual camera to the right. Keep the trained network unchanged. The renderer calculates new rays, queries the same network for color and density, and combines those outputs into a new image using the process in <a href="#nerf-rendering">Section 2.6.5</a>.</p>
+  <p><strong>Rendering a viewpoint absent from the training photographs is called novel-view synthesis.</strong> This is a main use of NeRF: showing the same scene from another viewpoint. Each view is rendered directly from the trained network; the previously rendered image is not an input to this step. <a href="https://www.matthewtancik.com/nerf">NeRF project and examples.</a></p>
+  <div class="gs-grid gs-two nerf-comparison">
+    <figure><a href="assets/nerf-cabinet/field-samples.png" data-enlarge aria-label="Enlarge sampled answers from the cabinet's 3D field"><img src="assets/nerf-cabinet/field-samples.png" width="840" height="570" alt="Diagnostic samples on horizontal slices reveal the cabinet's panels inside a three-dimensional field" loading="lazy"></a><figcaption><strong>Inspect the 3D answers</strong><br>Samples on several slices reveal the panels. These dots visualize answers; they are not what a NeRF stores.</figcaption></figure>
+    <figure><img src="assets/nerf-cabinet/new-view.png" width="360" height="430" alt="The same cabinet rendered from a new angle between the front and right reference cameras" loading="lazy"><figcaption><strong>Same cabinet, another viewpoint</strong><br>The camera moves; the saved 3D representation stays the same.</figcaption></figure>
+  </div>
+  <p>An unseen back or interior can still be wrong. Good-looking views do not guarantee accurate hidden geometry, moving joints, or mass.</p>
+  <p>The stored scene differs from <a href="gaussian-splatting.html">3DGS</a>: <strong>3DGS adjusts a set of blobs; NeRF adjusts a network.</strong> Both use rendered images to check a 3D representation against photographs.</p>
+  <p class="section-connection draft-addition"><a href="generating-3d-assets.html">Next: generate an asset with a pretrained model.</a> NeRF fits this particular cabinet to its photographs. A generator such as TRELLIS uses prior training across many assets to propose a new 3D result from an image.</p>
+</section>

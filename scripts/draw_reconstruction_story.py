@@ -19,10 +19,44 @@ def points(coords):
     return ' '.join(f'{x:.3f},{y:.3f}' for x, y in coords)
 
 
+for name, n in (('coarse', 6), ('fine', 32)):
+    vertices = [(160 + 92*cos(2*pi*i/n), 125 + 92*sin(2*pi*i/n)) for i in range(n)]
+    save(f'handle-{name}', f'Round handle approximated by {n} sides, compared with the same target circle', 320, 250,
+         '<circle cx="160" cy="125" r="92" stroke="#9a7422" stroke-dasharray="6 6" stroke-width="2" fill="none"/>'
+         + f'<polygon points="{points(vertices)}" fill="#5b8db8" fill-opacity=".25" stroke="#3d6e96" stroke-width="2.5"/>'
+         + ''.join(f'<circle cx="{x:.3f}" cy="{y:.3f}" r="2.5" fill="#3d6e96"/>' for x,y in vertices))
 
 
+def cylinder_mesh(n):
+    """The same capped cylinder and camera, with n flat side faces."""
+    eye = (3/7, -6/7, 2/7)
+    right = (2/5**.5, 1/5**.5, 0)
+    up = (-2/(7*5**.5), 4/(7*5**.5), 15/(7*5**.5))
+    light = (-.3, -.4, .8660254)
+    dot = lambda a,b: sum(x*y for x,y in zip(a,b))
+    def project_bar(p):
+        return 160+102*dot(p,right), 151-102*dot(p,up)
+    ring = [(.76*cos(2*pi*i/n), .76*sin(2*pi*i/n)) for i in range(n)]
+    faces = []
+    for i in range(n):
+        j=(i+1)%n
+        theta=2*pi*(i+.5)/n
+        normal=(cos(theta),sin(theta),0)
+        if dot(normal,eye)<=0:
+            continue
+        face=[(*ring[i],-.95),(*ring[j],-.95),(*ring[j],.95),(*ring[i],.95)]
+        shade=.58+.42*max(0,dot(normal,light))
+        fill='#'+''.join(f'{round(c*shade):02x}' for c in (91,141,184))
+        faces.append((dot(tuple(sum(p[k] for p in face)/4 for k in range(3)),eye),face,fill))
+    body='<ellipse cx="160" cy="275" rx="89" ry="13" fill="#e8e5de" opacity=".5"/>'
+    for _, face, fill in sorted(faces):
+        body+=f'<polygon points="{points([project_bar(p) for p in face])}" fill="{fill}" stroke="#adc3d1" stroke-width=".85" stroke-linejoin="round"/>'
+    body+=f'<polygon points="{points([project_bar((*p,.95)) for p in ring])}" fill="#91b3cb" stroke="#3d6e96" stroke-width="1.2" stroke-linejoin="round"/>'
+    return body
 
 
+for name,n in (('coarse',6),('fine',32)):
+    save(f'cylinder-mesh-{name}',f'A 3D round bar built with {n} flat faces around its side',320,300,cylinder_mesh(n))
 
 
 def project(x, y, z):
@@ -88,5 +122,45 @@ save('gaussian-projected-image','Two soft projected ellipses overlap at a marked
      + '<circle cx="160" cy="120" r="7" fill="none" stroke="white" stroke-width="4"/><circle cx="160" cy="120" r="7" fill="none" stroke="#333b3a" stroke-width="1.5"/>'
      + '<path d="M160 131V214" stroke="#656158" stroke-width="1.2"/><text x="160" y="247" text-anchor="middle">One pixel</text>')
 
+save('nerf-query-example','A ray from the camera queries A in empty space, B near a blue surface, and C near a gold surface behind it',520,300,'''
+<rect x="267" y="70" width="31" height="160" fill="#5b8db8" opacity=".48"/>
+<rect x="409" y="70" width="31" height="160" fill="#dbb555" opacity=".52"/>
+<path d="M66 151H485" stroke="#9a7422" stroke-width="2"/><path d="M473 143L485 151L473 159" fill="none" stroke="#9a7422" stroke-width="2"/>
+<rect x="10" y="134" width="35" height="32" rx="2" fill="#f0e7d4" stroke="#9a7422" stroke-width="2"/>
+<path d="M45 141L63 134V166L45 159Z" fill="#f0e7d4" stroke="#9a7422" stroke-width="2"/>
+<circle cx="157" cy="151" r="6" fill="#fefdfb" stroke="#9a7422" stroke-width="2"/>
+<circle cx="282" cy="151" r="6" fill="#3d6e96" stroke="white" stroke-width="2"/>
+<circle cx="424" cy="151" r="6" fill="#b18b31" stroke="white" stroke-width="2"/>
+<text x="157" y="114" text-anchor="middle">A</text><text x="282" y="52" text-anchor="middle">B</text><text x="424" y="52" text-anchor="middle">C</text>
+<text x="5" y="207">Camera</text><text x="157" y="260" text-anchor="middle">Air</text><text x="282" y="260" text-anchor="middle">Blue front</text><text x="424" y="260" text-anchor="middle">Gold behind</text>
+''')
+for raised in (False, True):
+    front = '''<defs>
+<linearGradient id="metal"><stop stop-color="#746a52"/><stop offset=".35" stop-color="#eee1b4"/><stop offset=".65" stop-color="#b6a575"/><stop offset="1" stop-color="#796b4e"/></linearGradient>
+</defs>
+<text x="160" y="27" text-anchor="middle">Front view</text>
+<rect x="35" y="46" width="250" height="142" fill="#5b8db8" stroke="#3d6e96" stroke-width="2"/>
+<rect x="154" y="69" width="20" height="105" rx="8" fill="#24465b" opacity=".25"/>
+<rect x="145" y="64" width="30" height="16" rx="3" fill="#b6a575"/>
+<rect x="145" y="156" width="30" height="16" rx="3" fill="#b6a575"/>
+<rect x="149" y="68" width="22" height="100" rx="9" fill="url(#metal)" stroke="#796b4e" stroke-width="1"/>
+<text x="160" y="235" text-anchor="middle">Side view</text>
+<rect x="70" y="256" width="18" height="150" fill="#5b8db8" stroke="#3d6e96" stroke-width="2"/>
+'''
+    if raised:
+        side = '''<path d="M89 279H193Q203 279 203 289V373Q203 383 193 383H89V365H185V297H89Z" fill="#c4b383" stroke="#796b4e" stroke-width="2"/>
+<path d="M101 333H174M107 328L101 333L107 338M168 328L174 333L168 338" fill="none" stroke="#9a7422" stroke-width="2"/>
+<text x="137" y="322" text-anchor="middle" style="font-size:22px">Gap</text>
+<path d="M137 350L137 418" stroke="#9a7422" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="160" y="447" text-anchor="middle">Room for fingers</text>'''
+    else:
+        side = '''<path d="M90 279V383" stroke="#c4b383" stroke-width="3"/>
+<path d="M96 331H144" stroke="#9a7422" stroke-width="1.5"/>
+<circle cx="94" cy="331" r="3" fill="#9a7422"/>
+<text x="154" y="339">No gap</text>
+<text x="160" y="447" text-anchor="middle">Only surface color</text>'''
+    save('handle-raised' if raised else 'handle-painted',
+         'Front and side views: a modeled handle projects from the panel and leaves a gap for fingers' if raised else 'Front and side views: a handle printed on the panel has no depth or gap',
+         320, 460, front + side)
 
-print('Wrote four reconstruction-story diagrams.')
+print('Wrote eleven reconstruction-story diagrams.')

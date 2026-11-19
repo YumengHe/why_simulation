@@ -6,17 +6,17 @@
   <title>From animation to simulation · Why Simulation?</title>
   <meta name="description" content="Compare chosen positions with simulated motion, then see how pulling force, mass, friction, and letting go change a drawer’s movement.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=7ab077eae5cc">
-  <script src="assets/book.js?v=7ab077eae5cc" defer></script>
-  <script src="assets/articulation.js?v=7ab077eae5cc" defer></script>
-  <script src="assets/frames.js?v=7ab077eae5cc" defer></script>
-  <script src="assets/physics-demo.js?v=7ab077eae5cc" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=e5e01c5acb33">
+  <script src="assets/book.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/articulation.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/frames.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/physics-demo.js?v=e5e01c5acb33" defer></script>
 </head>
-<body>
+<body data-review-additions="false">
   <a class="skip-link" href="#main">Skip to content</a>
   <aside id="sidebar" class="sidebar" aria-label="Book contents">
     <a class="book-name" href="overview.html">Why Simulation?</a>
-    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Text-only LLM → VLM → VLA</a></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">2.</span>3D generation</span><ol class="chapter-children"><li><a class="chapter-link" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>From an image to a usable 3D object</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.4</span>3D Gaussian Splatting: build a scene, then render new views</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">3.5</span>From animation to simulation</a></li></ol></li></ol></nav>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>From instructions to robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">2.8</span>From 3D shape to a movable object</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
     <div class="sidebar-links">
       <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
       <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
@@ -39,12 +39,12 @@
         <ul id="search-results"></ul>
       </div>
       <article><header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">3.5</span> From animation to simulation</h1>
+  <h1><span class="chapter-number">4.1</span> From animation to simulation</h1>
   <p class="lead">A box moves down toward a table. We can create that movement in two different ways.</p>
 </header>
 
 <section id="two-ways-to-move" data-title="Two ways to move a box">
-  <h2><span class="section-number">3.5.1</span> Two ways to move a box</h2>
+  <h2><span class="section-number">4.1.1</span> Two ways to move a box</h2>
   <div class="physics-comparison" id="physics-comparison">
     <figure>
       <h3>We choose the positions</h3>
@@ -69,7 +69,7 @@
 </section>
 
 <section id="change-the-scene" data-title="Change the scene">
-  <h2><span class="section-number">3.5.2</span> Change the scene</h2>
+  <h2><span class="section-number">4.1.2</span> Change the scene</h2>
   <h3>Raise the table</h3>
   <p><strong>On the left,</strong> the box keeps following its saved path. It passes through the raised tabletop because we have not changed its positions or added a contact rule.</p>
   <p><strong>On the right,</strong> the box meets the higher table sooner and rests on its surface. The simulator calculates a new result from the changed scene.</p>
@@ -80,11 +80,11 @@
 </section>
 
 <section id="back-to-the-drawer" data-title="Back to the drawer">
-  <h2><span class="section-number">3.5.3</span> Back to the drawer</h2>
-  <p>The cabinet GIFs in the previous chapter work like the box on the left. We choose the drawer’s opening distance, <strong>q</strong>, at each moment: closed, a little open, farther open, and back again.</p>
+  <h2><span class="section-number">4.1.3</span> Back to the drawer</h2>
+  <p>The cabinet GIFs in <a href="changing-urdf.html">Chapter 3</a> work like the box on the left. We choose the drawer’s opening distance, <strong>q</strong>, at each moment: closed, a little open, farther open, and back again.</p>
   <p>To simulate a pull, we give the drawer mass, describe friction, and apply a pulling force. Its joint still restricts it to sliding. The simulator calculates how fast it moves and how its opening distance changes. The examples below do this.</p>
   <div class="physics-drawer-summary">
-    <p><strong>Our current GIF</strong>We choose q → draw the drawer there.</p>
+    <p><strong>Chapter 3 animations</strong>We choose q → draw the drawer there.</p>
     <p><strong>Physics simulation</strong>We apply a pull → calculate the movement → get q.</p>
   </div>
   <p><strong>A simulation can also produce an animation.</strong> Either result can be saved as a GIF or video. The difference is how the positions were produced.</p>
@@ -92,7 +92,7 @@
 </section>
 
 <section id="pull-the-drawer" data-title="Pull the drawer">
-  <h2><span class="section-number">3.5.4</span> Pull the drawer</h2>
+  <h2><span class="section-number">4.1.4</span> Pull the drawer</h2>
   <p><strong>A force is a push or a pull.</strong> We measure it in newtons, written <strong>N</strong>. A 3 N pull is three times as strong as a 1 N pull. It does not tell us how many centimeters the drawer will open.</p>
   <p>Here we pull each drawer for <strong>half a second</strong>, then let go. Both start closed and still. Both have a mass of 2 kg, and we leave out friction for this first comparison.</p>
   <figure class="urdf-plate force-plate">
@@ -111,7 +111,7 @@
 </section>
 
 <section id="drawer-mass" data-title="Same pull, different mass">
-  <h2><span class="section-number">3.5.5</span> Same pull, different mass</h2>
+  <h2><span class="section-number">4.1.5</span> Same pull, different mass</h2>
   <p>Now keep the pull the same: <strong>3 N for half a second</strong>. Change only the moving mass, from <strong>2 kg to 4 kg</strong>. Think of adding items to the drawer. Friction is still left out so we can see the effect of mass by itself.</p>
   <figure class="urdf-plate force-plate">
     <a href="assets/forces/heavier-drawer.gif" data-enlarge aria-label="Enlarge the comparison of lighter and heavier drawers">
@@ -128,7 +128,7 @@
 </section>
 
 <section id="drawer-friction" data-title="Friction can resist the pull">
-  <h2><span class="section-number">3.5.6</span> Friction can resist the pull</h2>
+  <h2><span class="section-number">4.1.6</span> Friction can resist the pull</h2>
   <p>Have you pulled a drawer gently and found that it would not budge? <strong>Friction can balance a weak pull and keep the drawer still.</strong> Once the drawer slides, friction acts against that sliding movement.</p>
   <p>Both drawers below have a mass of <strong>2 kg</strong> and receive the same <strong>3 N pull</strong>. Only the friction in their rails changes.</p>
   <figure class="urdf-plate force-plate">
@@ -147,7 +147,7 @@
 </section>
 
 <section id="after-letting-go" data-title="What happens after letting go?">
-  <h2><span class="section-number">3.5.7</span> What happens after letting go?</h2>
+  <h2><span class="section-number">4.1.7</span> What happens after letting go?</h2>
   <p><strong>Removing the pull does not instantly stop a moving drawer.</strong> In this example, both drawers are already moving outward at <strong>40 cm per second</strong>. They are both 10 cm open when we let go.</p>
   <figure class="urdf-plate force-plate">
     <a href="assets/forces/after-release.gif" data-enlarge aria-label="Enlarge the drawers moving after the pull is removed">
@@ -164,8 +164,10 @@
   <p>The sliding joint still has <strong>one degree of freedom</strong>: q tells us the opening distance. The force changes how q develops over time; it does not add another degree of freedom.</p>
   <p class="urdf-source-links"><a href="https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law">Force and mass ↗</a><a href="https://openstax.org/books/university-physics-volume-1/pages/6-2-friction">Friction ↗</a><a href="https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law">Motion after release ↗</a></p>
 </section>
+
+<p class="section-connection"><a href="preparing-simulation.html">Next: preparing a simulation model.</a> The examples show how force, mass, and resistance affect motion. We now prepare the cabinet information a simulator needs to calculate that response.</p>
 </article>
-      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="changing-urdf.html">← Changing a URDF</a></nav>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="changing-urdf.html">← Changing a URDF</a><a href="preparing-simulation.html">Preparing a simulation model →</a></nav>
       <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/animation-and-simulation.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
     </main>
   </div>

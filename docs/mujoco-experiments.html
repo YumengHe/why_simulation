@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MuJoCo experiments · Why Simulation?</title>
+  <meta name="description" content="Load a cabinet model, apply a pull, record opening distance over time, and render the calculated motion.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=e5e01c5acb33">
+  <script src="assets/book.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/articulation.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/frames.js?v=e5e01c5acb33" defer></script>
+
+</head>
+<body data-review-additions="false">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>From instructions to robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">2.8</span>From 3D shape to a movable object</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">4.3</span> MuJoCo experiments</h1>
+  <p class="lead">The model from Section 4.2 describes the cabinet. A test script loads it, applies a chosen force, and asks MuJoCo to calculate the motion. Those calculated positions can then be rendered as a video.</p>
+</header>
+
+<span id="what-is-mujoco" aria-hidden="true"></span>
+
+<section class="simulation-lesson" id="mujoco-test-environment" data-title="Set up the experiment">
+  <h2><span class="section-number">4.3.1</span> Set up the experiment</h2>
+<p>One practical setup uses <strong>MuJoCo with a Python test script</strong> on a computer:</p>
+  <ul>
+    <li><strong>The model file describes the cabinet:</strong> its parts, joints, collision shapes, mass, and resistance.</li>
+    <li><strong>The Python script sets up the test:</strong> load the model, start the drawer closed and still, apply the chosen pulling force for a set duration, and ask MuJoCo to advance the simulation.</li>
+    <li><strong>MuJoCo calculates the motion:</strong> the script can record opening distance and speed, while a viewer window displays the cabinet moving.</li>
+  </ul>
+  <p>For a mass comparison, load the 2 kg version and run the pull. Then load the 4 kg version and repeat from the same starting state, keeping the force, geometry, and resistance settings unchanged. The two runs show how the assumed mass affects the result. <a href="https://mujoco.readthedocs.io/en/stable/python.html">MuJoCo’s Python interface and viewer.</a></p>
+</section>
+
+<section class="simulation-lesson" id="direct-pull-duration" data-title="Calculate the drawer’s motion">
+  <h2><span class="section-number">4.3.2</span> Calculate the drawer’s motion</h2>
+<p>For a simple experiment, start with the drawer closed and still. Apply an outward <strong>3 N force for 0.5 seconds</strong>, then remove that force. A newton (N) measures force. Continue the simulation until <strong>2 seconds of simulated time</strong> to observe what happens after the pull ends. These are example settings for the experiment.</p>
+  <p>MuJoCo calculates the motion in small time steps. At each step, the drawer has an opening distance and a speed; together, these describe its <strong>state</strong>. “Current” and “next” refer to the same drawer at two nearby times, not simply to “closed” and “open.”</p>
+  <div class="gs-loop" aria-label="Repeat physics steps until the experiment reaches two seconds">
+    <div><strong>Now</strong><span>Drawer opening and speed now</span></div><span aria-hidden="true">→</span>
+    <div><strong>Calculate a small step</strong><span>Use the current force, mass, resistance, contacts, and joint limits</span></div><span aria-hidden="true">→</span>
+    <div><strong>A moment later</strong><span>Opening and speed a small time step later</span></div>
+    <p>Continue from that new opening and speed. Each step advances time a little; this experiment stops at 2 seconds.</p>
+  </div>
+  <p><strong>Ending the pull does not end the simulation.</strong> After 0.5 seconds, the applied pulling force is zero, but the drawer may still be moving. Later steps calculate whether it slows down, stops, or reaches its joint limit.</p>
+  <p>The experiment chooses when to stop stepping. Here it stops at 2 seconds, even if the drawer is still moving. Another test could stop when a target opening is reached, with a time limit if it never gets there. <a href="https://mujoco.readthedocs.io/en/stable/programming/simulation.html#simulation-loop">MuJoCo’s simulation loop.</a></p>
+</section>
+
+<section class="simulation-lesson" id="drawer-motion-output" data-title="Record opening distance over time">
+  <h2><span class="section-number">4.3.3</span> Record opening distance over time</h2>
+<p>At each step, we can record the time, the drawer’s opening distance <strong>q</strong>, and its speed. Together, these records describe its <strong>motion over time</strong>: how far it opened during the pull and what happened after release. <a href="animation-and-simulation.html#pull-the-drawer">Section 4.1 shows calculated drawer examples.</a></p>
+  <p>The <strong>allowed range</strong>, such as 0–50 cm, is an input specified by the joint. The <strong>actual opening at each moment</strong> is a result of the simulation. A 50 cm limit does not mean this pull will open the drawer by 50 cm.</p>
+
+    <p class="section-connection">These calculated positions are the input to <a href="#simulation-render">Section 4.3.4</a>: the renderer draws the cabinet at each saved position to make the frames of a video.</p>
+</section>
+
+<section class="simulation-lesson" id="simulation-render" data-title="Turn the calculated positions into images">
+  <h2><span class="section-number">4.3.4</span> Turn the calculated positions into images</h2>
+<p><a href="#drawer-motion-output">Section 4.3.3</a> gives opening distances over time. To make a video frame, place the visible drawer at the position calculated for that frame’s time. A <strong>renderer</strong> uses those shapes, their appearance, lighting, and a camera to make a 2D frame. Save a sequence of frames to make a video. MuJoCo has its own renderer, so a separate rendering application is not required. <a href="https://mujoco.readthedocs.io/en/stable/programming/rendering.html">MuJoCo rendering.</a></p>
+  <div class="generation-flow" aria-label="Physics output becomes rendered video frames">
+    <div><strong>MuJoCo physics</strong><br>Calculates a new drawer pose</div><span aria-hidden="true">→</span>
+    <div><strong>Mesh + renderer</strong><br>Draws that pose from a camera</div><span aria-hidden="true">→</span>
+    <div><strong>2D frame</strong><br>Many frames make a video</div>
+  </div>
+  <p>Changing only the camera makes a different picture of the same state. Changing the pull, mass, or friction can change the movement itself. This is why rendering and physics occupy different places in the workflow.</p>
+  <h3>Where all the names fit</h3>
+  <ol class="simulation-toolchain" aria-label="One complete workflow connecting the tools and the data passed between them">
+    <li><strong>TRELLIS · create the asset</strong><span>Cabinet image → a proposed mesh</span></li>
+    <li><strong>Blender · prepare the geometry</strong><span>Mesh → separate body, drawer, and door shapes, at the correct scale</span></li>
+    <li><strong>Model preparation · write an MJCF model</strong><span>Part shapes + joints + collision shapes + physical settings → a simulation model</span></li>
+    <li><strong>MuJoCo · calculate the movement</strong><span>Simulation model + initial state + pull → positions and speeds over time</span></li>
+    <li><strong>Renderer · make the pictures</strong><span>Those positions + visible geometry + appearance + camera and lighting → video frames</span></li>
+  </ol>
+  <p>The preparation between a generated mesh and a simulation is real work; a file conversion alone does not complete it.</p>
+  <p>With NeRF or 3DGS, the beginning changes: <strong>photos → fit a scene → render new views</strong> already gives a visual result. To simulate a moving drawer, add the same physical structure described here. Keeping its learned appearance on moving parts requires an additional way to associate and move that appearance with each part.</p>
+  <p>Finally, check the test: does the drawer follow the rail, stay attached, and stop near its limit? Are there unintended overlaps? If we have a real cabinet, compare the same pull in both. When they disagree, revisit the geometry or physical settings instead of judging the simulation only by how good its video looks.</p>
+  <p class="section-connection"><a href="robot-interaction.html">Next: robot interaction and control.</a> The direct-force experiment tests the drawer on its own. A grasping experiment adds a robot whose contact with the handle supplies the pull.</p>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="preparing-simulation.html">← Preparing a simulation model</a><a href="robot-interaction.html">Robot interaction and control →</a></nav>
+      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/mujoco-experiments.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

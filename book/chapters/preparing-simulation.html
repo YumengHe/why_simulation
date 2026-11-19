@@ -1,0 +1,68 @@
+<header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">4.2</span> Preparing a simulation model</h1>
+  <p class="lead">Chapter 3 described the cabinet’s parts and allowed movements. A force experiment also needs shapes for contact, physical properties, and a starting pose. This section prepares those inputs for the simulator.</p>
+</header>
+
+<section class="simulation-lesson" id="simulation-parts" data-title="Separate the cabinet into bodies and joints">
+  <h2><span class="section-number">4.2.1</span> Separate the moving parts</h2>
+  <p>If the whole cabinet is treated as one rigid body, pulling the handle cannot open the drawer independently. We need a separate <strong>drawer body</strong> connected to the <strong>cabinet body</strong>.</p>
+  <figure class="nerf-wide-figure">
+    <a href="assets/simulation-workflow/cabinet-parts.png" data-enlarge aria-label="Enlarge the cabinet's moving parts"><img src="assets/simulation-workflow/cabinet-parts.png" width="1000" height="610" alt="Teal cabinet body, blue drawer with its handle, and gold door. The blue drawer is pulled out from the body." loading="lazy"></a>
+    <figcaption>The drawer front, tray, and handle move together. They belong to one moving body even if they use several shapes.</figcaption>
+  </figure>
+  <p>A <strong>joint</strong> describes the allowed movement between bodies. Give the drawer a sliding joint along its rails and a maximum opening distance. A door would use a hinge joint instead. For our first test, hold the cabinet body and door still and study only the drawer.</p>
+  <p>We also check size and orientation here. A model that is accidentally one hundred times too large will not describe the same physical cabinet. These parts, their connections, and their allowed movements are the subject of <a href="index.html">Chapter 3</a>.</p>
+</section>
+
+<section class="simulation-lesson" id="space-for-the-drawer" data-title="Create collision shapes from the part meshes, then check the empty space">
+  <h2><span class="section-number">4.2.2</span> Define where contact happens</h2>
+  <p><a href="visual-to-simulation.html#simulation-asset">Section 2.8.1</a> introduced the cabinet mesh, and <a href="#simulation-parts">Section 4.2.1</a> identified its moving parts. <strong>At this point in the example, we have the part meshes but have not yet prepared separate collision shapes. Preparing them is the new task in this section.</strong></p>
+  <p>The part meshes supply the <strong>visible shapes</strong> used to draw the cabinet. A <strong>collision shape</strong> is geometry supplied to the simulator to calculate where objects touch.</p>
+
+  <span id="vertices-edges-faces" aria-hidden="true"></span>
+  <h3 id="create-collision-shapes">From one cabinet wall to a collision box</h3>
+  <ol>
+    <li><strong>Start with the wall’s mesh.</strong> Use its dimensions and position as a guide.</li>
+    <li><strong>Define a box that matches that wall.</strong> Give it the wall’s height, width, thickness, and position. This box is the collision shape for the wall in this example.</li>
+    <li><strong>Save that definition in the simulation model file.</strong> A person or a program can write the box’s dimensions and placement. The simulator reads that definition to create the box it uses for contact calculations.</li>
+  </ol>
+  <p><strong>This box does not need a separate mesh file.</strong> Its dimensions and placement are enough to describe it. More complex collision shapes can use mesh files instead. In either case, the shape is an <strong>input prepared before contact testing</strong>; the test calculates contacts using that shape. <a href="https://mujoco.readthedocs.io/en/stable/XMLreference.html#body-geom">MuJoCo’s shape definitions.</a></p>
+
+  <h3 id="prepare-contact-pieces">Leave room for the drawer</h3>
+  <p>Repeat this for the cabinet’s walls. Each box represents wall material, leaving the interior empty. One box around the entire cabinet would incorrectly fill the drawer’s space:</p>
+  <div class="gs-grid gs-two simulation-cavity">
+    <figure><a href="assets/simulation-workflow/collision-filled.png" data-enlarge aria-label="Enlarge the cabinet with its interior incorrectly filled"><img src="assets/simulation-workflow/collision-filled.png" width="520" height="735" alt="A red collision box fills the cabinet interior and overlaps the blue drawer. A top view shows the overlap." loading="lazy"></a><figcaption><strong>One box around the cabinet:</strong> the drawer’s space is treated as solid.</figcaption></figure>
+    <figure><a href="assets/simulation-workflow/collision-open.png" data-enlarge aria-label="Enlarge the cabinet with space left for the drawer"><img src="assets/simulation-workflow/collision-open.png" width="520" height="735" alt="Collision boxes follow the cabinet walls and leave empty space around the blue drawer. A top view shows the opening." loading="lazy"></a><figcaption><strong>Boxes along the walls:</strong> the drawer has room between them.</figcaption></figure>
+  </div>
+  <p>The top is removed in these drawings so we can see inside.</p>
+
+  <h3 id="check-collision-shapes">Check, adjust, and check again</h3>
+  <p><strong>A visual check:</strong> display the collision shapes in the viewer and inspect the interior. Look at the boxes themselves, because the detailed visible mesh can hide an incorrectly filled space.</p>
+  <p><strong>A programmed check:</strong> a script can place the drawer at several opening distances and check for unwanted overlaps with the cabinet. The relevant collision checks must be enabled.</p>
+  <p><strong>If a check finds a problem, revise the collision shapes:</strong></p>
+  <ul>
+    <li><strong>For boxes:</strong> change their dimensions or positions in the model file, by hand or with a program. If one large box fills the cabinet interior, replace it with separate wall boxes.</li>
+    <li><strong>For collision meshes:</strong> edit the geometry in Blender, or use a program to modify or regenerate it, then save the updated mesh.</li>
+  </ul>
+  <p>Reload the updated model and repeat the checks. The goal is to represent the actual walls and handle while keeping their intended openings clear. The tests use the shapes we prepared; they do not produce those shapes from contact results.</p>
+
+  <span id="painted-and-raised-handle" aria-hidden="true"></span>
+  <p id="handle-and-finger-contact">The same idea applies to the <strong>handle</strong>: its collision shapes must leave the gap behind the bar open for a finger. Shapes representing the drawer and its handle belong to the drawer, so they move with it.</p>
+  <p><strong>Once these shape checks pass, continue to the motion test:</strong> <a href="#simulation-properties">Section 4.2.3</a> adds mass and friction, and <a href="mujoco-experiments.html#direct-pull-duration">Section 4.3.2</a> applies a pull. Passing the shape checks prepares the model for that test; the pull test then checks its movement.</p>
+</section>
+
+<section class="simulation-lesson" id="simulation-properties" data-title="Add mass, resistance, and a starting state">
+  <h2><span class="section-number">4.2.3</span> Add physical properties</h2>
+  <p>Joints define the drawer’s allowed movement, and collision shapes define where contact can occur. Physical properties determine its response to a pull: an empty drawer and a loaded drawer can have the same visible shape but move differently.</p>
+
+  <p><strong>The force tests described here run in MuJoCo on a computer.</strong> A Python test script—a small program—loads the cabinet model, applies a chosen force, and records the resulting motion. MuJoCo’s viewer can show the moving cabinet. <a href="mujoco-experiments.html#mujoco-test-environment">Section 4.3.1 describes this setup.</a></p>
+  <dl class="nerf-answers simulation-properties">
+    <div><dt>Mass</dt><dd>How much mass moves with the drawer? The same pull accelerates a heavier drawer less.</dd></div>
+    <div><dt>Mass distribution</dt><dd>Where is that mass located? This affects resistance to changes in rotation, called <strong>rotational inertia</strong>. It matters for a rotating door and other moving bodies.</dd></div>
+    <div><dt>Resistance</dt><dd>How strongly do the rails resist sliding? We can model rail friction and damping. If a gripper holds the handle, contact friction also affects whether it slips.</dd></div>
+    <div><dt>Starting state</dt><dd>Is the drawer closed? Is it already moving? Our test starts closed and at rest, with the cabinet body held fixed.</dd></div>
+  </dl>
+  <p>For a simple test, we might choose a <strong>2 kg drawer</strong> with a <strong>50 cm travel limit</strong>. These are teaching values. To represent a real cabinet, measure or estimate its properties and check them against observed movement. A nice reconstruction alone does not tell us its mass or rail friction.</p>
+  <p>Store the bodies, joints, geometry, and physical settings in the simulator’s model description. MuJoCo uses <strong>MJCF</strong>, an XML model format. <strong>URDF</strong>, introduced in <a href="frames-and-urdf.html#tree-to-urdf">Chapter 3</a>, is another format for describing links and joints; importing a URDF can still require simulator-specific preparation. <a href="https://mujoco.readthedocs.io/en/stable/overview.html">MuJoCo’s model formats.</a></p>
+</section>
+<p class="section-connection"><a href="mujoco-experiments.html">Next: MuJoCo experiments.</a> Load this model, choose a pull, and calculate how the drawer moves.</p>

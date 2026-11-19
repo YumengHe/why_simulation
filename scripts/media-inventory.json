@@ -1,0 +1,876 @@
+{
+  "policy": "Script-rendered media and editable vector drawings; no direct generative-image or generative-video assets.",
+  "scope": "All image/video files under book/assets, including unused retained figures.",
+  "entries": [
+    {
+      "asset": "book/assets/diagrams/cabinet-mesh-coarse.png",
+      "source": "scripts/draw_cabinet_mesh_detail.py",
+      "kind": "script-rendered",
+      "sha256": "74d5f025eefbc3d73915db5b70f891e7ae4cd39d3eefa2141132b03dc73c116b"
+    },
+    {
+      "asset": "book/assets/diagrams/cabinet-mesh-fine.png",
+      "source": "scripts/draw_cabinet_mesh_detail.py",
+      "kind": "script-rendered",
+      "sha256": "e0c58288fb9aaf8c5726485aead08723b6b92219587c6dd465205ee8f17e90f7"
+    },
+    {
+      "asset": "book/assets/diagrams/cabinet-origins.svg",
+      "source": "book/assets/diagrams/cabinet-origins.svg",
+      "kind": "editable-vector-source",
+      "sha256": "e4aa77309a7abcb44fd345022d2d629f306fee964ffee2d126e144f0341cdf0a"
+    },
+    {
+      "asset": "book/assets/diagrams/cabinet-rendered.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "d4d79b57d388b4f86fab3a15281f574932c7aade005f939a18e55c17fcd3fcf3"
+    },
+    {
+      "asset": "book/assets/diagrams/cabinet-representation-field.svg",
+      "source": "scripts/draw_representation_overview.py",
+      "kind": "script-rendered",
+      "sha256": "5ea68f4d5b5ec2fa70b9f7f0ca1d3dd4510e5194a72fdca8c1fcda44241ba122"
+    },
+    {
+      "asset": "book/assets/diagrams/cabinet-representation-gaussians.svg",
+      "source": "scripts/draw_representation_overview.py",
+      "kind": "script-rendered",
+      "sha256": "dfc5b94bc9e2040b772c9882786f9a762257ad593f2408913a62bd8600fb3703"
+    },
+    {
+      "asset": "book/assets/diagrams/cabinet-representation-points.svg",
+      "source": "scripts/draw_representation_overview.py",
+      "kind": "script-rendered",
+      "sha256": "907def915bc6babf539f6a59737d3b22453bc9fad1189431eb6ece37fc69dc3d"
+    },
+    {
+      "asset": "book/assets/diagrams/cabinet-representation-quads.svg",
+      "source": "scripts/draw_representation_overview.py",
+      "kind": "script-rendered",
+      "sha256": "e533bc3e93e6392373e7e80b919810e4700046c222178015286447f0017aaa55"
+    },
+    {
+      "asset": "book/assets/diagrams/cabinet-representation-triangles.svg",
+      "source": "scripts/draw_representation_overview.py",
+      "kind": "script-rendered",
+      "sha256": "0e78ce83c9c02e67c29d6c4417d8b9abc862e217959542dcebca7db6a77100d7"
+    },
+    {
+      "asset": "book/assets/diagrams/cabinet-wireframe.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "539ceb60869cea84d9b591c742a6e253d31b9df86adb743677c5e946fe1e96cd"
+    },
+    {
+      "asset": "book/assets/diagrams/collision-filled.svg",
+      "source": "scripts/draw_representation_examples.py",
+      "kind": "script-rendered",
+      "sha256": "d413b5863a24a768883d404988b909a6ddfcd764d909d4fadcf019b813e246aa"
+    },
+    {
+      "asset": "book/assets/diagrams/collision-hollow.svg",
+      "source": "scripts/draw_representation_examples.py",
+      "kind": "script-rendered",
+      "sha256": "bac8db145521a24c1305767fec406f7a1114a063ceb0c2e8c87160585fd0f2d7"
+    },
+    {
+      "asset": "book/assets/diagrams/cylinder-mesh-coarse.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "bf5bdc86bb2ad5e1ad33a2237e8026bad8bdceae6010c685e9839c5ad2a31c10"
+    },
+    {
+      "asset": "book/assets/diagrams/cylinder-mesh-fine.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "a258f28f54f8f21df1964bec4d5ee370e6cf8c8168512ad7dd64a5689332f2d9"
+    },
+    {
+      "asset": "book/assets/diagrams/drawer-shapes.svg",
+      "source": "book/assets/diagrams/drawer-shapes.svg",
+      "kind": "editable-vector-source",
+      "sha256": "541fde537fed62f85a2935cd462c531c474b60830ab0fca95ad0e1f18e09c3bf"
+    },
+    {
+      "asset": "book/assets/diagrams/gaussian-opacity-high.svg",
+      "source": "scripts/draw_representation_examples.py",
+      "kind": "script-rendered",
+      "sha256": "3f674b3f9e611deff3591055b5a1bdca1fa8c6329605e505ac962ada718c3627"
+    },
+    {
+      "asset": "book/assets/diagrams/gaussian-opacity-low.svg",
+      "source": "scripts/draw_representation_examples.py",
+      "kind": "script-rendered",
+      "sha256": "96b365c7442a22cafc2176fb365dc893c3ed9e344e4dd9938b14030789ef7ed3"
+    },
+    {
+      "asset": "book/assets/diagrams/gaussian-projected-image.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "d03cc0ee4eaff459a1d3f6e97439a4b4c5b664f310fef7e05f929623a75d4ca2"
+    },
+    {
+      "asset": "book/assets/diagrams/gaussian-projection-side.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "aee1745386366bab6b339244f3be02d25faecf4e24bb9492d177c9481beffce5"
+    },
+    {
+      "asset": "book/assets/diagrams/handle-coarse.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "eaface694fa9f9c73a691527c72dfe347773d1a5a1349865e0d1d6270e9fe810"
+    },
+    {
+      "asset": "book/assets/diagrams/handle-fine.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "ea5bbe568b22554f7017f3d1aadbbfb8f9154ea92044533683258a0483b7d7c4"
+    },
+    {
+      "asset": "book/assets/diagrams/handle-painted.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "90ca1b85fd726aad49537d99ec89e0a257a5cfa32387f976b663a2daa199297b"
+    },
+    {
+      "asset": "book/assets/diagrams/handle-raised.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "25c183ae4b9f5e781e26e769b4db1c1cdf63a39632c01e63e30476d9deb8fba1"
+    },
+    {
+      "asset": "book/assets/diagrams/mesh-one-quad.svg",
+      "source": "scripts/draw_representation_examples.py",
+      "kind": "script-rendered",
+      "sha256": "ef6f2a347e43507631fa225d83a0b4f90ed7d8358e93651caca474ef7e7691cc"
+    },
+    {
+      "asset": "book/assets/diagrams/mesh-parts.svg",
+      "source": "scripts/draw_representation_examples.py",
+      "kind": "script-rendered",
+      "sha256": "fba2f7113bc2ef6510329ae2aa4c8c9aca7b9321071bac64e64e186621feb5a0"
+    },
+    {
+      "asset": "book/assets/diagrams/mesh-two-triangles.svg",
+      "source": "scripts/draw_representation_examples.py",
+      "kind": "script-rendered",
+      "sha256": "c135bc1421fb0926e32256b3a2a650933d7f5e77399ab9d13e59561891b5c887"
+    },
+    {
+      "asset": "book/assets/diagrams/nerf-query-example.svg",
+      "source": "scripts/draw_reconstruction_story.py",
+      "kind": "script-rendered",
+      "sha256": "fe3eb77a5e39a7643adc9df20384f198b875eada45f75bfd63dc9eef440c1fbd"
+    },
+    {
+      "asset": "book/assets/diagrams/nerf-ray-example.svg",
+      "source": "scripts/draw_representation_examples.py",
+      "kind": "script-rendered",
+      "sha256": "b46c3aa447799d0066965aea926a2f6c49992ff82160cbdf405db5bcf09821fa"
+    },
+    {
+      "asset": "book/assets/diagrams/representation-gaussians.svg",
+      "source": "scripts/draw_representation_diagrams.py",
+      "kind": "script-rendered",
+      "sha256": "edd556e35bd1d512edb2f0c15f0776cc84b8fde1efc7e82fe73e151006f19935"
+    },
+    {
+      "asset": "book/assets/diagrams/representation-nerf.svg",
+      "source": "scripts/draw_representation_diagrams.py",
+      "kind": "script-rendered",
+      "sha256": "0168f278cdb651f6296bb0abbdbd83543f9e04ac4676b64a69cf5dc317beb4d3"
+    },
+    {
+      "asset": "book/assets/diagrams/representation-points.svg",
+      "source": "scripts/draw_representation_diagrams.py",
+      "kind": "script-rendered",
+      "sha256": "392489838a0cee58d3fe8addf244fe4fc42a474ecacd5b978dcbb7fb5d2c942f"
+    },
+    {
+      "asset": "book/assets/diagrams/representation-quads.svg",
+      "source": "scripts/draw_representation_diagrams.py",
+      "kind": "script-rendered",
+      "sha256": "d92e41467a43da064ffdcfad6efd1ac44aaa9eb7cd16a5a237ceb20e9e962008"
+    },
+    {
+      "asset": "book/assets/diagrams/representation-triangles.svg",
+      "source": "scripts/draw_representation_diagrams.py",
+      "kind": "script-rendered",
+      "sha256": "852341336545ed5e7338e396d6d4968b14f314bc60568853b45423e457e10440"
+    },
+    {
+      "asset": "book/assets/diagrams/side-panel-mesh.svg",
+      "source": "book/assets/diagrams/side-panel-mesh.svg",
+      "kind": "editable-vector-source",
+      "sha256": "ff4b99cd5deb8901fe0de985b4df273ab59c8d11d3c869a9783b159b0fd9a2ca"
+    },
+    {
+      "asset": "book/assets/diagrams/side-panel-shape.svg",
+      "source": "book/assets/diagrams/side-panel-shape.svg",
+      "kind": "editable-vector-source",
+      "sha256": "e16de14ea342bbdfea997b59bf1e8a9bc7acaf28bdad31001ada81567ce6913d"
+    },
+    {
+      "asset": "book/assets/diagrams/vla-drawer-after.svg",
+      "source": "scripts/draw_vla_flow.py",
+      "kind": "script-rendered",
+      "sha256": "83a1de12ff2fbd89f09e8d4716e7e769a07cf5b1e0950efe80d58a4897871a4c"
+    },
+    {
+      "asset": "book/assets/diagrams/vla-drawer-before.svg",
+      "source": "scripts/draw_vla_flow.py",
+      "kind": "script-rendered",
+      "sha256": "b441795500887c88c7b32eb061a3b29cfa242455ea1f52633f8853b61744b9fb"
+    },
+    {
+      "asset": "book/assets/examples/cabinet-representations/gaussians.png",
+      "source": "scripts/render_cabinet_comparison.py",
+      "kind": "script-rendered",
+      "sha256": "a8d13efa5dc3562b07281f375d77dd081d6988ddc2af6664b0b413409392355b"
+    },
+    {
+      "asset": "book/assets/examples/cabinet-representations/mesh.png",
+      "source": "scripts/render_cabinet_comparison.py",
+      "kind": "script-rendered",
+      "sha256": "14343728bd6709357ec70d54b183112d654ca9cf257a0dd1f64e4e0a9806c0f3"
+    },
+    {
+      "asset": "book/assets/examples/cabinet-representations/reference.png",
+      "source": "scripts/render_cabinet_comparison.py",
+      "kind": "script-rendered",
+      "sha256": "82fb3133ccf9626a4ce24a07132fbea221f1a2aaae95341b6280b8fdecc55f5a"
+    },
+    {
+      "asset": "book/assets/experiments/door-hinge.gif",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "b217a483d042b108c96fa70cabcd744166a36f03956b2b876f42f138421bbdc0"
+    },
+    {
+      "asset": "book/assets/experiments/door-hinge.png",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "a3458d2350eb9bfc9d02c8d2127e7ddbd560c95ec394f9262fa6f35514b9b303"
+    },
+    {
+      "asset": "book/assets/experiments/door-sliding.gif",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "5c91b324bc04951fed1a5990a57f22c895cd5aeccfe33aa9e961253a0cf30ba4"
+    },
+    {
+      "asset": "book/assets/experiments/door-sliding.png",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "e866992f1aff8ed0adb9f2e41207cf354ef6edfe3c304961126581f4b331e3c8"
+    },
+    {
+      "asset": "book/assets/experiments/door-type-only.gif",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "788fb24ff80e1b6820b28a43bb2b3031d7528d4d74add045a85550668eadff10"
+    },
+    {
+      "asset": "book/assets/experiments/door-type-only.png",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "7b7b50910c54cf327b2cc4ca51da77fa01868e2256f0ebf5c4e0344df468fb5c"
+    },
+    {
+      "asset": "book/assets/experiments/drawer-diagonal.gif",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "f710684ac9584f9a486f81040c139a9f0a04d7fef49d18e146a5dce30f03e030"
+    },
+    {
+      "asset": "book/assets/experiments/drawer-diagonal.png",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "9c52abead7acda66b39632c289afbb1b4057d3e7b9fd774e5bd1112bf7ed8403"
+    },
+    {
+      "asset": "book/assets/experiments/drawer-inward.gif",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "73895d0b4a12677b135d756162f87e2d396425b875fbe90f09d123a2f8191f23"
+    },
+    {
+      "asset": "book/assets/experiments/drawer-inward.png",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "075c6032356e042a54795d8aa96528a9a67f0bd5bc2c1d4a544f6cbe50d339c2"
+    },
+    {
+      "asset": "book/assets/experiments/drawer-outward.gif",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "a41bea4a7fa456a686b1242c447128c054fdc894f5a6671379c8b956ddc3b9df"
+    },
+    {
+      "asset": "book/assets/experiments/drawer-outward.png",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "d05cb3e343baf58bcd999590c3f535e17ffee59318d45c6fd0982a08cdd5c7e7"
+    },
+    {
+      "asset": "book/assets/experiments/drawer-present.gif",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "32eb9faa248dc56c50566424adc908c409a4570a6b48dd9360d02e16e99814d2"
+    },
+    {
+      "asset": "book/assets/experiments/drawer-present.png",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "30f7cce8bf01dfc2e3a288128e1369807d9491065a79e30c37984d5e97f2abf5"
+    },
+    {
+      "asset": "book/assets/experiments/drawer-removed.gif",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "3e50e418f0845e8204a42b7fb9d693d327bba71f592fbcd61d4d9b7c3f5cfd6b"
+    },
+    {
+      "asset": "book/assets/experiments/drawer-removed.png",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "a2a22e634903a71408e29e6cfd1404b181fc67c908274d7e5a23da25183506e7"
+    },
+    {
+      "asset": "book/assets/experiments/shapes-original.gif",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "ee6a87712bd088f6e07dcc065747cf62d892a277bc648671429d367643d789df"
+    },
+    {
+      "asset": "book/assets/experiments/shapes-original.png",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "b820fcc91ee1164c40533c7e8cfb7101d4fa2b04188d56369837d62f64620acb"
+    },
+    {
+      "asset": "book/assets/experiments/shapes-swapped.gif",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "d3ef10707cf70a915d4085e6073c1d89279afdef502f83b7b70eaf55123a72a6"
+    },
+    {
+      "asset": "book/assets/experiments/shapes-swapped.png",
+      "source": "scripts/animate_urdf_examples.py",
+      "kind": "script-rendered",
+      "sha256": "55704ea68aa4f784e4d06dd79b08ba233d124f4982b2d31a5401f16b62126f0e"
+    },
+    {
+      "asset": "book/assets/favicon.svg",
+      "source": "book/assets/favicon.svg",
+      "kind": "editable-vector-source",
+      "sha256": "7f8943729a7f9bd17c719bcaa9e09010d62de0da0c296e716f1be0c4b6751878"
+    },
+    {
+      "asset": "book/assets/figures/base-fixed-joint.svg",
+      "source": "scripts/draw_urdf_figures.py",
+      "kind": "script-rendered",
+      "sha256": "6da5d9faa8866c515a6b494459c7b1624108045ca52165ff6bf33475d8cf467b"
+    },
+    {
+      "asset": "book/assets/figures/body-shelf-visual.svg",
+      "source": "scripts/draw_urdf_figures.py",
+      "kind": "script-rendered",
+      "sha256": "21d8aa75c2a538f16cbece5e5ab7f872d4f4e3e4241704f75ca68d06a0637fab"
+    },
+    {
+      "asset": "book/assets/figures/door-revolute-joint.svg",
+      "source": "scripts/draw_urdf_figures.py",
+      "kind": "script-rendered",
+      "sha256": "789d372b24c347fdd83e32b700025e29b22e46daa1ec507746f9a14c9c086d0b"
+    },
+    {
+      "asset": "book/assets/figures/drawer-front-meshes.svg",
+      "source": "scripts/draw_urdf_figures.py",
+      "kind": "script-rendered",
+      "sha256": "414c44037bbadeb1e7efa891ac5d470ba0a301bd96f10d44b69b6574e8d4f769"
+    },
+    {
+      "asset": "book/assets/figures/drawer-prismatic-joint.svg",
+      "source": "scripts/draw_urdf_figures.py",
+      "kind": "script-rendered",
+      "sha256": "dfd2bee364fef17bb490397bdbf7cfe63760531a249411d91fc6239f99943986"
+    },
+    {
+      "asset": "book/assets/forces/after-release-stacked.gif",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "545c141d1ed8d5312f9981e45e593f083d35a0380bfccca8f3a6d92441825ae5"
+    },
+    {
+      "asset": "book/assets/forces/after-release-stacked.png",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "f4c6aea21aa70d051683369638f4e3c8d77d9c74fcf26acab36033864f5c82c1"
+    },
+    {
+      "asset": "book/assets/forces/after-release.gif",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "130634d62cd790b93dab993d2761602c82443b5209952ce936f4a43192b0b369"
+    },
+    {
+      "asset": "book/assets/forces/after-release.png",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "71a827d366a0fc5fca1aa817f6cc906aff85760504509897a491028e7f552f14"
+    },
+    {
+      "asset": "book/assets/forces/heavier-drawer-stacked.gif",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "38191173feb1bb9b60340774dab61c64c1e76294771d447aa399eb400c14e711"
+    },
+    {
+      "asset": "book/assets/forces/heavier-drawer-stacked.png",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "d018e1c3fd26db89f4f6f8f5fd9b9aff77e57318164bf0aa5601c37d15676f0b"
+    },
+    {
+      "asset": "book/assets/forces/heavier-drawer.gif",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "3966dded3e862f1aa21f13dd603945ab842e1b032695cd75789157534c8c5744"
+    },
+    {
+      "asset": "book/assets/forces/heavier-drawer.png",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "74036569f6321c16ae930d4e03aaa1e3520f119d19cdb8beb8863c1b4a89fb7f"
+    },
+    {
+      "asset": "book/assets/forces/rail-friction-stacked.gif",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "6ca27128145fe3e574f1743902c1a29488db5e59bdfdd74bf589235317989d10"
+    },
+    {
+      "asset": "book/assets/forces/rail-friction-stacked.png",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "b77e6309abce70c5e826ae0ba0da11d7847dfdf7cc4cdb7f448985d4dc0408b9"
+    },
+    {
+      "asset": "book/assets/forces/rail-friction.gif",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "3367a7835dcf160989fdcf0eb0edbbb319bb560b0eccf6185ef8b8916b4f3276"
+    },
+    {
+      "asset": "book/assets/forces/rail-friction.png",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "d70ad244c573f0e143991522f25db36fb9dbe8cefed34ac3f511366fd695e595"
+    },
+    {
+      "asset": "book/assets/forces/stronger-pull-stacked.gif",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "5985c2c24f99d191b85b80db96327f5c8033052036f61cb0f507a0b0c154a3e9"
+    },
+    {
+      "asset": "book/assets/forces/stronger-pull-stacked.png",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "a7f2fcbd286c0e31a888d7989820282b09dbc9e17494f4ffc5f49ea16dbc61a0"
+    },
+    {
+      "asset": "book/assets/forces/stronger-pull.gif",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "9e985e554786165a041503a76df25cb71e5a5112947b0b72b063ca2af28e0f73"
+    },
+    {
+      "asset": "book/assets/forces/stronger-pull.png",
+      "source": "scripts/animate_drawer_forces.py",
+      "kind": "script-rendered",
+      "sha256": "8099b6c7fa6b03d2e6fa8d863f7f7bffda7f633885df75af79fe80d89bd9612f"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/early-render.png",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "5d35af97d8c64d491d6f9d5c8153b8a97d5097feb3fa6eb090a7849223778fa9"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/initial-blobs.png",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "80a89785286cd439df144bade0be7a964ab16a9523ab56f01d3b1431e086db76"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/later-render.png",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "8b8e415fb3cbe1a53e00c2ed7f3058f80149e3c3e9e5bdde8e8eb0ad84d61a8f"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/new-view.png",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "a77a3fe683257fec760b230cceade79f445d771ecbc498c4f6e3afad44753e9e"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/reference-front.png",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "88a39f81f15a37670892a3d23a16db89c56746adde8164090aac393f23b06b53"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/reference-left.png",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "4de07c7b4ffb8e3715df56ffdb8d41fb161b74a46a6f15d7465ed25518f8046b"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/reference-right.png",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "284ca0fd8374070073779d336aa57f0ccde9eadff7dbf6f1f3c71acadc327f8e"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/sparse-points.png",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "479e43d4ec1dc3d88011b7cf799ef61216c0e33bd0fc7f5e259559f3ac63ca74"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/triangulation.png",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "cea085fd2ed06701071310646b16476b5655e37da74711e6ddcc1ae56befb7ec"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/update-add.svg",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "e4e21c1445ffcbb166457daf46762929c4d061bf09e1f8c6d0ba40c7b6d3194c"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/update-adjust.svg",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "698eebffc6d4574624116788514b0d245f44eeb64179858046574b263cdd98af"
+    },
+    {
+      "asset": "book/assets/gaussian-learning/update-remove.svg",
+      "source": "scripts/draw_gaussian_learning.py",
+      "kind": "script-rendered",
+      "sha256": "7163b830cd8bc4959b92ce045ad94f44e79626f2479785ca7395bb9947529b36"
+    },
+    {
+      "asset": "book/assets/media/cabinet-motion.mp4",
+      "source": "scripts/animate_cabinet_intro.py",
+      "kind": "script-rendered",
+      "sha256": "96bddb21f44232412d4d5055bcfa22046161ca69150ac57f3db7128fccd2f78c"
+    },
+    {
+      "asset": "book/assets/media/cabinet-poster.png",
+      "source": "scripts/animate_cabinet_intro.py",
+      "kind": "script-rendered",
+      "sha256": "31cfd9b18e66d3015b73bfd0ae73a0455f4b502159f0b9d34282462d1186ec2d"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/camera-poses.png",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "c4d302bac38db7cbe4b0f9657a47bff70edda35b37bd568780d4b91e1308c949"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/field-samples.png",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "2f3f3ed027bf09950bb73e92f8831c3deec3f2a793e9e20fbfb09f67a3bbe2b8"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/front.png",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "2413f09606400db0dbf6f7fd952fce8b64e414dd033c2752f3d711ac791204b4"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/left.png",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "d56c9381daca216460ac98f93b50ff47b10529050ac43976d469d8eb6219aad8"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/network-query.svg",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "a9a2463362cc2742ca74484c6245da8d4a2920e77e7fa23704cc8f3319c28173"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/new-view.png",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "267f182dadc6a60fdf8d1990422336562a498448fb5712be2c72978e7753ea95"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/one-pixel.png",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "461d90875dcb3110572e2819bd0a1d0945652e5d58d727592f871c6b96744c13"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/point-inputs.png",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "01b89abc9d9839189cdd04485b3957b5dcfd728bc0baf63f0736d21eecf5eb84"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/ray-camera.png",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "0d28c711bf5d4e1ce6a877969c21ef552147b8e9bafa0fda9dade2199b945297"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/right.png",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "fe81a1307501b21464a4b71dfa28854569f7e1f8625eaabd0dd499128bacb896"
+    },
+    {
+      "asset": "book/assets/nerf-cabinet/trial-front.png",
+      "source": "scripts/draw_nerf_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "39e9f1df76889b4d8ff9738a4914765f3055c83f9e6139404b55b06c17345cf8"
+    },
+    {
+      "asset": "book/assets/projection/camera-moved.png",
+      "source": "scripts/animate_projection.py",
+      "kind": "script-rendered",
+      "sha256": "056e7e441563c3fd3f41111906c16d3716f3f5edd6f00143d47d5898597e72c5"
+    },
+    {
+      "asset": "book/assets/projection/edge-on.png",
+      "source": "scripts/animate_projection.py",
+      "kind": "script-rendered",
+      "sha256": "84e7e518656df1dc9e3f07d919f63c22413f5538ded9ea11a8237fc945cdeee2"
+    },
+    {
+      "asset": "book/assets/projection/face-on.png",
+      "source": "scripts/animate_projection.py",
+      "kind": "script-rendered",
+      "sha256": "aea3f9701d3436050629a8aed4c1767159ddb4e1f1a8e678a5adacb90fc0e798"
+    },
+    {
+      "asset": "book/assets/projection/projection-explained.mp4",
+      "source": "scripts/animate_projection.py",
+      "kind": "script-rendered",
+      "sha256": "af8a7d2be4f9e32f60146fa0ff593e3fe024c0b82f5abf38c187daea615ebb1f"
+    },
+    {
+      "asset": "book/assets/projection/rays.png",
+      "source": "scripts/animate_projection.py",
+      "kind": "script-rendered",
+      "sha256": "3fb9b51f74fcea37331689309b33dcb05792890783d1968ab4ca7e392feb064d"
+    },
+    {
+      "asset": "book/assets/projection/setup.png",
+      "source": "scripts/animate_projection.py",
+      "kind": "script-rendered",
+      "sha256": "b18fefab5f2da2761fe74a437087943f6f31539c35339b0a5d489a9dbdf292bc"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/cabinet-projection.mp4",
+      "source": "scripts/animate_gaussian_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "f9ea2c18349210303ee2688b7e50819de6de5b3aecc44420f416b226300e2efe"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/cabinet.png",
+      "source": "scripts/animate_gaussian_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "3206695bc642329e637a8654dd5b1e9335bd264045b4928062c172923cd4c529"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/camera-moved.png",
+      "source": "scripts/animate_gaussian_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "2d89607f493282a59a6ad1f6f30c4f780f22dbab65ca102a28e8981c8166cd8c"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/one-blob.png",
+      "source": "scripts/animate_gaussian_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "dc557968d35721d9cff320ae49ba3148a050601a13ff4baed406c67505fd610f"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-000.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "5dd1ef879dcd4ccebf7c6a44e8cc8e93b4e1fd475d7c505da1a13fe3acb5c053"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-005.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "6ca1c80e104c5f7416db16fb7e145ff7f9f8ad6f52ae73330c6d0cc7c1323105"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-010.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "efd1c10c6330e8c9ef8927c837bcfb63736cb38b538549be7a47237f3428554d"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-015.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "7418ddca024c464f848f46d110552a957006bffe19ebcf1d9bd67d14bd690e09"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-020.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "71f7155eb864d0944a285e895584b53e3c08ccfe5035b65afc7e58ef0743be69"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-025.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "28d7ff0410638b05a996c14843929ee8da5345da3cdfb79493ff4c52090c5c43"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-030.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "9ddd7cccba42fcf57e8e1ab4ce6ef6b501803541631f35d37c5e780e0e8812b9"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-035.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "7dbae2ddeeef9f3ff2c5a3b80498a8436cd9a84277263b962ab03a756ebef1d6"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-040.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "d53f605fcd5fb789d6973c4060d14cbea80f10d5d75e292919c20c1a42fb9888"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-045.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "ce478f91e58cdbbaaabe278e2945b46791c091bc4db9a4de9ee6142364f709a2"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-050.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "439c1caa5105fbe05424ff7defd5008586d30d534eb66f5a172e7580ad6ccda5"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-055.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "ef065e7c6274c1d28b5b4f343fa8884d87f49422b617e495d0cc8b4aa71ed44d"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-060.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "b53f16f25efac7fa77d8225c7b78984f5112bc2ff26bf0f8fe749caa1b401bb8"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-065.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "de13041ed67b66d886877a04a09e74c5802e2fe493fcfb9e388eeb86c8c2d195"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-070.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "8f60d55c8811a0c90d77af11515a6dd2024cd525e63e8c82ac39a0e778d9408a"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-075.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "fcd01caeb02239d2df3f55f1475b436bd78d5977c1172d1322c2240228250365"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-080.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "a503edc093a6a45acd7e83bd4b88e2d1ec70f44affb59f82c12ea20085c14059"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-085.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "60bed0005daef58b18a228cea7f60ed9c5778f51abe44bba80afdf63fef6593f"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-090.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "be6dac5293489cb6ef6d4ac0cc4a34e4f4e9a822aef2ac7f832909ce85fd1b06"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-095.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "91f4b884df5a5701d7d444ea53cda200eb9231ce64bc3f8a64a01912747b47da"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/opacity/cabinet-100.webp",
+      "source": "scripts/draw_cabinet_opacity.py",
+      "kind": "script-rendered",
+      "sha256": "9122637bbd51e3c7c6327c7f342b39101c0bea05c16ba9ee2edfa2098c555c48"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/projection.png",
+      "source": "scripts/animate_gaussian_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "812fd9ecea372a75ede77c1363125302c1a57550593c2f09fbb57d80d7f898b2"
+    },
+    {
+      "asset": "book/assets/projection-cabinet/three-views.png",
+      "source": "scripts/animate_gaussian_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "5647d82a0fbd5ed9e16b2638eb4e6834bd340ef15372a742dcc002b6fcd31eee"
+    },
+    {
+      "asset": "book/assets/simulation-workflow/cabinet-parts.png",
+      "source": "scripts/draw_simulation_workflow.py",
+      "kind": "script-rendered",
+      "sha256": "939bc8a9832602fdcdb455761492442096ca3cc96605e2df551db767ddc3dd93"
+    },
+    {
+      "asset": "book/assets/simulation-workflow/collision-filled.png",
+      "source": "scripts/draw_simulation_workflow.py",
+      "kind": "script-rendered",
+      "sha256": "235b9a56ccf4fa5d3699d67b4b53965e94855f4727b396ab82ffe908adc4ec8c"
+    },
+    {
+      "asset": "book/assets/simulation-workflow/collision-open.png",
+      "source": "scripts/draw_simulation_workflow.py",
+      "kind": "script-rendered",
+      "sha256": "fa9b7a5fd7b9c173daf7b5fef4ef2ccfe2b353b4fbe3d26913ba2e1ffe1bd000"
+    },
+    {
+      "asset": "book/assets/simulation-workflow/handle-blocked.png",
+      "source": "scripts/draw_simulation_workflow.py",
+      "kind": "script-rendered",
+      "sha256": "ec191ef738cdf3d45c7c4cf9bf75b78943e1ba3c2114c6e186ed21e52f7096e9"
+    },
+    {
+      "asset": "book/assets/simulation-workflow/handle-open.png",
+      "source": "scripts/draw_simulation_workflow.py",
+      "kind": "script-rendered",
+      "sha256": "de02f044986b04dce91d6b4d3db6ea7560ac588d036295605d7ddc21190d8ad5"
+    }
+  ]
+}

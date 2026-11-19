@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Text-only LLM → VLM → VLA · Why Simulation?</title>
+  <title>From instructions to robot actions · Why Simulation?</title>
   <meta name="description" content="From language and images to robot actions: why opening a drawer leads us to simulation.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=7ab077eae5cc">
-  <script src="assets/book.js?v=7ab077eae5cc" defer></script>
-  <script src="assets/articulation.js?v=7ab077eae5cc" defer></script>
-  <script src="assets/frames.js?v=7ab077eae5cc" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=e5e01c5acb33">
+  <script src="assets/book.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/articulation.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/frames.js?v=e5e01c5acb33" defer></script>
 
 </head>
-<body>
+<body data-review-additions="false">
   <a class="skip-link" href="#main">Skip to content</a>
   <aside id="sidebar" class="sidebar" aria-label="Book contents">
     <a class="book-name" href="overview.html">Why Simulation?</a>
-    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">1.</span>Text-only LLM → VLM → VLA</a></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">2.</span>3D generation</span><ol class="chapter-children"><li><a class="chapter-link" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>From an image to a usable 3D object</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.4</span>3D Gaussian Splatting: build a scene, then render new views</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">3.5</span>From animation to simulation</a></li></ol></li></ol></nav>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="#chapter-start"><span class="nav-number">1.</span>From instructions to robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">2.8</span>From 3D shape to a movable object</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
     <div class="sidebar-links">
       <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
       <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
@@ -39,7 +39,7 @@
         <ul id="search-results"></ul>
       </div>
       <article><header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">1.</span> Text-only LLM → VLM → VLA</h1>
+  <h1 class="draft-addition"><span class="chapter-number">1.</span> From instructions to robot actions</h1>
   <p class="lead">Suppose we ask a robot to open a drawer. It needs to understand the request, find the handle, and move its arm. These three kinds of model help explain those different abilities.</p>
 </header>
 
@@ -140,10 +140,10 @@
     <div><dt>Physical properties</dt><dd>Mass, friction, and contact settings help determine how the object responds to a force.</dd></div>
   </dl>
   <p>The diagram above illustrates the command-and-feedback loop. Later, we will calculate the drawer’s movement from forces.</p>
-  <p class="section-connection">That is the path through the next two sections: <a href="3d-generation.html">3D generation</a> explains the object’s shape; <a href="index.html">Articulated objects</a> adds its moving parts and joints, then <a href="animation-and-simulation.html#pull-the-drawer">forces and simulated motion</a>.</p>
+  <p class="section-connection draft-addition">The next chapters follow that process: <a href="3d-generation.html">Chapter 2</a> introduces 3D representations and how to create them; <a href="index.html">Chapter 3</a> describes its parts and joints; <a href="animation-and-simulation.html">Chapter 4</a> adds forces, simulated motion, and robot interaction.</p>
 </section>
 </article>
-      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="overview.html">← Overview</a><a href="3d-generation.html">From an image to a usable 3D object →</a></nav>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="overview.html">← Overview</a><a href="3d-generation.html">How do we represent a 3D cabinet? →</a></nav>
       <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/llm-vlm-vla.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
     </main>
   </div>

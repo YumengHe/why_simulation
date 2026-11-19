@@ -1,10 +1,10 @@
 <header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">3.5</span> From animation to simulation</h1>
+  <h1><span class="chapter-number">4.1</span> From animation to simulation</h1>
   <p class="lead">A box moves down toward a table. We can create that movement in two different ways.</p>
 </header>
 
 <section id="two-ways-to-move" data-title="Two ways to move a box">
-  <h2><span class="section-number">3.5.1</span> Two ways to move a box</h2>
+  <h2><span class="section-number">4.1.1</span> Two ways to move a box</h2>
   <div class="physics-comparison" id="physics-comparison">
     <figure>
       <h3>We choose the positions</h3>
@@ -29,7 +29,7 @@
 </section>
 
 <section id="change-the-scene" data-title="Change the scene">
-  <h2><span class="section-number">3.5.2</span> Change the scene</h2>
+  <h2><span class="section-number">4.1.2</span> Change the scene</h2>
   <h3>Raise the table</h3>
   <p><strong>On the left,</strong> the box keeps following its saved path. It passes through the raised tabletop because we have not changed its positions or added a contact rule.</p>
   <p><strong>On the right,</strong> the box meets the higher table sooner and rests on its surface. The simulator calculates a new result from the changed scene.</p>
@@ -40,11 +40,11 @@
 </section>
 
 <section id="back-to-the-drawer" data-title="Back to the drawer">
-  <h2><span class="section-number">3.5.3</span> Back to the drawer</h2>
-  <p>The cabinet GIFs in the previous chapter work like the box on the left. We choose the drawer’s opening distance, <strong>q</strong>, at each moment: closed, a little open, farther open, and back again.</p>
+  <h2><span class="section-number">4.1.3</span> Back to the drawer</h2>
+  <p>The cabinet GIFs in <a href="changing-urdf.html">Chapter 3</a> work like the box on the left. We choose the drawer’s opening distance, <strong>q</strong>, at each moment: closed, a little open, farther open, and back again.</p>
   <p>To simulate a pull, we give the drawer mass, describe friction, and apply a pulling force. Its joint still restricts it to sliding. The simulator calculates how fast it moves and how its opening distance changes. The examples below do this.</p>
   <div class="physics-drawer-summary">
-    <p><strong>Our current GIF</strong>We choose q → draw the drawer there.</p>
+    <p><strong>Chapter 3 animations</strong>We choose q → draw the drawer there.</p>
     <p><strong>Physics simulation</strong>We apply a pull → calculate the movement → get q.</p>
   </div>
   <p><strong>A simulation can also produce an animation.</strong> Either result can be saved as a GIF or video. The difference is how the positions were produced.</p>
@@ -52,7 +52,7 @@
 </section>
 
 <section id="pull-the-drawer" data-title="Pull the drawer">
-  <h2><span class="section-number">3.5.4</span> Pull the drawer</h2>
+  <h2><span class="section-number">4.1.4</span> Pull the drawer</h2>
   <p><strong>A force is a push or a pull.</strong> We measure it in newtons, written <strong>N</strong>. A 3 N pull is three times as strong as a 1 N pull. It does not tell us how many centimeters the drawer will open.</p>
   <p>Here we pull each drawer for <strong>half a second</strong>, then let go. Both start closed and still. Both have a mass of 2 kg, and we leave out friction for this first comparison.</p>
   <figure class="urdf-plate force-plate">
@@ -71,7 +71,7 @@
 </section>
 
 <section id="drawer-mass" data-title="Same pull, different mass">
-  <h2><span class="section-number">3.5.5</span> Same pull, different mass</h2>
+  <h2><span class="section-number">4.1.5</span> Same pull, different mass</h2>
   <p>Now keep the pull the same: <strong>3 N for half a second</strong>. Change only the moving mass, from <strong>2 kg to 4 kg</strong>. Think of adding items to the drawer. Friction is still left out so we can see the effect of mass by itself.</p>
   <figure class="urdf-plate force-plate">
     <a href="assets/forces/heavier-drawer.gif" data-enlarge aria-label="Enlarge the comparison of lighter and heavier drawers">
@@ -88,7 +88,7 @@
 </section>
 
 <section id="drawer-friction" data-title="Friction can resist the pull">
-  <h2><span class="section-number">3.5.6</span> Friction can resist the pull</h2>
+  <h2><span class="section-number">4.1.6</span> Friction can resist the pull</h2>
   <p>Have you pulled a drawer gently and found that it would not budge? <strong>Friction can balance a weak pull and keep the drawer still.</strong> Once the drawer slides, friction acts against that sliding movement.</p>
   <p>Both drawers below have a mass of <strong>2 kg</strong> and receive the same <strong>3 N pull</strong>. Only the friction in their rails changes.</p>
   <figure class="urdf-plate force-plate">
@@ -107,7 +107,7 @@
 </section>
 
 <section id="after-letting-go" data-title="What happens after letting go?">
-  <h2><span class="section-number">3.5.7</span> What happens after letting go?</h2>
+  <h2><span class="section-number">4.1.7</span> What happens after letting go?</h2>
   <p><strong>Removing the pull does not instantly stop a moving drawer.</strong> In this example, both drawers are already moving outward at <strong>40 cm per second</strong>. They are both 10 cm open when we let go.</p>
   <figure class="urdf-plate force-plate">
     <a href="assets/forces/after-release.gif" data-enlarge aria-label="Enlarge the drawers moving after the pull is removed">
@@ -124,3 +124,5 @@
   <p>The sliding joint still has <strong>one degree of freedom</strong>: q tells us the opening distance. The force changes how q develops over time; it does not add another degree of freedom.</p>
   <p class="urdf-source-links"><a href="https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law">Force and mass ↗</a><a href="https://openstax.org/books/university-physics-volume-1/pages/6-2-friction">Friction ↗</a><a href="https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law">Motion after release ↗</a></p>
 </section>
+
+<p class="section-connection"><a href="preparing-simulation.html">Next: preparing a simulation model.</a> The examples show how force, mass, and resistance affect motion. We now prepare the cabinet information a simulator needs to calculate that response.</p>

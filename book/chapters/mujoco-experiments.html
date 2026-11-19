@@ -1,0 +1,62 @@
+<header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">4.3</span> MuJoCo experiments</h1>
+  <p class="lead">The model from Section 4.2 describes the cabinet. A test script loads it, applies a chosen force, and asks MuJoCo to calculate the motion. Those calculated positions can then be rendered as a video.</p>
+</header>
+
+<span id="what-is-mujoco" aria-hidden="true"></span>
+
+<section class="simulation-lesson" id="mujoco-test-environment" data-title="Set up the experiment">
+  <h2><span class="section-number">4.3.1</span> Set up the experiment</h2>
+<p>One practical setup uses <strong>MuJoCo with a Python test script</strong> on a computer:</p>
+  <ul>
+    <li><strong>The model file describes the cabinet:</strong> its parts, joints, collision shapes, mass, and resistance.</li>
+    <li><strong>The Python script sets up the test:</strong> load the model, start the drawer closed and still, apply the chosen pulling force for a set duration, and ask MuJoCo to advance the simulation.</li>
+    <li><strong>MuJoCo calculates the motion:</strong> the script can record opening distance and speed, while a viewer window displays the cabinet moving.</li>
+  </ul>
+  <p>For a mass comparison, load the 2 kg version and run the pull. Then load the 4 kg version and repeat from the same starting state, keeping the force, geometry, and resistance settings unchanged. The two runs show how the assumed mass affects the result. <a href="https://mujoco.readthedocs.io/en/stable/python.html">MuJoCo’s Python interface and viewer.</a></p>
+</section>
+
+<section class="simulation-lesson" id="direct-pull-duration" data-title="Calculate the drawer’s motion">
+  <h2><span class="section-number">4.3.2</span> Calculate the drawer’s motion</h2>
+<p>For a simple experiment, start with the drawer closed and still. Apply an outward <strong>3 N force for 0.5 seconds</strong>, then remove that force. A newton (N) measures force. Continue the simulation until <strong>2 seconds of simulated time</strong> to observe what happens after the pull ends. These are example settings for the experiment.</p>
+  <p>MuJoCo calculates the motion in small time steps. At each step, the drawer has an opening distance and a speed; together, these describe its <strong>state</strong>. “Current” and “next” refer to the same drawer at two nearby times, not simply to “closed” and “open.”</p>
+  <div class="gs-loop" aria-label="Repeat physics steps until the experiment reaches two seconds">
+    <div><strong>Now</strong><span>Drawer opening and speed now</span></div><span aria-hidden="true">→</span>
+    <div><strong>Calculate a small step</strong><span>Use the current force, mass, resistance, contacts, and joint limits</span></div><span aria-hidden="true">→</span>
+    <div><strong>A moment later</strong><span>Opening and speed a small time step later</span></div>
+    <p>Continue from that new opening and speed. Each step advances time a little; this experiment stops at 2 seconds.</p>
+  </div>
+  <p><strong>Ending the pull does not end the simulation.</strong> After 0.5 seconds, the applied pulling force is zero, but the drawer may still be moving. Later steps calculate whether it slows down, stops, or reaches its joint limit.</p>
+  <p>The experiment chooses when to stop stepping. Here it stops at 2 seconds, even if the drawer is still moving. Another test could stop when a target opening is reached, with a time limit if it never gets there. <a href="https://mujoco.readthedocs.io/en/stable/programming/simulation.html#simulation-loop">MuJoCo’s simulation loop.</a></p>
+</section>
+
+<section class="simulation-lesson" id="drawer-motion-output" data-title="Record opening distance over time">
+  <h2><span class="section-number">4.3.3</span> Record opening distance over time</h2>
+<p>At each step, we can record the time, the drawer’s opening distance <strong>q</strong>, and its speed. Together, these records describe its <strong>motion over time</strong>: how far it opened during the pull and what happened after release. <a href="animation-and-simulation.html#pull-the-drawer">Section 4.1 shows calculated drawer examples.</a></p>
+  <p>The <strong>allowed range</strong>, such as 0–50 cm, is an input specified by the joint. The <strong>actual opening at each moment</strong> is a result of the simulation. A 50 cm limit does not mean this pull will open the drawer by 50 cm.</p>
+
+    <p class="section-connection">These calculated positions are the input to <a href="#simulation-render">Section 4.3.4</a>: the renderer draws the cabinet at each saved position to make the frames of a video.</p>
+</section>
+
+<section class="simulation-lesson" id="simulation-render" data-title="Turn the calculated positions into images">
+  <h2><span class="section-number">4.3.4</span> Turn the calculated positions into images</h2>
+<p><a href="#drawer-motion-output">Section 4.3.3</a> gives opening distances over time. To make a video frame, place the visible drawer at the position calculated for that frame’s time. A <strong>renderer</strong> uses those shapes, their appearance, lighting, and a camera to make a 2D frame. Save a sequence of frames to make a video. MuJoCo has its own renderer, so a separate rendering application is not required. <a href="https://mujoco.readthedocs.io/en/stable/programming/rendering.html">MuJoCo rendering.</a></p>
+  <div class="generation-flow" aria-label="Physics output becomes rendered video frames">
+    <div><strong>MuJoCo physics</strong><br>Calculates a new drawer pose</div><span aria-hidden="true">→</span>
+    <div><strong>Mesh + renderer</strong><br>Draws that pose from a camera</div><span aria-hidden="true">→</span>
+    <div><strong>2D frame</strong><br>Many frames make a video</div>
+  </div>
+  <p>Changing only the camera makes a different picture of the same state. Changing the pull, mass, or friction can change the movement itself. This is why rendering and physics occupy different places in the workflow.</p>
+  <h3>Where all the names fit</h3>
+  <ol class="simulation-toolchain" aria-label="One complete workflow connecting the tools and the data passed between them">
+    <li><strong>TRELLIS · create the asset</strong><span>Cabinet image → a proposed mesh</span></li>
+    <li><strong>Blender · prepare the geometry</strong><span>Mesh → separate body, drawer, and door shapes, at the correct scale</span></li>
+    <li><strong>Model preparation · write an MJCF model</strong><span>Part shapes + joints + collision shapes + physical settings → a simulation model</span></li>
+    <li><strong>MuJoCo · calculate the movement</strong><span>Simulation model + initial state + pull → positions and speeds over time</span></li>
+    <li><strong>Renderer · make the pictures</strong><span>Those positions + visible geometry + appearance + camera and lighting → video frames</span></li>
+  </ol>
+  <p>The preparation between a generated mesh and a simulation is real work; a file conversion alone does not complete it.</p>
+  <p>With NeRF or 3DGS, the beginning changes: <strong>photos → fit a scene → render new views</strong> already gives a visual result. To simulate a moving drawer, add the same physical structure described here. Keeping its learned appearance on moving parts requires an additional way to associate and move that appearance with each part.</p>
+  <p>Finally, check the test: does the drawer follow the rail, stay attached, and stop near its limit? Are there unintended overlaps? If we have a real cabinet, compare the same pull in both. When they disagree, revisit the geometry or physical settings instead of judging the simulation only by how good its video looks.</p>
+  <p class="section-connection"><a href="robot-interaction.html">Next: robot interaction and control.</a> The direct-force experiment tests the drawer on its own. A grasping experiment adds a robot whose contact with the handle supplies the pull.</p>
+</section>

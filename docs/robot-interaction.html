@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Robot interaction and control · Why Simulation?</title>
+  <meta name="description" content="Connect robot actions, a controller, simulated contact, and new camera observations.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=e5e01c5acb33">
+  <script src="assets/book.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/articulation.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/frames.js?v=e5e01c5acb33" defer></script>
+
+</head>
+<body data-review-additions="false">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>From instructions to robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">2.8</span>From 3D shape to a movable object</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">4.4</span> Robot interaction and control</h1>
+  <p class="lead">The previous experiment applied a force directly to the drawer. To test a robot opening it, the model must also include the arm, gripper, and their contact with the handle.</p>
+</header>
+
+<section class="simulation-lesson" id="robot-pull-control" data-title="Add the robot to the scene">
+  <h2><span class="section-number">4.4.1</span> Add the robot to the scene</h2>
+<p>The direct test supplies a force to the drawer without modeling a hand. To study a grasp, add a robot arm and gripper to the same scene, with their joints, physical properties, and collision shapes. <strong>MuJoCo then simulates both the robot and the cabinet, including contact between them.</strong></p>
+</section>
+
+<section class="simulation-lesson" id="robot-controller" data-title="From an action to a physical response">
+  <h2><span class="section-number">4.4.2</span> From an action to a physical response</h2>
+<p>A <strong>controller</strong> is the program that tries to carry out a requested robot movement. For example, “move the gripper 10 cm outward while keeping it closed” must become control signals for the simulated robot’s motors. The controller uses the robot’s current state to update those signals.</p>
+  <ol class="simulation-loop" aria-label="Robot action, control, simulation, and observation">
+    <li><strong>Choose an action.</strong> A predefined program can request the movement. A VLA can instead propose it from the camera image and an instruction, as in <a href="llm-vlm-vla.html#vision-language-action-models">Section 1.3</a>.</li>
+    <li><strong>The controller tries to execute it.</strong> It sends control signals to move the arm and keep the gripper closed.</li>
+    <li><strong>MuJoCo calculates the response.</strong> The simulated motors move the robot; contact with the handle can transfer the pull to the drawer. The grip may hold or slip, and the drawer may move or stay stuck.</li>
+    <li><strong>Observe the result.</strong> Read the new robot and drawer positions. A renderer can make the next camera image for a VLA to use when choosing another action.</li>
+  </ol>
+  <p><strong>A VLA is optional.</strong> It is one way to choose actions; a simple programmed sequence can also drive this test. A requested action can span many physics steps, so a new VLA prediction is not required at every step. <a href="https://openvla.github.io/">OpenVLA</a> is an example action model; <a href="https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model">MuJoCo’s actuation model</a> describes how control inputs produce simulated forces.</p>
+  <p>The robot test also needs a stopping rule, such as reaching the desired opening or running out of allotted simulated time. Both tests produce motion over time; in the robot test, the pull comes through the modeled robot and its contact with the handle.</p>
+</section>
+
+<p class="section-connection">This returns to the task in <a href="llm-vlm-vla.html#vision-language-action-models">Chapter 1</a>: a model can propose an action, a controller tries to carry it out, and the simulated scene determines the resulting motion. The next camera image shows the outcome of that interaction.</p>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="mujoco-experiments.html">← MuJoCo experiments</a></nav>
+      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/robot-interaction.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

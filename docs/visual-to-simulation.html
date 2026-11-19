@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From 3D shape to a movable object · Why Simulation?</title>
+  <meta name="description" content="Connect reconstructed shape to articulated parts in Chapter 3 and physics simulation in Chapter 4.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=e5e01c5acb33">
+  <script src="assets/book.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/articulation.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/frames.js?v=e5e01c5acb33" defer></script>
+<script>(() => { const routes = {"simulation-parts": "preparing-simulation.html", "space-for-the-drawer": "preparing-simulation.html", "vertices-edges-faces": "preparing-simulation.html", "create-collision-shapes": "preparing-simulation.html", "prepare-contact-pieces": "preparing-simulation.html", "check-collision-shapes": "preparing-simulation.html", "painted-and-raised-handle": "preparing-simulation.html", "handle-and-finger-contact": "preparing-simulation.html", "simulation-properties": "preparing-simulation.html", "what-is-mujoco": "mujoco-experiments.html", "mujoco-test-environment": "mujoco-experiments.html", "direct-pull-duration": "mujoco-experiments.html", "drawer-motion-output": "mujoco-experiments.html", "simulation-render": "mujoco-experiments.html", "robot-pull-control": "robot-interaction.html"}; function redirect() { const hash = location.hash.slice(1); if (routes[hash]) location.replace(routes[hash]+location.hash); } redirect(); addEventListener("hashchange", redirect); })();</script>
+
+</head>
+<body data-review-additions="false">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>From instructions to robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">2.8</span>From 3D shape to a movable object</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">2.8</span> From 3D shape to a movable object</h1>
+  <p class="chapter-purpose draft-addition"><strong>Chapter conclusion</strong> · Connection to articulated objects</p>
+  <p class="lead">A reconstructed cabinet can look convincing from several views. To open its drawer, we also need to describe which part moves, how it is connected, and how it responds to a pull.</p>
+</header>
+
+<section class="simulation-lesson" id="simulation-asset" data-title="What reconstruction gives us">
+  <h2><span class="section-number">2.8.1</span> What reconstruction gives us</h2>
+  <p class="draft-addition">Chapter 2 introduced representations, then methods that reconstruct or generate them. A generator such as <a href="https://microsoft.github.io/TRELLIS/">TRELLIS</a> can propose a mesh from an image. <a href="gaussian-splatting.html">3DGS</a> and <a href="nerf.html">NeRF</a> can fit a scene to photographs and render it from new camera positions.</p>
+  <p>These outputs describe shape or appearance. They do not automatically tell us that the blue drawer should slide independently of the cabinet body, or how far a pull will move it.</p>
+  <p>For the cabinet examples that follow, we use meshes for the visible parts. A 3D editor such as Blender can help separate or rebuild those parts and check their size. A closed-cabinet reconstruction may omit the drawer’s hidden tray or the space inside the body; those details need to be checked and, where necessary, added.</p>
+</section>
+
+<section class="simulation-lesson" id="movable-cabinet" data-title="From a cabinet shape to moving parts">
+  <h2><span class="section-number">2.8.2</span> What makes the drawer movable?</h2>
+  <figure class="nerf-wide-figure">
+    <a href="assets/simulation-workflow/cabinet-parts.png" data-enlarge aria-label="Enlarge the cabinet, drawer, and door"><img src="assets/simulation-workflow/cabinet-parts.png" width="1000" height="610" alt="A blue drawer pulled out of a teal cabinet body, above a gold door." loading="lazy"></a>
+    <figcaption>The drawer is a separate moving part. Its front, tray, and handle move together.</figcaption>
+  </figure>
+  <p>A sliding joint connects the drawer to the body and restricts it to moving along the rails. Its limit specifies how far it is allowed to open. This is an <strong>articulated object</strong>: parts connected by joints that describe their relative movement.</p>
+  <p>The joint still does not say what happens under a particular pull. That also depends on properties such as mass and friction, and on contact with other objects. Those are inputs to a physics simulation.</p>
+</section>
+
+<section class="simulation-lesson" id="from-shape-to-motion" data-title="Shape, articulation, and simulation">
+  <h2><span class="section-number">2.8.3</span> From shape to motion</h2>
+  <ol class="simulation-roadmap">
+    <li><a href="3d-generation.html"><strong>Chapter 2 · 3D representations and creation</strong><span>Build the cabinet’s shape and appearance.</span></a></li>
+    <li><a href="index.html"><strong>Chapter 3 · Articulated objects</strong><span>Separate its parts and describe their joints, directions, and limits.</span></a></li>
+    <li><a href="animation-and-simulation.html"><strong>Chapter 4 · Simulation</strong><span>Prepare contact and physical properties, apply a force, and calculate the movement.</span></a></li>
+  </ol>
+  <p>For the drawer, the distinction is concrete: <strong>shape</strong> describes the drawer and handle; <strong>articulation</strong> lets the drawer slide; <strong>simulation</strong> calculates how it moves when pulled.</p>
+  <p class="section-connection"><a href="index.html">Next: parts, joints, and motion.</a> We begin by describing the cabinet’s moving parts and how they connect. The force experiments follow in Chapter 4.</p>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="generating-3d-assets.html">← Generate an asset with a pretrained model</a><a href="index.html">Parts, joints, and motion →</a></nav>
+      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/visual-to-simulation.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

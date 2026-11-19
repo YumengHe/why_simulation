@@ -1,0 +1,12 @@
+{
+  "generator": "scripts/render_cabinet_comparison.py",
+  "source": "Explicit cabinet geometry, with the same box layout and colors as animate_gaussian_cabinet.py.",
+  "reference": "A front-view mesh render, not a photograph or image-model output.",
+  "comparison": "Mesh and Gaussian representations use the same camera (24 degrees), lens, dimensions, and face colors.",
+  "limitation": "Scripted teaching representations; not TRELLIS predictions or learned reconstruction results.",
+  "size": [
+    528,
+    700
+  ],
+  "mesh_triangles": 156
+}

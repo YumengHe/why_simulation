@@ -10,18 +10,20 @@
     },
     {
       "number": "1",
-      "title": "Text-only LLM → VLM → VLA",
+      "title": "From instructions to robot actions",
       "source": "chapters/llm-vlm-vla.html",
       "output": "llm-vlm-vla.html",
-      "description": "From language and images to robot actions: why opening a drawer leads us to simulation."
+      "description": "From language and images to robot actions: why opening a drawer leads us to simulation.",
+      "review_added": true
     },
     {
       "number": "2.1",
-      "title": "From an image to a usable 3D object",
+      "title": "How do we represent a 3D cabinet?",
       "source": "chapters/3d-generation.html",
       "output": "3d-generation.html",
-      "description": "From an image to a usable 3D object",
-      "group": "3d-generation"
+      "description": "Compare point clouds, meshes, 3D Gaussians, and radiance fields before studying how to create them.",
+      "group": "3d-generation",
+      "review_added": true
     },
     {
       "number": "2.2",
@@ -37,18 +39,53 @@
       "source": "chapters/rendering.html",
       "output": "rendering.html",
       "description": "How a 3D model produces a 2D image",
-      "group": "3d-generation"
-    },
-    {
-      "number": "2.4",
-      "title": "3D Gaussian Splatting: build a scene, then render new views",
-      "source": "chapters/gaussian-splatting.html",
-      "output": "gaussian-splatting.html",
-      "description": "3D Gaussian Splatting: build a scene, then render new views",
       "group": "3d-generation",
       "scripts": [
         "representation-demo.js"
       ]
+    },
+    {
+      "number": "2.4",
+      "title": "Recover cameras and geometry",
+      "source": "chapters/cameras-and-geometry.html",
+      "output": "cameras-and-geometry.html",
+      "description": "Use cabinet photographs to understand COLMAP and VGGT, and follow their outputs into 3DGS and NeRF.",
+      "group": "3d-generation",
+      "review_added": true
+    },
+    {
+      "number": "2.5",
+      "title": "Reconstruct a cabinet with 3DGS",
+      "source": "chapters/gaussian-splatting.html",
+      "output": "gaussian-splatting.html",
+      "description": "Use prepared cameras and points to initialize, fit, and save a cabinet Gaussian representation.",
+      "group": "3d-generation",
+      "review_added": true
+    },
+    {
+      "number": "2.6",
+      "title": "NeRF: from cabinet photos to new views",
+      "source": "chapters/nerf.html",
+      "output": "nerf.html",
+      "description": "Follow a cabinet through input photos, camera poses, 3D queries, volume rendering, training, and new views.",
+      "group": "3d-generation"
+    },
+    {
+      "number": "2.7",
+      "title": "Generate an asset with a pretrained model",
+      "source": "chapters/generating-3d-assets.html",
+      "output": "generating-3d-assets.html",
+      "description": "Connect pretrained generation with mesh, Gaussian, and radiance-field outputs using TRELLIS.",
+      "group": "3d-generation",
+      "review_added": true
+    },
+    {
+      "number": "2.8",
+      "title": "From 3D shape to a movable object",
+      "source": "chapters/visual-to-simulation.html",
+      "output": "visual-to-simulation.html",
+      "description": "Connect reconstructed shape to articulated parts in Chapter 3 and physics simulation in Chapter 4.",
+      "group": "3d-generation"
     },
     {
       "number": "3.1",
@@ -83,7 +120,7 @@
       "group": "articulated-objects"
     },
     {
-      "number": "3.5",
+      "number": "4.1",
       "title": "From animation to simulation",
       "source": "chapters/animation-and-simulation.html",
       "output": "animation-and-simulation.html",
@@ -91,20 +128,117 @@
         "physics-demo.js"
       ],
       "description": "Compare chosen positions with simulated motion, then see how pulling force, mass, friction, and letting go change a drawer’s movement.",
-      "group": "articulated-objects"
+      "group": "simulation"
+    },
+    {
+      "number": "4.2",
+      "title": "Preparing a simulation model",
+      "source": "chapters/preparing-simulation.html",
+      "output": "preparing-simulation.html",
+      "description": "Prepare a cabinet’s parts, collision shapes, physical properties, and starting pose.",
+      "group": "simulation"
+    },
+    {
+      "number": "4.3",
+      "title": "MuJoCo experiments",
+      "source": "chapters/mujoco-experiments.html",
+      "output": "mujoco-experiments.html",
+      "description": "Load a cabinet model, apply a pull, record opening distance over time, and render the calculated motion.",
+      "group": "simulation"
+    },
+    {
+      "number": "4.4",
+      "title": "Robot interaction and control",
+      "source": "chapters/robot-interaction.html",
+      "output": "robot-interaction.html",
+      "description": "Connect robot actions, a controller, simulated contact, and new camera observations.",
+      "group": "simulation"
     }
   ],
   "groups": {
     "3d-generation": {
       "number": "2",
-      "title": "3D generation"
+      "title": "3D representations, reconstruction & generation",
+      "review_added": true
     },
     "articulated-objects": {
       "number": "3",
       "title": "Articulated objects"
+    },
+    "simulation": {
+      "number": "4",
+      "title": "Simulation"
     }
   },
   "legacy_fragment_groups": {
     "3d-generation.html": "3d-generation"
-  }
+  },
+  "legacy_fragment_redirects": {
+    "visual-to-simulation.html": {
+      "simulation-parts": "preparing-simulation.html",
+      "space-for-the-drawer": "preparing-simulation.html",
+      "vertices-edges-faces": "preparing-simulation.html",
+      "create-collision-shapes": "preparing-simulation.html",
+      "prepare-contact-pieces": "preparing-simulation.html",
+      "check-collision-shapes": "preparing-simulation.html",
+      "painted-and-raised-handle": "preparing-simulation.html",
+      "handle-and-finger-contact": "preparing-simulation.html",
+      "simulation-properties": "preparing-simulation.html",
+      "what-is-mujoco": "mujoco-experiments.html",
+      "mujoco-test-environment": "mujoco-experiments.html",
+      "direct-pull-duration": "mujoco-experiments.html",
+      "drawer-motion-output": "mujoco-experiments.html",
+      "simulation-render": "mujoco-experiments.html",
+      "robot-pull-control": "robot-interaction.html"
+    },
+    "3d-generation.html": {
+      "simulation-parts": "preparing-simulation.html",
+      "space-for-the-drawer": "preparing-simulation.html",
+      "vertices-edges-faces": "preparing-simulation.html",
+      "create-collision-shapes": "preparing-simulation.html",
+      "prepare-contact-pieces": "preparing-simulation.html",
+      "check-collision-shapes": "preparing-simulation.html",
+      "painted-and-raised-handle": "preparing-simulation.html",
+      "handle-and-finger-contact": "preparing-simulation.html",
+      "simulation-properties": "preparing-simulation.html",
+      "what-is-mujoco": "mujoco-experiments.html",
+      "mujoco-test-environment": "mujoco-experiments.html",
+      "direct-pull-duration": "mujoco-experiments.html",
+      "drawer-motion-output": "mujoco-experiments.html",
+      "simulation-render": "mujoco-experiments.html",
+      "robot-pull-control": "robot-interaction.html",
+      "creating-an-object": "generating-3d-assets.html",
+      "building-and-storing": "generating-3d-assets.html",
+      "one-image-two-outputs": "generating-3d-assets.html",
+      "image-to-3d-to-image": "generating-3d-assets.html"
+    },
+    "gaussian-splatting.html": {
+      "blend-calculation": "rendering.html",
+      "blend-description": "rendering.html",
+      "blended-pixel": "rendering.html",
+      "cabinet-opacity": "rendering.html",
+      "cabinet-opacity-caption": "rendering.html",
+      "cabinet-opacity-description": "rendering.html",
+      "cabinet-opacity-example": "rendering.html",
+      "cabinet-opacity-image": "rendering.html",
+      "cabinet-opacity-value": "rendering.html",
+      "cabinet-projection-description": "rendering.html",
+      "cabinet-projection-player": "rendering.html",
+      "cabinet-projection-video": "rendering.html",
+      "front-opacity": "rendering.html",
+      "opacity-blue-gradient": "rendering.html",
+      "opacity-example": "rendering.html",
+      "opacity-front-splat": "rendering.html",
+      "opacity-gold-gradient": "rendering.html",
+      "opacity-lab": "rendering.html",
+      "opacity-value": "rendering.html",
+      "projection-player": "rendering.html",
+      "projection-video": "rendering.html",
+      "projection-video-description": "rendering.html",
+      "weight-back": "rendering.html",
+      "weight-background": "rendering.html",
+      "weight-front": "rendering.html"
+    }
+  },
+  "review_highlight_additions": false
 }

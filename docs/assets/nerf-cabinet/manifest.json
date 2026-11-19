@@ -1,0 +1,103 @@
+{
+  "provenance": "Original analytic cabinet color/density field. Not a trained NeRF or a recorded training run.",
+  "rendering": "176 midpoint samples per intersecting camera ray. Alpha = 1 - exp(-density * sample distance). Front-to-back compositing against white.",
+  "input_views_degrees": [
+    -35,
+    0,
+    35
+  ],
+  "new_view_degrees": 18,
+  "trial": "Hand-constructed low-density field with a gray drawer to illustrate comparison with a target image.",
+  "field_samples": "Diagnostic samples of an implicit 3D field, not a point-cloud representation or storage format.",
+  "validation": {
+    "sample_densities": [
+      0.0,
+      0.0,
+      100.0
+    ],
+    "selected_pixel_rgb": [
+      0.353710412979126,
+      0.547921895980835,
+      0.7145525813102722
+    ],
+    "remaining_visibility": 7.652703857274901e-07,
+    "numeric_ray_positions": [
+      [
+        0.0,
+        -2.0,
+        0.64
+      ],
+      [
+        0.0,
+        -1.0,
+        0.64
+      ],
+      [
+        0.0,
+        -0.45999999999999996,
+        0.64
+      ]
+    ],
+    "numeric_ray_densities": [
+      0.0,
+      0.0,
+      100.0
+    ]
+  },
+  "numeric_ray_example": {
+    "camera": [
+      0,
+      -3,
+      0.64
+    ],
+    "direction": [
+      0,
+      1,
+      0
+    ],
+    "distances": [
+      1,
+      2,
+      2.54
+    ],
+    "positions": [
+      [
+        0,
+        -2,
+        0.64
+      ],
+      [
+        0,
+        -1,
+        0.64
+      ],
+      [
+        0,
+        -0.46,
+        0.64
+      ]
+    ]
+  },
+  "references": [
+    "https://www.matthewtancik.com/nerf",
+    "https://arxiv.org/html/2003.08934v2"
+  ],
+  "pixel_example_camera": {
+    "position": [
+      0,
+      -3,
+      0.64
+    ],
+    "direction": [
+      0,
+      1,
+      0
+    ],
+    "samples": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "central_pixel_matches_section_2_5_4": true
+  }
+}

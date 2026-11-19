@@ -49,6 +49,7 @@ class ChapterParser(HTMLParser):
 
 def build():
     config = json.loads((SOURCE / 'book.json').read_text())
+    highlight_additions = config.get('review_highlight_additions', False)
     layout = (SOURCE / 'layout.html').read_text()
     chapter_scripts = sorted({name for chapter in config['chapters'] for name in chapter.get('scripts', [])})
     asset_version = sha256(b''.join((SOURCE / 'assets' / name).read_bytes() for name in ['book.css', 'book.js', 'articulation.js', 'frames.js'] + chapter_scripts)).hexdigest()[:12]
@@ -58,7 +59,7 @@ def build():
         parser = ChapterParser()
         parser.feed(content)
         chapters.append({**chapter, 'content': content, 'sections': parser.sections})
-    # Keep previously shared chapter-2 fragment links working after the split.
+    # Preserve shared fragment URLs when sections move between pages.
     legacy_routes = {}
     for legacy_page, group in config.get('legacy_fragment_groups', {}).items():
         legacy_routes[legacy_page] = {
@@ -67,6 +68,21 @@ def build():
             for fragment in re.findall(r'\bid="([^"]+)"', chapter['content'])
             if fragment != 'chapter-start'
         }
+    output_fragments = {
+        chapter['output']: set(re.findall(r'\bid="([^"]+)"', chapter['content']))
+        for chapter in chapters
+    }
+    for legacy_page, routes in config.get('legacy_fragment_redirects', {}).items():
+        if legacy_page not in output_fragments:
+            continue
+        for fragment, target in routes.items():
+            if target not in output_fragments:
+                continue
+            if target == legacy_page or fragment == 'chapter-start':
+                raise ValueError(f'Invalid fragment redirect: {legacy_page}#{fragment}')
+            if fragment not in output_fragments[target]:
+                raise ValueError(f'Missing redirect target: {target}#{fragment}')
+            legacy_routes.setdefault(legacy_page, {})[fragment] = target
     OUTPUT.mkdir(exist_ok=True)
     shutil.copytree(SOURCE / 'assets', OUTPUT / 'assets', dirs_exist_ok=True)
     navigation = '<ol class="chapter-list">'
@@ -78,10 +94,12 @@ def build():
                 navigation += '</ol></li>'
             if group:
                 group_config = config['groups'][group]
-                navigation += f'<li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">{escape(group_config["number"])}.</span>{escape(group_config["title"])}</span><ol class="chapter-children">'
+                group_review = ' draft-addition' if group_config.get('review_added') else ''
+                navigation += f'<li class="chapter-group"><span class="chapter-group-title{group_review}"><span class="nav-number">{escape(group_config["number"])}.</span>{escape(group_config["title"])}</span><ol class="chapter-children">'
             current_group = group
         number = f'<span class="nav-number">{escape(chapter["number"])}{"" if group else "."}</span>' if chapter.get('number') else ''
-        navigation += f'<li><a class="chapter-link" href="{escape(chapter["output"])}#chapter-start">{number}{escape(chapter["title"])}</a>'
+        chapter_review = ' draft-addition' if chapter.get('review_added') else ''
+        navigation += f'<li><a class="chapter-link{chapter_review}" href="{escape(chapter["output"])}#chapter-start">{number}{escape(chapter["title"])}</a>'
         if chapter.get('show_sections'):
             navigation += '<ol class="chapter-sections">'
             for section in chapter['sections']:
@@ -114,6 +132,7 @@ def build():
             'repository': escape(config['repository']), 'navigation': navigation.replace('href="'+escape(chapter['output'])+'#', 'href="#'),
             'content': chapter['content'], 'pagination': pagination, 'source': escape(chapter['source']),
             'asset_version': asset_version,
+            'review_additions': 'true' if highlight_additions else 'false',
             'chapter_scripts': redirect_script + '\n'.join(f'  <script src="assets/{escape(name)}?v={asset_version}" defer></script>' for name in chapter.get('scripts', []))
         }
         html = layout

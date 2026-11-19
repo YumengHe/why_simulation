@@ -6,17 +6,17 @@
   <title>Meshes: surfaces and useful detail · Why Simulation?</title>
   <meta name="description" content="Meshes: surfaces and useful detail">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=7ab077eae5cc">
-  <script src="assets/book.js?v=7ab077eae5cc" defer></script>
-  <script src="assets/articulation.js?v=7ab077eae5cc" defer></script>
-  <script src="assets/frames.js?v=7ab077eae5cc" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=e5e01c5acb33">
+  <script src="assets/book.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/articulation.js?v=e5e01c5acb33" defer></script>
+  <script src="assets/frames.js?v=e5e01c5acb33" defer></script>
 
 </head>
-<body>
+<body data-review-additions="false">
   <a class="skip-link" href="#main">Skip to content</a>
   <aside id="sidebar" class="sidebar" aria-label="Book contents">
     <a class="book-name" href="overview.html">Why Simulation?</a>
-    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Text-only LLM → VLM → VLA</a></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">2.</span>3D generation</span><ol class="chapter-children"><li><a class="chapter-link" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>From an image to a usable 3D object</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.4</span>3D Gaussian Splatting: build a scene, then render new views</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">3.5</span>From animation to simulation</a></li></ol></li></ol></nav>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>From instructions to robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">2.8</span>From 3D shape to a movable object</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
     <div class="sidebar-links">
       <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
       <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
@@ -40,6 +40,7 @@
       </div>
       <article><header class="chapter-header" id="chapter-start">
   <h1><span class="chapter-number">2.2</span> Meshes: surfaces and useful detail</h1>
+  <p class="chapter-purpose draft-addition"><strong>General introduction</strong></p>
 </header>
 
 <section class="split-chapter" id="points-and-meshes" data-title="Meshes: surfaces and useful detail">
@@ -48,19 +49,57 @@
   <p>A <strong>point cloud</strong> records sampled positions in 3D. A mesh also records how positions connect to form surfaces. The positions are called vertices, their connections are edges, and the surface patches are faces. Moving the positions changes the shape; changing their connections changes how the surface is assembled.</p>
   <div class="representation-grid">
     <figure><img src="assets/diagrams/representation-points.svg" width="320" height="250" alt="Unconnected samples on the surfaces of a box"><figcaption><h2>Point cloud</h2><p>Useful for recording measurements. Gaps may mean an area was never observed, rather than a real hole.</p></figcaption></figure>
-    <figure><img src="assets/diagrams/representation-triangles.svg" width="320" height="250" alt="Box surfaces represented by connected triangular patches"><figcaption><h2>Triangle mesh</h2><p>Explicit surface patches. Triangles are always planar, which makes them convenient for rendering and geometric calculations.</p></figcaption></figure>
-    <figure><img src="assets/diagrams/representation-quads.svg" width="320" height="250" alt="The same box with a grid of four-sided patches"><figcaption><h2>Quad mesh</h2><p>Four-sided patches can form regular rows useful for editing and subdivision. They can be triangulated for rendering.</p></figcaption></figure>
+    <figure><img src="assets/diagrams/representation-triangles.svg" width="320" height="250" alt="Box surfaces represented by connected triangular patches"><figcaption><h2>Triangle mesh</h2><p class="draft-addition">Three-sided surface patches. Each triangle is flat, which makes its shape straightforward to calculate and draw.</p></figcaption></figure>
+    <figure><img src="assets/diagrams/representation-quads.svg" width="320" height="250" alt="The same box with a grid of four-sided patches"><figcaption><h2>Quad mesh</h2><p class="draft-addition">Four-sided surface patches. Regular rows can be convenient for editing. Software can divide them into triangles to draw the surface.</p></figcaption></figure>
+  </div>
+  <div class="representation-lesson draft-addition" id="triangle-and-quad-meshes">
+    <h2>Triangle and quad meshes on the same cabinet</h2>
+    <p>Both are surface meshes. In a <strong>quad mesh</strong>, each face has four sides. In a <strong>triangle mesh</strong>, each face has three. The cabinet below uses the same corner positions and camera in both views; only the face connections change.</p>
+    <div class="representation-examples">
+      <figure><img src="assets/diagrams/cabinet-representation-quads.svg" width="340" height="320" alt="Cabinet surfaces divided into rows of four-sided mesh faces"><figcaption><h3>Quad faces</h3><p>Regular rows make it convenient to select and reshape a strip of the surface.</p></figcaption></figure>
+      <figure><img src="assets/diagrams/cabinet-representation-triangles.svg" width="340" height="320" alt="The same cabinet surface patches divided diagonally into triangular faces"><figcaption><h3>Triangle faces</h3><p>Each four-sided patch here is divided into two triangles. The cabinet’s shape stays the same.</p></figcaption></figure>
+    </div>
+    <p>Triangles are always flat, so they are convenient for rendering. A quad can be split into triangles for this purpose. Editing software can let us work with quads while using triangles to draw the result. <a href="https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/triangulate.html">Blender’s triangulation tool.</a></p>
+    <p>Face type alone does not determine the shape’s accuracy. The curved-handle examples below show why the positions of the vertices matter too.</p>
   </div>
   <p>Building a mesh from measured points is called <strong>surface reconstruction</strong>. It must infer which samples belong together; blindly filling every gap could seal the opening around a drawer. <a href="https://www.open3d.org/docs/release/tutorial/geometry/surface_reconstruction.html">Open3D’s examples</a> show several ways to estimate these surfaces.</p>
 
+  <div class="representation-lesson" id="same-four-corners">
+    <h2>Why can a mesh look angular?</h2>
+    <p>A round bar has a curved surface. A mesh builds that surface from <strong>flat pieces</strong>. Imagine joining flat strips around the bar: a few wide strips make obvious corners; many narrow strips follow the curve more closely.</p>
+    <div class="representation-examples">
+      <figure><img src="assets/diagrams/cylinder-mesh-coarse.svg" width="320" height="300" alt="A blue 3D bar with six wide flat side faces and an angular hexagonal top"><figcaption><h3>6 faces around the side</h3><p>Each face is wide. Look at the top edge: the bar has clear corners.</p></figcaption></figure>
+      <figure><img src="assets/diagrams/cylinder-mesh-fine.svg" width="320" height="300" alt="A blue 3D bar of the same size with thirty-two narrow flat side faces and a nearly round top"><figcaption><h3>32 faces around the side</h3><p>Each face is narrower. The top edge comes much closer to a circle.</p></figcaption></figure>
+    </div>
+    <p>Both models approximate the same round bar and use the same camera view. The lines show where the mesh faces meet.</p>
+    <p>This is why the number of faces can matter: <strong>more, smaller faces can represent a curve more closely</strong>, when their corners are placed along that curve. A flat cabinet panel needs much less detail because its surface is already flat.</p>
+    <p>More faces also mean more data to store and process. We choose enough to describe the shape we need; the highest face count is not automatically the best choice.</p>
+    <div id="cabinet-mesh-detail">
+      <h3 class="representation-question">The same idea on a cabinet</h3>
+      <p>These two cabinets have the same flat panels. Only the round handles change: each bar has <strong>6 sides on the left</strong> and <strong>32 sides on the right</strong>. The enlarged drawer handle makes the difference easier to see.</p>
+      <div class="representation-examples">
+        <figure>
+          <a href="assets/diagrams/cabinet-mesh-coarse.png" data-enlarge aria-label="Enlarge the cabinet with 228 triangular faces"><img src="assets/diagrams/cabinet-mesh-coarse.png" width="420" height="660" alt="A teal cabinet with blue drawer and gold door, showing its triangle edges; an enlarged six-sided drawer handle has obvious corners"></a>
+          <figcaption><h3>228 triangular faces</h3><p>84 on the flat panels + 144 on the handles. The round handles have visible corners.</p></figcaption>
+        </figure>
+        <figure>
+          <a href="assets/diagrams/cabinet-mesh-fine.png" data-enlarge aria-label="Enlarge the cabinet with 852 triangular faces"><img src="assets/diagrams/cabinet-mesh-fine.png" width="420" height="660" alt="The same cabinet and panel triangles, with more finely divided handles; the enlarged thirty-two-sided drawer handle has a much rounder outline"></a>
+          <figcaption><h3>852 triangular faces</h3><p>The same 84 panel faces + 768 handle faces. The handles follow the round shape more closely.</p></figcaption>
+        </figure>
+      </div>
+      <p>The camera and colors are the same in both pictures. The lines mark the edges of the triangular faces. <strong>The extra faces improve the curved handles; the flat cabinet panels stay unchanged.</strong></p>
+    </div>
+  </div>
   <div class="representation-lesson" id="what-is-blender">
     <h2>What is Blender used for?</h2>
     <p><a href="https://www.blender.org/">Blender</a> is free software for making and editing 3D content. We could open a generated cabinet in Blender, rotate it to inspect the back, build a missing handle, add a wood texture, position lights and a camera, and render an image. It is a working environment for these tasks; a mesh is one kind of data we can edit inside it.</p>
     <p>The <a href="https://docs.blender.org/manual/en/4.5/render/materials/introduction.html">material guide</a> explains how to control the appearance of those surfaces.</p>
   </div>
 </section>
+
+<p class="section-connection draft-addition"><a href="rendering.html">Next: rendering.</a> The mesh supplies surface shape. A renderer combines that shape with appearance and a camera to make a picture; other 3D representations use different calculations for the same image-making task.</p>
 </article>
-      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="3d-generation.html">← From an image to a usable 3D object</a><a href="rendering.html">How a 3D model produces a 2D image →</a></nav>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="3d-generation.html">← How do we represent a 3D cabinet?</a><a href="rendering.html">How a 3D model produces a 2D image →</a></nav>
       <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/meshes.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
     </main>
   </div>

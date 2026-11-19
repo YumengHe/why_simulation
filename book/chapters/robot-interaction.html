@@ -1,0 +1,24 @@
+<header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">4.4</span> Robot interaction and control</h1>
+  <p class="lead">The previous experiment applied a force directly to the drawer. To test a robot opening it, the model must also include the arm, gripper, and their contact with the handle.</p>
+</header>
+
+<section class="simulation-lesson" id="robot-pull-control" data-title="Add the robot to the scene">
+  <h2><span class="section-number">4.4.1</span> Add the robot to the scene</h2>
+<p>The direct test supplies a force to the drawer without modeling a hand. To study a grasp, add a robot arm and gripper to the same scene, with their joints, physical properties, and collision shapes. <strong>MuJoCo then simulates both the robot and the cabinet, including contact between them.</strong></p>
+</section>
+
+<section class="simulation-lesson" id="robot-controller" data-title="From an action to a physical response">
+  <h2><span class="section-number">4.4.2</span> From an action to a physical response</h2>
+<p>A <strong>controller</strong> is the program that tries to carry out a requested robot movement. For example, “move the gripper 10 cm outward while keeping it closed” must become control signals for the simulated robot’s motors. The controller uses the robot’s current state to update those signals.</p>
+  <ol class="simulation-loop" aria-label="Robot action, control, simulation, and observation">
+    <li><strong>Choose an action.</strong> A predefined program can request the movement. A VLA can instead propose it from the camera image and an instruction, as in <a href="llm-vlm-vla.html#vision-language-action-models">Section 1.3</a>.</li>
+    <li><strong>The controller tries to execute it.</strong> It sends control signals to move the arm and keep the gripper closed.</li>
+    <li><strong>MuJoCo calculates the response.</strong> The simulated motors move the robot; contact with the handle can transfer the pull to the drawer. The grip may hold or slip, and the drawer may move or stay stuck.</li>
+    <li><strong>Observe the result.</strong> Read the new robot and drawer positions. A renderer can make the next camera image for a VLA to use when choosing another action.</li>
+  </ol>
+  <p><strong>A VLA is optional.</strong> It is one way to choose actions; a simple programmed sequence can also drive this test. A requested action can span many physics steps, so a new VLA prediction is not required at every step. <a href="https://openvla.github.io/">OpenVLA</a> is an example action model; <a href="https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model">MuJoCo’s actuation model</a> describes how control inputs produce simulated forces.</p>
+  <p>The robot test also needs a stopping rule, such as reaching the desired opening or running out of allotted simulated time. Both tests produce motion over time; in the robot test, the pull comes through the modeled robot and its contact with the handle.</p>
+</section>
+
+<p class="section-connection">This returns to the task in <a href="llm-vlm-vla.html#vision-language-action-models">Chapter 1</a>: a model can propose an action, a controller tries to carry it out, and the simulated scene determines the resulting motion. The next camera image shows the outcome of that interaction.</p>

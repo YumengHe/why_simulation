@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img"><title>A ray from the camera queries A in empty space, B near a blue surface, and C near a gold surface behind it</title><style>text{font-family:Arial,sans-serif;font-size:24px;fill:#333b3a}</style>
+<rect x="267" y="70" width="31" height="160" fill="#5b8db8" opacity=".48"/>
+<rect x="409" y="70" width="31" height="160" fill="#dbb555" opacity=".52"/>
+<path d="M66 151H485" stroke="#9a7422" stroke-width="2"/><path d="M473 143L485 151L473 159" fill="none" stroke="#9a7422" stroke-width="2"/>
+<rect x="10" y="134" width="35" height="32" rx="2" fill="#f0e7d4" stroke="#9a7422" stroke-width="2"/>
+<path d="M45 141L63 134V166L45 159Z" fill="#f0e7d4" stroke="#9a7422" stroke-width="2"/>
+<circle cx="157" cy="151" r="6" fill="#fefdfb" stroke="#9a7422" stroke-width="2"/>
+<circle cx="282" cy="151" r="6" fill="#3d6e96" stroke="white" stroke-width="2"/>
+<circle cx="424" cy="151" r="6" fill="#b18b31" stroke="white" stroke-width="2"/>
+<text x="157" y="114" text-anchor="middle">A</text><text x="282" y="52" text-anchor="middle">B</text><text x="424" y="52" text-anchor="middle">C</text>
+<text x="5" y="207">Camera</text><text x="157" y="260" text-anchor="middle">Air</text><text x="282" y="260" text-anchor="middle">Blue front</text><text x="424" y="260" text-anchor="middle">Gold behind</text>
+</svg>

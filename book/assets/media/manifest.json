@@ -1,0 +1,21 @@
+{
+  "generator": "scripts/animate_cabinet_intro.py",
+  "source": "ArticulateArena sample_data/45168 at 11e49256b8e839f04e5da2f481cbea20c54bc2ce",
+  "geometry": "scripts/data/cabinet-45168.json",
+  "duration": 10,
+  "fps": 24,
+  "size": [
+    600,
+    600
+  ],
+  "method": "Depth-sorted triangle drawing; prescribed independent joint positions; fixed body and camera.",
+  "drawer_range_m": [
+    0,
+    0.5
+  ],
+  "door_range_degrees": [
+    0,
+    90
+  ],
+  "limitation": "Forward-kinematics illustration, not a contact simulation."
+}

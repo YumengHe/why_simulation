@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 350" role="img"><title>A camera ray is sampled in empty space, near a blue front panel, and behind the panel to calculate one pixel</title><style>text{font-family:Arial,sans-serif;fill:#333b3a;font-size:24px}</style>
+<defs><marker id="ray-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#9a7422"/></marker></defs>
+<rect x="288" y="42" width="32" height="170" rx="2" fill="#a6c2d8"/>
+<text x="304" y="28" text-anchor="middle">Blue panel</text>
+<rect x="18" y="106" width="43" height="34" rx="3" fill="#f0e7d4" stroke="#9a7422" stroke-width="2"/>
+<path d="M61 113L79 105V141L61 133Z" fill="#f0e7d4" stroke="#9a7422" stroke-width="2"/>
+<path d="M81 123H487" stroke="#9a7422" stroke-width="2" marker-end="url(#ray-arrow)"/>
+<g fill="#fefdfb" stroke="#9a7422" stroke-width="2"><circle cx="141" cy="123" r="6"/><circle cx="200" cy="123" r="6"/><circle cx="257" cy="123" r="6"/></g>
+<g fill="#5b8db8" stroke="#fefdfb" stroke-width="2"><circle cx="295" cy="123" r="6"/><circle cx="306" cy="123" r="6"/></g>
+<g fill="#fefdfb" stroke="#9a7422" stroke-width="2"><circle cx="374" cy="123" r="6"/><circle cx="432" cy="123" r="6"/></g>
+<text x="7" y="176">Camera</text><text x="179" y="83">Air</text><text x="354" y="176">Behind</text>
+<path d="M141 220V233H432V220M287 233V265" stroke="#656158" stroke-width="1.5" fill="none"/>
+<text x="80" y="297">Combine samples</text><path d="M303 289H345" stroke="#9a7422" stroke-width="2" marker-end="url(#ray-arrow)"/>
+<rect x="366" y="270" width="37" height="37" fill="#5b8db8"/><text x="417" y="297">Pixel</text>
+</svg>
