@@ -8,7 +8,7 @@
     600,
     600
   ],
-  "method": "Depth-sorted triangle drawing; prescribed independent joint positions; fixed body and camera.",
+  "method": "Per-pixel depth-buffered triangle rasterization; prescribed independent joint positions; fixed body and camera.",
   "drawer_range_m": [
     0,
     0.5

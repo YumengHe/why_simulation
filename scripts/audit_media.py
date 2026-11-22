@@ -27,6 +27,8 @@ DIRECTORIES={
     'projection-cabinet/opacity':'draw_cabinet_opacity.py',
     'simulation-workflow':'draw_simulation_workflow.py',
     'examples/cabinet-representations':'render_cabinet_comparison.py',
+    'maya':'draw_maya_examples.py',
+    'software-physics':'render_blender_physics.py',
 }
 DIAGRAM_SCRIPTS={
     'draw_reconstruction_story.py':{'handle-coarse','handle-fine','cylinder-mesh-coarse','cylinder-mesh-fine',
@@ -43,6 +45,17 @@ DIAGRAM_SCRIPTS={
 # These files are themselves editable vector drawing programs, not raster images.
 VECTOR_SOURCES={'favicon.svg','diagrams/cabinet-origins.svg','diagrams/drawer-shapes.svg',
                 'diagrams/side-panel-shape.svg','diagrams/side-panel-mesh.svg'}
+SCREENSHOT_INPUTS={
+    'blender/mesh-reference.jpg':['reference-front.png'],
+    'blender/mesh-oblique.jpg':['mesh-oblique.png'],
+    'blender/scene-viewport.jpg':['workspace.png'],
+    'blender/render-gray.jpg':['workspace.png'],
+    'blender/render-color.jpg':['render-color.png'],
+    'blender/camera-setup-a.jpg':['camera-setup-a.png'],
+    'blender/camera-view-a.jpg':['camera-view-a.png'],
+    'blender/camera-setup-b.jpg':['camera-setup-b.png'],
+    'blender/camera-view-b.jpg':['camera-view-b.png'],
+}
 
 
 def inventory():
@@ -51,7 +64,9 @@ def inventory():
         if path.suffix.lower() not in SUFFIXES:
             continue
         relative=path.relative_to(ASSETS).as_posix()
-        if relative in VECTOR_SOURCES:
+        if relative in SCREENSHOT_INPUTS:
+            source='scripts/prepare_blender_figures.py'; kind='annotated-user-screenshot'
+        elif relative in VECTOR_SOURCES:
             source=path.relative_to(ROOT).as_posix(); kind='editable-vector-source'
         else:
             script=DIRECTORIES.get(path.parent.relative_to(ASSETS).as_posix())
@@ -65,9 +80,14 @@ def inventory():
             root=ET.parse(path).getroot()
             for element in root.iter():
                 assert element.tag.rsplit('}',1)[-1] not in {'image','foreignObject'},f'Embedded non-vector content: {relative}'
-        entries.append({'asset':'book/assets/'+relative,'source':source,'kind':kind,
-                        'sha256':sha256(path.read_bytes()).hexdigest()})
-    return {'policy':'Script-rendered media and editable vector drawings; no direct generative-image or generative-video assets.',
+        entry={'asset':'book/assets/'+relative,'source':source,'kind':kind,
+               'sha256':sha256(path.read_bytes()).hexdigest()}
+        if relative in SCREENSHOT_INPUTS:
+            entry['inputs']=[{'path':'scripts/data/blender-screenshots/'+name,
+                              'sha256':sha256((ROOT/'scripts/data/blender-screenshots'/name).read_bytes()).hexdigest()}
+                             for name in SCREENSHOT_INPUTS[relative]]
+        entries.append(entry)
+    return {'policy':'Script-rendered media, editable vector drawings, and author-supplied screenshots prepared by script; no direct generative-image or generative-video assets.',
             'scope':'All image/video files under book/assets, including unused retained figures.',
             'entries':entries}
 
@@ -82,7 +102,7 @@ def main():
         if expected!=data:
             raise SystemExit('Media changed since the source audit. Review sources and update the inventory with --write.')
     entries=data['entries']
-    print(f"Verified {len(entries)} media files: {sum(e['kind']=='script-rendered' for e in entries)} script renders and {sum(e['kind']=='editable-vector-source' for e in entries)} vector sources.")
+    print(f"Verified {len(entries)} media files: {sum(e['kind']=='script-rendered' for e in entries)} script renders, {sum(e['kind']=='editable-vector-source' for e in entries)} vector sources, and {sum(e['kind']=='annotated-user-screenshot' for e in entries)} prepared author screenshots.")
 
 
 if __name__=='__main__':main()

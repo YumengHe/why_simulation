@@ -6,17 +6,17 @@
   <title>Changing a URDF · Why Simulation?</title>
   <meta name="description" content="Watch what happens when we change a drawer’s direction, turn a hinge into a slide, remove a part, or swap shapes while keeping the joints.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=e5e01c5acb33">
-  <script src="assets/book.js?v=e5e01c5acb33" defer></script>
-  <script src="assets/articulation.js?v=e5e01c5acb33" defer></script>
-  <script src="assets/frames.js?v=e5e01c5acb33" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=a08ed3378cd4">
+  <script src="assets/book.js?v=a08ed3378cd4" defer></script>
+  <script src="assets/articulation.js?v=a08ed3378cd4" defer></script>
+  <script src="assets/frames.js?v=a08ed3378cd4" defer></script>
 
 </head>
 <body data-review-additions="false">
   <a class="skip-link" href="#main">Skip to content</a>
   <aside id="sidebar" class="sidebar" aria-label="Book contents">
     <a class="book-name" href="overview.html">Why Simulation?</a>
-    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>From instructions to robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">2.8</span>From 3D shape to a movable object</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Language, vision, and robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">3.2</span>From 3D shape to a movable object</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.3</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.4</span>Reading a URDF file</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">3.5</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li><li><a class="chapter-link" href="3d-software.html#chapter-start">3D software</a></li></ol></nav>
     <div class="sidebar-links">
       <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
       <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
@@ -39,12 +39,12 @@
         <ul id="search-results"></ul>
       </div>
       <article><header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">3.4</span> What happens when we change the URDF?</h1>
+  <h1><span class="chapter-number">3.5</span> What happens when we change the URDF?</h1>
   <p class="lead">Use the same cabinet to see what changes when we edit its joints and shapes.</p>
 </header>
 
 <section id="change-direction" data-title="Change the drawer’s direction">
-  <h2><span class="section-number">3.4.1</span> Change the drawer’s direction</h2>
+  <h2><span class="section-number">3.5.1</span> Change the drawer’s direction</h2>
   <p>The drawer’s <code>axis</code> tells it which way to slide. Here we change only that direction. The starting point and the <strong>0–76 cm</strong> travel range stay the same.</p>
   <p>The <strong>+X, +Y, and +Z arrows</strong> show the joint’s reference directions at its closed pose. In this cabinet, <strong>+X points sideways, +Y points up, and +Z points out of the front</strong>. These are the joint’s local axes; the scene can use a different up axis. The purple arrow shows the chosen sliding direction.</p>
   <div class="experiment-pair">
@@ -79,7 +79,7 @@
 </section>
 
 <section id="change-joint-type" data-title="Turn a hinged door into a sliding door">
-  <h2><span class="section-number">3.4.2</span> Turn a hinged door into a sliding door</h2>
+  <h2><span class="section-number">3.5.2</span> Turn a hinged door into a sliding door</h2>
   <p>For a hinge, <code>axis</code> gives the line the door <strong>rotates around</strong>. For a slide, it gives the direction the door <strong>moves along</strong>. Changing <code>revolute</code> to <code>prismatic</code> also changes the limit from an angle to a distance.</p>
   <div class="experiment-pair">
     <figure class="experiment">
@@ -121,7 +121,7 @@
 </section>
 
 <section id="remove-drawer" data-title="Remove the drawer">
-  <h2><span class="section-number">3.4.3</span> Remove the drawer</h2>
+  <h2><span class="section-number">3.5.3</span> Remove the drawer</h2>
   <p>To remove this drawer, delete both <strong>its link</strong> and <strong>the joint connecting it to the cabinet</strong>.</p>
   <div class="experiment-pair">
     <figure class="experiment">
@@ -146,7 +146,7 @@
 </section>
 
 <section id="swap-shapes" data-title="Swap the shapes, keep the joints">
-  <h2><span class="section-number">3.4.4</span> Swap the shapes, keep the joints</h2>
+  <h2><span class="section-number">3.5.4</span> Swap the shapes, keep the joints</h2>
   <p>What if the drawer used the door’s joint, and the door used the drawer’s joint?</p>
   <div class="experiment-pair">
     <figure class="experiment">
@@ -169,11 +169,9 @@
   <p>The result is an unusual cabinet, but it makes the roles clear: <strong>the shapes describe the parts; the joints describe their movement.</strong></p>
   <p class="urdf-source-links"><a href="https://github.com/YumengHe/ArticulateArena/blob/11e49256b8e839f04e5da2f481cbea20c54bc2ce/sample_data/45168/mobility.urdf">Cabinet URDF ↗</a><a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">URDF reference ↗</a></p>
 </section>
-
-<p class="section-connection"><a href="animation-and-simulation.html">Next: simulation.</a> The joints describe where the parts are allowed to move. Chapter 4 asks what movement follows when a force acts on them.</p>
 </article>
-      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="reading-urdf.html">← Reading a URDF file</a><a href="animation-and-simulation.html">From animation to simulation →</a></nav>
-      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/changing-urdf.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="reading-urdf.html">← Reading a URDF file</a><a class="page-next" rel="next" href="animation-and-simulation.html">From animation to simulation →</a></nav>
+      <footer class="page-footer"><a href="#chapter-start">Back to top ↑</a></footer>
     </main>
   </div>
   <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>

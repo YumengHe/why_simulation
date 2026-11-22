@@ -12,7 +12,7 @@ import shutil
 import subprocess
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image
 
 from draw_urdf_figures import load_geometry, Projection, C
 from animate_urdf_examples import rotation, rgb
@@ -44,9 +44,9 @@ def vertices(data, mesh, t):
 
 
 def render(data, project, t):
-    image=Image.new('RGB',(SIZE*SS,SIZE*SS),'white')
-    draw=ImageDraw.Draw(image)
-    faces=[]
+    size=SIZE*SS
+    pixels=np.full((size,size,3),255,dtype=np.uint8)
+    depths=np.full((size,size),-np.inf)
     light=np.array([-.3,.8,1.]); light/=np.linalg.norm(light)
     for mesh in data['meshes']:
         tri=vertices(data,mesh,t)[np.asarray(mesh['faces'])]
@@ -54,12 +54,27 @@ def render(data, project, t):
         normals/=np.maximum(np.linalg.norm(normals,axis=1)[:,None],1e-10)
         shades=.75+.25*np.abs(normals@light)
         color=np.array(rgb({'link_0':C['blue'],'link_1':C['gold'],'link_2':C['teal']}[mesh['link']]))
-        depth=tri.mean(axis=1)@project.eye
-        for triangle,z,shade in zip(tri,depth,shades):
-            xy=[tuple(round(x*SS) for x in project(v)) for v in triangle]
-            faces.append((z,xy,tuple(np.round(color*shade).astype(int))))
-    for _,xy,color in sorted(faces,key=lambda f:f[0]):
-        draw.polygon(xy,fill=color)
+        for triangle,shade in zip(tri,shades):
+            xy=np.array([project(v) for v in triangle])*SS
+            z=triangle@project.eye
+            x0,y0=np.maximum(np.floor(xy.min(axis=0)).astype(int),0)
+            x1,y1=np.minimum(np.ceil(xy.max(axis=0)).astype(int)+1,size)
+            if x0>=x1 or y0>=y1:continue
+            a,b,c=xy
+            den=(b[1]-c[1])*(a[0]-c[0])+(c[0]-b[0])*(a[1]-c[1])
+            if abs(den)<1e-10:continue
+            yy,xx=np.mgrid[y0:y1,x0:x1];xx=xx+.5;yy=yy+.5
+            wa=((b[1]-c[1])*(xx-c[0])+(c[0]-b[0])*(yy-c[1]))/den
+            wb=((c[1]-a[1])*(xx-c[0])+(a[0]-c[0])*(yy-c[1]))/den
+            wc=1-wa-wb
+            # Orthographic depth varies across each triangle. Comparing it per
+            # pixel keeps an inner wall from painting over an outer wall.
+            depth=wa*z[0]+wb*z[1]+wc*z[2]
+            old=depths[y0:y1,x0:x1]
+            visible=(wa>=-1e-9)&(wb>=-1e-9)&(wc>=-1e-9)&(depth>old+1e-9)
+            pixels[y0:y1,x0:x1][visible]=np.round(color*shade).astype(np.uint8)
+            old[visible]=depth[visible]
+    image=Image.fromarray(pixels)
     return image.resize((SIZE,SIZE),Image.Resampling.LANCZOS)
 
 
@@ -92,7 +107,7 @@ def main():
     (OUT/'manifest.json').write_text(json.dumps({
         'generator':'scripts/animate_cabinet_intro.py','source':data['source'],
         'geometry':'scripts/data/cabinet-45168.json','duration':DURATION,'fps':FPS,'size':[SIZE,SIZE],
-        'method':'Depth-sorted triangle drawing; prescribed independent joint positions; fixed body and camera.',
+        'method':'Per-pixel depth-buffered triangle rasterization; prescribed independent joint positions; fixed body and camera.',
         'drawer_range_m':[0,.5],'door_range_degrees':[0,90],
         'limitation':'Forward-kinematics illustration, not a contact simulation.'
     },indent=2)+'\n')

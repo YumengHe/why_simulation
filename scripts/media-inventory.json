@@ -1,7 +1,115 @@
 {
-  "policy": "Script-rendered media and editable vector drawings; no direct generative-image or generative-video assets.",
+  "policy": "Script-rendered media, editable vector drawings, and author-supplied screenshots prepared by script; no direct generative-image or generative-video assets.",
   "scope": "All image/video files under book/assets, including unused retained figures.",
   "entries": [
+    {
+      "asset": "book/assets/blender/camera-setup-a.jpg",
+      "source": "scripts/prepare_blender_figures.py",
+      "kind": "annotated-user-screenshot",
+      "sha256": "302562367cc018e237eab94a2124efc049864dd3ca53a872bb39bb6d4c33f542",
+      "inputs": [
+        {
+          "path": "scripts/data/blender-screenshots/camera-setup-a.png",
+          "sha256": "df24fb296b2dcadcc8a7cbfc923b4d58402245ed7ccbee5add24533cd573b3e5"
+        }
+      ]
+    },
+    {
+      "asset": "book/assets/blender/camera-setup-b.jpg",
+      "source": "scripts/prepare_blender_figures.py",
+      "kind": "annotated-user-screenshot",
+      "sha256": "7961ccacbcfb72df3682e3b9f74ae196dea2378d2ff90a10bdcc89b99b51d268",
+      "inputs": [
+        {
+          "path": "scripts/data/blender-screenshots/camera-setup-b.png",
+          "sha256": "4b4c6223bde4e4ddc2e583b2a5cbfc6a66360fefc451b3c5e36d64554da2c3ea"
+        }
+      ]
+    },
+    {
+      "asset": "book/assets/blender/camera-view-a.jpg",
+      "source": "scripts/prepare_blender_figures.py",
+      "kind": "annotated-user-screenshot",
+      "sha256": "34484fec7bffa30e9ce8eeb2d467164b5b565dcfb841a62c78f1e660247d7242",
+      "inputs": [
+        {
+          "path": "scripts/data/blender-screenshots/camera-view-a.png",
+          "sha256": "06cca19b297b53e56123c7a023e0550f092a50111da25fc62facb7fc9863ee2d"
+        }
+      ]
+    },
+    {
+      "asset": "book/assets/blender/camera-view-b.jpg",
+      "source": "scripts/prepare_blender_figures.py",
+      "kind": "annotated-user-screenshot",
+      "sha256": "1c74e7daaccf7f525dc59017871de4eb663aa76855133164be7d19f3db45481f",
+      "inputs": [
+        {
+          "path": "scripts/data/blender-screenshots/camera-view-b.png",
+          "sha256": "634276a117c1411cedcde8107b20065a247cb1ca36f5d78718304f64ccb59b9f"
+        }
+      ]
+    },
+    {
+      "asset": "book/assets/blender/mesh-oblique.jpg",
+      "source": "scripts/prepare_blender_figures.py",
+      "kind": "annotated-user-screenshot",
+      "sha256": "0c7bc725d9d7685baf85eb76e3d6a40a073a5d0d6dadc861df5f656da6d7abe3",
+      "inputs": [
+        {
+          "path": "scripts/data/blender-screenshots/mesh-oblique.png",
+          "sha256": "7e0366535a354a0e7047306880aac78a3d001616afab9cc568c287ba604b4dc2"
+        }
+      ]
+    },
+    {
+      "asset": "book/assets/blender/mesh-reference.jpg",
+      "source": "scripts/prepare_blender_figures.py",
+      "kind": "annotated-user-screenshot",
+      "sha256": "6c31e2494653f608b301881cc7733b7539560c6f719d84d33d0a2aa264f4fba2",
+      "inputs": [
+        {
+          "path": "scripts/data/blender-screenshots/reference-front.png",
+          "sha256": "a0eec0ca363df66b28b44de5cde0d38e7a467c0358b600ba7dee0dc3171bb3b9"
+        }
+      ]
+    },
+    {
+      "asset": "book/assets/blender/render-color.jpg",
+      "source": "scripts/prepare_blender_figures.py",
+      "kind": "annotated-user-screenshot",
+      "sha256": "e1b7f7e399dc8640b75d80ba2cf59578e4bb4f5568e2df96ce80d8ca326fc77d",
+      "inputs": [
+        {
+          "path": "scripts/data/blender-screenshots/render-color.png",
+          "sha256": "16261ba663972eea3fd444f266669201b240cacdcb9324025130a715e686584a"
+        }
+      ]
+    },
+    {
+      "asset": "book/assets/blender/render-gray.jpg",
+      "source": "scripts/prepare_blender_figures.py",
+      "kind": "annotated-user-screenshot",
+      "sha256": "a8e45c7450c65bd4746ee0b869961b1d2f564733edb9de0db03994d986ffd538",
+      "inputs": [
+        {
+          "path": "scripts/data/blender-screenshots/workspace.png",
+          "sha256": "f6e0d57258496b6218a07773926712b4ffaab2af36c25393a349335986d7699d"
+        }
+      ]
+    },
+    {
+      "asset": "book/assets/blender/scene-viewport.jpg",
+      "source": "scripts/prepare_blender_figures.py",
+      "kind": "annotated-user-screenshot",
+      "sha256": "f7f9ed359b39d27c4706b7dcabb6814de5f80051ebaf66d4f50daa41e38ee903",
+      "inputs": [
+        {
+          "path": "scripts/data/blender-screenshots/workspace.png",
+          "sha256": "f6e0d57258496b6218a07773926712b4ffaab2af36c25393a349335986d7699d"
+        }
+      ]
+    },
     {
       "asset": "book/assets/diagrams/cabinet-mesh-coarse.png",
       "source": "scripts/draw_cabinet_mesh_detail.py",
@@ -567,16 +675,34 @@
       "sha256": "7163b830cd8bc4959b92ce045ad94f44e79626f2479785ca7395bb9947529b36"
     },
     {
+      "asset": "book/assets/maya/arm-ik.svg",
+      "source": "scripts/draw_maya_examples.py",
+      "kind": "script-rendered",
+      "sha256": "7993cf39be728538af511a683238dfc0a3c4e4c8ff07dfb052e7d438d6a8cfc5"
+    },
+    {
+      "asset": "book/assets/maya/drawer-curves.svg",
+      "source": "scripts/draw_maya_examples.py",
+      "kind": "script-rendered",
+      "sha256": "4319a607a8bc8d50238eae85c398090829878dbdfa4745915dcbaa2324b37f86"
+    },
+    {
+      "asset": "book/assets/maya/drawer-keyframes.svg",
+      "source": "scripts/draw_maya_examples.py",
+      "kind": "script-rendered",
+      "sha256": "fc4ad89e12a871aeafaa3374100edc5d3bd6e042c8e06d157bc8bf6a01b922f9"
+    },
+    {
       "asset": "book/assets/media/cabinet-motion.mp4",
       "source": "scripts/animate_cabinet_intro.py",
       "kind": "script-rendered",
-      "sha256": "96bddb21f44232412d4d5055bcfa22046161ca69150ac57f3db7128fccd2f78c"
+      "sha256": "54927dae192eae06c8f2070b0ce4efc82714b6f29c842de8c9d0fe59d87e7af8"
     },
     {
       "asset": "book/assets/media/cabinet-poster.png",
       "source": "scripts/animate_cabinet_intro.py",
       "kind": "script-rendered",
-      "sha256": "31cfd9b18e66d3015b73bfd0ae73a0455f4b502159f0b9d34282462d1186ec2d"
+      "sha256": "32c52bf11d805a845cfa1c0aec4976d4c8d43edce74ba3eafbf070d8cf1391b6"
     },
     {
       "asset": "book/assets/nerf-cabinet/camera-poses.png",
@@ -871,6 +997,24 @@
       "source": "scripts/draw_simulation_workflow.py",
       "kind": "script-rendered",
       "sha256": "de02f044986b04dce91d6b4d3db6ea7560ac588d036295605d7ddc21190d8ad5"
+    },
+    {
+      "asset": "book/assets/software-physics/box-fall-01.png",
+      "source": "scripts/render_blender_physics.py",
+      "kind": "script-rendered",
+      "sha256": "aa73f150c1fae8c2d054e650bebced8bc769cc689a64a29510cd698104ccf073"
+    },
+    {
+      "asset": "book/assets/software-physics/box-fall-13.png",
+      "source": "scripts/render_blender_physics.py",
+      "kind": "script-rendered",
+      "sha256": "8023b1984c826f91ee53461a3e9f10b9b31d4735223199625d13865bc8742f0e"
+    },
+    {
+      "asset": "book/assets/software-physics/box-fall-37.png",
+      "source": "scripts/render_blender_physics.py",
+      "kind": "script-rendered",
+      "sha256": "027912315a23acfb216500452e0d0a68aa90d8fd5885d3a898c52cbd31729b6b"
     }
   ]
 }

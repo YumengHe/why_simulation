@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" role="img">
+<title>Two poses of an arm rig: moving the hand control changes the shoulder and elbow angles</title>
+<rect width="960" height="460" fill="#fdfcf9"/>
+<g font-family="Arial, Helvetica, sans-serif"><text x="28" y="40" font-size="27" fill="#252824" text-anchor="start" font-weight="600">After rigging: move the hand control to pose the arm</text><text x="28" y="72" font-size="20" fill="#656b66" text-anchor="start" font-weight="400">A mechanical arm beside the cabinet · side view</text><path d="M480 95V428" stroke="#deddd5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><g transform="translate(0 20)"><text x="26" y="112" font-size="22" fill="#252824" text-anchor="start" font-weight="600">Before: hand away from the handle</text>
+<path d="M40 342H280" stroke="#deddd5" stroke-width="2"/>
+<rect x="55" y="130" width="140" height="205" fill="#dce8e4" stroke="#638982" stroke-width="2"/>
+<rect x="65" y="230" width="120" height="95" fill="#e6cc80" stroke="#ba963e" stroke-width="2"/>
+<path d="M55 223H195" stroke="#638982" stroke-width="5"/>
+<g transform="translate(0.0 0)">
+<rect x="66" y="160" width="129" height="55" fill="#dce8f1" stroke="#5b8db8" stroke-width="3"/>
+<path d="M66 163V215H194" stroke="#5b8db8" stroke-width="6" fill="none"/>
+<rect x="188" y="150" width="13" height="72" rx="1" fill="#5b8db8"/>
+<path d="M201 175H214V199H201" stroke="#3c6484" stroke-width="5" fill="none"/>
+</g><path d="M405 335L248.471 282.812L333 165" stroke="#97a9b2" stroke-width="21" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M405 335L248.471 282.812L333 165" stroke="#a57b24" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" /><circle cx="405.000" cy="335.000" r="7" fill="#fffaf0" stroke="#a57b24" stroke-width="3"/><circle cx="248.471" cy="282.812" r="7" fill="#fffaf0" stroke="#a57b24" stroke-width="3"/><circle cx="333.000" cy="165.000" r="7" fill="#fffaf0" stroke="#a57b24" stroke-width="3"/><path d="M389 345H425" stroke="#61727b" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M333 151H306V160M333 179H306V170" stroke="#61727b" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" /><rect x="292" y="141" width="54" height="48" rx="7" stroke="#a57b24" stroke-width="2.5" fill="none" stroke-dasharray="5 4"/><text x="234" y="387" font-size="21" fill="#a57b24" text-anchor="start" font-weight="400">Hand control</text><path d="M306 365L346 194" stroke="#a57b24" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" /></g><g transform="translate(480 20)"><text x="26" y="112" font-size="22" fill="#252824" text-anchor="start" font-weight="600">After: hand at the handle</text>
+<path d="M40 342H280" stroke="#deddd5" stroke-width="2"/>
+<rect x="55" y="130" width="140" height="205" fill="#dce8e4" stroke="#638982" stroke-width="2"/>
+<rect x="65" y="230" width="120" height="95" fill="#e6cc80" stroke="#ba963e" stroke-width="2"/>
+<path d="M55 223H195" stroke="#638982" stroke-width="5"/>
+<g transform="translate(0.0 0)">
+<rect x="66" y="160" width="129" height="55" fill="#dce8f1" stroke="#5b8db8" stroke-width="3"/>
+<path d="M66 163V215H194" stroke="#5b8db8" stroke-width="6" fill="none"/>
+<rect x="188" y="150" width="13" height="72" rx="1" fill="#5b8db8"/>
+<path d="M201 175H214V199H201" stroke="#3c6484" stroke-width="5" fill="none"/>
+</g><path d="M405 335L240.027 331.997L241 187" stroke="#97a9b2" stroke-width="21" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M405 335L240.027 331.997L241 187" stroke="#a57b24" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" /><circle cx="405.000" cy="335.000" r="7" fill="#fffaf0" stroke="#a57b24" stroke-width="3"/><circle cx="240.027" cy="331.997" r="7" fill="#fffaf0" stroke="#a57b24" stroke-width="3"/><circle cx="241.000" cy="187.000" r="7" fill="#fffaf0" stroke="#a57b24" stroke-width="3"/><path d="M389 345H425" stroke="#61727b" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M241 173H214V182M241 201H214V192" stroke="#61727b" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" /><rect x="200" y="163" width="54" height="48" rx="7" stroke="#a57b24" stroke-width="2.5" fill="none" stroke-dasharray="5 4"/><text x="222" y="387" font-size="20" fill="#a57b24" text-anchor="start" font-weight="400">Arm joints follow</text><path d="M285 365L256 315" stroke="#a57b24" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" /></g></g></svg>

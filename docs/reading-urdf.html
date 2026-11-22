@@ -6,17 +6,17 @@
   <title>Reading a URDF file · Why Simulation?</title>
   <meta name="description" content="Read a cabinet URDF with illustrated examples of links, visual shapes, sliding and rotating joints, collision shapes, and the base link.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=e5e01c5acb33">
-  <script src="assets/book.js?v=e5e01c5acb33" defer></script>
-  <script src="assets/articulation.js?v=e5e01c5acb33" defer></script>
-  <script src="assets/frames.js?v=e5e01c5acb33" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=a08ed3378cd4">
+  <script src="assets/book.js?v=a08ed3378cd4" defer></script>
+  <script src="assets/articulation.js?v=a08ed3378cd4" defer></script>
+  <script src="assets/frames.js?v=a08ed3378cd4" defer></script>
 
 </head>
 <body data-review-additions="false">
   <a class="skip-link" href="#main">Skip to content</a>
   <aside id="sidebar" class="sidebar" aria-label="Book contents">
     <a class="book-name" href="overview.html">Why Simulation?</a>
-    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>From instructions to robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">2.8</span>From 3D shape to a movable object</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.2</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">3.3</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.4</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Language, vision, and robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">3.2</span>From 3D shape to a movable object</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.3</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">3.4</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.5</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li><li><a class="chapter-link" href="3d-software.html#chapter-start">3D software</a></li></ol></nav>
     <div class="sidebar-links">
       <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
       <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
@@ -39,12 +39,12 @@
         <ul id="search-results"></ul>
       </div>
       <article><header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">3.3</span> Reading a URDF file</h1>
+  <h1><span class="chapter-number">3.4</span> Reading a URDF file</h1>
   <p class="lead">A URDF file tells us what the parts are, what they look like, and how they connect. Let’s read one using the cabinet we already know.</p>
 </header>
 
 <section id="file-and-tree" data-title="One file, parts and connections">
-  <h2><span class="section-number">3.3.1</span> One file, parts and connections</h2>
+  <h2><span class="section-number">3.4.1</span> One file, parts and connections</h2>
   <p>The whole model sits inside <code>&lt;robot&gt;</code>. Inside it, <code>&lt;link&gt;</code> describes a part, and <code>&lt;joint&gt;</code> connects two parts. The word “robot” is simply the format’s name for the whole model; this one is a cabinet.</p>
   <p>A pair such as <code>&lt;link&gt; … &lt;/link&gt;</code> marks the beginning and end of a block. A tag ending in <code>/&gt;</code> is complete on its own.</p>
   <div class="urdf-overview">
@@ -83,7 +83,7 @@
 </section>
 
 <section id="link-and-visual" data-title="Link: shapes that move together">
-  <h2><span class="section-number">3.3.2</span> Link: shapes that move together</h2>
+  <h2><span class="section-number">3.4.2</span> Link: shapes that move together</h2>
   <p>The drawer’s sides, bottom, front, and handle all move together, so they belong to <strong>one link</strong>. A link can contain several <code>&lt;visual&gt;</code> blocks, each describing a shape to draw.</p>
   <figure class="urdf-plate">
     <a href="assets/figures/drawer-front-meshes.svg" data-enlarge aria-label="Enlarge the drawer front diagram"><img src="assets/figures/drawer-front-meshes.svg" width="760" height="520" alt="The drawer front has five labeled colored pieces: a top strip, a bottom strip, two side strips, and a center panel. The rest of the drawer is shown faintly."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
@@ -111,7 +111,7 @@
 </section>
 
 <section id="sliding-joint" data-title="Joint: let the drawer slide">
-  <h2><span class="section-number">3.3.3</span> Joint: let the drawer slide</h2>
+  <h2><span class="section-number">3.4.3</span> Joint: let the drawer slide</h2>
   <p>A <code>&lt;joint&gt;</code> answers a different question: <strong>how can this part move relative to the part it is attached to?</strong> Here the body is the parent, and the drawer is the child.</p>
   <pre class="urdf-code"><code>&lt;joint name="joint_0" type="prismatic"&gt;
   &lt;parent link="link_2" /&gt;
@@ -142,7 +142,7 @@
 </section>
 
 <section id="rotating-joint" data-title="Joint: let the door rotate">
-  <h2><span class="section-number">3.3.4</span> Joint: let the door rotate</h2>
+  <h2><span class="section-number">3.4.4</span> Joint: let the door rotate</h2>
   <p>The door uses the same structure, with a different motion type. <strong>Revolute means a hinge with a limited angle.</strong></p>
   <pre class="urdf-code"><code>&lt;joint name="joint_1" type="revolute"&gt;
   &lt;parent link="link_2" /&gt;
@@ -162,7 +162,7 @@
 </section>
 
 <section id="visual-collision-inertial" data-title="How a part looks and behaves">
-  <h2><span class="section-number">3.3.5</span> How a part looks and behaves</h2>
+  <h2><span class="section-number">3.4.5</span> How a part looks and behaves</h2>
   <p>A link can describe three things about a part, such as this cabinet body:</p>
   <dl class="urdf-terms">
     <div><dt><code>visual</code></dt><dd><strong>The shape you see.</strong> Draws the cabinet body and the shelf inside it.</dd></div>
@@ -177,7 +177,7 @@
 </section>
 
 <section id="base-and-fixed-joint" data-title="Why is there an extra base link?">
-  <h2><span class="section-number">3.3.6</span> Why is there an extra base link?</h2>
+  <h2><span class="section-number">3.4.6</span> Why is there an extra base link?</h2>
   <p>Our cabinet has three visible parts, yet the file has four links. The extra one is <code>base</code>, an <strong>invisible reference for the whole cabinet</strong>. The fixed joint <code>joint_2</code> places the cabinet body relative to that reference.</p>
   <pre class="urdf-code"><code>&lt;link name="base" /&gt;
 
@@ -202,8 +202,8 @@
   <p class="urdf-source-links"><a href="https://github.com/YumengHe/ArticulateArena/blob/11e49256b8e839f04e5da2f481cbea20c54bc2ce/sample_data/45168/mobility.urdf">Cabinet URDF ↗</a><a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">URDF reference ↗</a></p>
 </section>
 </article>
-      <nav class="chapter-pagination" aria-label="Chapter navigation"><a href="frames-and-urdf.html">← Frames, orientation &amp; URDF</a><a href="changing-urdf.html">Changing a URDF →</a></nav>
-      <footer class="page-footer"><a href="https://github.com/YumengHe/why_simulation/blob/main/book/chapters/reading-urdf.html">Edit this page ↗</a><a href="#chapter-start">Back to top ↑</a></footer>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="frames-and-urdf.html">← Frames, orientation &amp; URDF</a><a class="page-next" rel="next" href="changing-urdf.html">Changing a URDF →</a></nav>
+      <footer class="page-footer"><a href="#chapter-start">Back to top ↑</a></footer>
     </main>
   </div>
   <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>

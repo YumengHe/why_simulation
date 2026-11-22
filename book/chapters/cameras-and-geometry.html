@@ -57,5 +57,4 @@
 <p><strong>The 3D points play different roles.</strong> In the 3DGS route, estimated surface points provide starting locations for blobs. In the original NeRF route, the renderer chooses query locations along camera rays, including in empty space. Those locations need not coincide with COLMAP’s or VGGT’s estimated surface points. Each query position and viewing direction is sent to the NeRF network.</p>
 <p>The worked examples below use COLMAP-style camera preparation. The VGGT export offers another way to supply camera and point estimates; the later rendering and fitting stages still need to be carried out.</p>
 <p>Further details: <a href="https://github.com/graphdeco-inria/gaussian-splatting">original 3DGS inputs</a> and <a href="https://github.com/bmild/nerf#generating-poses-for-your-own-scenes">original NeRF camera preparation</a>.</p>
-<p class="section-connection"><a href="gaussian-splatting.html">Next: reconstruct a cabinet with 3DGS.</a> Begin with the photographs, estimated cameras, and starting 3D points, then fit the Gaussians.</p>
 </section>

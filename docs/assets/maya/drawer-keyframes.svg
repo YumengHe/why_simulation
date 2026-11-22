@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img">
+<title>Drawer animation at zero, one and two seconds, with keyframes at zero and two</title>
+<rect width="960" height="470" fill="#fdfcf9"/>
+<g font-family="Arial, Helvetica, sans-serif"><text x="28" y="40" font-size="27" fill="#252824" text-anchor="start" font-weight="600">Choose two drawer positions and their times</text><g transform="translate(0 0)"><text x="160" y="87" font-size="23" fill="#a57b24" text-anchor="middle" font-weight="600">Keyframe</text><g transform="translate(5 -24)">
+<path d="M40 342H280" stroke="#deddd5" stroke-width="2"/>
+<rect x="55" y="130" width="140" height="205" fill="#dce8e4" stroke="#638982" stroke-width="2"/>
+<rect x="65" y="230" width="120" height="95" fill="#e6cc80" stroke="#ba963e" stroke-width="2"/>
+<path d="M55 223H195" stroke="#638982" stroke-width="5"/>
+<g transform="translate(0.0 0)">
+<rect x="66" y="160" width="129" height="55" fill="#dce8f1" stroke="#5b8db8" stroke-width="3"/>
+<path d="M66 163V215H194" stroke="#5b8db8" stroke-width="6" fill="none"/>
+<rect x="188" y="150" width="13" height="72" rx="1" fill="#5b8db8"/>
+<path d="M201 175H214V199H201" stroke="#3c6484" stroke-width="5" fill="none"/>
+</g></g><text x="160" y="362" font-size="24" fill="#252824" text-anchor="middle" font-weight="600">0 s · 0 cm open</text></g><g transform="translate(320 0)"><text x="160" y="87" font-size="23" fill="#5b8db8" text-anchor="middle" font-weight="600">Calculated in between</text><g transform="translate(5 -24)">
+<path d="M40 342H280" stroke="#deddd5" stroke-width="2"/>
+<rect x="55" y="130" width="140" height="205" fill="#dce8e4" stroke="#638982" stroke-width="2"/>
+<rect x="65" y="230" width="120" height="95" fill="#e6cc80" stroke="#ba963e" stroke-width="2"/>
+<path d="M55 223H195" stroke="#638982" stroke-width="5"/>
+<g transform="translate(34.0 0)">
+<rect x="66" y="160" width="129" height="55" fill="#dce8f1" stroke="#5b8db8" stroke-width="3"/>
+<path d="M66 163V215H194" stroke="#5b8db8" stroke-width="6" fill="none"/>
+<rect x="188" y="150" width="13" height="72" rx="1" fill="#5b8db8"/>
+<path d="M201 175H214V199H201" stroke="#3c6484" stroke-width="5" fill="none"/>
+</g></g><text x="160" y="362" font-size="24" fill="#252824" text-anchor="middle" font-weight="600">1 s · 20 cm open</text></g><g transform="translate(640 0)"><text x="160" y="87" font-size="23" fill="#a57b24" text-anchor="middle" font-weight="600">Keyframe</text><g transform="translate(5 -24)">
+<path d="M40 342H280" stroke="#deddd5" stroke-width="2"/>
+<rect x="55" y="130" width="140" height="205" fill="#dce8e4" stroke="#638982" stroke-width="2"/>
+<rect x="65" y="230" width="120" height="95" fill="#e6cc80" stroke="#ba963e" stroke-width="2"/>
+<path d="M55 223H195" stroke="#638982" stroke-width="5"/>
+<g transform="translate(68.0 0)">
+<rect x="66" y="160" width="129" height="55" fill="#dce8f1" stroke="#5b8db8" stroke-width="3"/>
+<path d="M66 163V215H194" stroke="#5b8db8" stroke-width="6" fill="none"/>
+<rect x="188" y="150" width="13" height="72" rx="1" fill="#5b8db8"/>
+<path d="M201 175H214V199H201" stroke="#3c6484" stroke-width="5" fill="none"/>
+</g></g><text x="160" y="362" font-size="24" fill="#252824" text-anchor="middle" font-weight="600">2 s · 40 cm open</text></g><path d="M145 398H815" stroke="#a9aaa2" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /><path d="M160 389l9 9-9 9-9-9z" fill="#a57b24"/><path d="M800 389l9 9-9 9-9-9z" fill="#a57b24"/><circle cx="480" cy="398" r="5" fill="#5b8db8"/><text x="480" y="441" font-size="21" fill="#656b66" text-anchor="middle" font-weight="400">For constant speed: 20 cm each second</text></g></svg>

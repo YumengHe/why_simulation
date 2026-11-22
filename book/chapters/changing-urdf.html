@@ -1,10 +1,10 @@
 <header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">3.4</span> What happens when we change the URDF?</h1>
+  <h1><span class="chapter-number">3.5</span> What happens when we change the URDF?</h1>
   <p class="lead">Use the same cabinet to see what changes when we edit its joints and shapes.</p>
 </header>
 
 <section id="change-direction" data-title="Change the drawer’s direction">
-  <h2><span class="section-number">3.4.1</span> Change the drawer’s direction</h2>
+  <h2><span class="section-number">3.5.1</span> Change the drawer’s direction</h2>
   <p>The drawer’s <code>axis</code> tells it which way to slide. Here we change only that direction. The starting point and the <strong>0–76 cm</strong> travel range stay the same.</p>
   <p>The <strong>+X, +Y, and +Z arrows</strong> show the joint’s reference directions at its closed pose. In this cabinet, <strong>+X points sideways, +Y points up, and +Z points out of the front</strong>. These are the joint’s local axes; the scene can use a different up axis. The purple arrow shows the chosen sliding direction.</p>
   <div class="experiment-pair">
@@ -39,7 +39,7 @@
 </section>
 
 <section id="change-joint-type" data-title="Turn a hinged door into a sliding door">
-  <h2><span class="section-number">3.4.2</span> Turn a hinged door into a sliding door</h2>
+  <h2><span class="section-number">3.5.2</span> Turn a hinged door into a sliding door</h2>
   <p>For a hinge, <code>axis</code> gives the line the door <strong>rotates around</strong>. For a slide, it gives the direction the door <strong>moves along</strong>. Changing <code>revolute</code> to <code>prismatic</code> also changes the limit from an angle to a distance.</p>
   <div class="experiment-pair">
     <figure class="experiment">
@@ -81,7 +81,7 @@
 </section>
 
 <section id="remove-drawer" data-title="Remove the drawer">
-  <h2><span class="section-number">3.4.3</span> Remove the drawer</h2>
+  <h2><span class="section-number">3.5.3</span> Remove the drawer</h2>
   <p>To remove this drawer, delete both <strong>its link</strong> and <strong>the joint connecting it to the cabinet</strong>.</p>
   <div class="experiment-pair">
     <figure class="experiment">
@@ -106,7 +106,7 @@
 </section>
 
 <section id="swap-shapes" data-title="Swap the shapes, keep the joints">
-  <h2><span class="section-number">3.4.4</span> Swap the shapes, keep the joints</h2>
+  <h2><span class="section-number">3.5.4</span> Swap the shapes, keep the joints</h2>
   <p>What if the drawer used the door’s joint, and the door used the drawer’s joint?</p>
   <div class="experiment-pair">
     <figure class="experiment">
@@ -129,5 +129,3 @@
   <p>The result is an unusual cabinet, but it makes the roles clear: <strong>the shapes describe the parts; the joints describe their movement.</strong></p>
   <p class="urdf-source-links"><a href="https://github.com/YumengHe/ArticulateArena/blob/11e49256b8e839f04e5da2f481cbea20c54bc2ce/sample_data/45168/mobility.urdf">Cabinet URDF ↗</a><a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">URDF reference ↗</a></p>
 </section>
-
-<p class="section-connection"><a href="animation-and-simulation.html">Next: simulation.</a> The joints describe where the parts are allowed to move. Chapter 4 asks what movement follows when a force acts on them.</p>

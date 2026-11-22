@@ -6,14 +6,14 @@
       "title": "Overview",
       "source": "chapters/overview.html",
       "output": "overview.html",
-      "description": "About the Why Simulation? webbook, how to contribute, contacts, and the ArticulateArena citation."
+      "description": "About the Why Simulation? webbook, authors, community contributions, and book citation."
     },
     {
       "number": "1",
-      "title": "From instructions to robot actions",
+      "title": "Language, vision, and robot actions",
       "source": "chapters/llm-vlm-vla.html",
       "output": "llm-vlm-vla.html",
-      "description": "From language and images to robot actions: why opening a drawer leads us to simulation.",
+      "description": "Compare LLM, VLM, and VLA with a cabinet: language, image understanding, image generation, model tools, and robot actions.",
       "review_added": true
     },
     {
@@ -80,14 +80,6 @@
       "review_added": true
     },
     {
-      "number": "2.8",
-      "title": "From 3D shape to a movable object",
-      "source": "chapters/visual-to-simulation.html",
-      "output": "visual-to-simulation.html",
-      "description": "Connect reconstructed shape to articulated parts in Chapter 3 and physics simulation in Chapter 4.",
-      "group": "3d-generation"
-    },
-    {
       "number": "3.1",
       "title": "Parts, joints, and motion",
       "source": "chapters/articulated-objects.html",
@@ -97,6 +89,14 @@
     },
     {
       "number": "3.2",
+      "title": "From 3D shape to a movable object",
+      "source": "chapters/visual-to-simulation.html",
+      "output": "visual-to-simulation.html",
+      "description": "Prepare a cabinet’s visible parts and describe the joints that make it movable.",
+      "group": "articulated-objects"
+    },
+    {
+      "number": "3.3",
       "title": "Frames, orientation & URDF",
       "source": "chapters/frames-and-urdf.html",
       "output": "frames-and-urdf.html",
@@ -104,7 +104,7 @@
       "group": "articulated-objects"
     },
     {
-      "number": "3.3",
+      "number": "3.4",
       "title": "Reading a URDF file",
       "source": "chapters/reading-urdf.html",
       "output": "reading-urdf.html",
@@ -112,7 +112,7 @@
       "group": "articulated-objects"
     },
     {
-      "number": "3.4",
+      "number": "3.5",
       "title": "Changing a URDF",
       "source": "chapters/changing-urdf.html",
       "output": "changing-urdf.html",
@@ -153,6 +153,12 @@
       "output": "robot-interaction.html",
       "description": "Connect robot actions, a controller, simulated contact, and new camera observations.",
       "group": "simulation"
+    },
+    {
+      "title": "3D software",
+      "source": "chapters/3d-software.html",
+      "output": "3d-software.html",
+      "description": "An introduction to Blender, Maya, and MeshLab, illustrated with modeling, rendering, animation, and rigid-body physics examples."
     }
   ],
   "groups": {
@@ -210,7 +216,10 @@
       "creating-an-object": "generating-3d-assets.html",
       "building-and-storing": "generating-3d-assets.html",
       "one-image-two-outputs": "generating-3d-assets.html",
-      "image-to-3d-to-image": "generating-3d-assets.html"
+      "image-to-3d-to-image": "generating-3d-assets.html",
+      "simulation-asset": "visual-to-simulation.html",
+      "movable-cabinet": "visual-to-simulation.html",
+      "from-shape-to-motion": "visual-to-simulation.html"
     },
     "gaussian-splatting.html": {
       "blend-calculation": "rendering.html",
@@ -238,6 +247,9 @@
       "weight-back": "rendering.html",
       "weight-background": "rendering.html",
       "weight-front": "rendering.html"
+    },
+    "meshes.html": {
+      "what-is-blender": "3d-software.html"
     }
   },
   "review_highlight_additions": false

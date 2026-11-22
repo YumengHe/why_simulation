@@ -1,9 +1,10 @@
 # Media sources and regeneration
 
-All embedded illustrations and videos are drawn from explicit geometry, numeric
-examples, or vector code. No text-to-image, image-to-image, or generative-video
-model supplies the finished media. AI assistance with writing drawing code or
-layout is compatible with this policy.
+Embedded illustrations and videos are drawn from explicit geometry, numeric
+examples, or vector code, or are screenshots supplied by the author. Screenshot
+preparation uses explicit crops, resizing, and annotation. No text-to-image,
+image-to-image, or generative-video model supplies the finished media. AI
+assistance with writing drawing code or layout is compatible with this policy.
 
 The complete per-file source mapping and SHA-256 hashes are in
 [`scripts/media-inventory.json`](scripts/media-inventory.json). Verify the
@@ -12,7 +13,10 @@ media, review its source before updating the inventory with `--write`.
 
 | Media | Drawing or rendering source |
 | --- | --- |
-| Introductory cabinet video and poster | `scripts/animate_cabinet_intro.py`; triangles from `scripts/data/cabinet-45168.json`, prescribed drawer/door joint positions |
+| Blender modeling, camera, and render screenshots | `scripts/prepare_blender_figures.py`; crops and leader labels from the eight author-supplied originals in `scripts/data/blender-screenshots/`. Original pixels are retained apart from crop/resampling; each input hash is recorded in the inventory. |
+| Shared Blender/Maya rig, keyframe, and curve teaching diagrams | `scripts/draw_maya_examples.py`; explicit vector geometry, a planar two-link IK solution, and linear/cubic drawer-position curves. The legacy `assets/maya/` paths are retained. These illustrate animation controls shared by both applications, not interface screenshots or physics simulation outputs. |
+| Box falling onto a cabinet shelf | `scripts/render_blender_physics.py`; scripted box geometry, Blender's Bullet rigid-body physics, and Cycles rendering. Only the initial box pose is supplied; later positions are computed from gravity and collisions. Parameters and sampled poses are recorded in `book/assets/software-physics/manifest.json`. |
+| Introductory cabinet video and poster | `scripts/animate_cabinet_intro.py`; triangles from `scripts/data/cabinet-45168.json`, per-pixel depth buffering, prescribed drawer/door joint positions |
 | Mesh/Gaussian cabinet comparison | `scripts/render_cabinet_comparison.py`; explicit cabinet boxes, triangle rasterization, and perspective Gaussian splatting |
 | Cabinet points, meshes, Gaussian and field diagrams | `scripts/draw_representation_overview.py` |
 | Basic representation and mesh diagrams | `scripts/draw_representation_diagrams.py`, `scripts/draw_representation_examples.py`, `scripts/draw_reconstruction_story.py` |
@@ -34,6 +38,17 @@ The cabinet geometry snapshot comes from ArticulateArena sample 45168 at commit
 The project’s source credits remain in the README. The geometry is an existing
 3D model, not a photograph copied from the supplied PDF.
 
+The Blender screenshots were supplied for inclusion on 2026-11-22. The orange
+rectangle in the modeling screenshot is a selected image Empty used as a 2D
+reference, not a camera frame. Four additional screenshots supplied the same day
+show two camera setups and their view previews, paired in the order provided by
+the author. Labels identify the selected camera wireframes; no camera rays or
+geometry are invented in the screenshots. Previews retain the editor's overlays
+and are distinguished from final render results. The virtual-camera workflow
+uses schematic inline SVG icons and HTML labels. The viewport and grayscale
+result are two crops of the same screenshot; the colored render is a separate
+supplied image, not a render reproduced from a `.blend` file by this repository.
+
 ## What the examples establish
 
 The Gaussian/NeRF figures explain the rendering and fitting workflow. Their
@@ -45,6 +60,12 @@ The force GIFs calculate motion from a simplified dynamics model. URDF GIFs and
 the introductory video use prescribed joint positions; they do not simulate
 contact. These distinctions are recorded alongside each generator.
 
+The software-page shelf example is an actual Blender rigid-body simulation.
+It uses a newly constructed cabinet, separate passive wall/shelf colliders,
+and one active 1 kg box with no position keyframes. Its three camera images
+are Cycles renders at 0, 0.2, and 0.6 seconds. To regenerate them, run
+`blender --background --factory-startup --python scripts/render_blender_physics.py`.
+
 ## Rebuild media
 
 Install the authoring dependencies from `scripts/requirements-animation.txt`
@@ -54,6 +75,7 @@ no package dependencies. MP4 encoding requires an installed FFmpeg executable.
 
 ```sh
 python3 scripts/render_cabinet_comparison.py
+python3 scripts/prepare_blender_figures.py
 python3 scripts/animate_cabinet_intro.py --ffmpeg /path/to/ffmpeg
 python3 scripts/animate_projection.py --ffmpeg /path/to/ffmpeg
 python3 scripts/animate_gaussian_cabinet.py --ffmpeg /path/to/ffmpeg

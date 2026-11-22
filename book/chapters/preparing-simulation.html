@@ -16,7 +16,7 @@
 
 <section class="simulation-lesson" id="space-for-the-drawer" data-title="Create collision shapes from the part meshes, then check the empty space">
   <h2><span class="section-number">4.2.2</span> Define where contact happens</h2>
-  <p><a href="visual-to-simulation.html#simulation-asset">Section 2.8.1</a> introduced the cabinet mesh, and <a href="#simulation-parts">Section 4.2.1</a> identified its moving parts. <strong>At this point in the example, we have the part meshes but have not yet prepared separate collision shapes. Preparing them is the new task in this section.</strong></p>
+  <p><a href="visual-to-simulation.html#simulation-asset">Section 3.2.1</a> introduced the cabinet mesh, and <a href="#simulation-parts">Section 4.2.1</a> identified its moving parts. <strong>At this point in the example, we have the part meshes but have not yet prepared separate collision shapes. Preparing them is the new task in this section.</strong></p>
   <p>The part meshes supply the <strong>visible shapes</strong> used to draw the cabinet. A <strong>collision shape</strong> is geometry supplied to the simulator to calculate where objects touch.</p>
 
   <span id="vertices-edges-faces" aria-hidden="true"></span>
@@ -65,4 +65,3 @@
   <p>For a simple test, we might choose a <strong>2 kg drawer</strong> with a <strong>50 cm travel limit</strong>. These are teaching values. To represent a real cabinet, measure or estimate its properties and check them against observed movement. A nice reconstruction alone does not tell us its mass or rail friction.</p>
   <p>Store the bodies, joints, geometry, and physical settings in the simulator’s model description. MuJoCo uses <strong>MJCF</strong>, an XML model format. <strong>URDF</strong>, introduced in <a href="frames-and-urdf.html#tree-to-urdf">Chapter 3</a>, is another format for describing links and joints; importing a URDF can still require simulator-specific preparation. <a href="https://mujoco.readthedocs.io/en/stable/overview.html">MuJoCo’s model formats.</a></p>
 </section>
-<p class="section-connection"><a href="mujoco-experiments.html">Next: MuJoCo experiments.</a> Load this model, choose a pull, and calculate how the drawer moves.</p>

@@ -1,10 +1,10 @@
 <header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">3.2</span> Frames, orientation &amp; URDF</h1>
+  <h1><span class="chapter-number">3.3</span> Frames, orientation &amp; URDF</h1>
   <p class="lead">A model needs more than its shape. We also need to know which way it faces, where its joints are, and what each position is measured from.</p>
 </header>
 
 <section id="base-and-world" data-title="The base and the world">
-  <h2><span class="section-number">3.2.1</span> The base and the world</h2>
+  <h2><span class="section-number">3.3.1</span> The base and the world</h2>
   <p>A <strong>coordinate frame</strong> is a reference point with three directions: X, Y, and Z. Its reference point is the <strong>origin</strong>.</p>
   <dl class="definitions frame-definitions">
     <div><dt>World frame</dt><dd>The scene’s reference. It lets us place the whole cabinet in a room.</dd></div>
@@ -18,7 +18,7 @@
 </section>
 
 <section id="up-and-front" data-title="Which way is up? Which way is front?">
-  <h2><span class="section-number">3.2.2</span> Which way is up? Which way is front?</h2>
+  <h2><span class="section-number">3.3.2</span> Which way is up? Which way is front?</h2>
   <p>For this chapter’s diagrams, we choose <strong>+Z up, +X front, and +Y left</strong> in the object’s base frame. “Left” is the object’s own left when facing forward. Other models may use different axes for up and front.</p>
   <p>First find the object’s usual upright pose. Then use its function to choose the front. Left–right symmetry can suggest an orientation, but it does not always distinguish front from back.</p>
   <div class="orientation-examples">
@@ -29,7 +29,7 @@
 </section>
 
 <section id="tree-to-urdf" data-title="From a tree to a URDF file">
-  <h2><span class="section-number">3.2.3</span> From a tree to a URDF file</h2>
+  <h2><span class="section-number">3.3.3</span> From a tree to a URDF file</h2>
   <p><strong>URDF</strong> stands for Unified Robot Description Format. It is a text file that records links and joints, along with their geometry and other properties. Despite its name, it can describe a cabinet too.</p>
   <figure class="frame-figure">
     <svg id="urdf-tree-scene" viewBox="0 0 760 225" role="img" aria-label="The cabinet body is the parent of the drawer and the door. The body-to-drawer joint slides; the body-to-door joint rotates."></svg>
@@ -39,7 +39,7 @@
 </section>
 
 <section id="what-is-a-mesh" data-title="What is a mesh?">
-  <h2><span class="section-number">3.2.4</span> What is a mesh?</h2>
+  <h2><span class="section-number">3.3.4</span> What is a mesh?</h2>
   <p>A <strong>mesh</strong> describes a 3D shape using points and flat faces. For the drawer’s orange side panel, those points are its corners. The faces join the points to form its surface.</p>
   <div class="mesh-examples">
     <figure><img src="assets/diagrams/drawer-shapes.svg" width="320" height="220" alt="The blue drawer, with one side panel highlighted orange"><figcaption><strong>The whole drawer</strong>Its sides, bottom, front, and handle move together as one link.</figcaption></figure>
@@ -51,7 +51,7 @@
 </section>
 
 <section id="three-origins" data-title="Joint, link, and visual origins">
-  <h2><span class="section-number">3.2.5</span> Joint, link, and visual origins</h2>
+  <h2><span class="section-number">3.3.5</span> Joint, link, and visual origins</h2>
   <p>Now place the drawer in the cabinet. The body is the <strong>parent link</strong> and the drawer is the <strong>child link</strong>. URDF needs to know where the drawer starts and where to draw its shapes.</p>
   <div class="cabinet-origin-story">
     <figure>

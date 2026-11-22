@@ -1,31 +1,108 @@
 <header class="chapter-header" id="chapter-start">
-  <h1 class="draft-addition"><span class="chapter-number">1.</span> From instructions to robot actions</h1>
-  <p class="lead">Suppose we ask a robot to open a drawer. It needs to understand the request, find the handle, and move its arm. These three kinds of model help explain those different abilities.</p>
+  <h1><span class="chapter-number">1.</span> Language, vision, and robot actions</h1>
+  <p class="lead">Explaining how to open a drawer, finding its handle in a picture, and commanding a robot to pull it require different abilities. This chapter uses the same cabinet to introduce three kinds of model: a <strong>large language model (LLM)</strong>, a <strong>vision-language model (VLM)</strong>, and a <strong>vision-language-action model (VLA)</strong>.</p>
+  <p class="chapter-introduction">We will compare what information each receives and what it produces. We will also distinguish understanding a picture from generating one, and see how an assistant can call another model to help with either task.</p>
 </header>
 
 <figure class="opening-question">
   <img src="assets/media/cabinet-poster.png" width="300" height="300" alt="A cabinet with a blue drawer, a yellow door, and handles">
-  <figcaption><strong>“Open the drawer.”</strong><p>How do words turn into movement?</p></figcaption>
+  <figcaption><strong>One cabinet, three abilities</strong><p>Explain the task. Locate the handle. Choose an action.</p></figcaption>
 </figure>
 
-<section id="language-models" data-title="Text-only LLM: work with language">
-  <h2><span class="section-number">1.1</span> Text-only LLM: work with language</h2>
-  <p>A <strong>text-only large language model (LLM)</strong> takes text and generates text. It cannot inspect an image directly; you need to describe it in words. It can explain a task or suggest steps to follow. <a href="https://arxiv.org/abs/2307.09288">Llama 2</a> is one example.</p>
-  <div class="model-example"><p><strong>We ask:</strong> “How do you open a drawer?”</p><p><strong>A possible answer:</strong> “Hold the handle and pull outward.”</p></div>
-  <p>That is a useful instruction, but this text-only exchange does not tell the robot where the handle is in front of it.</p>
+<table class="model-overview">
+  <caption class="visually-hidden">The inputs and outputs of the three cabinet examples</caption>
+  <thead><tr><th scope="col">Model</th><th scope="col">Example input</th><th scope="col">Example output</th></tr></thead>
+  <tbody>
+    <tr><th scope="row"><a href="#language-models">LLM</a></th><td>“How do I open a drawer?”</td><td>Written instructions.</td></tr>
+    <tr><th scope="row"><a href="#vision-language-models">VLM</a></th><td>Cabinet image + “Where is the handle?”</td><td>An answer based on the image.</td></tr>
+    <tr><th scope="row"><a href="#vision-language-action-models">VLA</a></th><td>Robot camera image + “Open the drawer.”</td><td>Movement and gripper commands.</td></tr>
+  </tbody>
+</table>
+
+<section id="language-models" data-title="LLM: work with language">
+  <h2><span class="section-number">1.1</span> LLM: work with language</h2>
+  <p>A <strong>large language model (LLM)</strong> learns patterns in language and can generate answers, explanations, or instructions. For the drawer task, we can describe the problem in words and ask it to suggest steps.</p>
+  <div class="model-example"><p><strong>Input:</strong> “How do you open a drawer?”</p><p><strong>Possible text output:</strong> “Hold the handle and pull outward.”</p></div>
+  <p>This answer explains the task. With only that written request, the model has no picture showing where this cabinet’s handle is. Here, <strong>generating an answer means producing text</strong>.</p>
+  <p>The term LLM describes language capability. Some models also accept images or other kinds of input; the next example uses that visual capability.</p>
 </section>
 
 <section id="vision-language-models" data-title="VLM: connect images and words">
   <h2><span class="section-number">1.2</span> VLM: connect images and words</h2>
-  <p>A <strong>vision-language model (VLM)</strong> can use an image together with text. It can answer questions about what it sees. For example, <a href="https://llava-vl.github.io/">LLaVA</a> connects an image encoder to a language model.</p>
-  <div class="model-example"><p><strong>We provide:</strong> the cabinet picture and “Which handle belongs to the drawer?”</p><p><strong>A possible answer:</strong> “The handle on the blue part at the top.”</p></div>
-  <p>Now the answer is tied to this cabinet. The robot still needs commands that move its arm and gripper.</p>
+  <p>A <strong>vision-language model (VLM)</strong> combines visual information with language. Given the cabinet image and a question, it can connect the words “drawer handle” to a particular part of the picture. <a href="https://llava-vl.github.io/">LLaVA</a> is one example: its image-processing component passes visual information to a language model.</p>
+
+  <div id="image-input-example" class="model-comparison-example">
+    <h3>A chat example: add a cabinet picture</h3>
+    <p>A model that supports both text and images can handle either message below. The question stays the same; the information we provide changes.</p>
+    <div class="language-vision-comparison">
+      <div>
+        <h4>Words alone</h4>
+        <p class="comparison-prompt">“Where is this cabinet’s drawer handle?”</p>
+        <p>No picture or description identifies this cabinet.</p>
+        <p><strong>A possible reply:</strong> “Please send a picture or describe the cabinet.”</p>
+      </div>
+      <div>
+        <h4>Picture + words</h4>
+        <div class="comparison-image-input"><img src="assets/media/cabinet-poster.png" width="96" height="96" alt="The cabinet image supplied with the question: blue drawer above a gold door"><p class="comparison-prompt">“Where is this cabinet’s drawer handle?”</p></div>
+        <p>The image shows which part is the drawer.</p>
+        <p><strong>A possible reply:</strong> “On the blue drawer at the top.”</p>
+      </div>
+    </div>
+    <p>These are illustrative replies. With the picture, the answer can refer to <strong>this cabinet</strong>, using visual information as well as words.</p>
+  </div>
+
+  <div class="model-topic" id="one-model-many-capabilities">
+    <h3>One model can understand words and pictures</h3>
+    <p><strong>LLM</strong> emphasizes language ability; <strong>VLM</strong> emphasizes combining vision and language. The labels can overlap. A model that handles more than one kind of information, such as text and images, is called <strong>multimodal</strong>.</p>
+    <p><a href="https://openai.com/index/hello-gpt-4o/">GPT-4o</a>, for example, was trained to process text and images within one model. When it receives the cabinet picture, it can use its own visual capability to answer. Uploading a picture therefore does not, by itself, mean that the application has switched models.</p>
+  </div>
+
+  <div class="model-topic" id="reading-and-generating-images">
+    <h3>Reading a picture and generating one</h3>
+    <div class="language-vision-comparison">
+      <div>
+        <h4>Understand the cabinet picture</h4>
+        <p><strong>Input:</strong> the existing picture + “Where is the drawer handle?”</p>
+        <p><strong>Output:</strong> “On the blue drawer at the top.”</p>
+        <p>The task is to interpret what the supplied picture shows.</p>
+      </div>
+      <div>
+        <h4>Create a cabinet picture</h4>
+        <p><strong>Input:</strong> “Draw a blue cabinet with a gold door.”</p>
+        <p><strong>Output:</strong> a new image of a cabinet.</p>
+        <p>Editing is another image-generation task: supply a picture and ask to change the door’s color.</p>
+      </div>
+    </div>
+    <p>Both tasks can appear in the same chat application. Their requested outputs are different: an answer about an image, or an image itself. <a href="https://developers.openai.com/api/docs/guides/images-vision">OpenAI’s image guide</a> describes both uses.</p>
+  </div>
+
+  <div class="model-topic" id="calling-other-models">
+    <h3>How can an assistant call another model?</h3>
+    <p>A chat application can connect its main model to other models through <strong>tools</strong>. The assistant requests a tool, and the application sends the required inputs to it and returns the result. This lets the assistant delegate a task.</p>
+
+    <h4 class="model-route-title">Call a VLM to read the picture</h4>
+    <ol class="model-tool-flow" aria-label="An assistant delegates the cabinet question to a vision-language model">
+      <li><strong>Assistant requests help</strong><p>Ask a visual tool to locate the drawer handle.</p></li>
+      <li><strong>VLM examines the image</strong><p>The application supplies the cabinet picture and question. The VLM returns a description of the handle’s location.</p></li>
+      <li><strong>Assistant uses the result</strong><p>Answer: “On the blue drawer at the top.”</p></li>
+    </ol>
+    <p>This is an alternative to the main model reading the image itself. <a href="https://arxiv.org/abs/2303.17580">HuggingGPT</a> is a research example of an LLM selecting other models and using their results to compose a response.</p>
+
+    <h4 class="model-route-title">Call an image model to draw a picture</h4>
+    <ol class="model-tool-flow" aria-label="An assistant delegates creating a cabinet picture to an image-generation model">
+      <li><strong>Assistant requests an image</strong><p>Send “Draw a blue cabinet with a gold door” to an image-generation tool.</p></li>
+      <li><strong>Image model creates it</strong><p>The model generates an image from the description.</p></li>
+      <li><strong>Application displays it</strong><p>The new cabinet picture appears in the conversation.</p></li>
+    </ol>
+    <p>OpenAI’s <a href="https://developers.openai.com/api/docs/guides/tools-image-generation">image-generation tool</a> supports this arrangement: a main model can call a separate GPT Image model to generate or edit an image.</p>
+    <p><strong>Reading and drawing name the tasks. Calling a tool describes how the work is assigned.</strong> A model with its own vision capability can still call another model to create pictures.</p>
+  </div>
 </section>
 
 <section id="vision-language-action-models" data-title="VLA: produce robot actions">
   <h2><span class="section-number">1.3</span> VLA: produce robot actions</h2>
   <p>A <strong>vision-language-action model (VLA)</strong> uses visual information and an instruction to produce robot actions. Depending on the model, it may also use information about the robot’s current position.</p>
-  <p>The output can be numbers telling the gripper where to move and whether to open or close. A separate <strong>robot controller</strong> carries out those commands. The next camera image shows what actually happened.</p>
+  <p>For the cabinet task, the input is the robot’s camera image and “Open the drawer.” The output can be numbers telling its <strong>gripper</strong>—the robot’s grasping hand—where to move and whether to open or close. A <strong>robot controller</strong> turns those commands into signals for the robot’s motors. The next camera image shows what actually happened.</p>
 
   <div class="vla-flow" id="vla-demo" role="region" aria-label="VLA drawer example, step by step">
     <h3>Opening a drawer, step by step</h3>
@@ -40,7 +117,8 @@
         </div>
       </li>
       <li>
-        <h4><span class="vla-step-number">2</span> Inside the VLA</h4>
+        <h4><span class="vla-step-number">2</span> Process the image and instruction</h4>
+        <p>This example follows the broad structure of <a href="https://openvla.github.io/">OpenVLA</a>. These components work together within the VLA.</p>
         <ol class="vla-components">
           <li><strong>Image encoder + adapter</strong><p>Turn the image into numerical features the main model can use.</p></li>
           <li><strong>Vision-language backbone</strong><p>Combine those features with the instruction “Open the drawer.”</p></li>
@@ -77,28 +155,11 @@
       <tr><td>The gripper is already holding the handle.</td><td>Move <strong>10 cm outward</strong>; <strong>keep closed</strong>.</td></tr>
     </tbody>
   </table>
-  <p>These are illustrative commands. Here, <strong>“predict” means propose the next action</strong></p>
+  <p>These are illustrative commands. Here, <strong>“predict” means propose the next action</strong>.</p>
   <p>The structure is simplified from <a href="https://openvla.github.io/">OpenVLA</a>, whose predicted outputs are decoded into numerical robot commands. Other VLAs can organize their action outputs differently.</p>
-</section>
-
-<section id="why-test-actions" data-title="What happens after the robot tries to pull?">
-  <h2><span class="section-number">1.4</span> What happens after the robot tries to pull?</h2>
-  <p>Suppose the gripper is holding the handle. The VLA outputs a command: <strong>“Move the gripper 10 cm outward.”</strong> This is a requested movement. It does not guarantee that the drawer opens by 10 cm.</p>
-  <p>A freely sliding drawer may follow the gripper. A locked drawer stays shut. A heavy drawer or one with high friction may require more force than the controller can supply. The result depends on the robot, its controller, and the object.</p>
-  <p>A real robot finds out by interacting with the real cabinet. <strong>In simulation, we build a model of that interaction and calculate what happens.</strong></p>
-  <ol class="simulation-loop">
-    <li><strong>The VLA requests an action.</strong> For example, move the gripper outward while keeping it closed.</li>
-    <li><strong>The controller tries to make that movement.</strong> It turns the request into control inputs for the simulated robot.</li>
-    <li><strong>The simulation calculates the response.</strong> A <a href="https://mujoco.readthedocs.io/en/stable/overview.html">physics engine</a> computes how the robot and drawer move under the modeled forces, contacts, and joint limits.</li>
-    <li><strong>A renderer makes the next camera image.</strong> The VLA receives this updated view and can choose another action.</li>
-  </ol>
-  <p>We can reset the same scene and repeat the task, then change just the drawer’s mass or friction to compare the results. This helps us test a robot’s behavior without rebuilding a physical experiment each time. Simulated experience can also be used for training; its usefulness depends on how well the simulated conditions represent the intended task.</p>
-  <h3>What do we need to build that cabinet?</h3>
-  <dl class="simulation-needs">
-    <div><dt>A 3D shape</dt><dd>The cabinet, drawer, and handle need geometry. This gives us something to render and helps define where contact can happen.</dd></div>
-    <div><dt>Parts and joints</dt><dd>The drawer must be a separate moving part, connected so it can slide but cannot move freely in every direction.</dd></div>
-    <div><dt>Physical properties</dt><dd>Mass, friction, and contact settings help determine how the object responds to a force.</dd></div>
-  </dl>
-  <p>The diagram above illustrates the command-and-feedback loop. Later, we will calculate the drawer’s movement from forces.</p>
-  <p class="section-connection draft-addition">The next chapters follow that process: <a href="3d-generation.html">Chapter 2</a> introduces 3D representations and how to create them; <a href="index.html">Chapter 3</a> describes its parts and joints; <a href="animation-and-simulation.html">Chapter 4</a> adds forces, simulated motion, and robot interaction.</p>
+  <div class="model-topic" id="why-test-actions">
+    <h3>What happens after the robot tries to pull?</h3>
+    <p>The VLA proposes a movement; the controller tries to carry it out. A freely sliding drawer may follow the gripper, while a locked drawer stays shut. The next observation helps the model choose what to do next.</p>
+    <p>This interaction can happen with a real cabinet or in a simulation. In simulation, a physics engine calculates the movement, and a renderer produces the next camera image. <a href="robot-interaction.html">Robot interaction in Chapter 4</a> explains how the model, controller, and simulator work together.</p>
+  </div>
 </section>

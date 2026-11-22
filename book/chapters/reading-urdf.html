@@ -1,10 +1,10 @@
 <header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">3.3</span> Reading a URDF file</h1>
+  <h1><span class="chapter-number">3.4</span> Reading a URDF file</h1>
   <p class="lead">A URDF file tells us what the parts are, what they look like, and how they connect. Let’s read one using the cabinet we already know.</p>
 </header>
 
 <section id="file-and-tree" data-title="One file, parts and connections">
-  <h2><span class="section-number">3.3.1</span> One file, parts and connections</h2>
+  <h2><span class="section-number">3.4.1</span> One file, parts and connections</h2>
   <p>The whole model sits inside <code>&lt;robot&gt;</code>. Inside it, <code>&lt;link&gt;</code> describes a part, and <code>&lt;joint&gt;</code> connects two parts. The word “robot” is simply the format’s name for the whole model; this one is a cabinet.</p>
   <p>A pair such as <code>&lt;link&gt; … &lt;/link&gt;</code> marks the beginning and end of a block. A tag ending in <code>/&gt;</code> is complete on its own.</p>
   <div class="urdf-overview">
@@ -43,7 +43,7 @@
 </section>
 
 <section id="link-and-visual" data-title="Link: shapes that move together">
-  <h2><span class="section-number">3.3.2</span> Link: shapes that move together</h2>
+  <h2><span class="section-number">3.4.2</span> Link: shapes that move together</h2>
   <p>The drawer’s sides, bottom, front, and handle all move together, so they belong to <strong>one link</strong>. A link can contain several <code>&lt;visual&gt;</code> blocks, each describing a shape to draw.</p>
   <figure class="urdf-plate">
     <a href="assets/figures/drawer-front-meshes.svg" data-enlarge aria-label="Enlarge the drawer front diagram"><img src="assets/figures/drawer-front-meshes.svg" width="760" height="520" alt="The drawer front has five labeled colored pieces: a top strip, a bottom strip, two side strips, and a center panel. The rest of the drawer is shown faintly."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
@@ -71,7 +71,7 @@
 </section>
 
 <section id="sliding-joint" data-title="Joint: let the drawer slide">
-  <h2><span class="section-number">3.3.3</span> Joint: let the drawer slide</h2>
+  <h2><span class="section-number">3.4.3</span> Joint: let the drawer slide</h2>
   <p>A <code>&lt;joint&gt;</code> answers a different question: <strong>how can this part move relative to the part it is attached to?</strong> Here the body is the parent, and the drawer is the child.</p>
   <pre class="urdf-code"><code>&lt;joint name="joint_0" type="prismatic"&gt;
   &lt;parent link="link_2" /&gt;
@@ -102,7 +102,7 @@
 </section>
 
 <section id="rotating-joint" data-title="Joint: let the door rotate">
-  <h2><span class="section-number">3.3.4</span> Joint: let the door rotate</h2>
+  <h2><span class="section-number">3.4.4</span> Joint: let the door rotate</h2>
   <p>The door uses the same structure, with a different motion type. <strong>Revolute means a hinge with a limited angle.</strong></p>
   <pre class="urdf-code"><code>&lt;joint name="joint_1" type="revolute"&gt;
   &lt;parent link="link_2" /&gt;
@@ -122,7 +122,7 @@
 </section>
 
 <section id="visual-collision-inertial" data-title="How a part looks and behaves">
-  <h2><span class="section-number">3.3.5</span> How a part looks and behaves</h2>
+  <h2><span class="section-number">3.4.5</span> How a part looks and behaves</h2>
   <p>A link can describe three things about a part, such as this cabinet body:</p>
   <dl class="urdf-terms">
     <div><dt><code>visual</code></dt><dd><strong>The shape you see.</strong> Draws the cabinet body and the shelf inside it.</dd></div>
@@ -137,7 +137,7 @@
 </section>
 
 <section id="base-and-fixed-joint" data-title="Why is there an extra base link?">
-  <h2><span class="section-number">3.3.6</span> Why is there an extra base link?</h2>
+  <h2><span class="section-number">3.4.6</span> Why is there an extra base link?</h2>
   <p>Our cabinet has three visible parts, yet the file has four links. The extra one is <code>base</code>, an <strong>invisible reference for the whole cabinet</strong>. The fixed joint <code>joint_2</code> places the cabinet body relative to that reference.</p>
   <pre class="urdf-code"><code>&lt;link name="base" /&gt;
 

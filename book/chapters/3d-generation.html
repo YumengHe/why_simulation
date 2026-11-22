@@ -2,7 +2,7 @@
   <h1><span class="chapter-number">2.1</span> How do we represent a 3D cabinet?</h1>
   <p class="chapter-purpose draft-addition"><strong>General introduction</strong></p>
   <p class="lead">A photograph stores an image from one viewpoint. A 3D representation stores information about the cabinet in space, so software can inspect it or calculate views from other positions.</p>
-  <p class="draft-addition">Sections <a href="3d-generation.html">2.1</a>–<a href="rendering.html">2.3</a> introduce general concepts. Sections <a href="cameras-and-geometry.html">2.4</a>–<a href="generating-3d-assets.html">2.7</a> show how specific tools and methods use them. <a href="visual-to-simulation.html">Section 2.8</a> concludes the chapter and connects it to moving parts.</p>
+  <p class="draft-addition">Sections <a href="3d-generation.html">2.1</a>–<a href="rendering.html">2.3</a> introduce general concepts. Sections <a href="cameras-and-geometry.html">2.4</a>–<a href="generating-3d-assets.html">2.7</a> show how specific tools and methods use them.</p>
 </header>
 
 <section class="representation-lesson draft-addition" id="what-is-a-representation" data-title="What is stored?">
@@ -30,5 +30,4 @@
 </dl>
 <p>A method’s supported outputs depend on its design. Some methods produce surface geometry; some produce Gaussians; others support several representations. We first learn what those outputs contain, then follow how methods create them.</p>
 <p>For example: a method creates the cabinet as a mesh → we save its surface data → a mesh renderer draws a front view. The saved 3D data can also be used to draw a side view.</p>
-<p class="section-connection"><a href="meshes.html">Next: meshes and surface shape.</a> Start with the cabinet’s surfaces, then see how meshes, Gaussians, and fields become images. After rendering, we reverse the question: what can photographs tell us about the 3D cabinet?</p>
 </section>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D software · Why Simulation?</title>
+  <meta name="description" content="An introduction to Blender, Maya, and MeshLab, illustrated with modeling, rendering, animation, and rigid-body physics examples.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=a08ed3378cd4">
+  <script src="assets/book.js?v=a08ed3378cd4" defer></script>
+  <script src="assets/articulation.js?v=a08ed3378cd4" defer></script>
+  <script src="assets/frames.js?v=a08ed3378cd4" defer></script>
+
+</head>
+<body data-review-additions="false">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Language, vision, and robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representations, reconstruction &amp; generation</span><ol class="chapter-children"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>How do we represent a 3D cabinet?</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: surfaces and useful detail</a></li><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.3</span>How a 3D model produces a 2D image</a></li><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.4</span>Recover cameras and geometry</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.5</span>Reconstruct a cabinet with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.6</span>NeRF: from cabinet photos to new views</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.7</span>Generate an asset with a pretrained model</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="index.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">3.2</span>From 3D shape to a movable object</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.3</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.4</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.5</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li><li><a class="chapter-link" href="#chapter-start">3D software</a></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1>3D software: Blender, Maya, and MeshLab</h1>
+  <p class="lead">3D software lets us create and edit models, make camera images, and work with movement. The mesh is the shape data; the application provides tools for working with it.</p>
+</header>
+
+<section id="blender-introduction" data-title="Blender" class="overview-section">
+  <h2>Blender</h2>
+  <p><a href="https://docs.blender.org/manual/en/4.4/getting_started/about/index.html">Blender</a> is a free, open-source application for creating 3D content. We can build and edit meshes, add materials and lights, animate objects, run physics simulations, and render camera images. For a cabinet, it can handle everything from shaping the drawer to making a video of its movement.</p>
+</section>
+
+<section id="maya-introduction" data-title="Maya" class="overview-section">
+  <h2>Maya</h2>
+  <p><a href="https://www.autodesk.com/products/maya/overview">Autodesk Maya</a> is a 3D creation application with tools for modeling, rigging, animation, rendering, and simulation. We can use it to build a cabinet, set up controls for its moving parts, and produce images or animation. <strong>The rigging, keyframe, and animation-curve tools illustrated below are available in both Maya and Blender.</strong></p>
+</section>
+
+<section id="meshlab" data-title="MeshLab" class="overview-section">
+  <h2>MeshLab</h2>
+  <p><a href="https://www.meshlab.net/">MeshLab</a> focuses on inspecting and processing triangle meshes. We can use it to clean up a reconstructed cabinet, remove stray fragments, and reduce the number of faces. After simplifying a model, check that the handle keeps its shape and the opening behind it remains clear.</p>
+  <p>MeshLab’s role here is to prepare the geometry. For the rigging and keyframe animation shown below, we use Blender or Maya. A mesh cleaned in MeshLab can be exported and opened in either application.</p>
+  <p>The following examples illustrate <a href="#what-is-blender">modeling and rendering</a>, <a href="#maya">animation</a>, and <a href="#software-physics">physics simulation</a>. The screenshots identify the application used; the animation diagrams explain concepts shared by Blender and Maya.</p>
+</section>
+
+<section id="what-is-blender" data-title="Modeling and rendering">
+  <h2>Modeling and rendering</h2>
+  <p>First, build the object’s shape and make a picture of it. The screenshots in this example use <strong>Blender</strong>. Maya also provides mesh editing, materials, lights, cameras, and rendering; its interface looks different.</p>
+
+  <div class="blender-example" id="mesh-camera-render">
+    <h3>Example: from a portrait mesh to a picture</h3>
+    <p>These Blender screenshots follow a portrait model. The <strong>mesh</strong> gives it shape, a <strong>virtual camera</strong> chooses the view, and <strong>rendering</strong> produces a picture using that view, the materials, and the lighting.</p>
+
+    <h4>1. Build and inspect the mesh</h4>
+    <p>The gray model is made of small, flat faces. Together, they form the head, hat, and other parts. The colored rectangle is a <strong>2D reference image</strong> used as a guide while modeling.</p>
+    <div class="blender-image-pair">
+      <figure class="blender-figure">
+        <a href="assets/blender/mesh-reference.jpg" data-enlarge aria-label="Enlarge the mesh and reference-image labels"><img src="assets/blender/mesh-reference.jpg" width="880" height="975" alt="A gray mesh in front of a colored reference image. Blue points to the mesh; gold points to the orange boundary of the reference image."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+        <figcaption><strong>Modeling against a reference.</strong> The orange outline marks the selected reference image.</figcaption>
+      </figure>
+      <figure class="blender-figure">
+        <a href="assets/blender/mesh-oblique.jpg" data-enlarge aria-label="Enlarge the angled mesh view"><img src="assets/blender/mesh-oblique.jpg" width="880" height="1221" alt="An angled Blender view showing the model’s small flat faces and the flat reference image behind it."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+        <figcaption><strong>Inspecting from another angle.</strong> The model has depth; the reference remains a flat picture.</figcaption>
+      </figure>
+    </div>
+    <p>We can move around the model in Blender’s <strong>3D viewport</strong>—the editing area—to inspect its shape. A reference picture helps with modeling; it is not the camera or the finished render. <a href="https://docs.blender.org/manual/en/4.5/modeling/empties.html#image">Blender’s reference-image guide</a> explains this setup.</p>
+
+    <h4>2. Choose the virtual camera’s view</h4>
+    <p>Think of placing a camera in front of a sculpture. In Blender, we position a virtual camera, aim it at the model, and choose how much of the scene fits in the frame. This camera defines the view used for the final image.</p>
+    <div id="camera-view-examples" class="blender-camera-examples">
+      <p>The yellow wireframe below is the <strong>camera object</strong> in the scene. Each row pairs a camera setup with a preview of the model from that viewpoint.</p>
+      <div class="blender-image-pair">
+        <figure class="blender-figure">
+          <a href="assets/blender/camera-setup-a.jpg" data-enlarge aria-label="Enlarge camera position A"><img src="assets/blender/camera-setup-a.jpg" width="880" height="992" loading="lazy" alt="Camera setup A: a yellow camera wireframe stands to the left of the portrait model. A gold leader identifies the virtual camera."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+          <figcaption><strong>Camera position A.</strong> An outside view shows where the camera sits relative to the model.</figcaption>
+        </figure>
+        <figure class="blender-figure">
+          <a href="assets/blender/camera-view-a.jpg" data-enlarge aria-label="Enlarge viewpoint A"><img src="assets/blender/camera-view-a.jpg" width="880" height="992" loading="lazy" alt="Viewpoint A shows the hat and rounded head, while the model’s eyes and nose are hidden. Blender’s grid and guide lines remain visible."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+          <figcaption><strong>View A.</strong> The eyes and nose are hidden from this angle.</figcaption>
+        </figure>
+      </div>
+      <div class="blender-image-pair">
+        <figure class="blender-figure">
+          <a href="assets/blender/camera-setup-b.jpg" data-enlarge aria-label="Enlarge camera position B"><img src="assets/blender/camera-setup-b.jpg" width="880" height="992" loading="lazy" alt="Camera setup B: the selected yellow camera is in the lower right, facing the portrait model. A gold leader identifies it."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+          <figcaption><strong>Camera position B.</strong> The camera looks toward the model from another position.</figcaption>
+        </figure>
+        <figure class="blender-figure">
+          <a href="assets/blender/camera-view-b.jpg" data-enlarge aria-label="Enlarge viewpoint B"><img src="assets/blender/camera-view-b.jpg" width="880" height="992" loading="lazy" alt="Viewpoint B shows the portrait’s eyes, nose, blue hat, and orange scarf, with Blender’s grid and guide lines still visible."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+          <figcaption><strong>View B.</strong> The eyes and nose are now visible.</figcaption>
+        </figure>
+      </div>
+      <p><strong>A different viewpoint reveals different parts of the same model.</strong> We can choose another camera view without rebuilding the mesh. The grid and black guide lines in these previews are Blender overlays, not part of the portrait.</p>
+    </div>
+    <ol class="blender-camera-flow" aria-label="Scene, camera, and rendering workflow">
+      <li><svg viewBox="0 0 80 70" aria-hidden="true"><path d="M12 18L39 6l29 13-27 12zM12 18v34l29 12 27-12V19M41 31v33M26 12l28 13M12 35l29 12 27-12"/></svg><strong>3D scene</strong><p>Model, materials, and lights.</p></li>
+      <li><svg viewBox="0 0 80 70" aria-hidden="true"><rect x="8" y="17" width="47" height="35" rx="4"/><circle cx="31" cy="34" r="11"/><path d="M55 26l17-9v35l-17-9M19 17V9h20v8M31 52v13m-12 0h24"/></svg><strong>Virtual camera</strong><p>Choose the viewpoint and framing.</p></li>
+      <li><svg viewBox="0 0 80 70" aria-hidden="true"><rect x="8" y="8" width="64" height="51" rx="2"/><path d="M14 50l17-23 13 15 10-12 12 20z"/><circle cx="57" cy="21" r="5"/></svg><strong>Render</strong><p>Calculate a 2D picture from that view.</p></li>
+    </ol>
+
+    <h4>3. Render the surface appearance</h4>
+    <p>With the camera set, the renderer calculates the output image. Blender displays it in the <strong>Render Result</strong> window.</p>
+    <div class="blender-image-pair blender-view-pair">
+      <figure class="blender-figure">
+        <a href="assets/blender/scene-viewport.jpg" data-enlarge aria-label="Enlarge the 3D editing view"><img src="assets/blender/scene-viewport.jpg" width="880" height="989" loading="lazy" alt="The gray portrait model standing in Blender’s 3D viewport, with a perspective grid around it."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+        <figcaption><strong>3D editing view.</strong> The grid helps us navigate around the model.</figcaption>
+      </figure>
+      <figure class="blender-figure">
+        <a href="assets/blender/render-gray.jpg" data-enlarge aria-label="Enlarge the grayscale render"><img src="assets/blender/render-gray.jpg" width="880" height="849" loading="lazy" alt="A grayscale image cropped from Blender’s Render Result window, showing the portrait with lighting and shadows."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+        <figcaption><strong>Rendered camera view.</strong> Blender’s Render Result window shows a 2D picture with lighting and shadows.</figcaption>
+      </figure>
+    </div>
+    <p>The editing view and the render above are cropped from the same screenshot. Moving around the editor lets us inspect the object; changing the <a href="https://docs.blender.org/manual/en/4.0/render/cameras.html">render camera</a> changes the viewpoint of the output image.</p>
+
+    <div class="blender-render-example">
+      <figure class="blender-figure">
+        <a href="assets/blender/render-color.jpg" data-enlarge aria-label="Enlarge the colored Blender render"><img src="assets/blender/render-color.jpg" width="1000" height="994" loading="lazy" alt="A colored Blender render of the portrait, with a blue hat, pale eyes, an orange scarf, and shaded surfaces."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+        <figcaption>A colored render of the portrait model.</figcaption>
+      </figure>
+      <div>
+        <p>The mesh supplies the shape. <strong>Materials</strong> give surfaces their appearance, such as a blue hat or a shiny earring. <strong>Lighting</strong> affects the bright areas and shadows.</p>
+        <p><strong>Rendering calculates the pixels of the camera image.</strong> The result is a 2D picture that we can save and share. The editable 3D model remains in the scene, ready to be viewed from another camera angle.</p>
+      </div>
+    </div>
+  </div>
+
+  <p>For our cabinet, we could import a mesh, look around it, and check whether the handle is a real raised shape. If the handle or drawer tray is missing, we can build it. We can also separate the drawer and door into objects that can be moved independently.</p>
+  <p>To make a picture, we place a camera and lights and choose a renderer. Blender includes <a href="https://www.blender.org/features/rendering/">Eevee and Cycles</a>. They calculate images using the model’s surfaces and materials.</p>
+  <p>Useful starting points: <a href="https://docs.blender.org/manual/en/latest/modeling/introduction.html">modeling</a>, <a href="https://docs.blender.org/manual/en/latest/render/materials/introduction.html">materials</a>, and <a href="https://docs.blender.org/manual/en/latest/render/introduction.html">rendering</a>.</p>
+</section>
+
+<section id="maya" data-title="Animation in both applications">
+  <h2>Animation in Blender and Maya</h2>
+  <p>Blender and Maya provide the rigging, keyframe, and animation-curve tools used in these examples. <strong>MeshLab is a tool for processing meshes. It does not offer the rigging and keyframe animation tools used below.</strong></p>
+  <p>Consider an animated arm reaching toward our cabinet, followed by the drawer opening. We first set up controls for the parts, then choose their positions over time. The diagrams illustrate the ideas rather than either application’s interface.</p>
+
+  <h3 id="maya-rigging">1. Rigging: set up how the parts move</h3>
+  <p>The arm’s shape is already modeled. Now we tell the software <strong>where its parts can turn and which pieces should move together</strong>. We place joints at the shoulder, elbow, and wrist, then connect the visible arm pieces to those joints. We can also add a control that the animator can select and move.</p>
+  <p>This preparation is called <strong>rigging</strong>. The resulting controls and connections form the <strong>rig</strong>. Using those controls to arrange the arm is called <strong>posing</strong>.</p>
+  <p><strong>The picture shows the rig being used after setup.</strong> Move the hand control toward the cabinet handle, and the software turns the connected arm joints to reach that position. This is <strong>inverse kinematics (IK)</strong>. It works within the arm’s reach and the rig’s settings; we can also control which way the elbow bends. See <a href="https://docs.blender.org/manual/en/4.4/animation/constraints/tracking/ik_solver.html">Blender’s IK constraint</a> or <a href="https://help.autodesk.com/cloudhelp/2020/ENU/Maya-GettingStarted/files/GUID-12DAD3E2-E4D6-4CAC-BE5A-88EF49074A2B.htm">Maya’s mechanical-arm example</a>.</p>
+  <figure class="software-diagram">
+    <a href="assets/maya/arm-ik.svg" data-enlarge aria-label="Enlarge the arm rig example"><img src="assets/maya/arm-ik.svg" width="960" height="460" loading="lazy" alt="Two side views of an arm beside the cabinet. Moving the hand control toward the handle changes the joint angles while keeping the arm segments the same length."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+    <figcaption>The rig is already set up in both views. Gold circles mark joints, and the dashed box is the hand control. Moving that control changes the pose; it does not apply a physical pulling force.</figcaption>
+  </figure>
+  <p>For a character with a flexible surface, <strong>skinning</strong> connects the mesh to the skeleton so the surface bends with it. A rigid cabinet drawer can simply move as one piece.</p>
+  <p>The cabinet needs a simpler setup than this arm: one control can slide the whole drawer, and another can rotate the door around its hinge. It does not need a human-shaped skeleton.</p>
+
+  <h3 id="maya-keyframes">2. Keyframes: choose when the drawer opens</h3>
+  <p>A <strong>keyframe</strong> records a value at a chosen time. Set the drawer’s opening to <strong>0 cm at 0 seconds</strong> and <strong>40 cm at 2 seconds</strong>. Either application can calculate the positions between those keys. With constant speed, the drawer is 20 cm open after 1 second.</p>
+  <figure class="software-diagram">
+    <a href="assets/maya/drawer-keyframes.svg" data-enlarge aria-label="Enlarge the drawer keyframes"><img src="assets/maya/drawer-keyframes.svg" width="960" height="470" loading="lazy" alt="A side view of the same cabinet at three times: drawer closed at zero seconds, 20 centimeters open at one second, and 40 centimeters open at two seconds. Only the first and last positions are keyed."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+    <figcaption>The two gold keys are values we choose. The middle position is calculated between them; we do not need to position the drawer separately in every frame.</figcaption>
+  </figure>
+
+  <h3 id="maya-graph-editor">3. Graph Editor: adjust how the movement feels</h3>
+  <p>The <strong>Graph Editor</strong> displays values over time. Here, the horizontal axis is time and the vertical axis is drawer opening. A straight line gives constant speed. A curve that starts and ends gently makes the drawer speed up and then slow down. We can edit the curve while keeping the same start and end positions. Both <a href="https://docs.blender.org/manual/en/4.4/editors/graph_editor/introduction.html">Blender</a> and <a href="https://help.autodesk.com/cloudhelp/2025/ENU/Maya-Animation/files/GUID-9E69ABB3-E94B-4D67-9935-40F77FD2E9E0.htm">Maya</a> provide a Graph Editor.</p>
+  <figure class="software-diagram">
+    <a href="assets/maya/drawer-curves.svg" data-enlarge aria-label="Enlarge the animation curve comparison"><img src="assets/maya/drawer-curves.svg" width="960" height="490" loading="lazy" alt="A graph compares constant-speed and eased drawer motion. Both move from zero to 40 centimeters over two seconds; the eased curve begins slowly, moves faster in the middle, and slows at the end."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+    <figcaption>The line describes the drawer’s position, not its physical path through the room. Both examples still slide along the same straight rail.</figcaption>
+  </figure>
+  <p>These tools let us <strong>design a movement</strong>. Changing the curve changes the positions the animation follows. Calculating motion from gravity, a pull, or a collision requires a physics setup.</p>
+</section>
+
+<section id="software-physics" data-title="Physics simulation example">
+  <h2>Physics simulation: a box falls onto a shelf</h2>
+  <p>Place a small box above a cabinet shelf and let go. We want gravity to make it fall and contact with the shelf to stop it. <strong>Blender and Maya can both run this kind of rigid-body simulation</strong>, in which the objects move without changing shape.</p>
+  <p>The example below was calculated in <strong>Blender</strong> using its rigid-body physics system. The cabinet and box were built by a script, and a fixed camera rendered the calculated positions.</p>
+  <ol class="representation-steps">
+    <li><strong>Prepare the objects.</strong> Give the movable box a mass of 1 kg and a box-shaped collision boundary. Give the cabinet walls and shelf fixed collision shapes.</li>
+    <li><strong>Set the starting conditions.</strong> Start the box at rest above the shelf and enable gravity. No keyframes tell it where to go or when to stop.</li>
+    <li><strong>Run the physics calculation.</strong> The simulator updates the box’s motion over time. Contact with the shelf prevents it from passing through.</li>
+    <li><strong>Render the result.</strong> The camera makes pictures of those computed positions using the scene’s materials and lighting.</li>
+  </ol>
+  <div class="software-physics-frames">
+    <figure class="software-diagram">
+      <a href="assets/software-physics/box-fall-01.png" data-enlarge aria-label="Enlarge the box at release"><img src="assets/software-physics/box-fall-01.png" width="560" height="620" loading="lazy" alt="An orange box starts at rest above the shelf of an open teal cabinet. A blue drawer sits below the shelf."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <figcaption><strong>0 seconds: release.</strong> We choose this starting position.</figcaption>
+    </figure>
+    <figure class="software-diagram">
+      <a href="assets/software-physics/box-fall-13.png" data-enlarge aria-label="Enlarge the falling box"><img src="assets/software-physics/box-fall-13.png" width="560" height="620" loading="lazy" alt="The orange box has fallen closer to the shelf after 0.2 seconds under gravity."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <figcaption><strong>0.2 seconds: falling.</strong> Gravity changes its speed and position.</figcaption>
+    </figure>
+    <figure class="software-diagram">
+      <a href="assets/software-physics/box-fall-37.png" data-enlarge aria-label="Enlarge the box resting on the shelf"><img src="assets/software-physics/box-fall-37.png" width="560" height="620" loading="lazy" alt="The orange box rests on the cabinet shelf after 0.6 seconds. The cabinet and camera are unchanged."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <figcaption><strong>0.6 seconds: supported.</strong> Contact with the shelf stops the fall.</figcaption>
+    </figure>
+  </div>
+  <p><strong>The last two positions are simulation outputs.</strong> We supplied the starting pose, gravity, and physical settings. With gravity off, this box would remain at rest in the air; without the shelf’s collision shape, it would fall through the visible shelf.</p>
+  <h3>Where are these settings in each application?</h3>
+  <p>In <strong>Blender</strong>, use the <strong>Rigid Body</strong> physics settings: an <em>Active</em> box is moved by the simulation, while <em>Passive</em> cabinet parts stay fixed in this example. In <strong>Maya</strong>, the <strong>Bullet</strong> plug-in provides rigid bodies and a solver to calculate their motion. The commands differ, but both need the objects, collision shapes, and physical settings. See <a href="https://docs.blender.org/manual/en/3.6/physics/rigid_body/introduction.html">Blender’s rigid-body introduction</a> and <a href="https://help.autodesk.com/cloudhelp/2024/ENU/Maya-SimulationEffects/files/GUID-88C5DD26-97D2-4972-A3DC-212FEE514175.htm">Maya’s Bullet guide</a>.</p>
+  <p>A <strong>rig control</strong> sets a pose for animation. A <strong>force</strong>, such as gravity, changes motion through a physics calculation. Both can be used within either application. For the drawer’s pulling-force examples, see <a href="animation-and-simulation.html#pull-the-drawer">From animation to simulation</a>.</p>
+</section>
+
+<section id="cabinet-editing-workflow" data-title="A cabinet workflow">
+  <h2>A cabinet workflow</h2>
+  <ol class="representation-steps">
+    <li><strong>Open the model.</strong> Import an existing cabinet mesh or create its parts in the editor.</li>
+    <li><strong>Inspect and edit.</strong> Check the size, orientation, drawer interior, and handle opening. Repair missing geometry and keep parts that should move separately.</li>
+    <li><strong>Choose the output.</strong> Render an image to show how it looks, or export the part meshes to use in an articulated model.</li>
+  </ol>
+  <p>Exported meshes describe the shapes. The <a href="reading-urdf.html">URDF model</a> describes their connections and allowed motion. A <a href="preparing-simulation.html">simulation model</a> also needs contact shapes and physical properties.</p>
+  <p>These applications are alternatives for preparing geometry; a cabinet does not need to pass through all three.</p>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="robot-interaction.html">← Robot interaction and control</a></nav>
+      <footer class="page-footer"><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

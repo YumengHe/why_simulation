@@ -56,6 +56,9 @@ def build():
     chapters = []
     for chapter in config['chapters']:
         content = (SOURCE / chapter['source']).read_text()
+        if '{{citation_bibtex}}' in content:
+            citation = (SOURCE / 'citation.bib').read_text().strip()
+            content = content.replace('{{citation_bibtex}}', escape(citation))
         parser = ChapterParser()
         parser.feed(content)
         chapters.append({**chapter, 'content': content, 'sections': parser.sections})
@@ -85,6 +88,7 @@ def build():
             legacy_routes.setdefault(legacy_page, {})[fragment] = target
     OUTPUT.mkdir(exist_ok=True)
     shutil.copytree(SOURCE / 'assets', OUTPUT / 'assets', dirs_exist_ok=True)
+    shutil.copyfile(SOURCE / 'citation.bib', OUTPUT / 'citation.bib')
     navigation = '<ol class="chapter-list">'
     current_group = None
     for chapter in chapters:
@@ -121,10 +125,10 @@ def build():
         pagination = ''
         if i > 0:
             prev = chapters[i-1]
-            pagination += f'<a href="{escape(prev["output"])}">← {escape(prev["title"])}</a>'
+            pagination += f'<a class="page-previous" rel="prev" href="{escape(prev["output"])}">← {escape(prev["title"])}</a>'
         if i+1 < len(chapters):
             following = chapters[i+1]
-            pagination += f'<a href="{escape(following["output"])}">{escape(following["title"])} →</a>'
+            pagination += f'<a class="page-next" rel="next" href="{escape(following["output"])}">{escape(following["title"])} →</a>'
         replacements = {
             'page_title': escape(chapter['title']), 'book_title': escape(config['title']),
             'home_page': escape(chapters[0]['output']),

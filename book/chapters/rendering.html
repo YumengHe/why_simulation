@@ -17,7 +17,7 @@
       <table class="learning-table rendering-tools-table">
         <thead><tr><th>What we have</th><th>Example tool</th><th>What we do</th></tr></thead>
         <tbody>
-          <tr><th scope="row">A mesh</th><td><a href="https://www.blender.org/features/rendering/">Blender</a>, using a renderer such as Eevee or Cycles.</td><td>Load the model, set its appearance, place lights and a camera, then render and save an image.</td></tr>
+          <tr><th scope="row">A mesh</th><td><a href="3d-software.html#what-is-blender">Blender</a>, using a renderer such as Eevee or Cycles.</td><td>Load the model, set its appearance, place lights and a camera, then render and save an image.</td></tr>
           <tr><th scope="row">3D Gaussians</th><td>A Gaussian renderer, such as <a href="https://docs.gsplat.studio/main/apis/rasterization.html">gsplat</a>.</td><td>Load the blobs and choose a camera. The renderer projects the blobs and blends their colors into the image.</td></tr>
           <tr class="draft-addition"><th scope="row">A trained NeRF</th><td>A NeRF volume renderer, such as the one in the <a href="https://github.com/bmild/nerf">original NeRF implementation</a>.</td><td>Load the trained network and choose a camera. Query color and density along camera rays, then combine the answers into pixels.</td></tr>
         </tbody>
@@ -151,5 +151,4 @@
 <div class="reconstruction-loop"><div><strong>Estimate 3D</strong><p>Propose a cabinet representation from its photographs.</p></div><div><strong>Render and compare</strong><p>Draw that representation from the photograph’s camera and compare the two images.</p></div></div>
 <p>If the rendered handle appears in the wrong place, the 3D estimate may need to change. The original 3DGS and NeRF methods repeat this comparison across several camera views. Adjusting a representation to match the observed images is called <strong>fitting</strong>.</p>
 <p>The photographs are the evidence; the 3D representation is what we adjust. Rendering is the check that connects them: it lets us compare a picture made from the estimate with an actual input picture.</p>
-<p class="section-connection"><a href="cameras-and-geometry.html">Next: recover cameras and geometry from photographs.</a> A useful comparison needs the view to match. We first need to know where each photograph’s camera was and which way it looked.</p>
 </section>
