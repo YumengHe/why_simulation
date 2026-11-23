@@ -1,15 +1,16 @@
 <header class="chapter-header draft-addition" id="chapter-start">
-  <h1><span class="chapter-number">2.5</span> Reconstruct a cabinet with 3DGS</h1>
-  <p class="chapter-purpose draft-addition"><strong>Specific method</strong> · 3D Gaussian Splatting (3DGS)</p>
+  <h1><span class="chapter-number">2.8</span> Gaussians: reconstruction with 3DGS</h1>
+  <p class="chapter-purpose draft-addition"><strong>C. Reconstruction and generation</strong> · 3D Gaussian Splatting (3DGS)</p>
   <p class="lead"><strong>First, train:</strong> use multiple views of the cabinet and their camera information to adjust the 3D Gaussians. Repeatedly render images, compare with the photographs, and update the Gaussians.</p>
   <p><strong>Then, render:</strong> use the saved Gaussians and a new virtual camera position and settings to produce another view of the same cabinet. No photograph from that new angle is needed.</p>
+<nav class="representation-trail" aria-label="Gaussian reading route"><strong>3D Gaussians:</strong> <a href="gaussians-and-fields.html#gaussian-data">Representation · 2.3.1</a><span> · </span><a href="gaussian-rendering.html">Rendering · 2.5</a><span> · </span><a href="gaussian-splatting.html">Reconstruction with 3DGS · 2.8</a></nav>
 </header>
 
 <section class="representation-lesson draft-addition" id="gaussian-example" data-title="Inputs and output of Gaussian reconstruction">
   <h2>Start with the prepared inputs</h2>
-  <p>The <a href="cameras-and-geometry.html#colmap-cabinet">COLMAP example in Section 2.4.2</a> estimates camera viewpoints and sparse 3D points. These points provide initial blob locations. The <a href="cameras-and-geometry.html#vggt-cabinet">VGGT export in Section 2.4.3</a> is another supported source of cameras and starting points for a Gaussian training pipeline.</p>
+  <p>The <a href="cameras-and-geometry.html#colmap-cabinet">COLMAP example in Section 2.7.3</a> estimates camera viewpoints and sparse 3D points. These points provide initial blob locations. The <a href="cameras-and-geometry.html#vggt-cabinet">VGGT export in Section 2.7.4</a> is another supported source of cameras and starting points for a Gaussian training pipeline.</p>
   <p>Each initial Gaussian also needs size, orientation, opacity, and appearance. Fitting adjusts these values using the photographs. The result is a set of Gaussian parameters we can save and render from another camera.</p>
-  <p><a href="rendering.html#rendering-gaussians">Section 2.3.2</a> showed how to project and blend a given set of Gaussians. Here we use that same rendering operation repeatedly to find better Gaussians.</p>
+  <p><a href="gaussian-rendering.html#rendering-gaussians">Section 2.5.1</a> showed how to project and blend a given set of Gaussians. Here we use that same rendering operation repeatedly to find better Gaussians.</p>
 </section>
 <section class="representation-lesson gaussian-learning" id="gaussian-learning" data-title="Fit the cabinet Gaussians to photographs">
   <h2 class="draft-addition">Fit the cabinet to its photographs</h2>

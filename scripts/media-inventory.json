@@ -54,7 +54,7 @@
       "asset": "book/assets/blender/mesh-oblique.jpg",
       "source": "scripts/prepare_blender_figures.py",
       "kind": "annotated-user-screenshot",
-      "sha256": "0c7bc725d9d7685baf85eb76e3d6a40a073a5d0d6dadc861df5f656da6d7abe3",
+      "sha256": "8a4f90e17bab8d92a0d65c9d85a72121d1974129543c818ba1b92e9f2f46d80c",
       "inputs": [
         {
           "path": "scripts/data/blender-screenshots/mesh-oblique.png",
@@ -66,7 +66,7 @@
       "asset": "book/assets/blender/mesh-reference.jpg",
       "source": "scripts/prepare_blender_figures.py",
       "kind": "annotated-user-screenshot",
-      "sha256": "6c31e2494653f608b301881cc7733b7539560c6f719d84d33d0a2aa264f4fba2",
+      "sha256": "9fd4236d63474023ba80e60e404706cf5586e037e3f725a73bf73331353c18a1",
       "inputs": [
         {
           "path": "scripts/data/blender-screenshots/reference-front.png",
@@ -111,64 +111,106 @@
       ]
     },
     {
+      "asset": "book/assets/cabinet-model/frame-closed.png",
+      "source": "scripts/draw_cabinet_frames.py",
+      "kind": "script-rendered",
+      "sha256": "b59bc84670ed975c463af4f351886a813d04a3798acf9e61f9b1c94e0ebe63d8"
+    },
+    {
+      "asset": "book/assets/cabinet-model/frame-drawer-open.png",
+      "source": "scripts/draw_cabinet_frames.py",
+      "kind": "script-rendered",
+      "sha256": "c8ef8102717ec71191065e30078b0aae029268c6f5709cfbaffda8af63eb50c5"
+    },
+    {
+      "asset": "book/assets/cabinet-model/front.png",
+      "source": "scripts/preview_shared_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "71f9ab12f5d459881919e7ec68f63513328fca058710b37cb02e3a804a0eaef0"
+    },
+    {
+      "asset": "book/assets/cabinet-model/open.png",
+      "source": "scripts/preview_shared_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "253006ca173f178fb01b09ca19fe9341accbabed84137867e7598137c61b5155"
+    },
+    {
+      "asset": "book/assets/cabinet-model/preview.png",
+      "source": "scripts/preview_shared_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "6a76a5706905267cef6d2cf4e8597d9fdcc6be18511586f38dd1829eca618de9"
+    },
+    {
+      "asset": "book/assets/cabinet-model/three-quarter.png",
+      "source": "scripts/preview_shared_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "4bd229a2680dee1d44b4b9f26a28b7e737ab3a150e78d1a9e2125218b6c88eab"
+    },
+    {
       "asset": "book/assets/diagrams/cabinet-mesh-coarse.png",
       "source": "scripts/draw_cabinet_mesh_detail.py",
       "kind": "script-rendered",
-      "sha256": "74d5f025eefbc3d73915db5b70f891e7ae4cd39d3eefa2141132b03dc73c116b"
+      "sha256": "a3e9b41bb77c39b36d05442812e71fbd449f921cc3efb40bc43e6a224dd0f2eb"
     },
     {
       "asset": "book/assets/diagrams/cabinet-mesh-fine.png",
       "source": "scripts/draw_cabinet_mesh_detail.py",
       "kind": "script-rendered",
-      "sha256": "e0c58288fb9aaf8c5726485aead08723b6b92219587c6dd465205ee8f17e90f7"
+      "sha256": "fe1a93471626fef50ab19a4a07ffd698455e5b561638d9ab6120a797a120860c"
     },
     {
-      "asset": "book/assets/diagrams/cabinet-origins.svg",
-      "source": "book/assets/diagrams/cabinet-origins.svg",
-      "kind": "editable-vector-source",
-      "sha256": "e4aa77309a7abcb44fd345022d2d629f306fee964ffee2d126e144f0341cdf0a"
+      "asset": "book/assets/diagrams/cabinet-origins.png",
+      "source": "scripts/draw_cabinet_frames.py",
+      "kind": "script-rendered",
+      "sha256": "f41b048f71808cf0a979c94ab7e6b36706652f90e757af4b65702c5223f26208"
     },
     {
       "asset": "book/assets/diagrams/cabinet-rendered.svg",
       "source": "scripts/draw_reconstruction_story.py",
       "kind": "script-rendered",
-      "sha256": "d4d79b57d388b4f86fab3a15281f574932c7aade005f939a18e55c17fcd3fcf3"
+      "sha256": "84636f29d654e4a7792a653c36e53f37632a3306a6ed638e9ab07e3d67dd3b5e"
     },
     {
-      "asset": "book/assets/diagrams/cabinet-representation-field.svg",
+      "asset": "book/assets/diagrams/cabinet-representation-field.png",
       "source": "scripts/draw_representation_overview.py",
       "kind": "script-rendered",
-      "sha256": "5ea68f4d5b5ec2fa70b9f7f0ca1d3dd4510e5194a72fdca8c1fcda44241ba122"
+      "sha256": "9df368980ca4ea10d4f2a5d7cef2894ec45034f45c8313ca11ff6bb036baf69d"
     },
     {
-      "asset": "book/assets/diagrams/cabinet-representation-gaussians.svg",
+      "asset": "book/assets/diagrams/cabinet-representation-gaussians.png",
       "source": "scripts/draw_representation_overview.py",
       "kind": "script-rendered",
-      "sha256": "dfc5b94bc9e2040b772c9882786f9a762257ad593f2408913a62bd8600fb3703"
+      "sha256": "028276a6b4ec6fbe2c91aa116e98ddf92977da8ba22f56b78bb131b7df8a5834"
     },
     {
-      "asset": "book/assets/diagrams/cabinet-representation-points.svg",
+      "asset": "book/assets/diagrams/cabinet-representation-points.png",
       "source": "scripts/draw_representation_overview.py",
       "kind": "script-rendered",
-      "sha256": "907def915bc6babf539f6a59737d3b22453bc9fad1189431eb6ece37fc69dc3d"
+      "sha256": "174ddd2ef97823d02a4d75f839d52994dcbfb489d5fb4087488ae2d2bb7bafa4"
     },
     {
-      "asset": "book/assets/diagrams/cabinet-representation-quads.svg",
+      "asset": "book/assets/diagrams/cabinet-representation-quads.png",
       "source": "scripts/draw_representation_overview.py",
       "kind": "script-rendered",
-      "sha256": "e533bc3e93e6392373e7e80b919810e4700046c222178015286447f0017aaa55"
+      "sha256": "824aa036da0fe494d6d056e981b4fa0bf2098e1e5bb69b0ae4d91e3f5ba737c2"
     },
     {
-      "asset": "book/assets/diagrams/cabinet-representation-triangles.svg",
+      "asset": "book/assets/diagrams/cabinet-representation-triangles.png",
       "source": "scripts/draw_representation_overview.py",
       "kind": "script-rendered",
-      "sha256": "0e78ce83c9c02e67c29d6c4417d8b9abc862e217959542dcebca7db6a77100d7"
+      "sha256": "4086903e805b9665c533bdf103b587698686e62bc970530e405d51bc04cb3688"
+    },
+    {
+      "asset": "book/assets/diagrams/cabinet-representation-voxels.png",
+      "source": "scripts/draw_voxel_cabinet.py",
+      "kind": "script-rendered",
+      "sha256": "597ed568ec5c02e4cb788989b38dcbd42b48213b006cb7dce7a2ccf5d8fe83d8"
     },
     {
       "asset": "book/assets/diagrams/cabinet-wireframe.svg",
       "source": "scripts/draw_reconstruction_story.py",
       "kind": "script-rendered",
-      "sha256": "539ceb60869cea84d9b591c742a6e253d31b9df86adb743677c5e946fe1e96cd"
+      "sha256": "3f65976c0522321f7a680ccd438b2964343b8cba930f27c12a215e1c68f7dba7"
     },
     {
       "asset": "book/assets/diagrams/collision-filled.svg",
@@ -195,10 +237,22 @@
       "sha256": "a258f28f54f8f21df1964bec4d5ee370e6cf8c8168512ad7dd64a5689332f2d9"
     },
     {
-      "asset": "book/assets/diagrams/drawer-shapes.svg",
-      "source": "book/assets/diagrams/drawer-shapes.svg",
-      "kind": "editable-vector-source",
-      "sha256": "541fde537fed62f85a2935cd462c531c474b60830ab0fca95ad0e1f18e09c3bf"
+      "asset": "book/assets/diagrams/drawer-shapes.png",
+      "source": "scripts/draw_cabinet_frames.py",
+      "kind": "script-rendered",
+      "sha256": "28dfa4f08b02ac531839c18d7dac1b5b21e888ce4f142daf955de54a2765d8a0"
+    },
+    {
+      "asset": "book/assets/diagrams/gaussian-local-group.png",
+      "source": "scripts/draw_gaussian_groups.py",
+      "kind": "script-rendered",
+      "sha256": "9e84dda25a77d42b1b9c7fca1112a63f838f16b015ade2df2258c7d828836477"
+    },
+    {
+      "asset": "book/assets/diagrams/gaussian-one-blob.png",
+      "source": "scripts/draw_gaussian_groups.py",
+      "kind": "script-rendered",
+      "sha256": "f03a9a8c8efc08575cac94b698dbb1269014105d71be3bcc860a04dee41b4631"
     },
     {
       "asset": "book/assets/diagrams/gaussian-opacity-high.svg",
@@ -223,6 +277,12 @@
       "source": "scripts/draw_reconstruction_story.py",
       "kind": "script-rendered",
       "sha256": "aee1745386366bab6b339244f3be02d25faecf4e24bb9492d177c9481beffce5"
+    },
+    {
+      "asset": "book/assets/diagrams/gaussian-whole-cabinet.png",
+      "source": "scripts/draw_gaussian_groups.py",
+      "kind": "script-rendered",
+      "sha256": "4002a1724e4389f3ffc21e0621bd82e61a58201561801020da86dcc0f57ad8d8"
     },
     {
       "asset": "book/assets/diagrams/handle-coarse.svg",
@@ -279,10 +339,22 @@
       "sha256": "b46c3aa447799d0066965aea926a2f6c49992ff82160cbdf405db5bcf09821fa"
     },
     {
+      "asset": "book/assets/diagrams/reconstruction-workflow.svg",
+      "source": "scripts/draw_chapter2_maps.py",
+      "kind": "script-rendered",
+      "sha256": "cae8b0e6bb46846ba70734c2fcab916ba2f01e5eb62da041c19408cdb701040a"
+    },
+    {
       "asset": "book/assets/diagrams/representation-gaussians.svg",
       "source": "scripts/draw_representation_diagrams.py",
       "kind": "script-rendered",
       "sha256": "edd556e35bd1d512edb2f0c15f0776cc84b8fde1efc7e82fe73e151006f19935"
+    },
+    {
+      "asset": "book/assets/diagrams/representation-map.svg",
+      "source": "scripts/draw_chapter2_maps.py",
+      "kind": "script-rendered",
+      "sha256": "a93c66d0aad1b1314a49d1943c0a533df42d6681dc59472c2ed4159afe30eda5"
     },
     {
       "asset": "book/assets/diagrams/representation-nerf.svg",
@@ -309,166 +381,166 @@
       "sha256": "852341336545ed5e7338e396d6d4968b14f314bc60568853b45423e457e10440"
     },
     {
-      "asset": "book/assets/diagrams/side-panel-mesh.svg",
-      "source": "book/assets/diagrams/side-panel-mesh.svg",
-      "kind": "editable-vector-source",
-      "sha256": "ff4b99cd5deb8901fe0de985b4df273ab59c8d11d3c869a9783b159b0fd9a2ca"
+      "asset": "book/assets/diagrams/side-panel-mesh.png",
+      "source": "scripts/draw_cabinet_frames.py",
+      "kind": "script-rendered",
+      "sha256": "57a9ddd3a48813fee5494f16cacc8358d7c28065398461c52db43bf542ebeae7"
     },
     {
-      "asset": "book/assets/diagrams/side-panel-shape.svg",
-      "source": "book/assets/diagrams/side-panel-shape.svg",
-      "kind": "editable-vector-source",
-      "sha256": "e16de14ea342bbdfea997b59bf1e8a9bc7acaf28bdad31001ada81567ce6913d"
+      "asset": "book/assets/diagrams/side-panel-shape.png",
+      "source": "scripts/draw_cabinet_frames.py",
+      "kind": "script-rendered",
+      "sha256": "fa68fc5bf1ac196f5cbd5e045828c54a25e40534589d7afe4e4e7eb0e70b92d5"
     },
     {
       "asset": "book/assets/diagrams/vla-drawer-after.svg",
       "source": "scripts/draw_vla_flow.py",
       "kind": "script-rendered",
-      "sha256": "83a1de12ff2fbd89f09e8d4716e7e769a07cf5b1e0950efe80d58a4897871a4c"
+      "sha256": "dc9bd0ac9738016048af92b8b790cd917df46afc634b6c623c84b5df6e8f9df9"
     },
     {
       "asset": "book/assets/diagrams/vla-drawer-before.svg",
       "source": "scripts/draw_vla_flow.py",
       "kind": "script-rendered",
-      "sha256": "b441795500887c88c7b32eb061a3b29cfa242455ea1f52633f8853b61744b9fb"
+      "sha256": "c37c1e168ce82cfaab8ea6891bb4621473fca12a1a8c5fcb034b836565ce04a3"
     },
     {
       "asset": "book/assets/examples/cabinet-representations/gaussians.png",
       "source": "scripts/render_cabinet_comparison.py",
       "kind": "script-rendered",
-      "sha256": "a8d13efa5dc3562b07281f375d77dd081d6988ddc2af6664b0b413409392355b"
+      "sha256": "2982dca5ae10ee33c5eaf96878ee0d56fa3ca3fb655027feb0d5541b30ee031a"
     },
     {
       "asset": "book/assets/examples/cabinet-representations/mesh.png",
       "source": "scripts/render_cabinet_comparison.py",
       "kind": "script-rendered",
-      "sha256": "14343728bd6709357ec70d54b183112d654ca9cf257a0dd1f64e4e0a9806c0f3"
+      "sha256": "f8da311ee664ce6658f35a58bf35738ad42fd3a6ec736488fe6cbc8ace3bfc88"
     },
     {
       "asset": "book/assets/examples/cabinet-representations/reference.png",
       "source": "scripts/render_cabinet_comparison.py",
       "kind": "script-rendered",
-      "sha256": "82fb3133ccf9626a4ce24a07132fbea221f1a2aaae95341b6280b8fdecc55f5a"
+      "sha256": "94ebf96c26b4aa10fa59a71e2078a9383d6858d7c92ace2c7fd79a4c50497903"
     },
     {
       "asset": "book/assets/experiments/door-hinge.gif",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "b217a483d042b108c96fa70cabcd744166a36f03956b2b876f42f138421bbdc0"
+      "sha256": "9dd719953204e1b9425e818d78139cf976a5060bd928cef3ebb64b90f1496f31"
     },
     {
       "asset": "book/assets/experiments/door-hinge.png",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "a3458d2350eb9bfc9d02c8d2127e7ddbd560c95ec394f9262fa6f35514b9b303"
+      "sha256": "f6dbd3cce1705eef12474c7436a2012180dc3df6c2d6ff9878442bd401245c0b"
     },
     {
       "asset": "book/assets/experiments/door-sliding.gif",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "5c91b324bc04951fed1a5990a57f22c895cd5aeccfe33aa9e961253a0cf30ba4"
+      "sha256": "a051f3922aa2398b63a9c6ed04fc7fbdfcea2da4d909123427af94d1e3c679f1"
     },
     {
       "asset": "book/assets/experiments/door-sliding.png",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "e866992f1aff8ed0adb9f2e41207cf354ef6edfe3c304961126581f4b331e3c8"
+      "sha256": "2692532161ed4409b85473544854c28bed9fef23ab6fb06d2b6a967e6cfd6ba5"
     },
     {
       "asset": "book/assets/experiments/door-type-only.gif",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "788fb24ff80e1b6820b28a43bb2b3031d7528d4d74add045a85550668eadff10"
+      "sha256": "8163b2c3148895352eff760b4efb6d8fabc1e3bc2186d7e39cf4085b0a92717d"
     },
     {
       "asset": "book/assets/experiments/door-type-only.png",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "7b7b50910c54cf327b2cc4ca51da77fa01868e2256f0ebf5c4e0344df468fb5c"
+      "sha256": "d9cf769c24bba02a470ba10c99d1bce7df41d4c382b27b70b3c78cb998e6316c"
     },
     {
       "asset": "book/assets/experiments/drawer-diagonal.gif",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "f710684ac9584f9a486f81040c139a9f0a04d7fef49d18e146a5dce30f03e030"
+      "sha256": "8f93d6d97f0318635a5d819948ef5082ce09b1bd1efafef813baafd0de1d3b24"
     },
     {
       "asset": "book/assets/experiments/drawer-diagonal.png",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "9c52abead7acda66b39632c289afbb1b4057d3e7b9fd774e5bd1112bf7ed8403"
+      "sha256": "ca7fdb7b3e866aeb7f026ade63f69805f6a11227784b4cfed3f3aeb596187d67"
     },
     {
       "asset": "book/assets/experiments/drawer-inward.gif",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "73895d0b4a12677b135d756162f87e2d396425b875fbe90f09d123a2f8191f23"
+      "sha256": "efb1ea207b685e6aef0e8c1c064eb7fea850b8b314c0407aa4e10f893e549414"
     },
     {
       "asset": "book/assets/experiments/drawer-inward.png",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "075c6032356e042a54795d8aa96528a9a67f0bd5bc2c1d4a544f6cbe50d339c2"
+      "sha256": "84f8ac1c72ef54f31cb0c64957047b4c0f7e2ad5d9586b637afe6a84ebe144b9"
     },
     {
       "asset": "book/assets/experiments/drawer-outward.gif",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "a41bea4a7fa456a686b1242c447128c054fdc894f5a6671379c8b956ddc3b9df"
+      "sha256": "38129bfb459bb23fd7a695a5b6863375e7e2446036facce5f6f2f17017e5c6b8"
     },
     {
       "asset": "book/assets/experiments/drawer-outward.png",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "d05cb3e343baf58bcd999590c3f535e17ffee59318d45c6fd0982a08cdd5c7e7"
+      "sha256": "af0027694210f677f4a196235a0956c73df0f6903b7a0b295907b54006074fa9"
     },
     {
       "asset": "book/assets/experiments/drawer-present.gif",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "32eb9faa248dc56c50566424adc908c409a4570a6b48dd9360d02e16e99814d2"
+      "sha256": "2454ab5846e4dca740c4a27ddf1370b39e24067b92ad1c34ad0f4c339b675c9b"
     },
     {
       "asset": "book/assets/experiments/drawer-present.png",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "30f7cce8bf01dfc2e3a288128e1369807d9491065a79e30c37984d5e97f2abf5"
+      "sha256": "da0280eb5acd54f304adde400ac0741d18bc00d801561793e41979b49028af09"
     },
     {
       "asset": "book/assets/experiments/drawer-removed.gif",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "3e50e418f0845e8204a42b7fb9d693d327bba71f592fbcd61d4d9b7c3f5cfd6b"
+      "sha256": "58dd8a14362375631cd3606bf47cd0a62adf50d2807a3b4f9fa61f6d04d41b1d"
     },
     {
       "asset": "book/assets/experiments/drawer-removed.png",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "a2a22e634903a71408e29e6cfd1404b181fc67c908274d7e5a23da25183506e7"
+      "sha256": "b2a1eb8c2f56a084dcc176ecb9efbd2d4126d5f03d077d9436c89be81354c2b5"
     },
     {
       "asset": "book/assets/experiments/shapes-original.gif",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "ee6a87712bd088f6e07dcc065747cf62d892a277bc648671429d367643d789df"
+      "sha256": "0c5a39daebdc87996a1f1c4de793c3188f9546c568084db964ec4f8ec8582869"
     },
     {
       "asset": "book/assets/experiments/shapes-original.png",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "b820fcc91ee1164c40533c7e8cfb7101d4fa2b04188d56369837d62f64620acb"
+      "sha256": "93c4316c796b08538927bf45639b945e507944934eb664538364d04312ac8f39"
     },
     {
       "asset": "book/assets/experiments/shapes-swapped.gif",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "d3ef10707cf70a915d4085e6073c1d89279afdef502f83b7b70eaf55123a72a6"
+      "sha256": "721b78f80f2d5136d2a71bc5ce2f52eb4eb3b384459743bd90255b7dcdf15c93"
     },
     {
       "asset": "book/assets/experiments/shapes-swapped.png",
       "source": "scripts/animate_urdf_examples.py",
       "kind": "script-rendered",
-      "sha256": "55704ea68aa4f784e4d06dd79b08ba233d124f4982b2d31a5401f16b62126f0e"
+      "sha256": "30e4d9632b9db6c01e0c134b802eb8328c39c6da9983ee974e04b2f7e2fd6855"
     },
     {
       "asset": "book/assets/favicon.svg",
@@ -480,175 +552,175 @@
       "asset": "book/assets/figures/base-fixed-joint.svg",
       "source": "scripts/draw_urdf_figures.py",
       "kind": "script-rendered",
-      "sha256": "6da5d9faa8866c515a6b494459c7b1624108045ca52165ff6bf33475d8cf467b"
+      "sha256": "cb3a4e894bf91d2fbe835301667602ab1a81c946dd65e517d3cbd32776038a62"
     },
     {
       "asset": "book/assets/figures/body-shelf-visual.svg",
       "source": "scripts/draw_urdf_figures.py",
       "kind": "script-rendered",
-      "sha256": "21d8aa75c2a538f16cbece5e5ab7f872d4f4e3e4241704f75ca68d06a0637fab"
+      "sha256": "e7773dad02336e0d25f8782a36d3e22a3c442504571b8c85072d90f5fce835d5"
     },
     {
       "asset": "book/assets/figures/door-revolute-joint.svg",
       "source": "scripts/draw_urdf_figures.py",
       "kind": "script-rendered",
-      "sha256": "789d372b24c347fdd83e32b700025e29b22e46daa1ec507746f9a14c9c086d0b"
+      "sha256": "77f0932e4d5ee7020f4ed849040d1a32121bf88da145a508ff6c34ee4fef31e8"
     },
     {
       "asset": "book/assets/figures/drawer-front-meshes.svg",
       "source": "scripts/draw_urdf_figures.py",
       "kind": "script-rendered",
-      "sha256": "414c44037bbadeb1e7efa891ac5d470ba0a301bd96f10d44b69b6574e8d4f769"
+      "sha256": "b619fa597c603969afd3d30fa40327b878b7af5d7c626fa4e9ddb0e020327239"
     },
     {
       "asset": "book/assets/figures/drawer-prismatic-joint.svg",
       "source": "scripts/draw_urdf_figures.py",
       "kind": "script-rendered",
-      "sha256": "dfd2bee364fef17bb490397bdbf7cfe63760531a249411d91fc6239f99943986"
+      "sha256": "cbd49ffdfb69ff7d9fb7ac2131d6963b13aa933a617ff1b4ad4e43f521453bd6"
     },
     {
       "asset": "book/assets/forces/after-release-stacked.gif",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "545c141d1ed8d5312f9981e45e593f083d35a0380bfccca8f3a6d92441825ae5"
+      "sha256": "3214bb3246d1a24aa04ee279cd17f2a287ed0c33e354e9da5d808b3b4a424927"
     },
     {
       "asset": "book/assets/forces/after-release-stacked.png",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "f4c6aea21aa70d051683369638f4e3c8d77d9c74fcf26acab36033864f5c82c1"
+      "sha256": "005f20042157978140250ae7590f54eed26ad366ee89e294179c45b3204bda06"
     },
     {
       "asset": "book/assets/forces/after-release.gif",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "130634d62cd790b93dab993d2761602c82443b5209952ce936f4a43192b0b369"
+      "sha256": "59da249c1e4f069dfa3ea0ad04a28917918ed49f0ddebdb7b93c5de413dd68be"
     },
     {
       "asset": "book/assets/forces/after-release.png",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "71a827d366a0fc5fca1aa817f6cc906aff85760504509897a491028e7f552f14"
+      "sha256": "7f3c5e4b8432dff17effaabe7e15e076fad3d39de0952301d4a3a234d2214ffa"
     },
     {
       "asset": "book/assets/forces/heavier-drawer-stacked.gif",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "38191173feb1bb9b60340774dab61c64c1e76294771d447aa399eb400c14e711"
+      "sha256": "c440621dc4a83eb174365927f85ba7e9442807bb7b5e51759361a28197605383"
     },
     {
       "asset": "book/assets/forces/heavier-drawer-stacked.png",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "d018e1c3fd26db89f4f6f8f5fd9b9aff77e57318164bf0aa5601c37d15676f0b"
+      "sha256": "b22d65544bc837c41f8ba1f961e2f78ae59082dcdd93513871408a18f9c628ca"
     },
     {
       "asset": "book/assets/forces/heavier-drawer.gif",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "3966dded3e862f1aa21f13dd603945ab842e1b032695cd75789157534c8c5744"
+      "sha256": "a88e364048c6e45ba6d7e730b3b8935b036ccce32a091e49185a3f4b929f9c1e"
     },
     {
       "asset": "book/assets/forces/heavier-drawer.png",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "74036569f6321c16ae930d4e03aaa1e3520f119d19cdb8beb8863c1b4a89fb7f"
+      "sha256": "712fa1df1097a4abbcef0909af96ee34c0f4160e9afdf50d1ffa3ad0a7787fda"
     },
     {
       "asset": "book/assets/forces/rail-friction-stacked.gif",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "6ca27128145fe3e574f1743902c1a29488db5e59bdfdd74bf589235317989d10"
+      "sha256": "21dfd6ac5c3672623ac2be6b4710ab08c6cfc9738d870031feb322a23e8f3c23"
     },
     {
       "asset": "book/assets/forces/rail-friction-stacked.png",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "b77e6309abce70c5e826ae0ba0da11d7847dfdf7cc4cdb7f448985d4dc0408b9"
+      "sha256": "fb412b33007569851e1f4a5435bd726cbdc6c8c28c8c787d0125aa86f20b23c0"
     },
     {
       "asset": "book/assets/forces/rail-friction.gif",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "3367a7835dcf160989fdcf0eb0edbbb319bb560b0eccf6185ef8b8916b4f3276"
+      "sha256": "32d4e54d4ce97d44197112ee2f24f7da6dd1f8738560a42b96a762c855a98209"
     },
     {
       "asset": "book/assets/forces/rail-friction.png",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "d70ad244c573f0e143991522f25db36fb9dbe8cefed34ac3f511366fd695e595"
+      "sha256": "4256139e5e665cda4dd34115e996787ff982481dab7914695edfa64dbd2e7ebb"
     },
     {
       "asset": "book/assets/forces/stronger-pull-stacked.gif",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "5985c2c24f99d191b85b80db96327f5c8033052036f61cb0f507a0b0c154a3e9"
+      "sha256": "fa949ce6b6a62dd66e00fc943341b23ba3019269ba61c2a65108d603338b6f66"
     },
     {
       "asset": "book/assets/forces/stronger-pull-stacked.png",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "a7f2fcbd286c0e31a888d7989820282b09dbc9e17494f4ffc5f49ea16dbc61a0"
+      "sha256": "0d6f56de07fa07f4254899506e8d3d1b180a4c3572af0f35d0119611ceb87b0a"
     },
     {
       "asset": "book/assets/forces/stronger-pull.gif",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "9e985e554786165a041503a76df25cb71e5a5112947b0b72b063ca2af28e0f73"
+      "sha256": "9c87ac1702eea646b1f95f3048f790b77deb6acc6f435c6081b23b2bdc1e7870"
     },
     {
       "asset": "book/assets/forces/stronger-pull.png",
       "source": "scripts/animate_drawer_forces.py",
       "kind": "script-rendered",
-      "sha256": "8099b6c7fa6b03d2e6fa8d863f7f7bffda7f633885df75af79fe80d89bd9612f"
+      "sha256": "adcd06bb00682f0c30302d7bb648a7b814e185da8546600036fe2f790771e222"
     },
     {
       "asset": "book/assets/gaussian-learning/early-render.png",
       "source": "scripts/draw_gaussian_learning.py",
       "kind": "script-rendered",
-      "sha256": "5d35af97d8c64d491d6f9d5c8153b8a97d5097feb3fa6eb090a7849223778fa9"
+      "sha256": "5bd18774cb3eb8c08c653128d9267b55e0ee45fb215ef81a455fb5f39ce2fa69"
     },
     {
       "asset": "book/assets/gaussian-learning/initial-blobs.png",
       "source": "scripts/draw_gaussian_learning.py",
       "kind": "script-rendered",
-      "sha256": "80a89785286cd439df144bade0be7a964ab16a9523ab56f01d3b1431e086db76"
+      "sha256": "202316f2ff6aa21b09bb337e43c6a627bc3397a1cd41c94af1c988ffa291902c"
     },
     {
       "asset": "book/assets/gaussian-learning/later-render.png",
       "source": "scripts/draw_gaussian_learning.py",
       "kind": "script-rendered",
-      "sha256": "8b8e415fb3cbe1a53e00c2ed7f3058f80149e3c3e9e5bdde8e8eb0ad84d61a8f"
+      "sha256": "76a091c350683f59692c1c6e79facf159f8dc68dfa9115725e9cafd7d2e6b7e0"
     },
     {
       "asset": "book/assets/gaussian-learning/new-view.png",
       "source": "scripts/draw_gaussian_learning.py",
       "kind": "script-rendered",
-      "sha256": "a77a3fe683257fec760b230cceade79f445d771ecbc498c4f6e3afad44753e9e"
+      "sha256": "0e4701b6dfd27d628658457d37143d8f4084313d483290ff16f51fe625571bb8"
     },
     {
       "asset": "book/assets/gaussian-learning/reference-front.png",
       "source": "scripts/draw_gaussian_learning.py",
       "kind": "script-rendered",
-      "sha256": "88a39f81f15a37670892a3d23a16db89c56746adde8164090aac393f23b06b53"
+      "sha256": "ab9cc3fc30945a288cacb146495528ea6c447ca1cb5c7e7ea3791d867d4045b5"
     },
     {
       "asset": "book/assets/gaussian-learning/reference-left.png",
       "source": "scripts/draw_gaussian_learning.py",
       "kind": "script-rendered",
-      "sha256": "4de07c7b4ffb8e3715df56ffdb8d41fb161b74a46a6f15d7465ed25518f8046b"
+      "sha256": "ba0d8246d55339bbbe77b0c9032810ee564594f8b38afdf9bc478f9f886e9d31"
     },
     {
       "asset": "book/assets/gaussian-learning/reference-right.png",
       "source": "scripts/draw_gaussian_learning.py",
       "kind": "script-rendered",
-      "sha256": "284ca0fd8374070073779d336aa57f0ccde9eadff7dbf6f1f3c71acadc327f8e"
+      "sha256": "55220d7ea79fde5eb42c8b71d82a196149ff45e03093efca5a9cceab19082c5f"
     },
     {
       "asset": "book/assets/gaussian-learning/sparse-points.png",
       "source": "scripts/draw_gaussian_learning.py",
       "kind": "script-rendered",
-      "sha256": "479e43d4ec1dc3d88011b7cf799ef61216c0e33bd0fc7f5e259559f3ac63ca74"
+      "sha256": "4e2b4052dd83950553259b4ca7cec1fdadbf08918993fd4d275d6b6daeface64"
     },
     {
       "asset": "book/assets/gaussian-learning/triangulation.png",
@@ -678,7 +750,7 @@
       "asset": "book/assets/maya/arm-ik.svg",
       "source": "scripts/draw_maya_examples.py",
       "kind": "script-rendered",
-      "sha256": "7993cf39be728538af511a683238dfc0a3c4e4c8ff07dfb052e7d438d6a8cfc5"
+      "sha256": "76722d11af7045c4729f7e8e5bb47a04954bfa948c1653c94a839c0501f47c71"
     },
     {
       "asset": "book/assets/maya/drawer-curves.svg",
@@ -690,43 +762,43 @@
       "asset": "book/assets/maya/drawer-keyframes.svg",
       "source": "scripts/draw_maya_examples.py",
       "kind": "script-rendered",
-      "sha256": "fc4ad89e12a871aeafaa3374100edc5d3bd6e042c8e06d157bc8bf6a01b922f9"
+      "sha256": "692d991e97ad2482ae8b2cb8732f2fbd4bd70c0cdbf303f080abf933e4531768"
     },
     {
       "asset": "book/assets/media/cabinet-motion.mp4",
       "source": "scripts/animate_cabinet_intro.py",
       "kind": "script-rendered",
-      "sha256": "54927dae192eae06c8f2070b0ce4efc82714b6f29c842de8c9d0fe59d87e7af8"
+      "sha256": "44adafdd00dccb1c047594688913c48d91ac0620df9e27417e482a90e15f533b"
     },
     {
       "asset": "book/assets/media/cabinet-poster.png",
       "source": "scripts/animate_cabinet_intro.py",
       "kind": "script-rendered",
-      "sha256": "32c52bf11d805a845cfa1c0aec4976d4c8d43edce74ba3eafbf070d8cf1391b6"
+      "sha256": "79d8add572ceac4ba2ab12a64ed29e301163a0515e74af96fe8ac32239e50c82"
     },
     {
       "asset": "book/assets/nerf-cabinet/camera-poses.png",
       "source": "scripts/draw_nerf_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "c4d302bac38db7cbe4b0f9657a47bff70edda35b37bd568780d4b91e1308c949"
+      "sha256": "9eb4ab4d373f26c09602a1d7ff3b087c63ca2b275af86a15fd1c2d0fefdffee7"
     },
     {
       "asset": "book/assets/nerf-cabinet/field-samples.png",
       "source": "scripts/draw_nerf_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "2f3f3ed027bf09950bb73e92f8831c3deec3f2a793e9e20fbfb09f67a3bbe2b8"
+      "sha256": "a514935900e53bc78e975dd17e43506cd34d83b227c20e4c12f1e013ca1d3417"
     },
     {
       "asset": "book/assets/nerf-cabinet/front.png",
       "source": "scripts/draw_nerf_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "2413f09606400db0dbf6f7fd952fce8b64e414dd033c2752f3d711ac791204b4"
+      "sha256": "f67087004787b78928e2ca48b38ab5cd553760e4a60917c3c2ec376c60e959e2"
     },
     {
       "asset": "book/assets/nerf-cabinet/left.png",
       "source": "scripts/draw_nerf_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "d56c9381daca216460ac98f93b50ff47b10529050ac43976d469d8eb6219aad8"
+      "sha256": "246996b4c4b767df9b975c669bd6688251afb8285d8fc1e225eee172f94925b2"
     },
     {
       "asset": "book/assets/nerf-cabinet/network-query.svg",
@@ -738,37 +810,37 @@
       "asset": "book/assets/nerf-cabinet/new-view.png",
       "source": "scripts/draw_nerf_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "267f182dadc6a60fdf8d1990422336562a498448fb5712be2c72978e7753ea95"
+      "sha256": "3f900c2ab03fd0ba962468b6903f7d2058fea58e94d45cfafc37f6b650d4c8be"
     },
     {
       "asset": "book/assets/nerf-cabinet/one-pixel.png",
       "source": "scripts/draw_nerf_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "461d90875dcb3110572e2819bd0a1d0945652e5d58d727592f871c6b96744c13"
+      "sha256": "9e96929b0e087b0b135e4d3555c0fc53ba9bf5e64427f48b7166bbf8ed91ebec"
     },
     {
       "asset": "book/assets/nerf-cabinet/point-inputs.png",
       "source": "scripts/draw_nerf_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "01b89abc9d9839189cdd04485b3957b5dcfd728bc0baf63f0736d21eecf5eb84"
+      "sha256": "81efbaea222d85102dd625bb891a93f560e9410e180dfea5c69cc3768062e4a5"
     },
     {
       "asset": "book/assets/nerf-cabinet/ray-camera.png",
       "source": "scripts/draw_nerf_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "0d28c711bf5d4e1ce6a877969c21ef552147b8e9bafa0fda9dade2199b945297"
+      "sha256": "badd63bf6bbb8dd315284945c157b50c435f92e1352d19e464f2ca7abe93a5a7"
     },
     {
       "asset": "book/assets/nerf-cabinet/right.png",
       "source": "scripts/draw_nerf_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "fe81a1307501b21464a4b71dfa28854569f7e1f8625eaabd0dd499128bacb896"
+      "sha256": "fe65615ab139fe693c8ddb64fb2b4649895828d3d4b65b85494b4205e6dbaa18"
     },
     {
       "asset": "book/assets/nerf-cabinet/trial-front.png",
       "source": "scripts/draw_nerf_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "39e9f1df76889b4d8ff9738a4914765f3055c83f9e6139404b55b06c17345cf8"
+      "sha256": "d031336e02861990bdbf6a3ae97ee973d2a032fbb22142244a7c71781c5f7900"
     },
     {
       "asset": "book/assets/projection/camera-moved.png",
@@ -810,25 +882,25 @@
       "asset": "book/assets/projection-cabinet/cabinet-projection.mp4",
       "source": "scripts/animate_gaussian_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "f9ea2c18349210303ee2688b7e50819de6de5b3aecc44420f416b226300e2efe"
+      "sha256": "87d5292696f967a0773ac0c34575f98cd3dfc92bbbb975b23feac04bf754ec3d"
     },
     {
       "asset": "book/assets/projection-cabinet/cabinet.png",
       "source": "scripts/animate_gaussian_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "3206695bc642329e637a8654dd5b1e9335bd264045b4928062c172923cd4c529"
+      "sha256": "c1eef84e26a8d93873f471545aa2922dfca0f313e9e3be9aedaab92c8109be54"
     },
     {
       "asset": "book/assets/projection-cabinet/camera-moved.png",
       "source": "scripts/animate_gaussian_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "2d89607f493282a59a6ad1f6f30c4f780f22dbab65ca102a28e8981c8166cd8c"
+      "sha256": "ea73f05c1c6e95910462ebf2ab720a0947b81db7ae7ef2ed3d1bc691a6cb1fbe"
     },
     {
       "asset": "book/assets/projection-cabinet/one-blob.png",
       "source": "scripts/animate_gaussian_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "dc557968d35721d9cff320ae49ba3148a050601a13ff4baed406c67505fd610f"
+      "sha256": "0830d03e6b6383138d9f1465f0f2b1a81545a4f242a0f06573d214e00f2ea46d"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-000.webp",
@@ -840,181 +912,181 @@
       "asset": "book/assets/projection-cabinet/opacity/cabinet-005.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "6ca1c80e104c5f7416db16fb7e145ff7f9f8ad6f52ae73330c6d0cc7c1323105"
+      "sha256": "7da5074ffe24cae02ad867ca400a5cc3fcf23d684723a9db9e3022f414a8cd67"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-010.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "efd1c10c6330e8c9ef8927c837bcfb63736cb38b538549be7a47237f3428554d"
+      "sha256": "aa6688450851de915ca3daf2a06b1e64b8ef5e7f61ea618d45ebfae0f36f918b"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-015.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "7418ddca024c464f848f46d110552a957006bffe19ebcf1d9bd67d14bd690e09"
+      "sha256": "1c091aadac205ecddf38b74248c7401b3f136e123505c96c597dbc4ff40c80d4"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-020.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "71f7155eb864d0944a285e895584b53e3c08ccfe5035b65afc7e58ef0743be69"
+      "sha256": "5c382712a53320c5baf42412d79c271ec4268d138327e9aa777bbc634502e806"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-025.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "28d7ff0410638b05a996c14843929ee8da5345da3cdfb79493ff4c52090c5c43"
+      "sha256": "03854f398b86b6487eaab47438a9cf422fb66ceca83d3f35c6bded4b659a4f5d"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-030.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "9ddd7cccba42fcf57e8e1ab4ce6ef6b501803541631f35d37c5e780e0e8812b9"
+      "sha256": "27f56df66f68bf8cb528f7efcaaa5f3a41ff814852201ceacc2407739eeda491"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-035.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "7dbae2ddeeef9f3ff2c5a3b80498a8436cd9a84277263b962ab03a756ebef1d6"
+      "sha256": "edca85c90235ce6ace02e5d8562efe55b99a8b1b7f196cf68bbaf7c9a6989194"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-040.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "d53f605fcd5fb789d6973c4060d14cbea80f10d5d75e292919c20c1a42fb9888"
+      "sha256": "0fc90862fbc84f3c14005e6118054ebbad5d242c102919c00c183e009cb003e5"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-045.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "ce478f91e58cdbbaaabe278e2945b46791c091bc4db9a4de9ee6142364f709a2"
+      "sha256": "307b96d7675b06937b848663f3217b1017bfd512e1f695874bfe8e04cdfa3c9a"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-050.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "439c1caa5105fbe05424ff7defd5008586d30d534eb66f5a172e7580ad6ccda5"
+      "sha256": "434ec5a01b1896b633ce2c4e3d897099c882a7146fd0d3ca95c18a3b78f167cc"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-055.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "ef065e7c6274c1d28b5b4f343fa8884d87f49422b617e495d0cc8b4aa71ed44d"
+      "sha256": "5d7d5671def9b58aff0590748259d3469a0c8ccd2bdba05bcf1e05ceb5f6edd6"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-060.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "b53f16f25efac7fa77d8225c7b78984f5112bc2ff26bf0f8fe749caa1b401bb8"
+      "sha256": "d389978e1e8f8277a36300b2a159ce66b341aa2997af080701fb675f9e5f8b64"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-065.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "de13041ed67b66d886877a04a09e74c5802e2fe493fcfb9e388eeb86c8c2d195"
+      "sha256": "7296dad203a2b0fe19d0b6ec582c07de2a28e1495cb51d636f06c69934f05deb"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-070.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "8f60d55c8811a0c90d77af11515a6dd2024cd525e63e8c82ac39a0e778d9408a"
+      "sha256": "acae69ce19a4815053c18a9ff92b398a5ae40a8f500ae2c90f97499f9bd93d85"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-075.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "fcd01caeb02239d2df3f55f1475b436bd78d5977c1172d1322c2240228250365"
+      "sha256": "6074b27c3a7652d20a547c5c82ce3ce1d7f6561f72e45d70060e9da5dcfbbf02"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-080.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "a503edc093a6a45acd7e83bd4b88e2d1ec70f44affb59f82c12ea20085c14059"
+      "sha256": "4a14b43fe1c710e72501d723ee9bdc6fa99f608b77788fb4c1af0fb50dc2e428"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-085.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "60bed0005daef58b18a228cea7f60ed9c5778f51abe44bba80afdf63fef6593f"
+      "sha256": "095f1c618420d28f41e4be14cea97a86fdbfe7094cc7c19eb23c604daa54c025"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-090.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "be6dac5293489cb6ef6d4ac0cc4a34e4f4e9a822aef2ac7f832909ce85fd1b06"
+      "sha256": "34bd4eb6d58c7f61f45ac3db29cee873fab8095e90d5d262a30e2cedb14eb5cc"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-095.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "91f4b884df5a5701d7d444ea53cda200eb9231ce64bc3f8a64a01912747b47da"
+      "sha256": "683ce05bdb065ae909fd6147e7cb32dd2be0db71de2e105771eae97f1375c45c"
     },
     {
       "asset": "book/assets/projection-cabinet/opacity/cabinet-100.webp",
       "source": "scripts/draw_cabinet_opacity.py",
       "kind": "script-rendered",
-      "sha256": "9122637bbd51e3c7c6327c7f342b39101c0bea05c16ba9ee2edfa2098c555c48"
+      "sha256": "2a3bf57e412a33210e9849eca0c50b74ca96f807b464a2cce8481fd5bb80a5d0"
     },
     {
       "asset": "book/assets/projection-cabinet/projection.png",
       "source": "scripts/animate_gaussian_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "812fd9ecea372a75ede77c1363125302c1a57550593c2f09fbb57d80d7f898b2"
+      "sha256": "f2df8f7b4391251e22f8fa66f9c55107a671326f1cc6e757e94513f04824d6c1"
     },
     {
       "asset": "book/assets/projection-cabinet/three-views.png",
       "source": "scripts/animate_gaussian_cabinet.py",
       "kind": "script-rendered",
-      "sha256": "5647d82a0fbd5ed9e16b2638eb4e6834bd340ef15372a742dcc002b6fcd31eee"
+      "sha256": "f8ec2f24eae9bc1bcf4d2736f747b6f263833c3dfd6da3d7f09b09fe248c728d"
     },
     {
       "asset": "book/assets/simulation-workflow/cabinet-parts.png",
       "source": "scripts/draw_simulation_workflow.py",
       "kind": "script-rendered",
-      "sha256": "939bc8a9832602fdcdb455761492442096ca3cc96605e2df551db767ddc3dd93"
+      "sha256": "8a4a1eb46dd56d88e910d0c1bc4a71314834e0f0999404c48b6119902eab6745"
     },
     {
       "asset": "book/assets/simulation-workflow/collision-filled.png",
       "source": "scripts/draw_simulation_workflow.py",
       "kind": "script-rendered",
-      "sha256": "235b9a56ccf4fa5d3699d67b4b53965e94855f4727b396ab82ffe908adc4ec8c"
+      "sha256": "5e5fd33ba00fc2d64030928d60740195acf5e21770caf92631082fc15ace1dd2"
     },
     {
       "asset": "book/assets/simulation-workflow/collision-open.png",
       "source": "scripts/draw_simulation_workflow.py",
       "kind": "script-rendered",
-      "sha256": "fa9b7a5fd7b9c173daf7b5fef4ef2ccfe2b353b4fbe3d26913ba2e1ffe1bd000"
+      "sha256": "a0e5929a1b09cf5e7285222cf7762f5e9a7b1e4ef2fb3fe228c6ca2580590dea"
     },
     {
       "asset": "book/assets/simulation-workflow/handle-blocked.png",
       "source": "scripts/draw_simulation_workflow.py",
       "kind": "script-rendered",
-      "sha256": "ec191ef738cdf3d45c7c4cf9bf75b78943e1ba3c2114c6e186ed21e52f7096e9"
+      "sha256": "141ec7ecaddbf6166708c0a8dde8cd753367c9f69fac44bb296ea73b6d94c382"
     },
     {
       "asset": "book/assets/simulation-workflow/handle-open.png",
       "source": "scripts/draw_simulation_workflow.py",
       "kind": "script-rendered",
-      "sha256": "de02f044986b04dce91d6b4d3db6ea7560ac588d036295605d7ddc21190d8ad5"
+      "sha256": "02b90899debcebc3758f8a06c34b82628e1c968b1a20f67528695c2ccd7a5401"
     },
     {
       "asset": "book/assets/software-physics/box-fall-01.png",
       "source": "scripts/render_blender_physics.py",
       "kind": "script-rendered",
-      "sha256": "aa73f150c1fae8c2d054e650bebced8bc769cc689a64a29510cd698104ccf073"
+      "sha256": "e042eb9aa3b072c2b8c6307a1ed6fce04c90c8606a238da29cee8810d9f6407d"
     },
     {
       "asset": "book/assets/software-physics/box-fall-13.png",
       "source": "scripts/render_blender_physics.py",
       "kind": "script-rendered",
-      "sha256": "8023b1984c826f91ee53461a3e9f10b9b31d4735223199625d13865bc8742f0e"
+      "sha256": "356154d7b41af843539d9fae0c0b096573d2493d231f7e594bc0f8dc346cf375"
     },
     {
       "asset": "book/assets/software-physics/box-fall-37.png",
       "source": "scripts/render_blender_physics.py",
       "kind": "script-rendered",
-      "sha256": "027912315a23acfb216500452e0d0a68aa90d8fd5885d3a898c52cbd31729b6b"
+      "sha256": "50f51076f5a12c4ce3acc07dcdd670df41f07ebab95012d4f5f10391454a14da"
     }
   ]
 }

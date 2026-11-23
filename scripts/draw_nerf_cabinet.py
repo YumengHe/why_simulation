@@ -3,7 +3,8 @@
 
 This is an analytic color/density field, not a trained neural network. Rays
 sample the field and use alpha = 1-exp(-sigma*distance), then front-to-back
-compositing. No Gaussian splats or triangle rasterization make the images.
+compositing. No Gaussian splats or triangle rasterization make the prediction
+images. Pale context diagrams use a depth-tested mesh to locate the rays.
 The trial field is hand-constructed to illustrate a training comparison.
 """
 from pathlib import Path
@@ -14,50 +15,70 @@ from PIL import Image, ImageDraw
 
 from animate_projection import font
 from animate_gaussian_cabinet import camera, View, U, V, FOCAL
+from shared_cabinet import PARTS, BOX_PARTS, mesh as shared_mesh
+from preview_shared_cabinet import render as raster_guide
 
 OUT=Path(__file__).resolve().parents[1]/'book/assets/nerf-cabinet'
 BLUE=np.array([91,141,184],np.float32)/255
 TEAL=np.array([108,153,150],np.float32)/255
 GOLD=np.array([219,181,85],np.float32)/255
 INK='#313a37'; CORAL='#bf644b'; MUTED='#656158'
-BOXES=[]
-
-
-def box(lo,hi,color):
-    BOXES.append((np.array(lo,np.float32),np.array(hi,np.float32),np.array(color,np.float32)))
-
-
-for lo,hi in [((-.62,-.43,-.86),(-.54,.43,.86)),((.54,-.43,-.86),(.62,.43,.86)),
-              ((-.54,.35,-.86),(.54,.43,.86)),((-.54,-.43,.79),(.54,.35,.86)),
-              ((-.54,-.43,-.86),(.54,.35,-.78))]:box(lo,hi,TEAL)
-box((-.51,-.49,.33),(.51,-.43,.74),BLUE)
-box((-.51,-.485,-.73),(.51,-.43,.26),GOLD)
-box((-.24,-.585,.515),(.24,-.55,.555),np.array([204,210,204])/255)
-for x in (-.24,.205):box((x,-.56,.515),(x+.035,-.49,.555),np.array([185,196,192])/255)
-box((.345,-.57,-.35),(.385,-.535,-.10),np.array([174,136,51])/255)
-for z in (-.35,-.135):box((.345,-.55,z),(.385,-.485,z+.035),np.array([174,136,51])/255)
+# Canonical authored geometry; the field is evaluated analytically, without
+# rasterizing a triangle mesh. The box list also supports diagnostic guides.
+BOXES=[(np.asarray(p['lo'],np.float32),np.asarray(p['hi'],np.float32),
+        np.asarray(p['color'],np.float32)/255) for p in BOX_PARTS]
 
 
 def field(points,trial=False):
-    """Return density and RGB at arbitrary 3D points. No view dependence here."""
-    shape=points.shape[:-1]
-    density=np.zeros(shape,np.float32);weighted_color=np.zeros((*shape,3),np.float32)
-    # A finite soft boundary avoids aliasing, while panels keep hollow spaces.
+    """Vectorized analytic density and color from the shared cabinet surfaces.
+
+    Bounds reject empty space before detailed evaluation. Face-dependent
+    color supplies a fixed lighting cue; this remains actual volume rendering.
+    """
+    points=np.asarray(points,np.float32)
+    shape=points.shape[:-1];flat=points.reshape(-1,3)
+    density=np.zeros(len(flat),np.float32)
+    weighted_color=np.zeros((len(flat),3),np.float32)
     width=.025 if trial else .008
-    for i,(lo,hi,base) in enumerate(BOXES):
-        inside_distance=np.minimum(points-lo,hi-points)
-        nearest=np.min(inside_distance,axis=-1)
+    for part in PARTS:
+        if part['kind']=='box':
+            lo,hi=np.asarray(part['lo'],np.float32),np.asarray(part['hi'],np.float32)
+        else:
+            start,end=np.asarray(part['start'],np.float32),np.asarray(part['end'],np.float32)
+            lo=np.minimum(start,end)-part['radius'];hi=np.maximum(start,end)+part['radius']
+        hit=np.all((flat>=lo-width)&(flat<=hi+width),axis=1)
+        ids=np.flatnonzero(hit)
+        if not len(ids):continue
+        p=flat[ids]
+        if part['kind']=='box':
+            distance=np.minimum(p-lo,hi-p)
+            nearest=distance.min(axis=1)
+            axis=distance.argmin(axis=1)
+            upper=p>(lo+hi)/2
+            shades=np.where(axis==0,np.where(upper[:,0],.74,.83),
+                            np.where(axis==1,np.where(upper[:,1],.79,1.),np.where(upper[:,2],1.08,.68)))
+        else:
+            direction=end-start;length=np.linalg.norm(direction);direction/=length
+            q=p-(start+end)/2
+            axial=np.sum(q*direction,axis=1)
+            radial_vector=q-axial[:,None]*direction
+            radial=np.linalg.norm(radial_vector,axis=1)
+            side_distance=part['radius']-radial
+            cap_distance=length/2-np.abs(axial)
+            nearest=np.minimum(side_distance,cap_distance)
+            normal=radial_vector/np.maximum(radial[:,None],1e-8)
+            caps=cap_distance<side_distance
+            normal[caps]=np.sign(axial[caps])[:,None]*direction
+            shades=np.sum(normal**2*np.where(normal>0,[.74,.79,1.08],[.83,1.,.68]),axis=1)
         occupancy=np.clip((nearest+width)/(2*width),0,1)
         sigma=occupancy*(28 if trial else 100)
-        axis=np.argmin(inside_distance,axis=-1)
-        upper=points>(lo+hi)/2
-        shades=np.where(axis==0,np.where(upper[...,0],.76,.88),
-                        np.where(axis==1,np.where(upper[...,1],.78,1.),np.where(upper[...,2],1.06,.70)))
-        col=np.array([.56,.58,.57],np.float32) if trial and i==5 else base
-        density+=sigma
-        weighted_color+=sigma[...,None]*shades[...,None]*col
-    colors=weighted_color/np.maximum(density[...,None],1e-8)
-    return density,np.clip(colors,0,1)
+        col=np.asarray(part['color'],np.float32)/255
+        if trial and part['name'].startswith('drawer-front'):
+            col=np.array([.56,.58,.57],np.float32)
+        density[ids]+=sigma
+        weighted_color[ids]+=sigma[:,None]*shades[:,None]*col
+    colors=weighted_color/np.maximum(density[:,None],1e-8)
+    return density.reshape(shape),np.clip(colors,0,1).reshape(shape+(3,))
 
 
 def trace(origins,directions,near,far,steps=176,trial=False):
@@ -101,15 +122,14 @@ def selected_ray():
     return c,direction,c+np.array([1.,2.,2.54])[:,None]*direction
 
 
-def cabinet_guide(d,view):
-    faces=[]
-    for lo,hi,color in BOXES:
-        verts=np.array([[x,y,z] for x in (lo[0],hi[0]) for y in (lo[1],hi[1]) for z in (lo[2],hi[2])])
-        for ids in ((0,1,3,2),(4,6,7,5),(0,4,5,1),(2,3,7,6),(1,5,7,3),(0,2,6,4)):
-            pts=verts[list(ids)];faces.append((pts.mean(0)@view.eye,pts,color))
-    for _,pts,col in sorted(faces,key=lambda t:t[0]):
-        color=tuple(np.uint8((col*.48+.52)*255))
-        d.polygon([tuple(p) for p in view(pts)],fill=color,outline='#bacbc3')
+def cabinet_guide(im,view):
+    # A depth-tested pale mesh supplies context for the rays. The prediction
+    # images still come exclusively from the color/density volume renderer.
+    model=shared_mesh(n=16)
+    model.colors=model.colors*.48+255*.52
+    layer=raster_guide(model,size=im.size,eye=view.eye,center=view.center,
+                       scale=view.scale,xy=view.xy,ss=2,transparent=True)
+    im.paste(layer,(0,0),layer)
 
 
 def camera_poses():
@@ -118,7 +138,8 @@ def camera_poses():
     for angle in (-35,0,35):
         c,f,r,u=camera(angle)
         d.line([tuple(p) for p in view([c,np.zeros(3)])],fill='#d3c6a7',width=2)
-    cabinet_guide(d,view)
+    cabinet_guide(im,view)
+    d=ImageDraw.Draw(im)
     for angle,name in [(-35,'Photo 1'),(0,'Photo 2'),(35,'Photo 3')]:
         c,*_=camera(angle);x,y=view(c)
         d.rounded_rectangle((x-23,y-16,x+23,y+16),radius=4,fill='#777e76')
@@ -132,7 +153,8 @@ def camera_poses():
 def point_inputs():
     im=Image.new('RGB',(1150,700),'white');d=ImageDraw.Draw(im)
     view=View(188,(0,-1.3,0),(510,350),52,22)
-    cabinet_guide(d,view)
+    cabinet_guide(im,view)
+    d=ImageDraw.Draw(im)
     c,f,_=selected_ray()
     r,u=np.array([1.,0.,0.]),np.array([0.,0.,1.])
     plane_center=c+.7*f
@@ -173,7 +195,8 @@ def point_inputs():
 def ray_figure(front):
     im=Image.new('RGB',(1200,700),'white');d=ImageDraw.Draw(im)
     view=View(158,(0,-1.3,0),(382,320),52,22)
-    cabinet_guide(d,view)
+    cabinet_guide(im,view)
+    d=ImageDraw.Draw(im)
     c,direction,pts=selected_ray()
     r,u=np.array([1.,0.,0.]),np.array([0.,0.,1.])
     pc=c+.7*direction
@@ -269,6 +292,7 @@ def main():
     point_inputs().save(OUT/'point-inputs.png')
     (OUT/'network-query.svg').write_text(query_svg())
     (OUT/'manifest.json').write_text(json.dumps({
+        'geometry_source':'scripts/shared_cabinet.py',
         'provenance':'Original analytic cabinet color/density field. Not a trained NeRF or a recorded training run.',
         'rendering':'176 midpoint samples per intersecting camera ray. Alpha = 1 - exp(-density * sample distance). Front-to-back compositing against white.',
         'input_views_degrees':[-35,0,35],'new_view_degrees':18,

@@ -51,16 +51,10 @@ class Mesh:
 
 
 def cabinet(n):
-    m=Mesh()
-    for lo,hi in [((-.62,-.43,-.86),(-.54,.43,.86)),((.54,-.43,-.86),(.62,.43,.86)),
-                  ((-.54,.35,-.86),(.54,.43,.86)),((-.54,-.43,.79),(.54,.35,.86)),
-                  ((-.54,-.43,-.86),(.54,.35,-.78))]:m.box(lo,hi,TEAL)
-    m.box((-.51,-.49,.33),(.51,-.43,.74),BLUE)
-    m.box((-.51,-.485,-.73),(.51,-.43,.26),GOLD)
-    m.cylinder((-.25,-.65,.53),(.25,-.65,.53),.05,n,(212,219,213),'drawer-handle')
-    for x in (-.21,.21):m.cylinder((x,-.49,.53),(x,-.65,.53),.036,n,(192,202,194),'drawer-handle')
-    m.cylinder((.36,-.64,-.35),(.36,-.64,-.10),.045,n,(180,143,56),'door-handle')
-    for z in (-.31,-.14):m.cylinder((.36,-.485,z),(.36,-.64,z),.032,n,(180,143,56),'door-handle')
+    from shared_cabinet import mesh
+    m=mesh(n)
+    # Detail selection is derived from component names, not a second model.
+    m.groups=np.array(['drawer-handle' if name.startswith('drawer-handle') else 'door-handle' if name.startswith('door-handle') else 'panel' for name in m.names])
     return m
 
 
@@ -124,15 +118,15 @@ def main():
     for name,n,m in [('coarse',6,low),('fine',32,high)]:
         panels=[t for t,g in zip(m.triangles,m.groups) if g=='panel']
         counts={'panels':len(panels),'handles':len(m.triangles)-len(panels),'total':len(m.triangles)}
-        assert counts=={'panels':84,'handles':24*n,'total':84+24*n}
+        assert counts=={'panels':252,'handles':24*n,'total':252+24*n}
         assert all(np.linalg.norm(np.cross(t[1]-t[0],t[2]-t[0]))>1e-10 for t in m.triangles)
         draw(m).save(OUT/f'cabinet-mesh-{name}.png')
         manifest.append({'image':f'cabinet-mesh-{name}.png','radial_sides':n,'triangles':counts})
-    assert np.array_equal(np.array(low.triangles[:84]),np.array(high.triangles[:84]))
-    (OUT/'cabinet-mesh-detail.json').write_text(json.dumps({'source':'Original teaching meshes. Seven box panels and six capped handle cylinders.',
+    assert np.array_equal(np.array(low.triangles[:252]),np.array(high.triangles[:252]))
+    (OUT/'cabinet-mesh-detail.json').write_text(json.dumps({'source':'Original teaching meshes. Twenty-one box components and six capped handle cylinders.',
         'rendering':'Identical camera, colors, flat lighting and visible triangle edges. Depth-buffered orthographic views.',
         'views':manifest},indent=2)+'\n')
-    print('Rendered cabinet meshes: 228 vs 852 triangles. The 84 panel triangles are identical.')
+    print('Rendered cabinet meshes: 396 vs 1020 triangles. The 252 panel triangles are identical.')
 
 
 if __name__=='__main__':main()

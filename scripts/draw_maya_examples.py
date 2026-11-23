@@ -31,19 +31,8 @@ def save(name, title, body, height):
 
 
 def cabinet(q=0):
-    """Side-view cabinet; q in cm moves the rigid drawer to the right."""
-    dx = q * 1.7
-    return f'''
-<path d="M40 342H280" stroke="{LINE}" stroke-width="2"/>
-<rect x="55" y="130" width="140" height="205" fill="#dce8e4" stroke="#638982" stroke-width="2"/>
-<rect x="65" y="230" width="120" height="95" fill="#e6cc80" stroke="#ba963e" stroke-width="2"/>
-<path d="M55 223H195" stroke="#638982" stroke-width="5"/>
-<g transform="translate({dx} 0)">
-<rect x="66" y="160" width="129" height="55" fill="#dce8f1" stroke="{BLUE}" stroke-width="3"/>
-<path d="M66 163V215H194" stroke="{BLUE}" stroke-width="6" fill="none"/>
-<rect x="188" y="150" width="13" height="72" rx="1" fill="{BLUE}"/>
-<path d="M201 175H214V199H201" stroke="#3c6484" stroke-width="5" fill="none"/>
-</g>'''
+    from shared_cabinet_views import side
+    return side(drawer=q/100,scale=119,xy=(142.69,232.6))
 
 
 def arm(wrist):
@@ -66,9 +55,9 @@ def arm(wrist):
 
 
 body = text(28, 40, 'After rigging: move the hand control to pose the arm', 27, weight=600)
-body += text(28, 72, 'A mechanical arm beside the cabinet · side view', 20, MUTED)
+body += text(28, 72, 'A mechanical arm beside the cabinet · side cutaway', 20, MUTED)
 body += path('M480 95V428')
-for x, wrist, heading in ((0, (333, 165), 'Before: hand away from the handle'), (480, (241, 187), 'After: hand at the handle')):
+for x, wrist, heading in ((0, (333, 165), 'Before: hand away from the handle'), (480, (247, 169.5), 'After: hand at the handle')):
     panel = text(26, 112, heading, 22, weight=600)
     panel += cabinet() + arm(wrist)
     if x == 0:

@@ -142,29 +142,33 @@ def panel(case, sample):
     text(W/2, 28, case.title, 29, bold=True)
     subtitle = f'{case.mass:g} kg' if case.pull == 0 else f'{case.pull:g} N pull · {case.mass:g} kg'
     text(W/2, 66, subtitle, 23, MUTED)
-    # Transparent side of a cabinet: the blue drawer travels horizontally.
-    rect((35,125,252,273),TEAL,'#96afa1',2)
-    rect((49,141,252,251),PAPER)
-    line([(49,244),(257,244)],'#96afa1',3)
-    shift = sample['q'] * 200
+    # A side cutaway of the SAME mesh; hide near walls to reveal the drawer.
+    import numpy as np
+    from shared_cabinet import mesh, CabinetMesh
+    from preview_shared_cabinet import render
+    m=mesh(n=12,drawer=sample['q'])
+    keep=~np.isin(m.names,['body-left-wall','body-left-frame','drawer-left-wall'])
+    m=CabinetMesh(m.triangles[keep],m.colors[keep],m.groups[keep],m.names[keep])
+    view=render(m,size=(W,220),eye=(-1,0,0),center=(0,-.89,0),scale=100,ss=AA)
+    image.paste(view.resize((W*AA,220*AA)),(0,100*AA))
+    d=ImageDraw.Draw(image)
+    shift = sample['q'] * 100
     front = 240 + shift
-    rect((61+shift,153,front,232),BLUE,BLUE_DARK,2)
-    rect((front,142,front+12,242),'#719cbd',BLUE_DARK,2)
-    line([(front+20,170),(front+27,170),(front+27,207),(front+20,207)],BLUE_DARK,3)
+    text(94,306,'Side cutaway',17,MUTED)
     # Label each actual force. Static friction balances the pull while stuck;
     # it is not always equal to the maximum static-friction threshold.
     force = sample['pull']
     if force:
         length = force * 24
         start = front + 33
-        arrow(start,187,length,PULL)
+        arrow(start,157,length,PULL)
         text(start+length/2,118,f'Pull {force:g} N',22,PULL)
     friction = sample['friction']
     if abs(friction) > 1e-9:
         start = front - 54
         length = friction * 24
-        arrow(start,221,length,FRICTION)
-        text(start+length/2,283,f'Friction {abs(friction):g} N',21,FRICTION)
+        arrow(start,196,length,FRICTION)
+        text(start+length/2,239,f'Friction {abs(friction):g} N',21,FRICTION)
     for y in range(299,335,7): line([(240,y),(240,y+3)],LINE,1)
     if shift > 1:
         line([(front,296),(front,332)],BLUE_DARK,1)

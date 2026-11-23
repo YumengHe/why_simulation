@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1000" viewBox="0 0 960 1000" role="img">
+<title>From photographs or a prompt to a 3D asset and a rendered view</title><desc>Reconstruction and generation produce supported representations. A compatible renderer and camera make a 2D image. During original 3DGS and NeRF fitting, rendering, comparing to photographs and updating the representation repeat.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 1L9 5L0 9" fill="none" stroke="#64736c" stroke-width="1.5"/></marker></defs>
+<rect width="960" height="1000" fill="#fffefa"/>
+<text x="36" y="49" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="600" fill="#293632">Create 3D data, then render a view</text>
+<text x="36" y="84" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="400" fill="#5f6862">A method can support more than one representation.</text>
+<rect x="36" y="112" width="424" height="98" rx="8" fill="#f3f8f6" stroke="#dedfd7" stroke-width="1.4"/>
+<rect x="500" y="112" width="424" height="98" rx="8" fill="#fbf6e9" stroke="#dedfd7" stroke-width="1.4"/>
+<text x="58" y="151" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#528b82">Photographs of the cabinet</text>
+<text x="58" y="184" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">Observed views of the same scene</text>
+<text x="522" y="151" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#a67a20">An image or a prompt</text>
+<text x="522" y="184" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">A condition for a pretrained generator</text>
+<path d="M248 210V241" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M712 210V241" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="36" y="246" width="424" height="167" rx="8" fill="white" stroke="#528b82" stroke-width="1.4"/>
+<rect x="500" y="246" width="424" height="167" rx="8" fill="white" stroke="#a67a20" stroke-width="1.4"/>
+<text x="58" y="282" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" fill="#528b82">Reconstruction</text>
+<text x="58" y="315" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">COLMAP / VGGT: cameras + geometry</text>
+<text x="58" y="344" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">Further routes: surface reconstruction,</text>
+<text x="58" y="373" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">3DGS fitting, or NeRF training</text>
+<text x="522" y="282" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" fill="#a67a20">Generation</text>
+<text x="522" y="315" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">Example: TRELLIS</text>
+<text x="522" y="344" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">Uses prior training to propose an asset</text>
+<text x="522" y="373" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">with one or more supported outputs</text>
+<path d="M248 413V444H480V472" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M712 413V444H480" fill="none" stroke="#64736c" stroke-width="2"/>
+<rect x="130" y="478" width="700" height="100" rx="8" fill="#f3f8f6" stroke="#528b82" stroke-width="1.4"/>
+<text x="480" y="518" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="600" fill="#528b82">3D representation</text>
+<text x="480" y="551" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="400" fill="#293632">For example: points, a mesh, Gaussians, or a field</text>
+<path d="M480 578V622" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="130" y="628" width="700" height="100" rx="8" fill="#f4f7fb" stroke="#447ca4" stroke-width="1.4"/>
+<text x="480" y="667" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" fill="#447ca4">Compatible renderer + chosen camera</text>
+<text x="480" y="700" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="400" fill="#293632">Calculate a picture from this viewpoint</text>
+<path d="M480 728V769" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="260" y="775" width="440" height="73" rx="8" fill="white" stroke="#dedfd7" stroke-width="1.4"/>
+<text x="480" y="821" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#293632">2D image of the cabinet</text>
+<rect x="36" y="880" width="888" height="89" rx="8" fill="#faf8f1" stroke="#a67a20" stroke-width="1.4"/>
+<text x="58" y="912" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="600" fill="#a67a20">During 3DGS / NeRF fitting:</text>
+<text x="58" y="947" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="400" fill="#293632">Render → compare with input photos → update the 3D representation → repeat</text>
+<path d="M700 811H886V917" fill="none" stroke="#64736c" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<path d="M36 924H15V528H123" fill="none" stroke="#64736c" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+</svg>

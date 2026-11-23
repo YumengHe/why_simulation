@@ -91,9 +91,13 @@ def build():
     shutil.copyfile(SOURCE / 'citation.bib', OUTPUT / 'citation.bib')
     navigation = '<ol class="chapter-list">'
     current_group = None
+    current_subgroup = None
     for chapter in chapters:
         group = chapter.get('group')
         if group != current_group:
+            if current_subgroup:
+                navigation += '</ol></li>'
+                current_subgroup = None
             if current_group:
                 navigation += '</ol></li>'
             if group:
@@ -101,6 +105,14 @@ def build():
                 group_review = ' draft-addition' if group_config.get('review_added') else ''
                 navigation += f'<li class="chapter-group"><span class="chapter-group-title{group_review}"><span class="nav-number">{escape(group_config["number"])}.</span>{escape(group_config["title"])}</span><ol class="chapter-children">'
             current_group = group
+        subgroup = chapter.get('subgroup')
+        if subgroup != current_subgroup:
+            if current_subgroup:
+                navigation += '</ol></li>'
+            if subgroup:
+                subgroup_title = config['groups'][group]['subgroups'][subgroup]
+                navigation += f'<li class="chapter-subgroup"><span class="chapter-subgroup-title">{escape(subgroup_title)}</span><ol class="chapter-subpages">'
+            current_subgroup = subgroup
         number = f'<span class="nav-number">{escape(chapter["number"])}{"" if group else "."}</span>' if chapter.get('number') else ''
         chapter_review = ' draft-addition' if chapter.get('review_added') else ''
         navigation += f'<li><a class="chapter-link{chapter_review}" href="{escape(chapter["output"])}#chapter-start">{number}{escape(chapter["title"])}</a>'
@@ -113,6 +125,8 @@ def build():
                 navigation += f'<li><a class="section-link" href="{escape(chapter["output"])}#{escape(section["id"])}">{escape(label)}</a></li>'
             navigation += '</ol>'
         navigation += '</li>'
+    if current_subgroup:
+        navigation += '</ol></li>'
     if current_group:
         navigation += '</ol></li>'
     navigation += '</ol>'
@@ -145,6 +159,14 @@ def build():
         (OUTPUT / chapter['output']).write_text(html)
         for section in chapter['sections']:
             search_index.append({'title': section['title'], 'url': chapter['output']+'#'+section['id'], 'text': ' '.join(' '.join(section['chunks']).split())})
+    # Root URLs open the overview. Historical index.html section bookmarks
+    # still reach the articulation lesson that formerly occupied index.html.
+    home = chapters[0]['output']
+    old_ids = sorted(output_fragments.get('articulated-objects.html', set()) - {'chapter-start'})
+    root_redirect = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>'+escape(config['title'])+'</title>'
+    root_redirect += '<script>const oldSections = '+json.dumps(old_ids)+'; const target = oldSections.includes(location.hash.slice(1)) ? "articulated-objects.html" : '+json.dumps(home)+'; location.replace(target + location.search + location.hash);</script>'
+    root_redirect += '<meta http-equiv="refresh" content="0;url='+escape(home)+'"></head><body><a href="'+escape(home)+'">Open the overview</a></body></html>'
+    (OUTPUT / 'index.html').write_text(root_redirect+'\n')
     (OUTPUT / 'search-index.json').write_text(json.dumps(search_index, ensure_ascii=False, indent=2)+'\n')
     (OUTPUT / '.nojekyll').touch()
     print(f'Built {len(chapters)} page(s) into {OUTPUT}')

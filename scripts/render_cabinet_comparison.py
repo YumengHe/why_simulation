@@ -11,33 +11,14 @@ import numpy as np
 from PIL import Image
 
 from animate_gaussian_cabinet import camera, camera_image, FOCAL, U, V
-from draw_cabinet_mesh_detail import Mesh
+from shared_cabinet import mesh as shared_mesh, validate
 
 OUT = Path(__file__).resolve().parents[1] / 'book/assets/examples/cabinet-representations'
 W, H, SS = 528, 700, 2
 
 
 def cabinet():
-    mesh = Mesh()
-    teal, blue, gold = (108,153,150), (91,141,184), (219,181,85)
-    boxes = [
-        ((-.62,-.43,-.86),(-.54,.43,.86),teal),
-        ((.54,-.43,-.86),(.62,.43,.86),teal),
-        ((-.54,.35,-.86),(.54,.43,.86),teal),
-        ((-.54,-.43,.79),(.54,.35,.86),teal),
-        ((-.54,-.43,-.86),(.54,.35,-.78),teal),
-        ((-.51,-.49,.33),(.51,-.43,.74),blue),
-        ((-.51,-.485,-.73),(.51,-.43,.26),gold),
-        ((-.24,-.585,.515),(.24,-.55,.555),(204,210,204)),
-        ((.345,-.57,-.35),(.385,-.535,-.10),(174,136,51)),
-    ]
-    for x in (-.24,.205):
-        boxes.append(((x,-.56,.515),(x+.035,-.49,.555),(185,196,192)))
-    for z in (-.35,-.135):
-        boxes.append(((.345,-.55,z),(.385,-.485,z+.035),(174,136,51)))
-    for lo, hi, color in boxes:
-        mesh.box(lo, hi, color)
-    return mesh
+    return shared_mesh(n=32)
 
 
 def render_mesh(mesh, angle, wire=False):
@@ -70,7 +51,7 @@ def render_mesh(mesh, angle, wire=False):
         wc=1-wa-wb
         invdepth=wa/depth[0]+wb/depth[1]+wc/depth[2]
         old=nearest[y0:y1,x0:x1]
-        visible=(wa>=0)&(wb>=0)&(wc>=0)&(invdepth>old)
+        visible=(wa>=-1e-9)&(wb>=-1e-9)&(wc>=-1e-9)&(invdepth>old)
         # Match the face palette used by the Gaussian teaching cabinet.
         axis=int(np.argmax(np.abs(normal))); side=int(normal[axis]>0)
         shade=[(.83,.74),(1.,.79),(.68,1.08)][axis][side]
@@ -87,13 +68,13 @@ def render_mesh(mesh, angle, wire=False):
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
     mesh=cabinet()
-    assert len(mesh.triangles)==156
+    validate(32)
     render_mesh(mesh,0).save(OUT/'reference.png')
     render_mesh(mesh,24,wire=True).save(OUT/'mesh.png')
     camera_image(24,W*SS,H*SS).convert('RGB').resize((W,H),Image.Resampling.LANCZOS).save(OUT/'gaussians.png')
     (OUT/'manifest.json').write_text(json.dumps({
         'generator':'scripts/render_cabinet_comparison.py',
-        'source':'Explicit cabinet geometry, with the same box layout and colors as animate_gaussian_cabinet.py.',
+        'source':'scripts/shared_cabinet.py; identical panels, closed surfaces and fixed round handles in both representations.',
         'reference':'A front-view mesh render, not a photograph or image-model output.',
         'comparison':'Mesh and Gaussian representations use the same camera (24 degrees), lens, dimensions, and face colors.',
         'limitation':'Scripted teaching representations; not TRELLIS predictions or learned reconstruction results.',

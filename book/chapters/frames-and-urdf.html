@@ -42,9 +42,9 @@
   <h2><span class="section-number">3.3.4</span> What is a mesh?</h2>
   <p>A <strong>mesh</strong> describes a 3D shape using points and flat faces. For the drawer’s orange side panel, those points are its corners. The faces join the points to form its surface.</p>
   <div class="mesh-examples">
-    <figure><img src="assets/diagrams/drawer-shapes.svg" width="320" height="220" alt="The blue drawer, with one side panel highlighted orange"><figcaption><strong>The whole drawer</strong>Its sides, bottom, front, and handle move together as one link.</figcaption></figure>
-    <figure><img src="assets/diagrams/side-panel-shape.svg" width="320" height="220" alt="The orange side panel shown on its own"><figcaption><strong>One side panel</strong>This is one of the drawer’s shapes.</figcaption></figure>
-    <figure><img src="assets/diagrams/side-panel-mesh.svg" width="320" height="220" alt="The same panel with eight corner points and triangular surface faces visible"><figcaption><strong>The panel’s mesh</strong>The file records the points’ positions and which points form each face.</figcaption></figure>
+    <figure><img src="assets/diagrams/drawer-shapes.png" width="320" height="220" alt="The blue drawer, with one side panel highlighted orange"><figcaption><strong>The whole drawer</strong>Its sides, bottom, front, and handle move together as one link.</figcaption></figure>
+    <figure><img src="assets/diagrams/side-panel-shape.png" width="320" height="220" alt="The orange side panel shown on its own"><figcaption><strong>One side panel</strong>This is one of the drawer’s shapes.</figcaption></figure>
+    <figure><img src="assets/diagrams/side-panel-mesh.png" width="320" height="220" alt="The same opaque panel with visible corner points and triangular surface faces marked"><figcaption><strong>The panel’s mesh</strong>The file records the points’ positions and which points form each face.</figcaption></figure>
   </div>
   <p>The second and third pictures show <strong>the same panel</strong>. The dots and lines reveal how its shape is represented; they are not extra physical pieces.</p>
   <p>Several meshes can belong to one link. Here, the drawer’s shape files describe what to draw, while its joint tells the whole drawer how to slide.</p>
@@ -55,7 +55,7 @@
   <p>Now place the drawer in the cabinet. The body is the <strong>parent link</strong> and the drawer is the <strong>child link</strong>. URDF needs to know where the drawer starts and where to draw its shapes.</p>
   <div class="cabinet-origin-story">
     <figure>
-      <img class="cabinet-origin-image" src="assets/diagrams/cabinet-origins.svg" width="430" height="430" alt="Transparent cabinet with a blue drawer and an orange side panel. O marks the cabinet body's origin; J marks the drawer's origin in its closed pose. A blue arrow goes from O to J; a gold arrow returns from J to O.">
+      <img class="cabinet-origin-image" src="assets/diagrams/cabinet-origins.png" width="430" height="430" alt="Transparent cabinet with a blue drawer and an orange side panel. O marks the cabinet body's origin; J marks the drawer's origin in its closed pose. A blue arrow goes from O to J; a gold arrow returns from J to O.">
       <figcaption class="cabinet-origin-legend"><span><i class="origin-body-swatch"></i>Body</span><span><i class="origin-drawer-swatch"></i>Drawer</span><span><i class="origin-mesh-swatch"></i>One side panel</span></figcaption>
     </figure>
     <div class="origin-point-notes">

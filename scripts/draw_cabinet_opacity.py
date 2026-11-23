@@ -28,7 +28,7 @@ def main():
         combined = 1-(1-alpha)**3
         assert combined >= alpha
     (OUT/'manifest.json').write_text(json.dumps({
-        'source': 'The same original illustrative Gaussian cabinet as the cabinet projection video.',
+        'source': 'scripts/shared_cabinet.py; the same illustrative Gaussian cabinet as the cabinet projection video.',
         'width': WIDTH, 'height': HEIGHT, 'camera_degrees': ANGLE,
         'levels_percent': levels, 'control': 'Peak opacity of every Gaussian; all other scene properties fixed.',
         'rendering': 'Perspective covariance projection, depth-sorted alpha blending against white.',

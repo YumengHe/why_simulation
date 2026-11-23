@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Draw the book's URDF illustrations from the cabinet's actual geometry.
+"""Draw URDF illustrations from the shared procedural teaching cabinet.
 
-Run normally using the checked-in geometry snapshot, or refresh that snapshot
-with --model-dir pointing to ArticulateArena/sample_data/45168.
-Only Python's standard library is required. No PDF pixels are used.
+An optional --model-dir imports the historical dataset snapshot for inspection.
+The normal rendering path uses cabinet_legacy.geometry() from shared_cabinet.
 """
 from pathlib import Path
 from math import sin, cos, radians, sqrt, pi
@@ -15,12 +14,15 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'scripts/data/cabinet-45168.json'
 OUT = ROOT / 'book/assets/figures'
-C = dict(ink='#30352f', muted='#68726a', blue='#638eaf', teal='#89aaa2',
-         gold='#d2a04b', red='#bf6559', purple='#9680b0', green='#84a16a',
+C = dict(ink='#30352f', muted='#68726a', blue='#5b8db8', teal='#6c9996',
+         gold='#dbb555', red='#bf6559', purple='#9680b0', green='#84a16a',
          line='#aab3aa', paper='#fefdfb')
 
 
 def load_geometry(model_dir=None):
+    if model_dir is None:
+        from cabinet_legacy import geometry
+        return geometry()
     if model_dir:
         root = ET.parse(model_dir / 'mobility.urdf').getroot()
         meshes, joints = [], {}
@@ -106,6 +108,7 @@ def paint(meshes, project, appearance, transform=lambda m,v:v):
         for ids in mesh['faces']:
             points=[vs[i] for i in ids]
             normal=cross(sub(points[1],points[0]),sub(points[2],points[0]))
+            if dot(normal,project.eye) <= 1e-10: continue
             fill=shade(color,normal)
             coords=' '.join(f'{x:.2f},{y:.2f}' for x,y in map(project,points))
             faces.append((sum(dot(v,project.eye) for v in points)/3,
@@ -132,7 +135,7 @@ def document(title,description,content,height=550):
     markers=''.join(f'<marker id="arrow-{v[1:]}" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 2L10 6L2 10" fill="none" stroke="{v}" stroke-width="2" stroke-linejoin="round"/></marker>' for v in C.values())
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="760" height="{height}" viewBox="0 0 760 {height}" role="img" aria-labelledby="title desc">
 <title id="title">{escape(title)}</title><desc id="desc">{escape(description)}</desc>
-<!-- Orthographic projection of the actual cabinet geometry, not a PDF screenshot. -->
+<!-- Orthographic projection of the shared teaching cabinet geometry, not a PDF screenshot. -->
 <defs>{markers}</defs>
 <style>text{{font-family:Arial,Helvetica,sans-serif}}.callout{{font-size:27px;font-weight:500;paint-order:stroke;stroke:#fefdfb;stroke-width:6px;stroke-linejoin:round}}.small{{font-size:23px}}.emphasis{{font-size:29px;font-weight:600}}</style>
 <rect width="760" height="{height}" fill="#fefdfb"/>
@@ -147,19 +150,19 @@ def front(data):
             'original-37.obj':C['purple'],'original-40.obj':C['gold']}
     def style(m):
         if m['file'] in colors:return colors[m['file']],1
-        if m['file']=='original-41.obj':return '#c0b5a2',1
+        if m['name'].startswith('drawer-handle'):return '#c0b5a2',1
         return '#b4c7ca',.22
     body=paint(meshes,project,style)
     callouts=[
-        (365,54,'Top strip','middle',C['red'],(365,65),(365,98),(.002,.616,.509)),
-        (24,255,'Side strip','start',C['purple'],(141,266),(158,266),(-.305,.51,.509)),
-        (588,228,'Side strip','start',C['green'],(591,239),(564,261),(.309,.51,.509)),
-        (550,389,['Center','panel'],'start',C['gold'],(543,398),(495,398),(.06,.55,.493)),
-        (55,469,'Bottom strip','start',C['blue'],(210,462),(256,436),(.002,.41,.509)),
+        (365,54,'Top strip','middle',C['red'],(365,65),(365,98),(0,.71,.49)),
+        (24,255,'Side strip','start',C['purple'],(141,266),(158,266),(-.47,.53,.49)),
+        (588,228,'Side strip','start',C['green'],(591,239),(564,261),(.47,.53,.49)),
+        (550,389,['Center','panel'],'start',C['gold'],(543,398),(495,398),(.06,.53,.49)),
+        (55,469,'Bottom strip','start',C['blue'],(210,462),(256,436),(0,.36,.49)),
     ]
     for x,y,words,align,color,start,bend,point in callouts:
         body+=leader(start,bend,project(point),color)+label(x,y,words,align)
-    OUT.joinpath('drawer-front-meshes.svg').write_text(document('Five shapes in one drawer front','The actual drawer is shown with five colored front shapes: a top strip, a bottom strip, two side strips, and a center panel. All belong to one moving drawer link.',body,520))
+    OUT.joinpath('drawer-front-meshes.svg').write_text(document('Five shapes in one drawer front','The shared drawer is shown with five colored front shapes: a top strip, a bottom strip, two side strips, and a center panel. All belong to one moving drawer link.',body,520))
 
 
 def sliding(data):
@@ -172,7 +175,7 @@ def sliding(data):
         if m['link']=='link_1':return '#c7c9bf',.12
         return C['teal'],.12
     body=paint(meshes,project,style,moved)
-    closed=[(-.37,.368,.51),(.373,.368,.51),(.373,.658,.51),(-.37,.658,.51),(-.37,.368,.51)]
+    closed=[(-.51,.33,.49),(.51,.33,.49),(.51,.74,.49),(-.51,.74,.49),(-.51,.33,.49)]
     body+=path([project(v) for v in closed],C['blue'],2,True)
     start=project(origin); end=project((origin[0],origin[1],origin[2]+limit))
     body+=path([start,end],C['red'],4,arrow=True)
@@ -181,7 +184,7 @@ def sliding(data):
     body+=leader((136,180),(169,180),project((-.1,.53,.51+limit)),C['blue'])+label(22,152,['Drawer','q = 76 cm'])
     body+=leader((589,190),(560,190),project((.37,.2,-.1)),C['teal'])+label(584,157,['Cabinet','body'])
     body+=leader((571,390),(538,365),start,C['red'])+label(570,399,['Joint start','(closed)'])
-    OUT.joinpath('drawer-prismatic-joint.svg').write_text(document('The drawer slides from closed to 76 centimeters open','Blue drawer at q = 76 centimeters, the upper limit of its actual prismatic joint. A dashed outline marks its closed position. A red arrow begins at the closed joint origin and points outward along the sliding direction.',body,500))
+    OUT.joinpath('drawer-prismatic-joint.svg').write_text(document('The drawer slides from closed to 76 centimeters open','Blue drawer at q = 76 centimeters, the upper limit of its prismatic joint. A dashed outline marks its closed position. A red arrow begins at the closed joint origin and points outward along the sliding direction.',body,500))
 
 
 def rotating(data):
@@ -196,7 +199,7 @@ def rotating(data):
         if m['link']=='link_0':return C['blue'],.14
         return C['teal'],.11
     body=paint(meshes,project,style,moved)
-    closed=[(-.37,-.59,.51),(.373,-.59,.51),(.373,.352,.51),(-.37,.352,.51),(-.37,-.59,.51)]
+    closed=[(-.51,-.73,.49),(.51,-.73,.49),(.51,.26,.49),(-.51,.26,.49),(-.51,-.73,.49)]
     body+=path([project(v) for v in closed],C['gold'],2,True)
     low=(origin[0],origin[1]-.05,origin[2]); high=(origin[0],.40,origin[2])
     body+=path([project(high),project(low)],C['purple'],4,arrow=True)
@@ -207,7 +210,7 @@ def rotating(data):
     body+=leader((172,93),(228,93),project((origin[0],.16,origin[2])),C['purple'])+label(24,84,['Hinge axis'])
     body+=leader((158,272),(191,272),project(rotate((.10,-.12,.51),pi/2)),C['gold'])+label(22,253,['Door','q = 90°'])
     body+=leader((581,282),(544,282),project((.31,-.1,.51)),C['gold'])+label(578,267,['Closed','position'])
-    OUT.joinpath('door-revolute-joint.svg').write_text(document('The door rotates from closed to 90 degrees open','The actual door is shown at q = 90 degrees, the upper limit of its revolute joint. The purple line is the hinge axis. A dashed gold rectangle marks the closed position and a curved arrow shows the opening direction.',body,500))
+    OUT.joinpath('door-revolute-joint.svg').write_text(document('The door rotates from closed to 90 degrees open','The shared door is shown at q = 90 degrees, the upper limit of its revolute joint. The purple line is the hinge axis. A dashed gold rectangle marks the closed position and a curved arrow shows the opening direction.',body,500))
 
 
 def shelf(data):
@@ -219,7 +222,7 @@ def shelf(data):
         if m['link']=='link_1':return '#b7c0b8',.035
         return C['teal'],.085
     body=paint(meshes,project,style)
-    body+=leader((139,248),(212,248),project((.06,-.086,.2)),C['gold'])+label(30,237,'Shelf')
+    body+=leader((139,248),(212,248),project((.06,.30,.2)),C['gold'])+label(30,237,'Shelf')
     body+=leader((581,137),(552,154),project((.38,.5,-.35)),C['teal'])+label(579,106,['Cabinet','body'])
     body+=f'<path d="M60 450H700" stroke="#e1e0d7"/>'
     body+='<text x="60" y="491" class="emphasis" fill="#30352f">visual</text><text x="60" y="525" class="small" fill="#68726a">The surface you see</text>'
@@ -251,7 +254,7 @@ def base_comparison(data):
     def style(m):
         if m['link']=='link_0':return C['blue'],1
         if m['link']=='link_1':return C['gold'],1
-        return C['teal'],.7
+        return C['teal'],1
     body=''
     for p,fn in zip(projections,transforms):body+=paint(meshes,p,style,fn)
     body+=label(130,352,['Keep base','+ fixed joint'],'middle')

@@ -1,7 +1,8 @@
 {
+  "geometry_source": "scripts/shared_cabinet.py",
   "provenance": "Original analytic teaching cabinet. Rendered views illustrate photographs. Sparse points and parameter stages are constructed, not recovered or optimized.",
-  "initial_blob_count": 209,
-  "later_blob_count": 2146,
+  "initial_blob_count": 215,
+  "later_blob_count": 4748,
   "corner_A": [
     -0.51,
     -0.49,

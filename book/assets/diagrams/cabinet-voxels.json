@@ -1,0 +1,12 @@
+{
+  "source": "scripts/shared_cabinet.py",
+  "cell_size_m": 0.04,
+  "grid_shape": [
+    35,
+    30,
+    45
+  ],
+  "occupied_cells": 11457,
+  "rule": "A cell is occupied when its center lies inside the shared cabinet geometry.",
+  "display": "Only exposed faces of occupied cells; empty cells are left unfilled."
+}

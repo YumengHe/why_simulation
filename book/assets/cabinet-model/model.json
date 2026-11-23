@@ -1,0 +1,619 @@
+{
+  "source": "scripts/shared_cabinet.py",
+  "units": "metres",
+  "axes": {
+    "x": "right",
+    "y": "back",
+    "z": "up"
+  },
+  "body_dimensions": {
+    "width": 1.24,
+    "depth": 0.86,
+    "height": 1.72
+  },
+  "joints": [
+    {
+      "name": "drawer_slide",
+      "type": "prismatic",
+      "group": "drawer",
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "range": [
+        0,
+        0.76
+      ]
+    },
+    {
+      "name": "door_hinge",
+      "type": "revolute",
+      "group": "door",
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "origin": [
+        -0.51,
+        -0.46,
+        0
+      ],
+      "range_degrees": [
+        0,
+        90.0
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "boxes": 21,
+      "cylinders": 6,
+      "triangles": 396,
+      "radial_sides": 6,
+      "dof": 2
+    },
+    {
+      "boxes": 21,
+      "cylinders": 6,
+      "triangles": 1020,
+      "radial_sides": 32,
+      "dof": 2
+    }
+  ],
+  "parts": [
+    {
+      "kind": "box",
+      "name": "body-left-wall",
+      "lo": [
+        -0.62,
+        -0.43,
+        -0.86
+      ],
+      "hi": [
+        -0.54,
+        0.43,
+        0.86
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "body-right-wall",
+      "lo": [
+        0.54,
+        -0.43,
+        -0.86
+      ],
+      "hi": [
+        0.62,
+        0.43,
+        0.86
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "body-back",
+      "lo": [
+        -0.54,
+        0.35,
+        -0.86
+      ],
+      "hi": [
+        0.54,
+        0.43,
+        0.86
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "body-bottom",
+      "lo": [
+        -0.54,
+        -0.43,
+        -0.86
+      ],
+      "hi": [
+        0.54,
+        0.35,
+        -0.78
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "body-top",
+      "lo": [
+        -0.54,
+        -0.43,
+        0.78
+      ],
+      "hi": [
+        0.54,
+        0.35,
+        0.86
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "body-divider-shelf",
+      "lo": [
+        -0.54,
+        -0.43,
+        0.28
+      ],
+      "hi": [
+        0.54,
+        0.35,
+        0.32
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "body-left-frame",
+      "lo": [
+        -0.54,
+        -0.445,
+        -0.78
+      ],
+      "hi": [
+        -0.515,
+        -0.4,
+        0.78
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "body-right-frame",
+      "lo": [
+        0.515,
+        -0.445,
+        -0.78
+      ],
+      "hi": [
+        0.54,
+        -0.4,
+        0.78
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "body-lower-frame",
+      "lo": [
+        -0.515,
+        -0.445,
+        -0.78
+      ],
+      "hi": [
+        0.515,
+        -0.4,
+        -0.735
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "body-upper-frame",
+      "lo": [
+        -0.515,
+        -0.445,
+        0.745
+      ],
+      "hi": [
+        0.515,
+        -0.4,
+        0.78
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "body-middle-frame",
+      "lo": [
+        -0.515,
+        -0.445,
+        0.265
+      ],
+      "hi": [
+        0.515,
+        -0.4,
+        0.325
+      ],
+      "color": [
+        108,
+        153,
+        150
+      ],
+      "group": "body"
+    },
+    {
+      "kind": "box",
+      "name": "drawer-front-top-rail",
+      "lo": [
+        -0.43,
+        -0.49,
+        0.68
+      ],
+      "hi": [
+        0.43,
+        -0.43,
+        0.74
+      ],
+      "color": [
+        91,
+        141,
+        184
+      ],
+      "group": "drawer",
+      "original_file": "original-34.obj"
+    },
+    {
+      "kind": "box",
+      "name": "drawer-front-bottom-rail",
+      "lo": [
+        -0.43,
+        -0.49,
+        0.33
+      ],
+      "hi": [
+        0.43,
+        -0.43,
+        0.39
+      ],
+      "color": [
+        91,
+        141,
+        184
+      ],
+      "group": "drawer",
+      "original_file": "original-36.obj"
+    },
+    {
+      "kind": "box",
+      "name": "drawer-front-left-stile",
+      "lo": [
+        -0.51,
+        -0.49,
+        0.33
+      ],
+      "hi": [
+        -0.43,
+        -0.43,
+        0.74
+      ],
+      "color": [
+        91,
+        141,
+        184
+      ],
+      "group": "drawer",
+      "original_file": "original-37.obj"
+    },
+    {
+      "kind": "box",
+      "name": "drawer-front-right-stile",
+      "lo": [
+        0.43,
+        -0.49,
+        0.33
+      ],
+      "hi": [
+        0.51,
+        -0.43,
+        0.74
+      ],
+      "color": [
+        91,
+        141,
+        184
+      ],
+      "group": "drawer",
+      "original_file": "original-35.obj"
+    },
+    {
+      "kind": "box",
+      "name": "drawer-front-center",
+      "lo": [
+        -0.43,
+        -0.49,
+        0.39
+      ],
+      "hi": [
+        0.43,
+        -0.43,
+        0.68
+      ],
+      "color": [
+        91,
+        141,
+        184
+      ],
+      "group": "drawer",
+      "original_file": "original-40.obj"
+    },
+    {
+      "kind": "box",
+      "name": "drawer-floor",
+      "lo": [
+        -0.49,
+        -0.43,
+        0.35
+      ],
+      "hi": [
+        0.49,
+        0.3,
+        0.39
+      ],
+      "color": [
+        91,
+        141,
+        184
+      ],
+      "group": "drawer"
+    },
+    {
+      "kind": "box",
+      "name": "drawer-left-wall",
+      "lo": [
+        -0.49,
+        -0.43,
+        0.39
+      ],
+      "hi": [
+        -0.455,
+        0.3,
+        0.7
+      ],
+      "color": [
+        91,
+        141,
+        184
+      ],
+      "group": "drawer"
+    },
+    {
+      "kind": "box",
+      "name": "drawer-right-wall",
+      "lo": [
+        0.455,
+        -0.43,
+        0.39
+      ],
+      "hi": [
+        0.49,
+        0.3,
+        0.7
+      ],
+      "color": [
+        91,
+        141,
+        184
+      ],
+      "group": "drawer"
+    },
+    {
+      "kind": "box",
+      "name": "drawer-back",
+      "lo": [
+        -0.455,
+        0.265,
+        0.39
+      ],
+      "hi": [
+        0.455,
+        0.3,
+        0.7
+      ],
+      "color": [
+        91,
+        141,
+        184
+      ],
+      "group": "drawer"
+    },
+    {
+      "kind": "box",
+      "name": "door-panel",
+      "lo": [
+        -0.51,
+        -0.49,
+        -0.73
+      ],
+      "hi": [
+        0.51,
+        -0.43,
+        0.26
+      ],
+      "color": [
+        219,
+        181,
+        85
+      ],
+      "group": "door"
+    },
+    {
+      "kind": "cylinder",
+      "name": "drawer-handle-grip",
+      "start": [
+        -0.25,
+        -0.65,
+        0.53
+      ],
+      "end": [
+        0.25,
+        -0.65,
+        0.53
+      ],
+      "radius": 0.05,
+      "color": [
+        207,
+        216,
+        215
+      ],
+      "group": "drawer"
+    },
+    {
+      "kind": "cylinder",
+      "name": "drawer-handle-left-support",
+      "start": [
+        -0.21,
+        -0.49,
+        0.53
+      ],
+      "end": [
+        -0.21,
+        -0.65,
+        0.53
+      ],
+      "radius": 0.036,
+      "color": [
+        207,
+        216,
+        215
+      ],
+      "group": "drawer"
+    },
+    {
+      "kind": "cylinder",
+      "name": "drawer-handle-right-support",
+      "start": [
+        0.21,
+        -0.49,
+        0.53
+      ],
+      "end": [
+        0.21,
+        -0.65,
+        0.53
+      ],
+      "radius": 0.036,
+      "color": [
+        207,
+        216,
+        215
+      ],
+      "group": "drawer"
+    },
+    {
+      "kind": "cylinder",
+      "name": "door-handle-grip",
+      "start": [
+        0.36,
+        -0.64,
+        -0.35
+      ],
+      "end": [
+        0.36,
+        -0.64,
+        -0.1
+      ],
+      "radius": 0.045,
+      "color": [
+        177,
+        136,
+        47
+      ],
+      "group": "door"
+    },
+    {
+      "kind": "cylinder",
+      "name": "door-handle-lower-support",
+      "start": [
+        0.36,
+        -0.49,
+        -0.31
+      ],
+      "end": [
+        0.36,
+        -0.64,
+        -0.31
+      ],
+      "radius": 0.032,
+      "color": [
+        177,
+        136,
+        47
+      ],
+      "group": "door"
+    },
+    {
+      "kind": "cylinder",
+      "name": "door-handle-upper-support",
+      "start": [
+        0.36,
+        -0.49,
+        -0.14
+      ],
+      "end": [
+        0.36,
+        -0.64,
+        -0.14
+      ],
+      "radius": 0.032,
+      "color": [
+        177,
+        136,
+        47
+      ],
+      "group": "door"
+    }
+  ],
+  "description": "Authored teaching cabinet. All primitive surfaces are closed and outward-wound. The front consists of five flush blue pieces; its handles are fixed to the panels. The cavity is intentionally visible only with the door or drawer open."
+}

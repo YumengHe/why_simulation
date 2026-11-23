@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the introductory cabinet loop from the checked-in 45168 mesh.
+"""Render the introductory cabinet loop from the shared procedural cabinet mesh.
 
 Triangle drawing and forward kinematics only. No image/video generation model.
 The body is fixed; independent prescribed drawer and door positions animate it.
@@ -53,7 +53,7 @@ def render(data, project, t):
         normals=np.cross(tri[:,1]-tri[:,0],tri[:,2]-tri[:,0])
         normals/=np.maximum(np.linalg.norm(normals,axis=1)[:,None],1e-10)
         shades=.75+.25*np.abs(normals@light)
-        color=np.array(rgb({'link_0':C['blue'],'link_1':C['gold'],'link_2':C['teal']}[mesh['link']]))
+        color=np.array(mesh['color'])
         for triangle,shade in zip(tri,shades):
             xy=np.array([project(v) for v in triangle])*SS
             z=triangle@project.eye
@@ -106,7 +106,7 @@ def main():
         if proc.wait():raise SystemExit('Video encoding failed')
     (OUT/'manifest.json').write_text(json.dumps({
         'generator':'scripts/animate_cabinet_intro.py','source':data['source'],
-        'geometry':'scripts/data/cabinet-45168.json','duration':DURATION,'fps':FPS,'size':[SIZE,SIZE],
+        'geometry':'scripts/shared_cabinet.py','duration':DURATION,'fps':FPS,'size':[SIZE,SIZE],
         'method':'Per-pixel depth-buffered triangle rasterization; prescribed independent joint positions; fixed body and camera.',
         'drawer_range_m':[0,.5],'door_range_degrees':[0,90],
         'limitation':'Forward-kinematics illustration, not a contact simulation.'

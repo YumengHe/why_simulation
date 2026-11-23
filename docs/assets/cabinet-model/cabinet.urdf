@@ -1,0 +1,402 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="teaching_cabinet">
+  <!--Authored teaching model: fixed handles; drawer slide and door hinge. Supply mass and inertia for a dynamics experiment.-->
+  <link name="body">
+    <visual name="body-left-wall">
+      <geometry>
+        <mesh filename="meshes/body-left-wall.obj" />
+      </geometry>
+      <material name="body-left-wall-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-left-wall-contact">
+      <origin xyz="-0.58 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.08 0.86 1.72" />
+      </geometry>
+    </collision>
+    <visual name="body-right-wall">
+      <geometry>
+        <mesh filename="meshes/body-right-wall.obj" />
+      </geometry>
+      <material name="body-right-wall-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-right-wall-contact">
+      <origin xyz="0.58 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.08 0.86 1.72" />
+      </geometry>
+    </collision>
+    <visual name="body-back">
+      <geometry>
+        <mesh filename="meshes/body-back.obj" />
+      </geometry>
+      <material name="body-back-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-back-contact">
+      <origin xyz="0 0.39 0" rpy="0 0 0" />
+      <geometry>
+        <box size="1.08 0.08 1.72" />
+      </geometry>
+    </collision>
+    <visual name="body-bottom">
+      <geometry>
+        <mesh filename="meshes/body-bottom.obj" />
+      </geometry>
+      <material name="body-bottom-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-bottom-contact">
+      <origin xyz="0 -0.04 -0.82" rpy="0 0 0" />
+      <geometry>
+        <box size="1.08 0.78 0.08" />
+      </geometry>
+    </collision>
+    <visual name="body-top">
+      <geometry>
+        <mesh filename="meshes/body-top.obj" />
+      </geometry>
+      <material name="body-top-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-top-contact">
+      <origin xyz="0 -0.04 0.82" rpy="0 0 0" />
+      <geometry>
+        <box size="1.08 0.78 0.08" />
+      </geometry>
+    </collision>
+    <visual name="body-divider-shelf">
+      <geometry>
+        <mesh filename="meshes/body-divider-shelf.obj" />
+      </geometry>
+      <material name="body-divider-shelf-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-divider-shelf-contact">
+      <origin xyz="0 -0.04 0.3" rpy="0 0 0" />
+      <geometry>
+        <box size="1.08 0.78 0.04" />
+      </geometry>
+    </collision>
+    <visual name="body-left-frame">
+      <geometry>
+        <mesh filename="meshes/body-left-frame.obj" />
+      </geometry>
+      <material name="body-left-frame-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-left-frame-contact">
+      <origin xyz="-0.5275 -0.4225 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.025 0.045 1.56" />
+      </geometry>
+    </collision>
+    <visual name="body-right-frame">
+      <geometry>
+        <mesh filename="meshes/body-right-frame.obj" />
+      </geometry>
+      <material name="body-right-frame-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-right-frame-contact">
+      <origin xyz="0.5275 -0.4225 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.025 0.045 1.56" />
+      </geometry>
+    </collision>
+    <visual name="body-lower-frame">
+      <geometry>
+        <mesh filename="meshes/body-lower-frame.obj" />
+      </geometry>
+      <material name="body-lower-frame-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-lower-frame-contact">
+      <origin xyz="0 -0.4225 -0.7575" rpy="0 0 0" />
+      <geometry>
+        <box size="1.03 0.045 0.045" />
+      </geometry>
+    </collision>
+    <visual name="body-upper-frame">
+      <geometry>
+        <mesh filename="meshes/body-upper-frame.obj" />
+      </geometry>
+      <material name="body-upper-frame-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-upper-frame-contact">
+      <origin xyz="0 -0.4225 0.7625" rpy="0 0 0" />
+      <geometry>
+        <box size="1.03 0.045 0.035" />
+      </geometry>
+    </collision>
+    <visual name="body-middle-frame">
+      <geometry>
+        <mesh filename="meshes/body-middle-frame.obj" />
+      </geometry>
+      <material name="body-middle-frame-material">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-middle-frame-contact">
+      <origin xyz="0 -0.4225 0.295" rpy="0 0 0" />
+      <geometry>
+        <box size="1.03 0.045 0.06" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="drawer">
+    <visual name="drawer-front-top-rail">
+      <geometry>
+        <mesh filename="meshes/drawer-front-top-rail.obj" />
+      </geometry>
+      <material name="drawer-front-top-rail-material">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-front-top-rail-contact">
+      <origin xyz="0 -0.46 0.71" rpy="0 0 0" />
+      <geometry>
+        <box size="0.86 0.06 0.06" />
+      </geometry>
+    </collision>
+    <visual name="drawer-front-bottom-rail">
+      <geometry>
+        <mesh filename="meshes/drawer-front-bottom-rail.obj" />
+      </geometry>
+      <material name="drawer-front-bottom-rail-material">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-front-bottom-rail-contact">
+      <origin xyz="0 -0.46 0.36" rpy="0 0 0" />
+      <geometry>
+        <box size="0.86 0.06 0.06" />
+      </geometry>
+    </collision>
+    <visual name="drawer-front-left-stile">
+      <geometry>
+        <mesh filename="meshes/drawer-front-left-stile.obj" />
+      </geometry>
+      <material name="drawer-front-left-stile-material">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-front-left-stile-contact">
+      <origin xyz="-0.47 -0.46 0.535" rpy="0 0 0" />
+      <geometry>
+        <box size="0.08 0.06 0.41" />
+      </geometry>
+    </collision>
+    <visual name="drawer-front-right-stile">
+      <geometry>
+        <mesh filename="meshes/drawer-front-right-stile.obj" />
+      </geometry>
+      <material name="drawer-front-right-stile-material">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-front-right-stile-contact">
+      <origin xyz="0.47 -0.46 0.535" rpy="0 0 0" />
+      <geometry>
+        <box size="0.08 0.06 0.41" />
+      </geometry>
+    </collision>
+    <visual name="drawer-front-center">
+      <geometry>
+        <mesh filename="meshes/drawer-front-center.obj" />
+      </geometry>
+      <material name="drawer-front-center-material">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-front-center-contact">
+      <origin xyz="0 -0.46 0.535" rpy="0 0 0" />
+      <geometry>
+        <box size="0.86 0.06 0.29" />
+      </geometry>
+    </collision>
+    <visual name="drawer-floor">
+      <geometry>
+        <mesh filename="meshes/drawer-floor.obj" />
+      </geometry>
+      <material name="drawer-floor-material">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-floor-contact">
+      <origin xyz="0 -0.065 0.37" rpy="0 0 0" />
+      <geometry>
+        <box size="0.98 0.73 0.04" />
+      </geometry>
+    </collision>
+    <visual name="drawer-left-wall">
+      <geometry>
+        <mesh filename="meshes/drawer-left-wall.obj" />
+      </geometry>
+      <material name="drawer-left-wall-material">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-left-wall-contact">
+      <origin xyz="-0.4725 -0.065 0.545" rpy="0 0 0" />
+      <geometry>
+        <box size="0.035 0.73 0.31" />
+      </geometry>
+    </collision>
+    <visual name="drawer-right-wall">
+      <geometry>
+        <mesh filename="meshes/drawer-right-wall.obj" />
+      </geometry>
+      <material name="drawer-right-wall-material">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-right-wall-contact">
+      <origin xyz="0.4725 -0.065 0.545" rpy="0 0 0" />
+      <geometry>
+        <box size="0.035 0.73 0.31" />
+      </geometry>
+    </collision>
+    <visual name="drawer-back">
+      <geometry>
+        <mesh filename="meshes/drawer-back.obj" />
+      </geometry>
+      <material name="drawer-back-material">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-back-contact">
+      <origin xyz="0 0.2825 0.545" rpy="0 0 0" />
+      <geometry>
+        <box size="0.91 0.035 0.31" />
+      </geometry>
+    </collision>
+    <visual name="drawer-handle-grip">
+      <geometry>
+        <mesh filename="meshes/drawer-handle-grip.obj" />
+      </geometry>
+      <material name="drawer-handle-grip-material">
+        <color rgba="0.81176471 0.84705882 0.84313725 1" />
+      </material>
+    </visual>
+    <collision name="drawer-handle-grip-contact">
+      <origin xyz="0 -0.65 0.53" rpy="0 1.5707963 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.5" />
+      </geometry>
+    </collision>
+    <visual name="drawer-handle-left-support">
+      <geometry>
+        <mesh filename="meshes/drawer-handle-left-support.obj" />
+      </geometry>
+      <material name="drawer-handle-left-support-material">
+        <color rgba="0.81176471 0.84705882 0.84313725 1" />
+      </material>
+    </visual>
+    <collision name="drawer-handle-left-support-contact">
+      <origin xyz="-0.21 -0.57 0.53" rpy="0 1.5707963 -1.5707963" />
+      <geometry>
+        <cylinder radius="0.036" length="0.16" />
+      </geometry>
+    </collision>
+    <visual name="drawer-handle-right-support">
+      <geometry>
+        <mesh filename="meshes/drawer-handle-right-support.obj" />
+      </geometry>
+      <material name="drawer-handle-right-support-material">
+        <color rgba="0.81176471 0.84705882 0.84313725 1" />
+      </material>
+    </visual>
+    <collision name="drawer-handle-right-support-contact">
+      <origin xyz="0.21 -0.57 0.53" rpy="0 1.5707963 -1.5707963" />
+      <geometry>
+        <cylinder radius="0.036" length="0.16" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="door">
+    <visual name="door-panel">
+      <geometry>
+        <mesh filename="meshes/door-panel.obj" />
+      </geometry>
+      <material name="door-panel-material">
+        <color rgba="0.85882353 0.70980392 0.33333333 1" />
+      </material>
+    </visual>
+    <collision name="door-panel-contact">
+      <origin xyz="0.51 5.5511151e-17 -0.235" rpy="0 0 0" />
+      <geometry>
+        <box size="1.02 0.06 0.99" />
+      </geometry>
+    </collision>
+    <visual name="door-handle-grip">
+      <geometry>
+        <mesh filename="meshes/door-handle-grip.obj" />
+      </geometry>
+      <material name="door-handle-grip-material">
+        <color rgba="0.69411765 0.53333333 0.18431373 1" />
+      </material>
+    </visual>
+    <collision name="door-handle-grip-contact">
+      <origin xyz="0.87 -0.18 -0.225" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.045" length="0.25" />
+      </geometry>
+    </collision>
+    <visual name="door-handle-lower-support">
+      <geometry>
+        <mesh filename="meshes/door-handle-lower-support.obj" />
+      </geometry>
+      <material name="door-handle-lower-support-material">
+        <color rgba="0.69411765 0.53333333 0.18431373 1" />
+      </material>
+    </visual>
+    <collision name="door-handle-lower-support-contact">
+      <origin xyz="0.87 -0.105 -0.31" rpy="0 1.5707963 -1.5707963" />
+      <geometry>
+        <cylinder radius="0.032" length="0.15" />
+      </geometry>
+    </collision>
+    <visual name="door-handle-upper-support">
+      <geometry>
+        <mesh filename="meshes/door-handle-upper-support.obj" />
+      </geometry>
+      <material name="door-handle-upper-support-material">
+        <color rgba="0.69411765 0.53333333 0.18431373 1" />
+      </material>
+    </visual>
+    <collision name="door-handle-upper-support-contact">
+      <origin xyz="0.87 -0.105 -0.14" rpy="0 1.5707963 -1.5707963" />
+      <geometry>
+        <cylinder radius="0.032" length="0.15" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="drawer_slide" type="prismatic">
+    <parent link="body" />
+    <child link="drawer" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="0.76" effort="100" velocity="1" />
+  </joint>
+  <joint name="door_hinge" type="revolute">
+    <parent link="body" />
+    <child link="door" />
+    <origin xyz="-0.51 -0.46 0" rpy="0 0 0" />
+    <axis xyz="0 0 -1" />
+    <limit lower="0" upper="1.570796327" effort="20" velocity="2" />
+  </joint>
+</robot>

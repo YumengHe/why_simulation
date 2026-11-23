@@ -80,15 +80,11 @@ def box(x0,x1,y0,y1,z0,z1,color,wire):
     return body
 
 
+from shared_cabinet_views import vector
 for wire in (True,False):
-    body='<path d="M44 274L181 286L270 248L134 230Z" fill="#e8e5de" opacity=".55"/>'
-    body+=box(-.5,.5,0,.72,0,1.6,'#6c9996',wire)
-    body+=box(-.45,.45,-.035,0,.17,1.02,'#dbb555',wire)
-    body+=box(-.45,.45,-.04,0,1.07,1.43,'#5b8db8',wire)
-    body+=box(-.19,.19,-.10,-.04,1.22,1.26,'#d1d4cb',wire)
-    body+=box(.30,.34,-.10,-.035,.55,.76,'#e3cd85',wire)
     save('cabinet-wireframe' if wire else 'cabinet-rendered',
-         'The same cabinet geometry shown as triangle meshes' if wire else 'A shaded view of the cabinet geometry with colored surfaces',320,300,body)
+         'The shared cabinet mesh' if wire else 'One rendered view of the shared cabinet',320,300,
+         vector(size=(320,300),scale=128,wire=wire))
 
 
 save('gaussian-projection-side','A side view of two equally tall Gaussians projecting to different footprints on a virtual image plane',520,310,'''

@@ -21,7 +21,7 @@
   function drawSlide() {
     const cm = Number($('drawer-distance').value), svg = $('slide-scene');
     svg.replaceChildren();
-    const offset = cm / 50 * 110;
+    const offset = cm / 76 * 110;
     add(svg,'rect',{x:30,y:53,width:180,height:128,fill:color.tealLight,stroke:color.tealDark,'stroke-width':2});
     add(svg,'rect',{x:41,y:66,width:158,height:102,fill:color.paper,stroke:color.line});
     add(svg,'rect',{x:48,y:79,width:146,height:74,fill:'none',stroke:color.blue,'stroke-dasharray':'4 4'});
@@ -67,39 +67,53 @@
   let frame = 0, playing = false;
   const descriptions = {
     body:'Stays fixed in this example. The door and drawer connect to it.',
-    drawer:'Slides relative to the body. The latch comes along because it is attached to the drawer.',
-    door:'Rotates around its hinge on the body. The drawer and latch stay in place.',
-    latch:'Turns relative to the drawer. It also travels with the drawer whenever the drawer slides.'
+    drawer:'Slides relative to the body. Its fixed handle moves with the drawer.',
+    door:'Rotates around its hinge on the body. Its fixed handle moves with the door; the drawer stays in place.'
   };
+  let cabinetGeometry = null;
+  const dot = (a,b) => a.reduce((v,x,i)=>v+x*b[i],0);
+  const cross = (a,b) => [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+  const normalize = a => { const n=Math.hypot(...a); return a.map(x=>x/n); };
   function drawCabinet() {
-    const svg=$('tree-cabinet'); svg.replaceChildren();
-    const scale=86, ox=77, base=266;
-    const p=(u,v,z)=>[ox+scale*(u+.65*v),base-scale*(z-.32*v)];
-    const opening=state.part==='drawer' ? state.position*.95 : .3;
-    const angle=(state.part==='door' ? state.position*75 : 20)*Math.PI/180;
-    function face(points,fill,part,stroke=color.tealDark) {
-      return polygon(svg,points.map(v=>p(...v)),fill,state.part===part ? color.accent : stroke,{'stroke-width':state.part===part ? 2.4 : 1.2});
-    }
-    add(svg,'ellipse',{cx:202,cy:284,rx:124,ry:9,fill:'#e8e5de',opacity:.45});
-    face([[0,0,0],[0,-.7,0],[0,-.7,2.4],[0,0,2.4]],color.tealDark,'body');
-    face([[0,0,2.4],[0,-.7,2.4],[2.4,-.7,2.4],[2.4,0,2.4]],color.tealLight,'body');
-    face([[0,0,0],[2.4,0,0],[2.4,0,2.4],[0,0,2.4]],color.teal,'body');
-    face([[.13,.01,.14],[2.27,.01,.14],[2.27,.01,1.5],[.13,.01,1.5]],'#dce8e2','body');
-    face([[.13,.01,1.65],[2.27,.01,1.65],[2.27,.01,2.18],[.13,.01,2.18]],'#dce8e2','body');
-    const du=2.1*Math.cos(angle), dv=2.1*Math.sin(angle);
-    face([[.14,.03,.15],[.14+du,dv+.03,.15],[.14+du,dv+.03,1.49],[.14,.03,1.49]],color.gold,'door',color.accent);
-    const handle=p(.14+du*.91,.03+dv*.91,.8);
-    line(svg,handle[0],handle[1]-7,handle[0],handle[1]+7,color.accent,3,{'stroke-linecap':'round'});
-    for(const z of [.42,1.22]) { const hp=p(.14,.03,z);add(svg,'rect',{x:hp[0]-2,y:hp[1]-5,width:4,height:10,rx:1,fill:color.accent}); }
-    face([[.14,opening-.6,2.17],[2.26,opening-.6,2.17],[2.26,opening,2.17],[.14,opening,2.17]],color.blueLight,'drawer',color.blueDark);
-    face([[2.26,opening-.6,1.65],[2.26,opening,1.65],[2.26,opening,2.17],[2.26,opening-.6,2.17]],color.blueDark,'drawer',color.blueDark);
-    face([[.14,opening,1.65],[2.26,opening,1.65],[2.26,opening,2.17],[.14,opening,2.17]],color.blue,'drawer',color.blueDark);
-    const lp=p(1.19,opening+.02,1.9), la=(state.part==='latch' ? state.position*90 : 0)*Math.PI/180;
-    add(svg,'circle',{cx:lp[0],cy:lp[1],r:10,fill:color.paper,stroke:state.part==='latch'?color.accent:color.blueDark,'stroke-width':2});
-    line(svg,lp[0]-12*Math.cos(la),lp[1]-12*Math.sin(la),lp[0]+12*Math.cos(la),lp[1]+12*Math.sin(la),state.part==='latch'?color.accent:color.ink,4,{'stroke-linecap':'round'});
-    line(svg,...p(.2,0,0),...p(.2,0,-.12),color.tealDark,5);
-    line(svg,...p(2.2,0,0),...p(2.2,0,-.12),color.tealDark,5);
+    if (!cabinetGeometry) return;
+    const canvas=$('tree-cabinet'), ctx=canvas.getContext('2d'), w=canvas.width,h=canvas.height;
+    const pixels=ctx.createImageData(w,h), depths=new Float32Array(w*h).fill(-Infinity);
+    for(let i=0;i<w*h;i++) pixels.data.set([254,253,251,255],4*i);
+    const eye=normalize([3,-6,2.6]), right=normalize(cross([0,0,1],eye)), up=cross(eye,right), light=normalize([-3,-5,7]);
+    const opening=state.part==='drawer'?state.position*cabinetGeometry.drawer_limit:.24;
+    const angle=-(state.part==='door'?state.position*90:24)*Math.PI/180;
+    const hinge=cabinetGeometry.door_hinge, c=Math.cos(angle), sn=Math.sin(angle);
+    const pose=(p,group)=>{
+      if(group==='drawer')return [p[0],p[1]-opening,p[2]];
+      if(group==='door'){const x=p[0]-hinge[0],y=p[1]-hinge[1];return [hinge[0]+c*x-sn*y,hinge[1]+sn*x+c*y,p[2]];}
+      return p;
+    };
+    cabinetGeometry.triangles.forEach((triangle,i)=>{
+      const tri=triangle.map(p=>pose(p,cabinetGeometry.groups[i]));
+      const normal=normalize(cross(tri[1].map((x,k)=>x-tri[0][k]),tri[2].map((x,k)=>x-tri[0][k])));
+      if(dot(normal,eye)<=0)return;
+      const xy=tri.map(p=>{const q=[p[0],p[1]+.2,p[2]];return [w/2+250*dot(q,right),h/2-250*dot(q,up)];});
+      const z=tri.map(p=>dot(p,eye)),[a,b,d]=xy;
+      const den=(b[1]-d[1])*(a[0]-d[0])+(d[0]-b[0])*(a[1]-d[1]);
+      if(Math.abs(den)<1e-8)return;
+      const x0=Math.max(0,Math.floor(Math.min(...xy.map(p=>p[0])))), x1=Math.min(w-1,Math.ceil(Math.max(...xy.map(p=>p[0]))));
+      const y0=Math.max(0,Math.floor(Math.min(...xy.map(p=>p[1])))), y1=Math.min(h-1,Math.ceil(Math.max(...xy.map(p=>p[1]))));
+      const shade=.65+.35*Math.max(0,dot(normal,light)), col=cabinetGeometry.colors[i].map(v=>v*shade);
+      for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){
+        const wa=((b[1]-d[1])*(x+.5-d[0])+(d[0]-b[0])*(y+.5-d[1]))/den;
+        const wb=((d[1]-a[1])*(x+.5-d[0])+(a[0]-d[0])*(y+.5-d[1]))/den,wc=1-wa-wb;
+        if(wa<0||wb<0||wc<0)continue;
+        const depth=wa*z[0]+wb*z[1]+wc*z[2], j=y*w+x;
+        if(depth<=depths[j])continue;
+        depths[j]=depth;pixels.data.set([...col,255],4*j);
+      }
+    });
+    ctx.putImageData(pixels,0,0);
+    canvas.setAttribute('aria-label',`Shared cabinet: drawer ${Math.round(opening*100)} cm open; door ${Math.round(-angle*180/Math.PI)} degrees open. Both handles are fixed.`);
   }
+  fetch('assets/cabinet-model/geometry.json').then(response=>{if(!response.ok)throw new Error('Cabinet geometry unavailable');return response.json();}).then(model=>{cabinetGeometry=model;drawCabinet();}).catch(()=>{
+    const ctx=$('tree-cabinet').getContext('2d');ctx.font='24px sans-serif';ctx.fillText('Cabinet preview could not load. Please reload.',20,150);
+  });
   function updateTree() {
     drawCabinet();
     document.querySelectorAll('.tree-node').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.part===state.part)));

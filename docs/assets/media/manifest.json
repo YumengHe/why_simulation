@@ -1,7 +1,7 @@
 {
   "generator": "scripts/animate_cabinet_intro.py",
-  "source": "ArticulateArena sample_data/45168 at 11e49256b8e839f04e5da2f481cbea20c54bc2ce",
-  "geometry": "scripts/data/cabinet-45168.json",
+  "source": "Shared procedural teaching cabinet: scripts/shared_cabinet.py",
+  "geometry": "scripts/shared_cabinet.py",
   "duration": 10,
   "fps": 24,
   "size": [

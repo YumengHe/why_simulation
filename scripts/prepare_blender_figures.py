@@ -30,16 +30,21 @@ def crop(name, rect, target_width):
 
 
 def annotated(name, rect, filename, labels):
+    """Fit both modeling views into matching frames without stretching or clipping."""
     width = 880
-    photo = crop(name, rect, width)
-    canvas = Image.new('RGB', (width, photo.height + 112), PAPER)
-    canvas.paste(photo, (0, 112))
+    source = Image.open(SOURCE / name).convert('RGB').crop(rect)
+    scale = min(width / source.width, width / source.height)
+    photo = source.resize((round(source.width * scale), round(source.height * scale)), Image.Resampling.LANCZOS)
+    left, top = (width - photo.width) // 2, 112 + (width - photo.height) // 2
+    canvas = Image.new('RGB', (width, width + 112), PAPER)
+    ImageDraw.Draw(canvas).rectangle((0, 112, width, width + 112), fill='#303030')
+    canvas.paste(photo, (left, top))
     draw = ImageDraw.Draw(canvas)
     for text, x, point, color in labels:
         draw.text((x, 25), text, fill=INK, font=font(34))
         start = (x + draw.textlength(text, font=font(34)) / 2, 75)
-        px = (point[0] - rect[0]) * width / (rect[2] - rect[0])
-        py = (point[1] - rect[1]) * width / (rect[2] - rect[0]) + 112
+        px = left + (point[0] - rect[0]) * photo.width / source.width
+        py = top + (point[1] - rect[1]) * photo.height / source.height
         draw.line([start, (start[0], 85), (px, py)], fill=color, width=4)
         draw.ellipse((px-6, py-6, px+6, py+6), fill=color, outline=PAPER, width=2)
     canvas.save(OUTPUT / filename, quality=92, subsampling=0)

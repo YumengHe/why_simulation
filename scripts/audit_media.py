@@ -16,6 +16,7 @@ ASSETS=ROOT/'book/assets'
 MANIFEST=ROOT/'scripts/media-inventory.json'
 SUFFIXES={'.svg','.png','.jpg','.jpeg','.webp','.gif','.mp4','.webm'}
 DIRECTORIES={
+    'cabinet-model':'preview_shared_cabinet.py',
     'experiments':'animate_urdf_examples.py',
     'figures':'draw_urdf_figures.py',
     'forces':'animate_drawer_forces.py',
@@ -31,6 +32,10 @@ DIRECTORIES={
     'software-physics':'render_blender_physics.py',
 }
 DIAGRAM_SCRIPTS={
+    'draw_voxel_cabinet.py':{'cabinet-representation-voxels'},
+    'draw_gaussian_groups.py':{'gaussian-one-blob','gaussian-local-group','gaussian-whole-cabinet'},
+    'draw_cabinet_frames.py':{'cabinet-origins','drawer-shapes','side-panel-shape','side-panel-mesh'},
+    'draw_chapter2_maps.py':{'representation-map','reconstruction-workflow'},
     'draw_reconstruction_story.py':{'handle-coarse','handle-fine','cylinder-mesh-coarse','cylinder-mesh-fine',
         'cabinet-wireframe','cabinet-rendered','gaussian-projection-side','gaussian-projected-image',
         'nerf-query-example','handle-painted','handle-raised'},
@@ -43,8 +48,7 @@ DIAGRAM_SCRIPTS={
     'draw_vla_flow.py':{'vla-drawer-before','vla-drawer-after'},
 }
 # These files are themselves editable vector drawing programs, not raster images.
-VECTOR_SOURCES={'favicon.svg','diagrams/cabinet-origins.svg','diagrams/drawer-shapes.svg',
-                'diagrams/side-panel-shape.svg','diagrams/side-panel-mesh.svg'}
+VECTOR_SOURCES={'favicon.svg'}
 SCREENSHOT_INPUTS={
     'blender/mesh-reference.jpg':['reference-front.png'],
     'blender/mesh-oblique.jpg':['mesh-oblique.png'],
@@ -74,6 +78,8 @@ def inventory():
                 script=next((s for s,names in DIAGRAM_SCRIPTS.items() if path.stem in names),None)
             if not script:
                 raise ValueError(f'Unreviewed media source: {relative}')
+            if relative in {'cabinet-model/frame-closed.png','cabinet-model/frame-drawer-open.png'}:
+                script='draw_cabinet_frames.py'
             source='scripts/'+script;kind='script-rendered'
         assert (ROOT/source).is_file(),f'Missing generator: {source}'
         if path.suffix=='.svg':

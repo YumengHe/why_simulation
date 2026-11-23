@@ -1,23 +1,23 @@
 {
-  "source": "Original teaching meshes. Seven box panels and six capped handle cylinders.",
+  "source": "Original teaching meshes. Twenty-one box components and six capped handle cylinders.",
   "rendering": "Identical camera, colors, flat lighting and visible triangle edges. Depth-buffered orthographic views.",
   "views": [
     {
       "image": "cabinet-mesh-coarse.png",
       "radial_sides": 6,
       "triangles": {
-        "panels": 84,
+        "panels": 252,
         "handles": 144,
-        "total": 228
+        "total": 396
       }
     },
     {
       "image": "cabinet-mesh-fine.png",
       "radial_sides": 32,
       "triangles": {
-        "panels": 84,
+        "panels": 252,
         "handles": 768,
-        "total": 852
+        "total": 1020
       }
     }
   ]

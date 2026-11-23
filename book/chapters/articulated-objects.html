@@ -25,7 +25,7 @@
     <div><dt>Link</dt><dd>A rigid part: its shape stays the same as it moves. The body, drawer, and door are three links.</dd></div>
     <div><dt>Joint</dt><dd>A connection that defines how two links can move relative to each other. The door’s hinge connects the door to the body and lets it rotate.</dd></div>
   </dl>
-  <p>A handle fixed to the door moves together with the door, so it can be included in the same link. A handle that turns independently needs its own link and joint.</p>
+  <p>Both handles are fixed: the drawer handle belongs to the drawer link, and the door handle belongs to the door link. Each moves together with its part.</p>
 </section>
 
 <section id="joint-motion" data-title="How joints let parts move">
@@ -36,8 +36,8 @@
       <h3>Sliding <span>Prismatic joint</span></h3>
       <svg id="slide-scene" viewBox="0 0 360 235" role="img" aria-label="Side view of a drawer sliding out of a fixed cabinet"></svg>
       <div class="slider-label"><label for="drawer-distance">Drawer opening</label><output for="drawer-distance" id="drawer-value">20 cm</output></div>
-      <input id="drawer-distance" type="range" min="0" max="50" value="20" step="1" aria-valuetext="20 centimeters">
-      <div class="range-ends"><span>0 cm</span><span>50 cm</span></div>
+      <input id="drawer-distance" type="range" min="0" max="76" value="20" step="1" aria-valuetext="20 centimeters">
+      <div class="range-ends"><span>0 cm</span><span>76 cm</span></div>
       <figcaption>The direction stays the same. Only the distance changes.</figcaption>
     </figure>
     <figure class="motion-example">
@@ -49,7 +49,7 @@
       <figcaption>The hinge stays in place. Only the angle changes.</figcaption>
     </figure>
   </div>
-  <p>The allowed range is the joint’s <strong>motion limit</strong>. Here, the drawer opens from 0 to 50 cm, and the door from 0° to 90°. These are illustrative limits; another cabinet may allow different motion.</p>
+  <p>The allowed range is the joint’s <strong>motion limit</strong>. The teaching cabinet allows the drawer to open from 0 to 76 cm and the door from 0° to 90°.</p>
 </section>
 
 <section id="degrees-of-freedom" data-title="Degrees of freedom">
@@ -72,28 +72,26 @@
   <h2><span class="section-number">3.1.4</span> Kinematic trees</h2>
   <p>A <strong>kinematic tree</strong> records which parts are connected. Each node is a link; each connecting line is a joint.</p>
   <p>The body is the <strong>root</strong>: the starting link of this tree. It is the <strong>parent</strong> of the drawer and door; they are its <strong>children</strong>. The tree describes connections, not the parts’ positions on the page.</p>
-  <p>In the example below, we add a turning latch to the drawer. The latch can turn independently, adding one more degree of freedom: this version has <strong>3 DOF</strong>. Select a part in the tree, then play its motion.</p>
+  <p>The same cabinet has <strong>two movable joints</strong>: a slide for the drawer and a hinge for the door. Each handle is fixed to its part and moves with it. Select a part in the tree, then play its motion.</p>
   <div class="tree-demo" id="tree-demo">
     <div class="tree-figures">
-      <figure><h3>The object</h3><svg id="tree-cabinet" viewBox="0 0 370 310" role="img" aria-label="Simplified cabinet with a door, drawer, and a turning latch attached to the drawer"></svg></figure>
+      <figure><h3>The object</h3><canvas id="tree-cabinet" width="740" height="620" role="img" aria-label="The shared cabinet model with a sliding drawer and hinged door. Each handle stays attached to its part.">The cabinet has a sliding drawer and a hinged door.</canvas></figure>
       <figure><h3>Its connections</h3><div class="tree-diagram">
-        <svg viewBox="0 0 360 300" role="img" aria-label="Body connects to door by a hinge and to drawer by a slide. Drawer connects to latch by a turning joint.">
+        <svg viewBox="0 0 360 300" role="img" aria-label="Body connects to door by a hinge and to drawer by a slide.">
           <path class="tree-edge" data-edge="door" d="M180 51V87H86V128"/>
           <path class="tree-edge" data-edge="drawer" d="M180 51V87H274V128"/>
-          <path class="tree-edge" data-edge="latch" d="M274 164V245"/>
-          <text x="82" y="110" text-anchor="end">hinge</text><text x="279" y="110">slide</text><text x="264" y="212" text-anchor="end">turn</text>
+          <text x="82" y="110" text-anchor="end">hinge</text><text x="279" y="110">slide</text>
         </svg>
         <button type="button" class="tree-node node-body" data-part="body" aria-pressed="false">Body</button>
         <button type="button" class="tree-node node-door" data-part="door" aria-pressed="false">Door</button>
         <button type="button" class="tree-node node-drawer" data-part="drawer" aria-pressed="true">Drawer</button>
-        <button type="button" class="tree-node node-latch" data-part="latch" aria-pressed="false">Latch</button>
       </div></figure>
     </div>
-    <div class="tree-selection"><p id="part-description" aria-live="polite"><strong>Drawer.</strong> Slides relative to the body. The latch comes along because it is attached to the drawer.</p><button id="play-part" type="button" class="play-button">Play drawer motion</button></div>
+    <div class="tree-selection"><p id="part-description" aria-live="polite"><strong>Drawer.</strong> Slides relative to the body. Its handle stays attached and moves with it.</p><button id="play-part" type="button" class="play-button">Play drawer motion</button></div>
     <div class="tree-slider"><label for="part-position">Motion position</label><input id="part-position" type="range" min="0" max="100" value="30" aria-valuetext="30 percent of the illustrated motion"><button id="reset-part" type="button" class="text-button">Reset</button></div>
   </div>
-  <h3 class="subheading">A moving part carries its children</h3>
-  <p>The drawer is the latch’s <strong>parent</strong> in this tree. When the drawer slides, the latch travels with it. The latch can also turn relative to the drawer. The door is on a different branch, so moving the drawer does not move the door.</p>
+  <h3 class="subheading">Parts on separate branches move independently</h3>
+  <p>The drawer and door are on separate branches of the body. Moving the drawer leaves the door in place; opening the door leaves the drawer in place. Both handles belong to their respective links, so they add no separate movement. The cabinet still has <strong>2 DOF</strong>.</p>
   <p>Not every articulated object forms a tree. Some mechanisms contain closed loops. This example focuses on a tree, where each link other than the root has one parent.</p>
 </section>
 

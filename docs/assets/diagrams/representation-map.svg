@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="770" viewBox="0 0 960 770" role="img">
+<title>Ways to describe the same 3D cabinet</title><desc>Stored elements include points, faces, voxel cells and Gaussians. Spatial fields answer questions about distance, occupancy, or color and density. Field meaning and storage can be combined.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 1L9 5L0 9" fill="none" stroke="#64736c" stroke-width="1.5"/></marker></defs>
+<rect width="960" height="770" fill="#fffefa"/>
+<text x="36" y="49" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="600" fill="#293632">Ways to describe the same 3D cabinet</text>
+<text x="36" y="84" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="400" fill="#5f6862">Representation = the information kept about the object</text>
+<rect x="28" y="112" width="440" height="555" rx="8" fill="#f3f8f6" stroke="#dedfd7" stroke-width="1.4"/>
+<rect x="492" y="112" width="440" height="555" rx="8" fill="#f4f7fb" stroke="#dedfd7" stroke-width="1.4"/>
+<text x="50" y="151" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" fill="#528b82">Stored elements</text>
+<text x="514" y="151" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" fill="#447ca4">Fields: ask about a location</text>
+<text x="50" y="202" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#293632">Point cloud</text>
+<text x="50" y="234" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">3D positions; optional colors</text>
+<text x="50" y="299" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#293632">Mesh</text>
+<text x="50" y="331" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">Vertices + connected faces</text>
+<text x="50" y="358" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">Triangle or quad faces</text>
+<text x="50" y="425" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#293632">Voxel grid</text>
+<text x="50" y="457" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">Values in small 3D cells</text>
+<text x="50" y="484" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">For example: occupied or empty</text>
+<text x="50" y="551" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#293632">3D Gaussians</text>
+<text x="50" y="583" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">Positions, sizes, orientations,</text>
+<text x="50" y="610" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">opacities, and appearance</text>
+<text x="514" y="202" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#293632">Signed distance (SDF)</text>
+<text x="514" y="234" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">How far from the surface?</text>
+<text x="514" y="261" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">Which side: inside or outside?</text>
+<text x="514" y="340" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#293632">Occupancy</text>
+<text x="514" y="372" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">Is this location inside the solid?</text>
+<text x="514" y="399" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">Or: how likely is it to be inside?</text>
+<text x="514" y="478" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" fill="#293632">Radiance field</text>
+<text x="514" y="510" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">Density + view-dependent color</text>
+<text x="514" y="537" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">NeRF: a neural-network example</text>
+<text x="514" y="612" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="600" fill="#447ca4">3D position → field value</text>
+<text x="36" y="711" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="600" fill="#293632">Storage and field meaning can be combined.</text>
+<text x="36" y="744" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862">Example: a voxel grid stores sampled distance or occupancy values.</text>
+</svg>

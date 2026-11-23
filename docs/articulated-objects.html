@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parts, joints, and motion · Why Simulation?</title>
+  <meta name="description" content="Learn how articulated objects work through a moving cabinet, joint controls, and an interactive connection tree.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=c5fda7ed854c">
+  <script src="assets/book.js?v=c5fda7ed854c" defer></script>
+  <script src="assets/articulation.js?v=c5fda7ed854c" defer></script>
+  <script src="assets/frames.js?v=c5fda7ed854c" defer></script>
+
+</head>
+<body data-review-additions="false">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Language, vision, and robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representation, rendering, reconstruction &amp; generation</span><ol class="chapter-children"><li class="chapter-subgroup"><span class="chapter-subgroup-title">A. Representation</span><ol class="chapter-subpages"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>Overview: 3D representations</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: representation</a></li><li><a class="chapter-link" href="gaussians-and-fields.html#chapter-start"><span class="nav-number">2.3</span>Gaussians and fields: representation</a></li></ol></li><li class="chapter-subgroup"><span class="chapter-subgroup-title">B. Rendering</span><ol class="chapter-subpages"><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.4</span>Meshes: rendering with a camera</a></li><li><a class="chapter-link" href="gaussian-rendering.html#chapter-start"><span class="nav-number">2.5</span>Gaussians: rendering</a></li><li><a class="chapter-link" href="field-rendering.html#chapter-start"><span class="nav-number">2.6</span>Radiance fields: rendering with NeRF</a></li></ol></li><li class="chapter-subgroup"><span class="chapter-subgroup-title">C. Reconstruction and generation</span><ol class="chapter-subpages"><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.7</span>Reconstruction: cameras, points, and meshes</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.8</span>Gaussians: reconstruction with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.9</span>Radiance fields: reconstruction with NeRF</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.10</span>Generation: multiple outputs with TRELLIS</a></li></ol></li></ol></li><li><a class="chapter-link" href="3d-software.html#chapter-start">3D software</a></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">3.2</span>From 3D shape to a movable object</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.3</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.4</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.5</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">3.1</span> What is an articulated object?</h1>
+  <p class="lead">An articulated object is made of parts that can move relative to one another. A drawer slides. A door swings. The cabinet holds them together.</p>
+  <p>The cabinet below has two independent movements: the drawer slides and the door rotates. Its connections determine which movements are possible.</p>
+</header>
+
+<figure class="cabinet-intro">
+  <div class="video-wrap">
+    <video id="cabinet-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/cabinet-poster.png" aria-label="A cabinet with a sliding drawer and a rotating door">
+      <source src="assets/media/cabinet-motion.mp4" type="video/mp4">
+      <a href="assets/media/cabinet-motion.mp4">Watch the cabinet animation.</a>
+    </video>
+  </div>
+  <figcaption class="cabinet-key">
+    <div><span class="color-mark body-color"></span><div><strong>Body</strong><p>Stays fixed in this example.</p></div></div>
+    <div><span class="color-mark drawer-color"></span><div><strong>Drawer</strong><p>Slides in and out along a straight line.</p></div></div>
+    <div><span class="color-mark door-color"></span><div><strong>Door</strong><p>Rotates around its hinge.</p></div></div>
+  </figcaption>
+</figure>
+
+<section id="links-and-joints" data-title="Links and joints">
+  <h2><span class="section-number">3.1.1</span> Links and joints</h2>
+  <p>We describe this cabinet using two building blocks: <strong>links</strong> and <strong>joints</strong>.</p>
+  <dl class="definitions">
+    <div><dt>Link</dt><dd>A rigid part: its shape stays the same as it moves. The body, drawer, and door are three links.</dd></div>
+    <div><dt>Joint</dt><dd>A connection that defines how two links can move relative to each other. The door’s hinge connects the door to the body and lets it rotate.</dd></div>
+  </dl>
+  <p>Both handles are fixed: the drawer handle belongs to the drawer link, and the door handle belongs to the door link. Each moves together with its part.</p>
+</section>
+
+<section id="joint-motion" data-title="How joints let parts move">
+  <h2><span class="section-number">3.1.2</span> How joints let parts move</h2>
+  <p>The drawer and door move in different ways. Move the sliders to try each joint.</p>
+  <div class="motion-examples">
+    <figure class="motion-example">
+      <h3>Sliding <span>Prismatic joint</span></h3>
+      <svg id="slide-scene" viewBox="0 0 360 235" role="img" aria-label="Side view of a drawer sliding out of a fixed cabinet"></svg>
+      <div class="slider-label"><label for="drawer-distance">Drawer opening</label><output for="drawer-distance" id="drawer-value">20 cm</output></div>
+      <input id="drawer-distance" type="range" min="0" max="76" value="20" step="1" aria-valuetext="20 centimeters">
+      <div class="range-ends"><span>0 cm</span><span>76 cm</span></div>
+      <figcaption>The direction stays the same. Only the distance changes.</figcaption>
+    </figure>
+    <figure class="motion-example">
+      <h3>Rotating <span>Revolute joint</span></h3>
+      <svg id="hinge-scene" viewBox="0 0 360 235" role="img" aria-label="Top view of a door rotating about a fixed hinge"></svg>
+      <div class="slider-label"><label for="door-angle">Door opening</label><output for="door-angle" id="door-value">35°</output></div>
+      <input id="door-angle" type="range" min="0" max="90" value="35" step="1" aria-valuetext="35 degrees">
+      <div class="range-ends"><span>0°</span><span>90°</span></div>
+      <figcaption>The hinge stays in place. Only the angle changes.</figcaption>
+    </figure>
+  </div>
+  <p>The allowed range is the joint’s <strong>motion limit</strong>. The teaching cabinet allows the drawer to open from 0 to 76 cm and the door from 0° to 90°.</p>
+</section>
+
+<section id="degrees-of-freedom" data-title="Degrees of freedom">
+  <h2><span class="section-number">3.1.3</span> Degrees of freedom</h2>
+  <p><strong>One articulated object can have several degrees of freedom.</strong> This cabinet is one object, but it has two movable joints: one for the drawer and one for the door.</p>
+  <p>A <strong>degree of freedom (DOF)</strong> is an independent motion you can control. With the cabinet body held fixed:</p>
+  <table class="dof-table">
+    <thead><tr><th scope="col">Part</th><th scope="col">Independent control</th><th scope="col">DOF</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><span class="dof-dot drawer-color" aria-hidden="true"></span>Drawer</th><td>How far it slides</td><td>1</td></tr>
+      <tr><th scope="row"><span class="dof-dot door-color" aria-hidden="true"></span>Door</th><td>How far it rotates</td><td>1</td></tr>
+    </tbody>
+    <tfoot><tr><th scope="row">Whole cabinet</th><td>Drawer and door move independently</td><td>2</td></tr></tfoot>
+  </table>
+  <p>You can leave the door still and move the drawer. You can also leave the drawer still and move the door. So describing the whole cabinet’s pose takes <strong>two numbers</strong>: the drawer’s opening distance and the door’s opening angle.</p>
+  <p>Here, <strong>each joint has 1 DOF; the whole cabinet has 2 DOF.</strong> Opening the drawer farther changes its position, but it still has the same one degree of freedom.</p>
+</section>
+
+<section id="kinematic-tree" data-title="Kinematic trees">
+  <h2><span class="section-number">3.1.4</span> Kinematic trees</h2>
+  <p>A <strong>kinematic tree</strong> records which parts are connected. Each node is a link; each connecting line is a joint.</p>
+  <p>The body is the <strong>root</strong>: the starting link of this tree. It is the <strong>parent</strong> of the drawer and door; they are its <strong>children</strong>. The tree describes connections, not the parts’ positions on the page.</p>
+  <p>The same cabinet has <strong>two movable joints</strong>: a slide for the drawer and a hinge for the door. Each handle is fixed to its part and moves with it. Select a part in the tree, then play its motion.</p>
+  <div class="tree-demo" id="tree-demo">
+    <div class="tree-figures">
+      <figure><h3>The object</h3><canvas id="tree-cabinet" width="740" height="620" role="img" aria-label="The shared cabinet model with a sliding drawer and hinged door. Each handle stays attached to its part.">The cabinet has a sliding drawer and a hinged door.</canvas></figure>
+      <figure><h3>Its connections</h3><div class="tree-diagram">
+        <svg viewBox="0 0 360 300" role="img" aria-label="Body connects to door by a hinge and to drawer by a slide.">
+          <path class="tree-edge" data-edge="door" d="M180 51V87H86V128"/>
+          <path class="tree-edge" data-edge="drawer" d="M180 51V87H274V128"/>
+          <text x="82" y="110" text-anchor="end">hinge</text><text x="279" y="110">slide</text>
+        </svg>
+        <button type="button" class="tree-node node-body" data-part="body" aria-pressed="false">Body</button>
+        <button type="button" class="tree-node node-door" data-part="door" aria-pressed="false">Door</button>
+        <button type="button" class="tree-node node-drawer" data-part="drawer" aria-pressed="true">Drawer</button>
+      </div></figure>
+    </div>
+    <div class="tree-selection"><p id="part-description" aria-live="polite"><strong>Drawer.</strong> Slides relative to the body. Its handle stays attached and moves with it.</p><button id="play-part" type="button" class="play-button">Play drawer motion</button></div>
+    <div class="tree-slider"><label for="part-position">Motion position</label><input id="part-position" type="range" min="0" max="100" value="30" aria-valuetext="30 percent of the illustrated motion"><button id="reset-part" type="button" class="text-button">Reset</button></div>
+  </div>
+  <h3 class="subheading">Parts on separate branches move independently</h3>
+  <p>The drawer and door are on separate branches of the body. Moving the drawer leaves the door in place; opening the door leaves the drawer in place. Both handles belong to their respective links, so they add no separate movement. The cabinet still has <strong>2 DOF</strong>.</p>
+  <p>Not every articulated object forms a tree. Some mechanisms contain closed loops. This example focuses on a tree, where each link other than the root has one parent.</p>
+</section>
+
+<section class="further-reading" id="further-reading" data-title="Further reading">
+  <h2>Further reading</h2>
+  <p>To compare the motion and connections of a reconstructed object with a reference, continue to the <a href="https://heyumeng.com/ArticulateArena-web/docs/index.html">ArticulateArena documentation ↗</a>.</p>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="3d-software.html">← 3D software</a><a class="page-next" rel="next" href="visual-to-simulation.html">From 3D shape to a movable object →</a></nav>
+      <footer class="page-footer"><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

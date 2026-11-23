@@ -74,18 +74,29 @@ def box(name, center, size, material, rigid=None):
     return obj
 
 
-box('Cabinet left wall', (-.58, 0, .77), (.08, .78, 1.42), teal, 'PASSIVE')
-box('Cabinet right wall', (.58, 0, .77), (.08, .78, 1.42), teal, 'PASSIVE')
-box('Cabinet back', (0, .36, .77), (1.08, .06, 1.42), teal, 'PASSIVE')
-box('Cabinet bottom', (0, 0, .10), (1.16, .78, .08), teal, 'PASSIVE')
-shelf_top = .58
-box('Shelf', (0, 0, shelf_top-.04), (1.08, .74, .08), inside, 'PASSIVE')
-box('Drawer below shelf', (0, -.39, .33), (1.03, .07, .30), blue, 'PASSIVE')
-box('Handle support left', (-.18, -.445, .35), (.035, .07, .035), handle)
-box('Handle support right', (.18, -.445, .35), (.035, .07, .035), handle)
-box('Drawer handle', (0, -.485, .35), (.39, .035, .035), handle)
-box('Floor', (0, 0, -.025), (200, 200, .05), paper, 'PASSIVE')
-falling = box('Falling box', (0, -.09, 1.18), (.25, .25, .25), orange, 'ACTIVE')
+# Reuse every visible part of the book cabinet. The lower door is open so
+# the falling box and the lower shelf can be seen; the upper drawer stays shut.
+import sys
+sys.path.insert(0,str(ROOT/'scripts'))
+import numpy as np
+from shared_cabinet import PARTS,part_triangles,pose_transform
+for part in PARTS:
+    tris=part_triangles(part,32)
+    rot,trans=pose_transform(part['group'],door=85)
+    tris=tris@rot.T+trans
+    data=bpy.data.meshes.new(part['name'])
+    data.from_pydata(tris.reshape(-1,3).tolist(),[],[(3*i,3*i+1,3*i+2) for i in range(len(tris))])
+    data.update();obj=bpy.data.objects.new(part['name'],data);bpy.context.collection.objects.link(obj)
+    rgba=tuple(((v/255+.055)/1.055)**2.4 for v in part['color'])+(1,)
+    obj.data.materials.append(mat(part['name']+' material',rgba))
+    bpy.context.view_layer.objects.active=obj;obj.select_set(True)
+    bpy.ops.rigidbody.object_add();obj.rigid_body.type='PASSIVE';obj.rigid_body.collision_shape='CONVEX_HULL'
+    obj.rigid_body.use_margin=True;obj.rigid_body.collision_margin=.001
+    obj.rigid_body.friction=.6;obj.rigid_body.restitution=0
+    obj.select_set(False)
+shelf_top = -.78
+box('Floor',(0,0,-.89),(200,200,.05),paper,'PASSIVE')
+falling = box('Falling box',(0,-.09,.10),(.25,.25,.25),orange,'ACTIVE')
 falling.rigid_body.mass = 1
 falling.rigid_body.linear_damping = 0
 falling.rigid_body.angular_damping = .05
@@ -95,12 +106,12 @@ world.solver_iterations = 30
 world.point_cache.frame_start = scene.frame_start
 world.point_cache.frame_end = scene.frame_end
 
-bpy.ops.object.camera_add(location=(2.5, -5, 2.45))
+bpy.ops.object.camera_add(location=(2.5, -5, 2.2))
 camera = bpy.context.object
 camera.name = 'Render camera'
-camera.rotation_euler = (Vector((0, -.02, .76))-camera.location).to_track_quat('-Z', 'Y').to_euler()
+camera.rotation_euler = (Vector((-.08, -.14, 0))-camera.location).to_track_quat('-Z', 'Y').to_euler()
 camera.data.type = 'ORTHO'
-camera.data.ortho_scale = 1.93
+camera.data.ortho_scale = 2.7
 scene.camera = camera
 for name, position, power, size in (
     ('Key light', (0, -3.5, 5), 450, 4),

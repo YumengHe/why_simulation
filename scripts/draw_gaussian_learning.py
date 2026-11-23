@@ -13,7 +13,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 from animate_projection import font
-from animate_gaussian_cabinet import CENTERS, COVS, COLORS, GROUPS, View, camera, project, blend_splats, U, V
+from animate_gaussian_cabinet import CENTERS, COVS, COLORS, GROUPS, NAMES, View, camera, project, blend_splats, U, V
 
 OUT = Path(__file__).resolve().parents[1] / 'book/assets/gaussian-learning'
 INK, GOLD, CORAL = '#313a37', '#9a7422', '#bf644b'
@@ -25,9 +25,11 @@ def sparse_samples():
     """A reproducible illustrative sample, with a recognizable front silhouette."""
     rng = np.random.default_rng(18)
     indices = list(rng.choice(len(CENTERS), 135, replace=False))
-    for group in ('drawer', 'door', 'handle'):
+    for group in ('drawer', 'door'):
         ids = np.flatnonzero(GROUPS == group)
         indices.extend(rng.choice(ids, min(25, len(ids)), replace=False))
+    handle_ids = np.flatnonzero(np.char.find(NAMES.astype(str), 'handle') >= 0)
+    indices.extend(rng.choice(handle_ids, min(35, len(handle_ids)), replace=False))
     ids = np.unique(indices)
     return np.vstack([CENTERS[ids], POINT_A]), np.vstack([COLORS[ids], [91,141,184]])
 
@@ -144,6 +146,7 @@ def main():
     assert len(SPARSE)<len(CENTERS)
     assert np.all(np.linalg.eigvalsh(INITIAL_COVS)>0)
     (OUT/'manifest.json').write_text(json.dumps({
+        'geometry_source':'scripts/shared_cabinet.py',
         'provenance':'Original analytic teaching cabinet. Rendered views illustrate photographs. Sparse points and parameter stages are constructed, not recovered or optimized.',
         'initial_blob_count':len(SPARSE),'later_blob_count':len(CENTERS),
         'corner_A':POINT_A.tolist(),'camera_angles':[-35,0,35],

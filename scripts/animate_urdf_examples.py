@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the chapter 4 GIFs from cabinet 45168, without using PDF images.
+"""Render the chapter 4 GIFs from the shared teaching cabinet, without using PDF images.
 
 Optional authoring dependencies: Pillow and NumPy. The book itself has no
 dependencies. All poses are forward kinematics, not a contact simulation.
@@ -79,31 +79,8 @@ def rgb(color):
 
 
 def face_layer(data, case, t, project, links):
-    layer = Image.new('RGBA', (WIDTH*AA, HEIGHT*AA))
-    draw = ImageDraw.Draw(layer)
-    faces = []
-    light = np.array([-.3, .8, 1.]); light /= np.linalg.norm(light)
-    for mesh in data['meshes']:
-        if mesh['link'] not in links:
-            continue
-        vs = pose(data, mesh, case, t)
-        if vs is None:
-            continue
-        ids = np.asarray(mesh['faces'])
-        triangles = vs[ids]
-        normals = np.cross(triangles[:, 1]-triangles[:, 0], triangles[:, 2]-triangles[:, 0])
-        lengths = np.linalg.norm(normals, axis=1)
-        normals /= np.maximum(lengths[:, None], 1e-10)
-        shades = .72 + .28*np.abs(normals @ light)
-        color = rgb({'link_0': C['blue'], 'link_1': C['gold'], 'link_2': C['teal']}[mesh['link']])
-        depths = triangles.mean(axis=1) @ project.eye
-        for tri, depth, shade in zip(triangles, depths, shades):
-            xy = [(round(project(v)[0]*AA), round(project(v)[1]*AA)) for v in tri]
-            fill = tuple(round(c*shade) for c in color)+(255,)
-            faces.append((depth, xy, fill))
-    for _, points, color in sorted(faces, key=lambda f: f[0]):
-        draw.polygon(points, fill=color)
-    return layer
+    from raster_cabinet_legacy import layer
+    return layer(data,lambda m:pose(data,m,case,t),project,links,(WIDTH,HEIGHT),AA)
 
 
 def add_layer(base, layer, opacity=1):

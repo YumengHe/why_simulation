@@ -1,0 +1,435 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="shared_teaching_cabinet">
+  <!--Same geometry as the book cabinet, expressed in the Y-up body frame used by this URDF lesson. Fixed handles; 2 DOF.-->
+  <link name="base" />
+  <link name="link_2">
+    <visual name="body-left-wall">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-left-wall.obj" />
+      </geometry>
+      <material name="body-left-wall-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-left-wall">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-left-wall.obj" />
+      </geometry>
+    </collision>
+    <visual name="body-right-wall">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-right-wall.obj" />
+      </geometry>
+      <material name="body-right-wall-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-right-wall">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-right-wall.obj" />
+      </geometry>
+    </collision>
+    <visual name="body-back">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-back.obj" />
+      </geometry>
+      <material name="body-back-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-back">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-back.obj" />
+      </geometry>
+    </collision>
+    <visual name="body-bottom">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-bottom.obj" />
+      </geometry>
+      <material name="body-bottom-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-bottom">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-bottom.obj" />
+      </geometry>
+    </collision>
+    <visual name="body-top">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-top.obj" />
+      </geometry>
+      <material name="body-top-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-top">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-top.obj" />
+      </geometry>
+    </collision>
+    <visual name="body-divider-shelf">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-2.obj" />
+      </geometry>
+      <material name="body-divider-shelf-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-divider-shelf">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-2.obj" />
+      </geometry>
+    </collision>
+    <visual name="body-left-frame">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-left-frame.obj" />
+      </geometry>
+      <material name="body-left-frame-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-left-frame">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-left-frame.obj" />
+      </geometry>
+    </collision>
+    <visual name="body-right-frame">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-right-frame.obj" />
+      </geometry>
+      <material name="body-right-frame-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-right-frame">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-right-frame.obj" />
+      </geometry>
+    </collision>
+    <visual name="body-lower-frame">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-lower-frame.obj" />
+      </geometry>
+      <material name="body-lower-frame-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-lower-frame">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-lower-frame.obj" />
+      </geometry>
+    </collision>
+    <visual name="body-upper-frame">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-upper-frame.obj" />
+      </geometry>
+      <material name="body-upper-frame-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-upper-frame">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-upper-frame.obj" />
+      </geometry>
+    </collision>
+    <visual name="body-middle-frame">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-middle-frame.obj" />
+      </geometry>
+      <material name="body-middle-frame-color">
+        <color rgba="0.42352941 0.6 0.58823529 1" />
+      </material>
+    </visual>
+    <collision name="body-middle-frame">
+      <origin xyz="-0 -0 -0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/body-middle-frame.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_0">
+    <visual name="drawer-front-top-rail">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-34.obj" />
+      </geometry>
+      <material name="drawer-front-top-rail-color">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-front-top-rail">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-34.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-front-bottom-rail">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-36.obj" />
+      </geometry>
+      <material name="drawer-front-bottom-rail-color">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-front-bottom-rail">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-36.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-front-left-stile">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-37.obj" />
+      </geometry>
+      <material name="drawer-front-left-stile-color">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-front-left-stile">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-37.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-front-right-stile">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-35.obj" />
+      </geometry>
+      <material name="drawer-front-right-stile-color">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-front-right-stile">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-35.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-front-center">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-40.obj" />
+      </geometry>
+      <material name="drawer-front-center-color">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-front-center">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/original-40.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-floor">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-floor.obj" />
+      </geometry>
+      <material name="drawer-floor-color">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-floor">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-floor.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-left-wall">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-left-wall.obj" />
+      </geometry>
+      <material name="drawer-left-wall-color">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-left-wall">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-left-wall.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-right-wall">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-right-wall.obj" />
+      </geometry>
+      <material name="drawer-right-wall-color">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-right-wall">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-right-wall.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-back">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-back.obj" />
+      </geometry>
+      <material name="drawer-back-color">
+        <color rgba="0.35686275 0.55294118 0.72156863 1" />
+      </material>
+    </visual>
+    <collision name="drawer-back">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-back.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-handle-grip">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-handle-grip.obj" />
+      </geometry>
+      <material name="drawer-handle-grip-color">
+        <color rgba="0.81176471 0.84705882 0.84313725 1" />
+      </material>
+    </visual>
+    <collision name="drawer-handle-grip">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-handle-grip.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-handle-left-support">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-handle-left-support.obj" />
+      </geometry>
+      <material name="drawer-handle-left-support-color">
+        <color rgba="0.81176471 0.84705882 0.84313725 1" />
+      </material>
+    </visual>
+    <collision name="drawer-handle-left-support">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-handle-left-support.obj" />
+      </geometry>
+    </collision>
+    <visual name="drawer-handle-right-support">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-handle-right-support.obj" />
+      </geometry>
+      <material name="drawer-handle-right-support-color">
+        <color rgba="0.81176471 0.84705882 0.84313725 1" />
+      </material>
+    </visual>
+    <collision name="drawer-handle-right-support">
+      <origin xyz="-0 -0.53 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/drawer-handle-right-support.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="link_1">
+    <visual name="door-panel">
+      <origin xyz="0.51 0.73 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/door-panel.obj" />
+      </geometry>
+      <material name="door-panel-color">
+        <color rgba="0.85882353 0.70980392 0.33333333 1" />
+      </material>
+    </visual>
+    <collision name="door-panel">
+      <origin xyz="0.51 0.73 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/door-panel.obj" />
+      </geometry>
+    </collision>
+    <visual name="door-handle-grip">
+      <origin xyz="0.51 0.73 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/door-handle-grip.obj" />
+      </geometry>
+      <material name="door-handle-grip-color">
+        <color rgba="0.69411765 0.53333333 0.18431373 1" />
+      </material>
+    </visual>
+    <collision name="door-handle-grip">
+      <origin xyz="0.51 0.73 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/door-handle-grip.obj" />
+      </geometry>
+    </collision>
+    <visual name="door-handle-lower-support">
+      <origin xyz="0.51 0.73 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/door-handle-lower-support.obj" />
+      </geometry>
+      <material name="door-handle-lower-support-color">
+        <color rgba="0.69411765 0.53333333 0.18431373 1" />
+      </material>
+    </visual>
+    <collision name="door-handle-lower-support">
+      <origin xyz="0.51 0.73 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/door-handle-lower-support.obj" />
+      </geometry>
+    </collision>
+    <visual name="door-handle-upper-support">
+      <origin xyz="0.51 0.73 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/door-handle-upper-support.obj" />
+      </geometry>
+      <material name="door-handle-upper-support-color">
+        <color rgba="0.69411765 0.53333333 0.18431373 1" />
+      </material>
+    </visual>
+    <collision name="door-handle-upper-support">
+      <origin xyz="0.51 0.73 -0.46" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="textured_objs/door-handle-upper-support.obj" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint_2" type="fixed">
+    <parent link="base" />
+    <child link="link_2" />
+    <origin xyz="0 0 0" rpy="1.5707963 0 -1.5707963" />
+  </joint>
+  <joint name="joint_0" type="prismatic">
+    <parent link="link_2" />
+    <child link="link_0" />
+    <origin xyz="0 0.53 0.46" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="0" upper="0.76" effort="100" velocity="1" />
+  </joint>
+  <joint name="joint_1" type="revolute">
+    <parent link="link_2" />
+    <child link="link_1" />
+    <origin xyz="-0.51 -0.73 0.46" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit lower="0" upper="1.5707963267948966" effort="100" velocity="1" />
+  </joint>
+</robot>

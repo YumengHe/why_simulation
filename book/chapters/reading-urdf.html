@@ -1,6 +1,6 @@
 <header class="chapter-header" id="chapter-start">
   <h1><span class="chapter-number">3.4</span> Reading a URDF file</h1>
-  <p class="lead">A URDF file tells us what the parts are, what they look like, and how they connect. Let’s read one using the cabinet we already know.</p>
+  <p class="lead">A URDF file tells us what the parts are, what they look like, and how they connect. We use a URDF of the same teaching cabinet shown throughout the book.</p>
 </header>
 
 <section id="file-and-tree" data-title="One file, parts and connections">
@@ -50,10 +50,10 @@
     <figcaption>These five pieces form the drawer front. They move together as part of <strong>one drawer</strong>, so they share one sliding joint.</figcaption>
   </figure>
   <h3>Reading one visual block</h3>
-  <p>This excerpt describes the <strong>red top strip</strong> in the picture. Positions are rounded here to make the code easier to read.</p>
+  <p>This excerpt describes the <strong>red top strip</strong> in the picture. The excerpt uses the shared teaching cabinet’s coordinates.</p>
   <pre class="urdf-code"><code>&lt;link name="link_0"&gt;
-  &lt;visual name="drawer_front-14"&gt;
-    &lt;origin xyz="0.0142 -0.5376 -0.4921" /&gt;
+  &lt;visual name="drawer-front-top-rail"&gt;
+    &lt;origin xyz="0 -0.53 -0.46" /&gt;
     &lt;geometry&gt;
       &lt;mesh filename="textured_objs/original-34.obj" /&gt;
     &lt;/geometry&gt;
@@ -67,7 +67,7 @@
     <div><dt><code>geometry</code><br><code>mesh</code></dt><dd>Describes the shape. Here, <code>mesh</code> tells the viewer which 3D shape file to open.</dd></div>
   </dl>
   <p><code>&lt;geometry&gt;</code> can also contain a simple <code>&lt;box&gt;</code>, <code>&lt;cylinder&gt;</code>, or <code>&lt;sphere&gt;</code>. A separate mesh file is not required for every shape.</p>
-  <p>This drawer has <strong>14 visual blocks but only one sliding joint</strong>. More shape files do not mean more degrees of freedom.</p>
+  <p>This drawer has <strong>12 visual blocks but only one sliding joint</strong>. More shape files do not mean more degrees of freedom.</p>
 </section>
 
 <section id="sliding-joint" data-title="Joint: let the drawer slide">
@@ -76,7 +76,7 @@
   <pre class="urdf-code"><code>&lt;joint name="joint_0" type="prismatic"&gt;
   &lt;parent link="link_2" /&gt;
   &lt;child link="link_0" /&gt;
-  &lt;origin xyz="-0.0142 0.5376 0.4921" /&gt;
+  &lt;origin xyz="0 0.53 0.46" /&gt;
   &lt;axis xyz="0 0 1" /&gt;
   &lt;limit lower="0" upper="0.76" /&gt;
 &lt;/joint&gt;</code></pre>
@@ -107,7 +107,7 @@
   <pre class="urdf-code"><code>&lt;joint name="joint_1" type="revolute"&gt;
   &lt;parent link="link_2" /&gt;
   &lt;child link="link_1" /&gt;
-  &lt;origin xyz="-0.3577 -0.5906 0.4916" /&gt;
+  &lt;origin xyz="-0.51 -0.73 0.46" /&gt;
   &lt;axis xyz="0 -1 0" /&gt;
   &lt;limit lower="0" upper="1.5708" /&gt;
 &lt;/joint&gt;</code></pre>
@@ -159,5 +159,5 @@
   <h3>What if we remove only the fixed joint?</h3>
   <p>The <code>base</code> link would be left disconnected from the cabinet. We would have two separate roots: <code>base</code> and the cabinet body. A URDF needs one connected tree, so a standard URDF loader rejects this arrangement. None of the three pictures shows this disconnected case.</p>
   <p>The fixed joint adds <strong>zero degrees of freedom</strong>. With the cabinet held still, the drawer and door still provide two independent movements: one slide and one rotation.</p>
-  <p class="urdf-source-links"><a href="https://github.com/YumengHe/ArticulateArena/blob/11e49256b8e839f04e5da2f481cbea20c54bc2ce/sample_data/45168/mobility.urdf">Cabinet URDF ↗</a><a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">URDF reference ↗</a></p>
+  <p class="urdf-source-links"><a href="assets/cabinet-model/teaching-urdf/cabinet.urdf">Teaching cabinet URDF</a><a href="assets/cabinet-model/teaching-cabinet-urdf.zip" download>URDF + mesh files</a><a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">URDF reference ↗</a></p>
 </section>

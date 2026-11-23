@@ -1,6 +1,7 @@
 <header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">2.2</span> Meshes: surfaces and useful detail</h1>
-  <p class="chapter-purpose draft-addition"><strong>General introduction</strong></p>
+  <h1><span class="chapter-number">2.2</span> Meshes: representation</h1>
+  <p class="chapter-purpose draft-addition"><strong>A. Representation</strong></p>
+<nav class="representation-trail" aria-label="Mesh reading route"><strong>Mesh:</strong> <a href="meshes.html">Representation · 2.2</a><span> · </span><a href="rendering.html">Rendering · 2.4</a><span> · </span><a href="cameras-and-geometry.html#points-to-surfaces">Reconstruction · 2.7.6</a></nav>
 </header>
 
 <section class="split-chapter" id="points-and-meshes" data-title="Meshes: surfaces and useful detail">
@@ -16,13 +17,14 @@
     <h2>Triangle and quad meshes on the same cabinet</h2>
     <p>Both are surface meshes. In a <strong>quad mesh</strong>, each face has four sides. In a <strong>triangle mesh</strong>, each face has three. The cabinet below uses the same corner positions and camera in both views; only the face connections change.</p>
     <div class="representation-examples">
-      <figure><img src="assets/diagrams/cabinet-representation-quads.svg" width="340" height="320" alt="Cabinet surfaces divided into rows of four-sided mesh faces"><figcaption><h3>Quad faces</h3><p>Regular rows make it convenient to select and reshape a strip of the surface.</p></figcaption></figure>
-      <figure><img src="assets/diagrams/cabinet-representation-triangles.svg" width="340" height="320" alt="The same cabinet surface patches divided diagonally into triangular faces"><figcaption><h3>Triangle faces</h3><p>Each four-sided patch here is divided into two triangles. The cabinet’s shape stays the same.</p></figcaption></figure>
+      <figure><img src="assets/diagrams/cabinet-representation-quads.png" width="340" height="320" alt="Cabinet surfaces divided into rows of four-sided mesh faces"><figcaption><h3>Quad faces</h3><p>Regular rows make it convenient to select and reshape a strip of the surface.</p></figcaption></figure>
+      <figure><img src="assets/diagrams/cabinet-representation-triangles.png" width="340" height="320" alt="The same cabinet surface patches divided diagonally into triangular faces"><figcaption><h3>Triangle faces</h3><p>Each four-sided patch here is divided into two triangles. The cabinet’s shape stays the same.</p></figcaption></figure>
     </div>
-    <p>Triangles are always flat, so they are convenient for rendering. A quad can be split into triangles for this purpose. Editing software can let us work with quads while using triangles to draw the result. <a href="https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/triangulate.html">Blender’s triangulation tool.</a></p>
-    <p>Face type alone does not determine the shape’s accuracy. The curved-handle examples below show why the positions of the vertices matter too.</p>
+    <h3>Why use triangles or quads?</h3>
+    <p><strong>Quads are useful for editing:</strong> rows of four-sided faces make it easier to select a strip of the cabinet surface and reshape it. <strong>Triangles are useful for rendering:</strong> three corners define a flat patch that software can project and draw. A common workflow is to edit with quads and let the software divide them into triangles for rendering. <a href="https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/triangulate.html">Blender’s triangulation tool.</a></p>
+    <p><strong>Face type and amount of detail are two separate choices.</strong> A mesh can have a few large triangles or many small triangles; the same applies to quads. More, well-placed corners can follow a curved handle more closely, while more faces generally require more storage and processing. In the two cabinets above, splitting each flat quad into two triangles leaves the surface in exactly the same place.</p>
   </div>
-  <p>Building a mesh from measured points is called <strong>surface reconstruction</strong>. It must infer which samples belong together; blindly filling every gap could seal the opening around a drawer. <a href="https://www.open3d.org/docs/release/tutorial/geometry/surface_reconstruction.html">Open3D’s examples</a> show several ways to estimate these surfaces.</p>
+  <p>Measured points can be turned into a mesh by estimating a connected surface. <a href="cameras-and-geometry.html#points-to-surfaces">Section 2.7.6</a> explains where this surface-reconstruction step fits.</p>
 
   <div class="representation-lesson" id="same-four-corners">
     <h2>Why can a mesh look angular?</h2>
@@ -39,12 +41,12 @@
       <p>These two cabinets have the same flat panels. Only the round handles change: each bar has <strong>6 sides on the left</strong> and <strong>32 sides on the right</strong>. The enlarged drawer handle makes the difference easier to see.</p>
       <div class="representation-examples">
         <figure>
-          <a href="assets/diagrams/cabinet-mesh-coarse.png" data-enlarge aria-label="Enlarge the cabinet with 228 triangular faces"><img src="assets/diagrams/cabinet-mesh-coarse.png" width="420" height="660" alt="A teal cabinet with blue drawer and gold door, showing its triangle edges; an enlarged six-sided drawer handle has obvious corners"></a>
-          <figcaption><h3>228 triangular faces</h3><p>84 on the flat panels + 144 on the handles. The round handles have visible corners.</p></figcaption>
+          <a href="assets/diagrams/cabinet-mesh-coarse.png" data-enlarge aria-label="Enlarge the cabinet with 396 triangular faces"><img src="assets/diagrams/cabinet-mesh-coarse.png" width="420" height="660" alt="A teal cabinet with blue drawer and gold door, showing its triangle edges; an enlarged six-sided drawer handle has obvious corners"></a>
+          <figcaption><h3>396 triangular faces</h3><p>252 on the flat components + 144 on the handles. The round handles have visible corners.</p></figcaption>
         </figure>
         <figure>
-          <a href="assets/diagrams/cabinet-mesh-fine.png" data-enlarge aria-label="Enlarge the cabinet with 852 triangular faces"><img src="assets/diagrams/cabinet-mesh-fine.png" width="420" height="660" alt="The same cabinet and panel triangles, with more finely divided handles; the enlarged thirty-two-sided drawer handle has a much rounder outline"></a>
-          <figcaption><h3>852 triangular faces</h3><p>The same 84 panel faces + 768 handle faces. The handles follow the round shape more closely.</p></figcaption>
+          <a href="assets/diagrams/cabinet-mesh-fine.png" data-enlarge aria-label="Enlarge the cabinet with 1,020 triangular faces"><img src="assets/diagrams/cabinet-mesh-fine.png" width="420" height="660" alt="The same cabinet and panel triangles, with more finely divided handles; the enlarged thirty-two-sided drawer handle has a much rounder outline"></a>
+          <figcaption><h3>1,020 triangular faces</h3><p>The same 252 flat-component faces + 768 handle faces. The handles follow the round shape more closely.</p></figcaption>
         </figure>
       </div>
       <p>The camera and colors are the same in both pictures. The lines mark the edges of the triangular faces. <strong>The extra faces improve the curved handles; the flat cabinet panels stay unchanged.</strong></p>

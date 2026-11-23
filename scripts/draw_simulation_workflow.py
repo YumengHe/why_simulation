@@ -19,50 +19,48 @@ SS=2
 def box(lo,hi,color):
     return np.array(lo,float),np.array(hi,float),color
 
-def shell(top=True):
-    boxes=[box((-.62,-.43,-.86),(-.54,.43,.86),TEAL),
-           box((.54,-.43,-.86),(.62,.43,.86),TEAL),
-           box((-.54,.35,-.86),(.54,.43,.86),TEAL),
-           box((-.54,-.43,-.86),(.54,.35,-.78),TEAL)]
-    if top:boxes.append(box((-.54,-.43,.79),(.54,.35,.86),TEAL))
-    return boxes
+from shared_cabinet import PARTS, part_triangles, CabinetMesh
+from preview_shared_cabinet import render as raster
 
-def drawer(q=.28):
-    pieces=[box((-.51,-.49,.33),(.51,-.43,.74),BLUE),
-            box((-.49,-.43,.34),(.49,.27,.38),BLUE),
-            box((-.49,-.43,.38),(-.45,.27,.71),BLUE),
-            box((.45,-.43,.38),(.49,.27,.71),BLUE),
-            box((-.45,.23,.38),(.45,.27,.71),BLUE)]
-    pieces+=handle()
-    return [(a-[0,q,0],b-[0,q,0],c) for a,b,c in pieces]
+def items(group,q=0,omit=()):
+    result=[]
+    for part in PARTS:
+        if part['group']!=group or part['name'] in omit:continue
+        part=dict(part)
+        if part['kind']=='box':
+            part['lo']=np.array(part['lo'])-[0,q,0];part['hi']=np.array(part['hi'])-[0,q,0]
+        else:
+            part['start']=np.array(part['start'])-[0,q,0];part['end']=np.array(part['end'])-[0,q,0]
+        result.append(part)
+    return result
+
+def shell(top=True):
+    return items('body',omit=() if top else ('body-top','body-upper-frame'))
+
+def drawer(q=.28):return items('drawer',q)
 
 def handle(solid=False):
-    col=(203,210,202)
-    if solid:return [box((-.25,-.68,.48),(.25,-.49,.57),col)]
-    return [box((-.25,-.68,.48),(.25,-.63,.57),col),
-            box((-.25,-.63,.48),(-.20,-.49,.57),col),
-            box((.20,-.63,.48),(.25,-.49,.57),col)]
+    # Contact primitives are deliberate simplifications of the same round grip.
+    col=(207,216,215)
+    if solid:return [box((-.30,-.70,.48),(.30,-.49,.58),col)]
+    return [box((-.30,-.70,.48),(.30,-.60,.58),col),
+            box((-.246,-.65,.494),(-.174,-.49,.566),col),
+            box((.174,-.65,.494),(.246,-.49,.566),col)]
 
-def door():
-    return [box((-.51,-.485,-.73),(.51,-.43,.26),GOLD),
-            box((.345,-.59,-.35),(.39,-.54,-.10),(174,136,51))]
+def door():return items('door')
 
 def scene(im,boxes,view,fade=0):
-    faces=[]
-    for lo,hi,color in boxes:
-        v=np.array([[x,y,z] for x in (lo[0],hi[0]) for y in (lo[1],hi[1]) for z in (lo[2],hi[2])])
-        for ids in ((0,1,3,2),(4,6,7,5),(0,4,5,1),(2,3,7,6),(1,5,7,3),(0,2,6,4)):
-            pts=v[list(ids)];n=np.cross(pts[1]-pts[0],pts[2]-pts[0])
-            if n@(pts.mean(0)-(lo+hi)/2)<0:n=-n
-            n/=np.linalg.norm(n)
-            if n@view.eye<=0:continue
-            light=np.array([-.3,-.5,.8]);shade=.72+.28*max(0,n@light)
-            rgb=np.array(color)*shade;rgb=rgb*(1-fade)+255*fade
-            faces.append((pts.mean(0)@view.eye,pts,tuple(rgb.astype(int))))
-    d=ImageDraw.Draw(im)
-    for _,pts,c in sorted(faces,key=lambda t:t[0]):
-        poly=[tuple(p) for p in view(pts)]
-        d.polygon(poly,fill=c,outline=tuple(int(x*.88) for x in c),width=SS)
+    triangles=[];colors=[];names=[]
+    for item in boxes:
+        if isinstance(item,dict):p=item
+        else:
+            lo,hi,color=item;p=dict(kind='box',lo=lo,hi=hi,color=color,name='contact-box')
+        ts=part_triangles(p,32);triangles.extend(ts)
+        col=np.array(p['color'])*(1-fade)+255*fade
+        colors.extend([col]*len(ts));names.extend([p['name']]*len(ts))
+    m=CabinetMesh(np.array(triangles),np.array(colors),np.array(['']*len(triangles)),np.array(names))
+    view_image=raster(m,size=im.size,eye=view.eye,center=view.center,scale=view.scale,xy=view.xy,ss=1,transparent=True)
+    im.paste(view_image,(0,0),view_image)
 
 def label(d,xy,text,size=25,color=INK,bold=False,anchor='mm'):
     d.text(tuple(np.array(xy)*SS),text,font=font(size*SS,bold),fill=color,anchor=anchor)
@@ -108,6 +106,7 @@ def cavity(solid=False):
         for ids in [(1,5,7,3),(0,4,5,1),(4,6,7,5)]:
             od.polygon([tuple(p) for p in v(pts[list(ids)])],fill=(185,79,62,65),outline=(185,79,62,255),width=SS)
         im=Image.alpha_composite(im.convert('RGBA'),overlay).convert('RGB');d=ImageDraw.Draw(im)
+    label(d,(260,61),'Top removed to show the interior',18)
     label(d,(260,30),'Interior filled' if solid else 'Interior left open',28,RED if solid else GREEN,True)
     # A top-view slice is tied to the same complete cabinet above.
     line(d,[(28,463),(492,463)],'#ddd9cf',1)
@@ -162,12 +161,12 @@ def main():
     handle_case(False).save(OUT/'handle-open.png')
     # The open shell must not occupy the drawer's internal volume.
     point=np.array([0.,-.1,.55])
-    assert not any(np.all(point>a)&np.all(point<b) for a,b,c in shell())
+    assert not any(np.all(point>p['lo'])&np.all(point<p['hi']) for p in shell())
     gap=np.array([0.,-.56,.53])
     assert not any(np.all(gap>a)&np.all(gap<b) for a,b,c in handle())
     assert all(np.all(gap>a)&np.all(gap<b) for a,b,c in handle(True))
     (OUT/'manifest.json').write_text(json.dumps({'provenance':'Original constructed teaching cabinet, not a reconstruction or physics-engine result.',
-        'views':'Orthographic projections of box geometry. Cabinet top removed in cavity cutaways.',
+        'views':'Depth-buffered views of the shared cabinet. Top removed only in labeled cavity cutaways. Enlarged contact shapes are box approximations of the fixed handle.',
         'checks':'Open shell leaves drawer space empty; three-piece handle leaves finger gap empty; one solid handle box fills it.'},indent=2)+'\n')
     print('Created five cabinet diagrams. Cavity and handle-gap checks passed.')
 

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gaussians: rendering · Why Simulation?</title>
+  <meta name="description" content="Gaussian projection and blending — how a camera view is calculated.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=c5fda7ed854c">
+  <script src="assets/book.js?v=c5fda7ed854c" defer></script>
+  <script src="assets/articulation.js?v=c5fda7ed854c" defer></script>
+  <script src="assets/frames.js?v=c5fda7ed854c" defer></script>
+  <script src="assets/representation-demo.js?v=c5fda7ed854c" defer></script>
+</head>
+<body data-review-additions="false">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Language, vision, and robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representation, rendering, reconstruction &amp; generation</span><ol class="chapter-children"><li class="chapter-subgroup"><span class="chapter-subgroup-title">A. Representation</span><ol class="chapter-subpages"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>Overview: 3D representations</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: representation</a></li><li><a class="chapter-link" href="gaussians-and-fields.html#chapter-start"><span class="nav-number">2.3</span>Gaussians and fields: representation</a></li></ol></li><li class="chapter-subgroup"><span class="chapter-subgroup-title">B. Rendering</span><ol class="chapter-subpages"><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.4</span>Meshes: rendering with a camera</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">2.5</span>Gaussians: rendering</a></li><li><a class="chapter-link" href="field-rendering.html#chapter-start"><span class="nav-number">2.6</span>Radiance fields: rendering with NeRF</a></li></ol></li><li class="chapter-subgroup"><span class="chapter-subgroup-title">C. Reconstruction and generation</span><ol class="chapter-subpages"><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.7</span>Reconstruction: cameras, points, and meshes</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.8</span>Gaussians: reconstruction with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.9</span>Radiance fields: reconstruction with NeRF</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.10</span>Generation: multiple outputs with TRELLIS</a></li></ol></li></ol></li><li><a class="chapter-link" href="3d-software.html#chapter-start">3D software</a></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="articulated-objects.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">3.2</span>From 3D shape to a movable object</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.3</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.4</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.5</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">2.5</span> Gaussians: rendering</h1>
+  <p class="chapter-purpose"><strong>B. Rendering</strong></p>
+  <p class="lead">Choose a camera and draw the same Gaussian cabinet from that viewpoint. The videos follow the 3D blobs onto a flat image; the sliders show how opacity affects the result.</p>
+<nav class="representation-trail" aria-label="Gaussian reading route"><strong>3D Gaussians:</strong> <a href="gaussians-and-fields.html#gaussian-data">Representation · 2.3.1</a><span> · </span><a href="gaussian-rendering.html">Rendering · 2.5</a><span> · </span><a href="gaussian-splatting.html">Reconstruction with 3DGS · 2.8</a></nav>
+</header>
+
+<section class="representation-lesson" id="rendering-gaussians" data-title="Rendering Gaussians: projection, videos, and opacity">
+  <h2 class="draft-addition"><span class="section-number">2.5.1</span> Gaussian rendering: project and blend</h2>
+  <p>Start with the fixed 3D blobs introduced in <a href="gaussians-and-fields.html#gaussian-data">Section 2.3.1</a>. A camera determines where their colors land in the picture.</p>
+  <h2 class="lesson-heading">How do the 3D blobs become an image?</h2>
+  <p class="draft-addition">A Gaussian renderer projects each 3D blob onto the flat image as a soft oval mark. Where marks overlap, it combines their colors, taking account of which blob is nearer the camera. Placing and blending these projected marks is called <strong>splatting</strong>. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3D Gaussian Splatting (3DGS) project</a>.</p>
+  <div class="projection-film" id="projection-video">
+    <h3 class="representation-question">Watch the 3D setup become a 2D view</h3>
+    <p>The <strong>image plane</strong> is a flat rectangle where we draw the camera’s picture. In this diagram it sits in front of the camera. Seen from its edge, that rectangle looks like a line; the image still has width and height.</p>
+    <video id="projection-player" controls playsinline preload="metadata" poster="assets/projection/rays.png" width="1280" height="900" aria-label="52-second animation of a 3D camera, image plane, and two Gaussian blobs" aria-describedby="projection-video-description">
+      <source src="assets/projection/projection-explained.mp4" type="video/mp4">
+      <p><a href="assets/projection/projection-explained.mp4">Open the projection video</a>.</p>
+    </video>
+    <div class="projection-chapters" aria-label="Jump to a video step">
+      <button type="button" data-projection-time="0">0:00 · The setup</button>
+      <button type="button" data-projection-time="6">0:06 · Project the blobs</button>
+      <button type="button" data-projection-time="16">0:16 · Look from the edge</button>
+      <button type="button" data-projection-time="26">0:26 · Face the image</button>
+      <button type="button" data-projection-time="36">0:36 · Move the camera</button>
+    </div>
+    <p id="projection-video-description">First, we rotate <em>our view of the diagram</em> to see the image plane from the side and front. In the last part, the <em>camera itself</em> moves while the two 3D blobs stay in place. The picture on the right shows exactly what that camera renders.</p>
+    <p>The outlined shapes help us see the blobs in 3D. Their rendered marks have soft edges because a Gaussian fades outward.</p>
+    <p><a href="assets/projection/projection-explained.mp4" download>Download the video</a></p>
+  </div>
+  <p>In the last part, watch the gold mark move behind the blue one, then separate again. The 3D blobs have not moved: the camera now sees them along different lines of sight. Their marks are calculated again for each new camera position. This is how the same 3D scene can produce different 2D pictures.</p>
+  <p>For implementation details, see <a href="https://docs.gsplat.studio/main/apis/rasterization.html">how gsplat uses the camera and Gaussian shapes to calculate these images</a>.</p>
+
+  <div class="projection-film" id="cabinet-projection-video">
+    <h3 class="representation-question">Now try a whole cabinet</h3>
+    <p>The same idea works with many blobs. Here, blue blobs form the drawer, gold blobs form the door, and teal blobs form the cabinet body. First we enlarge one drawer blob; then we follow the cabinet’s colors onto the image plane and move the camera.</p>
+    <video id="cabinet-projection-player" controls playsinline preload="metadata" poster="assets/projection-cabinet/projection.png" width="1280" height="900" aria-label="64-second animation showing a cabinet made of 3D Gaussians, a close-up of one blob, projection, and changing camera views" aria-describedby="cabinet-projection-description">
+      <source src="assets/projection-cabinet/cabinet-projection.mp4" type="video/mp4">
+      <p><a href="assets/projection-cabinet/cabinet-projection.mp4">Open the cabinet video</a>.</p>
+    </video>
+    <div class="projection-chapters" aria-label="Jump to a cabinet video step">
+      <button type="button" data-projection-time="0">0:00 · The cabinet</button>
+      <button type="button" data-projection-time="10">0:10 · One blob, enlarged</button>
+      <button type="button" data-projection-time="24">0:24 · Project onto the image</button>
+      <button type="button" data-projection-time="38">0:38 · Move the camera</button>
+      <button type="button" data-projection-time="56">0:56 · Compare three views</button>
+    </div>
+    <p id="cabinet-projection-description">The outlined shapes make the individual blobs visible. The camera picture blends their soft marks together. The cabinet stays still throughout; only the camera moves. This is a deliberately simple teaching model we built, not a reconstruction trained from photographs.</p>
+    <p><a href="assets/projection-cabinet/cabinet-projection.mp4" download>Download the cabinet video</a></p>
+  </div>
+
+  <div class="representation-lesson" id="opacity-example">
+    <h2>What does changing opacity actually change?</h2>
+    <p><strong>Several blobs can cover the same spot in the camera’s picture.</strong> We need one final color at that spot. Opacity decides how strongly the front blob contributes and how much of the color behind it can still show through.</p>
+    <p>In the cabinet video, overlapping blue marks combine to form the drawer’s picture. Opacity is part of that blending step. It does not add paint or a texture to a mesh.</p>
+    <p>Try a blue mark in front of a gold mark. <strong>Move the slider and watch how much gold remains visible.</strong> The gold stays at 80% opacity; only the blue changes.</p>
+
+    <div class="opacity-lab" id="opacity-lab">
+      <div class="opacity-demo">
+    <figure class="representation-figure projection-pixel">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 260" role="img"><title>Two soft projected ellipses overlap at a marked pixel, with the blue contribution in front of the gold</title><defs><radialGradient id="opacity-blue-gradient"><stop offset="0.00" stop-color="#5b8db8" stop-opacity="1.00000"/><stop offset="0.05" stop-color="#5b8db8" stop-opacity="0.98881"/><stop offset="0.10" stop-color="#5b8db8" stop-opacity="0.95600"/><stop offset="0.15" stop-color="#5b8db8" stop-opacity="0.90371"/><stop offset="0.20" stop-color="#5b8db8" stop-opacity="0.83527"/><stop offset="0.25" stop-color="#5b8db8" stop-opacity="0.75484"/><stop offset="0.30" stop-color="#5b8db8" stop-opacity="0.66698"/><stop offset="0.35" stop-color="#5b8db8" stop-opacity="0.57623"/><stop offset="0.40" stop-color="#5b8db8" stop-opacity="0.48675"/><stop offset="0.45" stop-color="#5b8db8" stop-opacity="0.40202"/><stop offset="0.50" stop-color="#5b8db8" stop-opacity="0.32465"/><stop offset="0.55" stop-color="#5b8db8" stop-opacity="0.25634"/><stop offset="0.60" stop-color="#5b8db8" stop-opacity="0.19790"/><stop offset="0.65" stop-color="#5b8db8" stop-opacity="0.14938"/><stop offset="0.70" stop-color="#5b8db8" stop-opacity="0.11025"/><stop offset="0.75" stop-color="#5b8db8" stop-opacity="0.07956"/><stop offset="0.80" stop-color="#5b8db8" stop-opacity="0.05613"/><stop offset="0.85" stop-color="#5b8db8" stop-opacity="0.03873"/><stop offset="0.90" stop-color="#5b8db8" stop-opacity="0.02612"/><stop offset="0.95" stop-color="#5b8db8" stop-opacity="0.01723"/><stop offset="1.00" stop-color="#5b8db8" stop-opacity="0.01111"/><stop offset="1" stop-color="#5b8db8" stop-opacity="0"/></radialGradient><radialGradient id="opacity-gold-gradient"><stop offset="0.00" stop-color="#dbb555" stop-opacity="1.00000"/><stop offset="0.05" stop-color="#dbb555" stop-opacity="0.98881"/><stop offset="0.10" stop-color="#dbb555" stop-opacity="0.95600"/><stop offset="0.15" stop-color="#dbb555" stop-opacity="0.90371"/><stop offset="0.20" stop-color="#dbb555" stop-opacity="0.83527"/><stop offset="0.25" stop-color="#dbb555" stop-opacity="0.75484"/><stop offset="0.30" stop-color="#dbb555" stop-opacity="0.66698"/><stop offset="0.35" stop-color="#dbb555" stop-opacity="0.57623"/><stop offset="0.40" stop-color="#dbb555" stop-opacity="0.48675"/><stop offset="0.45" stop-color="#dbb555" stop-opacity="0.40202"/><stop offset="0.50" stop-color="#dbb555" stop-opacity="0.32465"/><stop offset="0.55" stop-color="#dbb555" stop-opacity="0.25634"/><stop offset="0.60" stop-color="#dbb555" stop-opacity="0.19790"/><stop offset="0.65" stop-color="#dbb555" stop-opacity="0.14938"/><stop offset="0.70" stop-color="#dbb555" stop-opacity="0.11025"/><stop offset="0.75" stop-color="#dbb555" stop-opacity="0.07956"/><stop offset="0.80" stop-color="#dbb555" stop-opacity="0.05613"/><stop offset="0.85" stop-color="#dbb555" stop-opacity="0.03873"/><stop offset="0.90" stop-color="#dbb555" stop-opacity="0.02612"/><stop offset="0.95" stop-color="#dbb555" stop-opacity="0.01723"/><stop offset="1.00" stop-color="#dbb555" stop-opacity="0.01111"/><stop offset="1" stop-color="#dbb555" stop-opacity="0"/></radialGradient></defs><rect x="20" y="20" width="280" height="200" fill="white" stroke="#e8e5de" stroke-width="1.5"/><ellipse cx="160" cy="120" rx="69" ry="53" fill="url(#opacity-gold-gradient)" opacity=".8"/><ellipse cx="160" cy="120" id="opacity-front-splat" rx="109" ry="84" fill="url(#opacity-blue-gradient)" opacity=".25"/><circle cx="160" cy="120" r="7" fill="none" stroke="white" stroke-width="4"/><circle cx="160" cy="120" r="7" fill="none" stroke="#333b3a" stroke-width="1.5"/><path d="M160 131V214" stroke="#656158" stroke-width="1.2"/><text style="font:24px Arial,sans-serif;fill:#333b3a" x="160" y="247" text-anchor="middle">One pixel</text></svg>
+      <figcaption>The marked pixel receives color from both overlapping blobs.</figcaption>
+    </figure>
+        <div class="opacity-controls">
+      <label for="front-opacity">Blue opacity at the marked pixel <output id="opacity-value" for="front-opacity">25%</output></label>
+      <input id="front-opacity" type="range" min="0" max="100" step="1" value="25">
+      <div class="opacity-presets"><button type="button" data-opacity="25">Try 25%</button><button type="button" data-opacity="85">Try 85%</button></div>
+      <div class="opacity-result">
+        <div class="pixel-swatch" id="blended-pixel" style="background:rgb(192,182,135)" aria-label="Calculated pixel color"></div>
+        <div><strong>The resulting pixel</strong><p id="blend-description">25% blue + 60% gold + 15% white background.</p></div>
+      </div>
+      <div class="blend-bar" aria-hidden="true"><span id="weight-front" style="width:25%;background:#5b8db8"></span><span id="weight-back" style="width:60%;background:#dbb555"></span><span id="weight-background" style="width:15%;background:white"></span></div>
+      <p class="opacity-calculation" id="blend-calculation">Blue uses 25% of the pixel’s weight. Gold gets 80% of the remaining 75%: 60%. The background gets the last 15%.</p>
+        </div>
+      </div>
+    </div>
+    <p><strong>Low blue opacity:</strong> more gold shows through. <strong>High blue opacity:</strong> the picture becomes mostly blue at the marked spot. Neither blob has moved; we have changed how their colors combine.</p>
+    <p>The calculation follows one pixel. Across the whole picture, each mark fades toward its edges, and many marks overlap to make the cabinet’s surfaces look continuous. The <a href="https://arxiv.org/html/2308.04079v1">3DGS paper</a> gives the projection and blending equations.</p>
+    <div class="cabinet-opacity-lab" id="cabinet-opacity-example">
+      <h3 class="representation-question">Change opacity on the whole cabinet</h3>
+      <p>Now change the opacity of <strong>every blob in the cabinet</strong>. The camera, colors, positions, and sizes stay the same. Compare your setting on the right with the fixed picture on the left.</p>
+      <div class="cabinet-opacity-comparison">
+        <figure>
+          <img src="assets/projection-cabinet/opacity/cabinet-095.webp" width="420" height="556" alt="The Gaussian cabinet rendered with 95 percent peak opacity per blob, showing strong blue, gold, and teal surfaces" loading="lazy">
+          <figcaption><strong>95% per blob · reference</strong></figcaption>
+        </figure>
+        <figure>
+          <img id="cabinet-opacity-image" src="assets/projection-cabinet/opacity/cabinet-005.webp" width="420" height="556" alt="The same Gaussian cabinet rendered with 5 percent peak opacity per blob; more of the rear surfaces and white background show through" loading="lazy">
+          <figcaption><strong id="cabinet-opacity-caption">5% per blob · your setting</strong></figcaption>
+        </figure>
+      </div>
+      <div class="cabinet-opacity-controls">
+        <label for="cabinet-opacity">Opacity of each cabinet blob <output id="cabinet-opacity-value" for="cabinet-opacity">5%</output></label>
+        <input id="cabinet-opacity" type="range" min="0" max="100" step="5" value="5">
+        <div class="opacity-presets"><button type="button" data-cabinet-opacity="5">Try 5%</button><button type="button" data-cabinet-opacity="25">Try 25%</button><button type="button" data-cabinet-opacity="95">Try 95%</button></div>
+        <p id="cabinet-opacity-description">At 5%, the faint marks let more of the rear surfaces and white background show through.</p>
+      </div>
+      <p><strong>Many blobs overlap.</strong> Their colors build up, so 25% per blob does not mean that the whole cabinet is only 25% opaque. At 0%, none of the blobs contributes color and only the white background remains.</p>
+    </div>
+  </div>
+
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="rendering.html">← Meshes: rendering with a camera</a><a class="page-next" rel="next" href="field-rendering.html">Radiance fields: rendering with NeRF →</a></nav>
+      <footer class="page-footer"><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

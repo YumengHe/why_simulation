@@ -1,0 +1,26 @@
+{
+  "source": "shared_cabinet.gaussians(spacing=.085)",
+  "total_count": 4748,
+  "selected_index": 3052,
+  "selected_center_m": [
+    -0.31272727272727274,
+    -0.49,
+    0.57125
+  ],
+  "local_indices": [
+    3052,
+    3051,
+    3053,
+    3048,
+    3056,
+    3047,
+    3049,
+    3055,
+    3057,
+    3050,
+    3060,
+    3046
+  ],
+  "guide_extent_standard_deviations": 2,
+  "note": "Scripted teaching samples; not a trained 3DGS reconstruction."
+}

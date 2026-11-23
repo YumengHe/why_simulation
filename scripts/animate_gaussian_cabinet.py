@@ -17,6 +17,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 from animate_projection import font, smooth, warp_plane
+from shared_cabinet import gaussians
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'book/assets/projection-cabinet'
@@ -52,45 +53,18 @@ def line(draw, pts, color, width=2):
     draw.line([tuple(p) for p in pts], fill=color, width=width, joint='curve')
 
 
+# Geometry, dimensions, part ownership and handles come from one source.
+_SAMPLES = gaussians(spacing=.085)
+NAMES = _SAMPLES.names
+
+
 def make_cabinet():
-    centers, covariances, colors, groups = [], [], [], []
-    def box(lo, hi, color, group, spacing=.105):
-        lo, hi = np.array(lo), np.array(hi)
-        for axis in range(3):
-            tangent = [i for i in range(3) if i != axis]
-            for side in (0, 1):
-                grids, sigma = [], [.009]*3
-                for a in tangent:
-                    count = max(1, math.ceil((hi[a]-lo[a])/spacing))
-                    step = (hi[a]-lo[a])/count
-                    grids.append(np.linspace(lo[a]+step/2, hi[a]-step/2, count))
-                    sigma[a] = step*.62
-                for u in grids[0]:
-                    for v in grids[1]:
-                        p = np.zeros(3)
-                        p[axis] = (lo,hi)[side][axis]
-                        p[tangent] = u,v
-                        # Fixed color per face, for legibility; no lighting simulation.
-                        shade = ([(.83,.74), (1.,.79), (.68,1.08)][axis])[side]
-                        centers.append(p)
-                        covariances.append(np.diag(np.array(sigma)**2))
-                        colors.append(np.clip(np.array(color)*shade, 0, 255))
-                        groups.append(group)
-    # Cabinet shell, closed drawer and door, and raised handles.
-    box((-.62,-.43,-.86),(-.54,.43,.86), TEAL, 'body')
-    box((.54,-.43,-.86),(.62,.43,.86), TEAL, 'body')
-    box((-.54,.35,-.86),(.54,.43,.86), TEAL, 'body')
-    box((-.54,-.43,.79),(.54,.35,.86), TEAL, 'body')
-    box((-.54,-.43,-.86),(.54,.35,-.78), TEAL, 'body')
-    box((-.51,-.49,.33),(.51,-.43,.74), BLUE, 'drawer')
-    box((-.51,-.485,-.73),(.51,-.43,.26), YELLOW, 'door')
-    box((-.24,-.585,.515),(.24,-.55,.555),(204,210,204),'handle',.042)
-    for x in (-.24,.205):
-        box((x,-.56,.515),(x+.035,-.49,.555),(185,196,192),'handle',.03)
-    box((.345,-.57,-.35),(.385,-.535,-.10),(174,136,51),'handle',.04)
-    for z in (-.35,-.135):
-        box((.345,-.55,z),(.385,-.485,z+.035),(174,136,51),'handle',.03)
-    return np.array(centers), np.array(covariances), np.array(colors), np.array(groups)
+    # The fixed per-surface palette supplies shape cues in every representation.
+    normal = _SAMPLES.normals
+    per_axis = np.where(normal > 0, [.74,.79,1.08], [.83,1.,.68])
+    shade = np.sum(normal**2*per_axis,axis=1)
+    colors = np.clip(_SAMPLES.colors*255*shade[:,None],0,255)
+    return _SAMPLES.centers, _SAMPLES.covariances, colors, _SAMPLES.groups
 
 
 CENTERS, COVS, COLORS, GROUPS = make_cabinet()
@@ -348,7 +322,7 @@ def main():
         'method':'Fixed analytic scene; projected covariance and depth-sorted alpha blending; no photo fitting.',
         'guide_outlines':'Ellipsoid shape guides; not hard Gaussian boundaries.',
         'camera':'Virtual image plane in front of a pinhole camera. Cabinet stays fixed.',
-        'source':'Original teaching animation, not a trained reconstruction.'},indent=2)+'\n')
+        'source':'scripts/shared_cabinet.py; original teaching animation, not a trained reconstruction.'},indent=2)+'\n')
     print(f'Wrote {OUT / "cabinet-projection.mp4"}',flush=True)
 
 

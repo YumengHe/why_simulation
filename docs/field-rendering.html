@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Radiance fields: rendering with NeRF · Why Simulation?</title>
+  <meta name="description" content="Radiance fields: rays to pixels — how a camera view is calculated.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=c5fda7ed854c">
+  <script src="assets/book.js?v=c5fda7ed854c" defer></script>
+  <script src="assets/articulation.js?v=c5fda7ed854c" defer></script>
+  <script src="assets/frames.js?v=c5fda7ed854c" defer></script>
+
+</head>
+<body data-review-additions="false">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Language, vision, and robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representation, rendering, reconstruction &amp; generation</span><ol class="chapter-children"><li class="chapter-subgroup"><span class="chapter-subgroup-title">A. Representation</span><ol class="chapter-subpages"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>Overview: 3D representations</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: representation</a></li><li><a class="chapter-link" href="gaussians-and-fields.html#chapter-start"><span class="nav-number">2.3</span>Gaussians and fields: representation</a></li></ol></li><li class="chapter-subgroup"><span class="chapter-subgroup-title">B. Rendering</span><ol class="chapter-subpages"><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.4</span>Meshes: rendering with a camera</a></li><li><a class="chapter-link" href="gaussian-rendering.html#chapter-start"><span class="nav-number">2.5</span>Gaussians: rendering</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">2.6</span>Radiance fields: rendering with NeRF</a></li></ol></li><li class="chapter-subgroup"><span class="chapter-subgroup-title">C. Reconstruction and generation</span><ol class="chapter-subpages"><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.7</span>Reconstruction: cameras, points, and meshes</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.8</span>Gaussians: reconstruction with 3DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.9</span>Radiance fields: reconstruction with NeRF</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.10</span>Generation: multiple outputs with TRELLIS</a></li></ol></li></ol></li><li><a class="chapter-link" href="3d-software.html#chapter-start">3D software</a></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="articulated-objects.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">3.2</span>From 3D shape to a movable object</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.3</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.4</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.5</span>Changing a URDF</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">2.6</span> Radiance fields: rendering with NeRF</h1>
+  <p class="chapter-purpose"><strong>B. Rendering</strong></p>
+  <p class="lead">To draw the cabinet, choose a camera and query color and density along its lines of sight. Follow one ray through P1, P2, and P3, then repeat the calculation to form the whole image.</p>
+<nav class="representation-trail" aria-label="Radiance field reading route"><strong>Radiance field:</strong> <a href="gaussians-and-fields.html#spatial-fields">Representation · 2.3.2</a><span> · </span><a href="field-rendering.html">Rendering · 2.6</a><span> · </span><a href="nerf.html">Reconstruction with NeRF · 2.9</a></nav>
+</header>
+
+<section class="representation-lesson draft-addition" id="rendering-a-field" data-title="Rendering a radiance field">
+  <h2><span class="section-number">2.6.1</span> Rendering a radiance field</h2>
+<p>For a radiance field, begin with one image pixel. The camera defines a line of sight through that pixel into the scene. The renderer samples locations along that line and asks the field for color and density there.</p>
+<p>Along a line toward the drawer, empty air contributes little. Locations near the blue front panel contribute blue and reduce the contribution from behind. Combining the answers produces the pixel’s color. Repeating this across the image produces a view of the cabinet.</p>
+
+<p>Here we use the NeRF example introduced in <a href="gaussians-and-fields.html#nerf-network">Section 2.3.2</a>. The network supplies color and density; the renderer supplies the sample locations and combines the answers.</p>
+  <div class="generation-flow" aria-label="One NeRF query takes a position and viewing direction and returns color and density">
+    <div><strong>One query</strong><br>3D position<br>+ viewing direction</div><span aria-hidden="true">→</span>
+    <div><strong>NeRF network</strong><br>Evaluates the field</div><span aria-hidden="true">→</span>
+    <div><strong>Two answers</strong><br>Color + density</div>
+  </div>
+<p>The network’s saved numerical settings are called <strong>weights</strong>. They determine its answers. During this rendering step, we keep those settings fixed and query the network at different positions.</p>
+</section>
+
+<section class="nerf-lesson" id="nerf-query-inputs" data-title="How the renderer generates 3D positions and viewing directions from a pixel">
+  <h2><span class="section-number">2.6.2</span> Generate the 3D positions from a camera pixel</h2>
+  <p>Start with the camera’s <strong>position, orientation, and lens parameters</strong>. A virtual camera can supply these settings directly. When matching a photograph, COLMAP can estimate them, as described in <a href="cameras-and-geometry.html#colmap-cabinet">Section 2.7.3</a>. In either case, the renderer uses the camera settings to calculate sample positions and viewing directions:</p>
+  <ol class="nerf-instructions">
+    <li>It selects a pixel in the image to be rendered.</li>
+    <li>It uses <strong>the camera position, orientation, and lens parameters</strong> to calculate the pixel’s <strong>ray</strong>: a line of sight extending into the scene.</li>
+    <li>It samples several distances along that ray. Each distance gives a 3D sample position.</li>
+    <li>It sends each position and the ray’s direction to the network. Points on the same ray share the same direction.</li>
+  </ol>
+  <figure class="nerf-wide-figure">
+    <a href="assets/nerf-cabinet/point-inputs.png" data-enlarge aria-label="Enlarge the pixel-to-ray-to-3D-points example"><img src="assets/nerf-cabinet/point-inputs.png" width="1150" height="700" alt="A selected pixel determines a ray from the camera toward the cabinet. Three sampled points P1, P2, and P3 share direction 0,1,0. X, Y, and Z axes are labeled." loading="lazy"></a>
+    <figcaption>P1–P3 are sample locations along the ray. The network is queried at these locations before any surface has been identified there.</figcaption>
+  </figure>
+  <h3>A small coordinate example</h3>
+  <p>Here, X points right, Y points toward the cabinet, and Z points up. Coordinates are in meters. The camera is at <code>(0, −3, 0.64)</code>. The selected ray points straight along +Y, so its direction is <code>(0, 1, 0)</code>.</p>
+  <div class="learning-table-wrap">
+    <table class="learning-table nerf-coordinates">
+      <thead><tr><th>Sample</th><th>Distance from camera</th><th>3D position sent to the network</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">P1</th><td>1 m</td><td><code>(0, −2, 0.64)</code></td></tr>
+        <tr><th scope="row">P2</th><td>2 m</td><td><code>(0, −1, 0.64)</code></td></tr>
+        <tr class="draft-addition"><th scope="row">P3</th><td>2.54 m</td><td><code>(0, −0.46, 0.64)</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>For P2, start at the camera and move 2 m along +Y: the Y coordinate changes from −3 to −1. X and Z stay the same. Other pixels generally produce rays pointing in different directions. In practice, the renderer uses many samples, not just these three.</p>
+  <p><strong>Each sampled 3D position, together with the ray’s viewing direction, forms an input to the NeRF neural network.</strong> For P2, the input is position <code>(0, −1, 0.64)</code> and direction <code>(0, 1, 0)</code>. The network predicts a color and density for each sample. <a href="#nerf-rendering">Section 2.6.3</a> explains how the renderer combines these predictions along the ray to produce one pixel’s color.</p>
+</section>
+
+<section class="nerf-lesson" id="nerf-rendering" data-title="How NeRF renders cabinet samples into one pixel and then an image">
+  <h2><span class="section-number">2.6.3</span> From network outputs to the selected pixel</h2>
+  <p><a href="#nerf-query-inputs">Section 2.6.2</a> calculated P1, P2, and P3 along the ray for one selected image pixel. Each position and the shared viewing direction are supplied <strong>as input</strong> to the same NeRF network. The network uses its current weights to calculate a color and density for each sample <strong>as output</strong>.</p>
+  <p>For example, a prediction at P3, near the blue drawer front, could be:</p>
+  <div class="generation-flow" aria-label="P3 input passes through the NeRF network to produce color and density">
+    <div><strong>P3 input</strong><br>Position: (0, −0.46, 0.64)<br>Direction: (0, 1, 0)</div><span aria-hidden="true">→</span>
+    <div><strong>NeRF network</strong><br>Evaluates this input</div><span aria-hidden="true">→</span>
+    <div><strong>P3 output</strong><br>Color: blue<br>Density: high</div>
+  </div>
+  <p>These outputs describe individual samples. The renderer still needs to combine them into <strong>one color for the original selected pixel</strong>. The diagram continues with the same camera, ray, and sample positions:</p>
+  <figure class="nerf-wide-figure">
+    <a href="assets/nerf-cabinet/one-pixel.png" data-enlarge aria-label="Enlarge the same P1–P3 ray and its resulting pixel"><img src="assets/nerf-cabinet/one-pixel.png" width="1200" height="700" alt="The same ray as Section 2.6.2 passes P1 and P2 in air, then P3 at the blue drawer front. The corresponding central pixel in the rendered camera view is marked blue." loading="lazy"></a>
+    <figcaption>P1–P3 keep the positions defined in Section 2.6.2. The marked pixel on the right is the pixel whose ray supplied those positions.</figcaption>
+  </figure>
+  <p>A prediction that represents this cabinet well assigns low density to the air and blue color with high density near the drawer front:</p>
+  <dl class="nerf-answers">
+    <div><dt>P1 · air</dt><dd>Low density gives this sample little influence on the pixel’s color.</dd></div>
+    <div><dt>P2 · air</dt><dd>Low density again: most of the view continues toward the drawer.</dd></div>
+    <div><dt>P3 · drawer</dt><dd>Blue color and high density: samples around the front panel supply most of the pixel’s color and reduce the contribution from farther behind.</dd></div>
+  </dl>
+  <p>The renderer combines the sample colors from near to far. Density and the distance represented by each sample determine how strongly it contributes and how much of the view passes through to later samples. This calculation is called <strong>volume rendering</strong>. It uses many samples along the ray; P1–P3 are three labeled locations within that process. <a href="https://arxiv.org/html/2003.08934v2#S4">Rendering details in the paper.</a></p>
+  <p><strong>The combined color is written into the original selected pixel.</strong> In this example, the drawer front makes that pixel blue.</p>
+  <h3 id="nerf-complete-image">From one pixel to a complete cabinet image</h3>
+  <p>The renderer repeats the same calculation for every pixel, using a different ray for each one. The result is an ordinary <strong>2D color image</strong>, like this cabinet view:</p>
+  <div class="nerf-image-result">
+    <figure>
+      <a href="assets/nerf-cabinet/ray-camera.png" data-enlarge aria-label="Enlarge the complete rendered cabinet image"><img src="assets/nerf-cabinet/ray-camera.png" width="321" height="481" alt="Complete rendered view from the example camera: a blue drawer above a gold door, surrounded by a teal cabinet body against white" loading="lazy"></a>
+      <figcaption>Complete rendered view from the same camera.</figcaption>
+    </figure>
+    <div>
+      <p><strong>One ray gives one pixel.</strong> The ray through P1–P3 gives the blue pixel discussed above.</p>
+      <p><strong>All the rays give the whole picture.</strong> Rays through the drawer produce blue pixels; rays through the door produce gold pixels; rays through the body produce teal pixels. Rays that pass through empty space leave the white background visible.</p>
+      <p><strong>Color and density work together.</strong> Color supplies the possible colors along a ray. Density helps determine how much each sample contributes and how much is hidden behind it. After combining them, the finished pixel contains a single color.</p>
+    </div>
+  </div>
+  <p>This completes one render: the field and camera have produced a 2D image. During reconstruction, the same calculation becomes part of a training loop. <a href="nerf.html#nerf-training">Section 2.9.3</a> compares the rendered pixels with a photograph and updates the network.</p>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="gaussian-rendering.html">← Gaussians: rendering</a><a class="page-next" rel="next" href="cameras-and-geometry.html">Reconstruction: cameras, points, and meshes →</a></nav>
+      <footer class="page-footer"><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

@@ -32,11 +32,11 @@
     <p>The gray model is made of small, flat faces. Together, they form the head, hat, and other parts. The colored rectangle is a <strong>2D reference image</strong> used as a guide while modeling.</p>
     <div class="blender-image-pair">
       <figure class="blender-figure">
-        <a href="assets/blender/mesh-reference.jpg" data-enlarge aria-label="Enlarge the mesh and reference-image labels"><img src="assets/blender/mesh-reference.jpg" width="880" height="975" alt="A gray mesh in front of a colored reference image. Blue points to the mesh; gold points to the orange boundary of the reference image."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+        <a href="assets/blender/mesh-reference.jpg" data-enlarge aria-label="Enlarge the mesh and reference-image labels"><img src="assets/blender/mesh-reference.jpg" width="880" height="992" alt="A gray mesh in front of a colored reference image. Blue points to the mesh; gold points to the orange boundary of the reference image."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
         <figcaption><strong>Modeling against a reference.</strong> The orange outline marks the selected reference image.</figcaption>
       </figure>
       <figure class="blender-figure">
-        <a href="assets/blender/mesh-oblique.jpg" data-enlarge aria-label="Enlarge the angled mesh view"><img src="assets/blender/mesh-oblique.jpg" width="880" height="1221" alt="An angled Blender view showing the model’s small flat faces and the flat reference image behind it."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+        <a href="assets/blender/mesh-oblique.jpg" data-enlarge aria-label="Enlarge the angled mesh view"><img src="assets/blender/mesh-oblique.jpg" width="880" height="992" alt="An angled Blender view showing the model’s small flat faces and the flat reference image behind it."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
         <figcaption><strong>Inspecting from another angle.</strong> The model has depth; the reference remains a flat picture.</figcaption>
       </figure>
     </div>
@@ -139,7 +139,7 @@
 
 <section id="software-physics" data-title="Physics simulation example">
   <h2>Physics simulation: a box falls onto a shelf</h2>
-  <p>Place a small box above a cabinet shelf and let go. We want gravity to make it fall and contact with the shelf to stop it. <strong>Blender and Maya can both run this kind of rigid-body simulation</strong>, in which the objects move without changing shape.</p>
+  <p>Open the lower door of the same cabinet, place a small box above its bottom shelf, and let go. We want gravity to make it fall and contact with the shelf to stop it. <strong>Blender and Maya can both run this kind of rigid-body simulation</strong>, in which the objects move without changing shape.</p>
   <p>The example below was calculated in <strong>Blender</strong> using its rigid-body physics system. The cabinet and box were built by a script, and a fixed camera rendered the calculated positions.</p>
   <ol class="representation-steps">
     <li><strong>Prepare the objects.</strong> Give the movable box a mass of 1 kg and a box-shaped collision boundary. Give the cabinet walls and shelf fixed collision shapes.</li>
@@ -149,7 +149,7 @@
   </ol>
   <div class="software-physics-frames">
     <figure class="software-diagram">
-      <a href="assets/software-physics/box-fall-01.png" data-enlarge aria-label="Enlarge the box at release"><img src="assets/software-physics/box-fall-01.png" width="560" height="620" loading="lazy" alt="An orange box starts at rest above the shelf of an open teal cabinet. A blue drawer sits below the shelf."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
+      <a href="assets/software-physics/box-fall-01.png" data-enlarge aria-label="Enlarge the box at release"><img src="assets/software-physics/box-fall-01.png" width="560" height="620" loading="lazy" alt="An orange box starts above the bottom shelf. The gold door is open and the blue drawer remains above it."><span class="figure-enlarge" aria-hidden="true">⤢</span></a>
       <figcaption><strong>0 seconds: release.</strong> We choose this starting position.</figcaption>
     </figure>
     <figure class="software-diagram">

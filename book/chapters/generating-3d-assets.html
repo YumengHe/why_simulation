@@ -1,26 +1,29 @@
 <header class="chapter-header draft-addition" id="chapter-start">
-  <h1><span class="chapter-number">2.7</span> Generate an asset with a pretrained model</h1>
-  <p class="chapter-purpose draft-addition"><strong>Specific method</strong> · TRELLIS</p>
-  <p class="lead">So far, we have adjusted one cabinet’s representation to match its photographs. A pretrained generator has already learned from many objects and uses that knowledge to propose a new 3D asset from an image or prompt. An asset is the object’s digital model.</p>
+  <h1><span class="chapter-number">2.10</span> Generation: multiple outputs with TRELLIS</h1>
+  <p class="chapter-purpose draft-addition"><strong>C. Reconstruction and generation</strong> · TRELLIS</p>
+  <p class="lead">A <strong>pretrained 3D generator</strong> offers another route to a 3D asset, the object’s digital model. Give the system a cabinet image, and it uses knowledge learned from many objects to propose the cabinet’s shape and appearance in 3D.</p>
+  <p>This section introduces <strong>TRELLIS</strong> to show two ideas: prior training can help create an asset from limited input, and <strong>one generation system can support several representations</strong>. Its mesh, Gaussian, and radiance-field outputs use the representation and rendering concepts from Parts A and B.</p>
+  <p>The routes in <a href="gaussian-splatting.html">2.8</a> and <a href="nerf.html">2.9</a> fit a cabinet’s representation to photographs of that scene. Here, we follow the generation route from an input image through TRELLIS to a supported 3D output.</p>
 </header>
 
 <section class="representation-lesson draft-addition" id="creating-an-object" data-title="From one image to a proposed 3D asset">
-  <h2><span class="section-number">2.7.1</span> From one image to a proposed 3D asset</h2>
+  <span id="image-to-3d-to-image" aria-hidden="true"></span>
+  <h2><span class="section-number">2.10.1</span> From one image to a proposed 3D asset</h2>
 <p>Suppose only one photograph shows the cabinet’s front. It provides little direct evidence about the back or interior. A generator can use patterns learned during training to propose those unseen regions. The result is a plausible asset; hidden details still need inspection if we want to reproduce a particular real cabinet.</p>
 <p><strong>TRELLIS</strong> is an example of a 3D asset generator. Give its image-based model a cabinet picture, and it can create a 3D result using its prior training. It can output that result as a mesh, 3D Gaussians, or a radiance field. <a href="https://microsoft.github.io/TRELLIS/">TRELLIS project.</a></p>
 <div id="building-and-storing"><p>The method and its output are different things: <strong>TRELLIS is the system that creates the asset; mesh, Gaussians, and radiance field describe ways to represent its result.</strong> These are the representations introduced in <a href="3d-generation.html#what-is-a-representation">Section 2.1</a>.</p></div>
 <div class="method-branches"><div><h3>Mesh output</h3><p>Vertices and connected faces describe surfaces. Appearance can be supplied with textures and materials.</p></div><div><h3>Gaussian output</h3><p>Positions, shapes, opacity, and appearance describe blobs that a Gaussian renderer blends into views.</p></div></div>
 <div id="radiance-field-output">
   <h3>Radiance field output</h3>
-  <p>Color and density describe the scene at locations in 3D. To make a picture, provide the field and a virtual camera to a compatible <strong>volume renderer</strong>. It reads color and density along camera rays and combines them into pixels, as in <a href="nerf.html#nerf-rendering">Section 2.6.5</a>.</p>
+  <p>Color and density describe the scene at locations in 3D. To make a picture, provide the field and a virtual camera to a compatible <strong>volume renderer</strong>. It reads color and density along camera rays and combines them into pixels, as in <a href="field-rendering.html#nerf-rendering">Section 2.6.3</a>.</p>
   <p>For the cabinet, choose a camera on its right to render a right-side view. Keep the field unchanged; choose another camera to make another view.</p>
 </div>
-<p>The next tool depends on the output: a mesh editor or mesh renderer for meshes, a Gaussian viewer or renderer for Gaussians, and a compatible volume renderer for radiance fields. <strong>TRELLIS provides a renderer for its own radiance-field output.</strong> Its <a href="https://github.com/microsoft/TRELLIS/blob/main/example.py">official example</a> uses it to make a video from a sequence of camera views. The field’s saved form can differ from the original NeRF network described in Section 2.6.</p>
+<p>The next tool depends on the output: a mesh editor or mesh renderer for meshes, a Gaussian viewer or renderer for Gaussians, and a compatible volume renderer for radiance fields. <strong>TRELLIS provides a renderer for its own radiance-field output.</strong> Its <a href="https://github.com/microsoft/TRELLIS/blob/main/example.py">official example</a> uses it to make a video from a sequence of camera views. The field’s saved form can differ from the original NeRF network described in Section 2.9.</p>
 </section>
 
 
 <section class="representation-lesson" id="one-image-two-outputs" data-title="Compare the representations">
-    <h2><span class="section-number">2.7.2</span> Compare the representations</h2>
+    <h2><span class="section-number">2.10.2</span> Compare the representations</h2>
     <p>A generator can save a 3D result in different forms. The cabinet below illustrates what those forms look like: a mesh stores connected surfaces, while Gaussians store colored blobs in 3D.</p>
     <div class="trellis-comparison">
       <figure><img src="assets/examples/cabinet-representations/reference.png" width="528" height="700" alt="Front view rendered from the scripted cabinet: a blue drawer, gold door, and teal body"><figcaption><h3>One cabinet picture</h3><p>A front view is a flat image. It does not show the cabinet’s hidden sides.</p></figcaption></figure>
@@ -31,12 +34,6 @@
     <p><strong>Both representations can show color.</strong> The mesh and Gaussian views here share a camera and color scheme. The triangle lines help us inspect the mesh; a renderer can hide those lines and use textures and materials to show its appearance.</p>
     <h3 class="representation-question">Why would we choose a mesh?</h3>
     <p>Suppose we want a robot to grasp the cabinet handle. We need to locate the handle’s surface and the gap behind it, edit the shape if necessary, and prepare shapes for contact. A mesh gives us explicit surface patches to work with. We can also organize its geometry into parts before adding joints and physical properties.</p>
-    <p>If our immediate goal is to reproduce the look of a photographed scene from new viewpoints, 3DGS is designed for that rendering task. Its colored blobs can capture appearance without first building a connected surface. The choice depends on what we want to do with the result; surface geometry and Gaussian appearance can also be used together. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project</a>.</p>
+    <p>If our immediate goal is to display the asset from new viewpoints, a Gaussian representation supplies colored blobs that can be projected and blended directly. The same rendering operation works for Gaussians produced by TRELLIS or fitted with 3DGS. The choice depends on what we want to do with the result; surface geometry and Gaussian appearance can also be used together. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project</a>.</p>
 
-</section>
-<section class="representation-lesson draft-addition" id="image-to-3d-to-image" data-title="Conclusion: create, store, then render">
-  <h2><span class="section-number">2.7.3</span> Conclusion: create, store, then render</h2>
-<ol class="asset-pipeline"><li><strong>Input image</strong><p>A cabinet photograph.</p></li><li><strong>Generate</strong><p>TRELLIS proposes a 3D asset using its prior training.</p></li><li><strong>Keep a supported representation</strong><p>For example, a mesh, Gaussians, or a radiance field.</p></li><li><strong>Render</strong><p>The appropriate renderer makes a view from a chosen camera.</p></li></ol>
-<p>The Gaussian rendering operation can draw Gaussians produced by a generator as well as Gaussians fitted to photographs. The renderer uses the stored parameters; how those parameters were obtained is a separate part of the workflow.</p>
-<p>In the original 3DGS and NeRF examples, photographs of one cabinet guide scene-specific fitting. With a system such as TRELLIS, a pretrained generator proposes an asset from an image. Both routes produce 3D information that can be rendered and inspected.</p>
 </section>

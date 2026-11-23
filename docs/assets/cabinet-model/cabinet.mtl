@@ -1,0 +1,134 @@
+newmtl body-left-wall
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl body-right-wall
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl body-back
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl body-bottom
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl body-top
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl body-divider-shelf
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl body-left-frame
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl body-right-frame
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl body-lower-frame
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl body-upper-frame
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl body-middle-frame
+Kd 0.423529 0.600000 0.588235
+d 1.0
+illum 1
+
+newmtl drawer-front-top-rail
+Kd 0.356863 0.552941 0.721569
+d 1.0
+illum 1
+
+newmtl drawer-front-bottom-rail
+Kd 0.356863 0.552941 0.721569
+d 1.0
+illum 1
+
+newmtl drawer-front-left-stile
+Kd 0.356863 0.552941 0.721569
+d 1.0
+illum 1
+
+newmtl drawer-front-right-stile
+Kd 0.356863 0.552941 0.721569
+d 1.0
+illum 1
+
+newmtl drawer-front-center
+Kd 0.356863 0.552941 0.721569
+d 1.0
+illum 1
+
+newmtl drawer-floor
+Kd 0.356863 0.552941 0.721569
+d 1.0
+illum 1
+
+newmtl drawer-left-wall
+Kd 0.356863 0.552941 0.721569
+d 1.0
+illum 1
+
+newmtl drawer-right-wall
+Kd 0.356863 0.552941 0.721569
+d 1.0
+illum 1
+
+newmtl drawer-back
+Kd 0.356863 0.552941 0.721569
+d 1.0
+illum 1
+
+newmtl door-panel
+Kd 0.858824 0.709804 0.333333
+d 1.0
+illum 1
+
+newmtl drawer-handle-grip
+Kd 0.811765 0.847059 0.843137
+d 1.0
+illum 1
+
+newmtl drawer-handle-left-support
+Kd 0.811765 0.847059 0.843137
+d 1.0
+illum 1
+
+newmtl drawer-handle-right-support
+Kd 0.811765 0.847059 0.843137
+d 1.0
+illum 1
+
+newmtl door-handle-grip
+Kd 0.694118 0.533333 0.184314
+d 1.0
+illum 1
+
+newmtl door-handle-lower-support
+Kd 0.694118 0.533333 0.184314
+d 1.0
+illum 1
+
+newmtl door-handle-upper-support
+Kd 0.694118 0.533333 0.184314
+d 1.0
+illum 1
