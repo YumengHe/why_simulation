@@ -27,9 +27,9 @@
   </figure>
   <div class="draft-addition">
     <h3>Use the camera estimates from Section 2.7</h3>
-    <p><a href="cameras-and-geometry.html#colmap-cabinet">Section 2.7.3</a> explains how COLMAP estimates cameras from the cabinet photographs. <a href="cameras-and-geometry.html#vggt-cabinet">Section 2.7.4</a> introduces VGGT’s camera and geometry predictions. Either route must supply camera data in the form expected by the chosen NeRF implementation.</p>
+    <p><a href="cameras-and-geometry.html#colmap-cabinet">Section 2.7.3</a> explains how COLMAP estimates cameras from the cabinet photographs. <a href="cameras-and-geometry.html#vggt-cabinet">Section 2.7.5</a> introduces VGGT’s camera and geometry predictions. Either route must supply camera data in the form expected by the chosen NeRF implementation.</p>
     <p><strong>In the workflow illustrated here, COLMAP supplies the camera estimates.</strong> Keep each photograph paired with its camera position, orientation, and lens parameters. The <a href="https://github.com/bmild/nerf#generating-poses-for-your-own-scenes">original NeRF code</a> describes this preparation.</p>
-    <div class="generation-flow" aria-label="Camera estimates supply rays for NeRF"><div><strong>Prepared inputs</strong><br>Cabinet photos + camera parameters</div><span aria-hidden="true">→</span><div><strong>NeRF renderer</strong><br>Rays + sampled 3D positions</div><span aria-hidden="true">→</span><div><strong>NeRF network</strong><br>Color + density per sample</div></div>
+    {{diagram:nerf-flow-1}}
     <p><strong>NeRF uses the same photographs and camera estimates through a separate reconstruction route.</strong> The 3DGS and NeRF routes branch after input preparation. In NeRF, the renderer calculates the sample positions sent to the network.</p>
   </div>
   <p>Start with a NeRF network whose weights have not yet been fitted to this cabinet. Rendering its current predictions gives images that can be compared with the photographs. Training adjusts the weights to reduce the differences.</p>
@@ -51,12 +51,7 @@
     <figure><img src="assets/nerf-cabinet/trial-front.png" width="360" height="430" alt="An illustrative trial field renders the drawer gray and its edges softly" loading="lazy"><figcaption><strong>Current prediction</strong><br>The drawer color and edges are wrong.</figcaption></figure>
     <figure><img src="assets/nerf-cabinet/front.png" width="360" height="430" alt="The reference front view has a blue drawer with clearer edges" loading="lazy"><figcaption><strong>Photograph to match</strong><br>The reference drawer is blue.</figcaption></figure>
   </div>
-  <ol class="nerf-training-loop">
-    <li><strong>Render a prediction.</strong> Generate rays, query the network, and combine its answers.</li>
-    <li><strong>Measure the error.</strong> Compare the predicted colors with the corresponding photo pixels.</li>
-    <li><strong>Adjust the network’s weights.</strong> The training algorithm calculates changes intended to reduce that error.</li>
-    <li><strong>Repeat with more pixels and views.</strong> Render again with the updated network and compare again.</li>
-  </ol>
+  {{diagram:nerf-flow-2}}
   <p>The photographs provide target pixel colors, without labeling the density at P3 or the drawer’s surface position. Views from other cameras help constrain the 3D arrangement: a misplaced panel might match one view but appear in the wrong place in another.</p>
   <p><strong>Rendering and comparison are repeated throughout training.</strong> As the network’s weights change to reduce image errors, its 3D description improves. One network is trained to account for the cabinet across the input views. <a href="https://arxiv.org/html/2003.08934v2#S5.SS3">The original training procedure.</a></p>
 </section>
@@ -72,11 +67,7 @@
     </tbody>
   </table>
   <h3>One saved scene, many camera views</h3>
-  <div class="generation-flow" aria-label="Saved NeRF and a new camera produce new rays, field queries, and a rendered image">
-    <div><strong>Saved NeRF + new camera</strong><br>Keep the learned weights fixed</div><span aria-hidden="true">→</span>
-    <div><strong>Render</strong><br>Calculate rays, query color and density, combine the answers</div><span aria-hidden="true">→</span>
-    <div><strong>New 2D view</strong><br>A picture of the same cabinet</div>
-  </div>
+  {{diagram:nerf-flow-3}}
   <p>For a right-side view, place the virtual camera on the right and render. For a higher view, move it upward and render again. <strong>Every view is calculated directly from the same saved network.</strong> Only the camera and the resulting queries change. This uses the rendering calculation in <a href="field-rendering.html#nerf-rendering">Section 2.6.3</a>.</p>
   <p><strong>Rendering a viewpoint absent from the training photographs is called novel-view synthesis.</strong> This is a main use of NeRF: showing the same scene from another viewpoint. Camera estimation and network training belong to the earlier reconstruction stage; here, the saved result is ready to render. <a href="https://www.matthewtancik.com/nerf">NeRF project and examples.</a></p>
   <div class="gs-grid gs-two nerf-comparison">

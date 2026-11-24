@@ -1,0 +1,19 @@
+{
+  "generator": "scripts/draw_2dgs_examples.py",
+  "geometry": "scripts/shared_cabinet.py",
+  "rasterizer": "scripts/draw_dust3r_examples.py",
+  "provenance": "Authored explanatory diagrams; neither trained outputs nor a comparative quality test.",
+  "cabinet_guides": 29,
+  "dimensions": "3D elements have positive variance on three axes; 2D elements have two in-plane variances and zero normal variance.",
+  "guide_contours": "Two standard deviations, not hard support boundaries. Edge-on line width is a display aid.",
+  "disk_rendering": "Ray/plane intersection, in-plane Gaussian evaluation, and a context-mesh visibility mask.",
+  "volume_rendering": "Local projected covariance for soft marks; illustrative ellipsoid guides.",
+  "checks": "Covariance rank, orthogonal axes, and planar ray intersections are asserted.",
+  "mesh": "The pale cabinet is the shared authored mesh; no extraction was performed.",
+  "workflow": "Shared inputs split into aligned 3DGS and 2DGS routes. Each has its own fitting loop and saved representation. Optional mesh extraction branches from saved 2DGS disks via depth rendering and fusion.",
+  "sources": [
+    "https://surfsplatting.github.io/",
+    "https://arxiv.org/abs/2403.17888",
+    "https://github.com/hbb1/2d-gaussian-splatting"
+  ]
+}

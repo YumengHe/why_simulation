@@ -11,14 +11,22 @@
 <section class="simulation-lesson" id="robot-controller" data-title="From an action to a physical response">
   <h2><span class="section-number">4.4.2</span> From an action to a physical response</h2>
 <p>A <strong>controller</strong> is the program that tries to carry out a requested robot movement. For example, “move the gripper 10 cm outward while keeping it closed” must become control signals for the simulated robot’s motors. The controller uses the robot’s current state to update those signals.</p>
-  <ol class="simulation-loop" aria-label="Robot action, control, simulation, and observation">
-    <li><strong>Choose an action.</strong> A predefined program can request the movement. A VLA can instead propose it from the camera image and an instruction, as in <a href="llm-vlm-vla.html#vision-language-action-models">Section 1.3</a>.</li>
-    <li><strong>The controller tries to execute it.</strong> It sends control signals to move the arm and keep the gripper closed.</li>
-    <li><strong>MuJoCo calculates the response.</strong> The simulated motors move the robot; contact with the handle can transfer the pull to the drawer. The grip may hold or slip, and the drawer may move or stay stuck.</li>
-    <li><strong>Observe the result.</strong> Read the new robot and drawer positions. A renderer can make the next camera image for a VLA to use when choosing another action.</li>
-  </ol>
+  {{diagram:robot-interaction-flow-1}}
   <p><strong>A VLA is optional.</strong> It is one way to choose actions; a simple programmed sequence can also drive this test. A requested action can span many physics steps, so a new VLA prediction is not required at every step. <a href="https://openvla.github.io/">OpenVLA</a> is an example action model; <a href="https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model">MuJoCo’s actuation model</a> describes how control inputs produce simulated forces.</p>
   <p>The robot test also needs a stopping rule, such as reaching the desired opening or running out of allotted simulated time. Both tests produce motion over time; in the robot test, the pull comes through the modeled robot and its contact with the handle.</p>
 </section>
 
+<section class="simulation-lesson" id="articulate-anymesh-example" data-title="A research example: reconstruction to robot motion">
+  <h2><span class="section-number">4.4.3</span> A research example: reconstruction to robot motion</h2>
+  <p>The <a href="https://articulate-anymesh.github.io/">Articulate AnyMesh project’s real-to-sim-to-real demonstration</a> connects several steps introduced in this book:</p>
+  <ol>
+    <li><strong>Recover a surface.</strong> Use 2DGS to reconstruct a real object and extract a mesh, as described in <a href="gaussian-splatting.html#surface-gaussians">Section 2.8</a>.</li>
+    <li><strong>Add articulation.</strong> Articulate AnyMesh converts the mesh into an articulated URDF; see <a href="automatic-articulation.html#articulate-anymesh">Section 3.6</a>.</li>
+    <li><strong>Plan in simulation.</strong> Sample action targets and use motion planning to find a trajectory that avoids collisions and completes the task.</li>
+    <li><strong>Execute on the real robot.</strong> The authors then replay the trajectory in the physical scene.</li>
+  </ol>
+  <p>In the book’s cabinet example, a corresponding task would be to reach the drawer handle and pull it outward. The model supplies the cabinet’s parts and joints; the robot, motion planner, and controller supply the movement used to interact with it.</p>
+</section>
+
 <p class="section-connection">This returns to the task in <a href="llm-vlm-vla.html#vision-language-action-models">Chapter 1</a>: a model can propose an action, a controller tries to carry it out, and the simulated scene determines the resulting motion. The next camera image shows the outcome of that interaction.</p>
+<p><a href="simulation-platforms.html">Section 4.5</a> places these jobs in software: physics engines, scene frameworks, and the ManiSkill and RoboCasa task environments used for learning and evaluation.</p>

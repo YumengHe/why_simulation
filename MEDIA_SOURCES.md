@@ -20,6 +20,7 @@ media, review its source before updating the inventory with `--write`.
 | Box falling onto a cabinet shelf | `scripts/render_blender_physics.py`; scripted box geometry, Blender's Bullet rigid-body physics, and Cycles rendering. Only the initial box pose is supplied; later positions are computed from gravity and collisions. Parameters and sampled poses are recorded in `book/assets/software-physics/manifest.json`. |
 | Introductory cabinet video and poster | `scripts/animate_cabinet_intro.py`; triangles from `scripts/shared_cabinet.py`, per-pixel depth buffering, prescribed drawer/door joint positions |
 | Mesh/Gaussian cabinet comparison | `scripts/render_cabinet_comparison.py`; shared cabinet primitives, triangle rasterization, and perspective Gaussian splatting |
+| Hunyuan3D teaching stages and generation comparison | `scripts/draw_generation_methods.py`; depth-tested shared cabinet renders and explicit SVG method diagrams. Gray and colored stages use identical geometry, camera and lighting. Authored colors illustrate texture appearance; no Hunyuan3D or TRELLIS inference is run. |
 | Cabinet points, meshes, Gaussian and field diagrams | `scripts/draw_representation_overview.py` |
 | Cabinet voxel grid | `scripts/draw_voxel_cabinet.py`; center-sampled occupancy of the shared cabinet in 4 cm cells, drawing exposed occupied-cell faces. |
 | One Gaussian, twelve neighbours, and the whole cabinet | `scripts/draw_gaussian_groups.py`; one actual sample and its neighbours from the shared 4,748-Gaussian cabinet, with two-standard-deviation shape guides and a rendered whole view. |
@@ -29,13 +30,21 @@ media, review its source before updating the inventory with `--write`.
 | Cabinet projection video and stills | `scripts/animate_gaussian_cabinet.py`; fixed analytic Gaussian scene, projected and blended per camera |
 | Cabinet opacity slider images | `scripts/draw_cabinet_opacity.py`; the same scene re-rendered at different opacities |
 | Camera matching and Gaussian fitting illustrations | `scripts/draw_gaussian_learning.py`; constructed teaching stages and geometrically consistent camera rays |
+| COLMAP image correspondences | `scripts/draw_colmap_matches.py`; opaque shared-cabinet views with known surface points projected into each image. All annotated points are checked for visibility. Lines illustrate correspondences rather than detected features or a COLMAP run. |
+| DUSt3R pointmap and multi-view alignment illustrations | `scripts/draw_dust3r_examples.py`; opaque perspective renders of the shared cabinet with per-pixel surface coordinates. Point clouds reuse those coordinates. An authored pair-frame mismatch is removed by a similarity fit to known shared points, illustrating alignment rather than reproducing DUSt3R inference or its optimizer. Pixel reprojection and fitted alignment are checked by the generator. |
+| VGGT camera, depth, and point illustrations | `scripts/draw_vggt_examples.py`; the same canonical cabinet and perspective rasterizer as DUSt3R. Three input views, a camera plan, camera-axis depth, and shared surface samples illustrate output meanings. Camera/depth unprojection is checked; no VGGT inference is run. |
+| 3DGS and 2DGS element comparison and workflow | `scripts/draw_2dgs_examples.py`; analytic Gaussian volumes and planar disks, edge-on views, and 29 selected elements on the shared cabinet. Both cabinet views use identical centers and camera. Disk colors use ray/plane intersection; volume marks use projected covariance. The pale mesh is context. The SVG workflow branches from shared inputs into two independent, aligned fitting routes; optional mesh extraction starts from saved 2DGS disks, through depth rendering and fusion. These are teaching illustrations, not fitted results, extracted meshes, or a quality comparison. |
 | NeRF cabinet illustrations | `scripts/draw_nerf_cabinet.py`; an analytic color/density field and numerical volume rendering |
+| Articulate AnyMesh and URDFormer workflows and joint estimation | `scripts/draw_automatic_articulation.py`; opaque, depth-tested renders of the canonical cabinet, authored part ownership and image boxes, joint-axis guides, and a two-joint connection tree. The axis guides distinguish model judgments from geometric calculations (AnyMesh) and preset assembly rules (URDFormer); the plane and candidate hinge points are authored examples. No method inference is run. The same cabinet stands in for a supplied mesh and for prepared library parts; it is not a URDFormer library asset. The handles remain fixed to the drawer and door. |
 | URDF cabinet figures and motion GIFs | `scripts/draw_urdf_figures.py`, `scripts/animate_urdf_examples.py`; the shared cabinet via `scripts/cabinet_legacy.py` and joint transforms |
 | Force, mass, friction, release GIFs | `scripts/animate_drawer_forces.py`; calculated one-dimensional motion |
 | Collision preparation cutaways | `scripts/draw_simulation_workflow.py`; shared cabinet geometry, simplified contact boxes, and geometric clearance checks |
+| Physics engines and robot task platforms | `scripts/draw_simulation_platforms.py`; explicit software-layer and interaction diagrams, depth-tested canonical cabinet poses, and authored cup/counter meshes. A 90% threshold illustrates ManiSkill's documented drawer task criterion using the teaching cabinet's 76 cm range. The kitchen sequence is an authored composite-task example. No simulator or policy is executed, and no named platform's assets or screenshots are substituted. |
 | VLA before/after illustrations | `scripts/draw_vla_flow.py`; vector drawing and arm inverse kinematics |
 | Origin, panel, and drawer SVGs | `scripts/draw_cabinet_frames.py`, using the shared cabinet geometry |
-| Interactive in-page diagrams | `book/assets/articulation.js`, `frames.js`, `physics-demo.js`, `representation-demo.js`, and inline SVG/HTML in `book/chapters/` |
+| Native workflow and classification diagrams | `book/diagrams.json` supplies the authored content; `scripts/book_diagrams.py` renders semantic HTML and inline SVG connectors during `scripts/build_book.py`. The shared CSS supports steps, aligned routes, feedback loops, classifications, and part trees. Links are optional. Labels stay searchable and selectable, and layouts reflow on narrow screens. The original standalone diagram assets remain available. |
+| Cabinet panels within native diagrams | `scripts/draw_diagram_panels.py` exports cabinet-only views from the existing scripted articulation plates and renders physics/task poses using `draw_simulation_platforms.py`. Spatial guides are retained; headings and explanations are native HTML. No image generation or model inference is run. |
+| Interactive in-page diagrams | `book/assets/articulation.js`, `frames.js`, `physics-demo.js`, `representation-demo.js`, and inline SVG/HTML in `book/chapters/`. The Section 4.5 software map uses the same visual style, selectable HTML nodes, CSS Grid, and inline SVG connectors. |
 
 All cabinet examples now derive their panels, tray, and fixed handles from
 `scripts/shared_cabinet.py`: 21 box components and six capped handle cylinders.
@@ -93,6 +102,12 @@ python3 scripts/cabinet_legacy.py
 python3 scripts/draw_cabinet_frames.py
 python3 scripts/draw_chapter2_maps.py
 python3 scripts/render_cabinet_comparison.py
+python3 scripts/draw_generation_methods.py
+python3 scripts/draw_dust3r_examples.py
+python3 scripts/draw_vggt_examples.py
+python3 scripts/draw_colmap_matches.py
+python3 scripts/draw_2dgs_examples.py
+python3 scripts/draw_automatic_articulation.py
 python3 scripts/prepare_blender_figures.py
 python3 scripts/animate_cabinet_intro.py --ffmpeg /path/to/ffmpeg
 python3 scripts/animate_projection.py --ffmpeg /path/to/ffmpeg

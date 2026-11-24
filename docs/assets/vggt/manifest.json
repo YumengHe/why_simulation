@@ -1,0 +1,40 @@
+{
+  "generator": "scripts/draw_vggt_examples.py",
+  "geometry": "scripts/shared_cabinet.py",
+  "rasterizer": "scripts/draw_dust3r_examples.py",
+  "provenance": "Scripted illustrations of VGGT input and output meanings; no VGGT inference is run.",
+  "views": [
+    {
+      "name": "Left",
+      "azimuth_degrees": -28
+    },
+    {
+      "name": "Front",
+      "azimuth_degrees": 0
+    },
+    {
+      "name": "Right",
+      "azimuth_degrees": 28
+    }
+  ],
+  "depth": "Camera-axis Z, color-normalized over the visible cabinet in the left image.",
+  "depth_range_authored_units": [
+    2.709092247677926,
+    4.0502947332345425
+  ],
+  "camera_depth_unprojection_max_errors": [
+    1.0585941608761863e-14,
+    1.8343894894033213e-15,
+    3.8334861220111865e-15
+  ],
+  "point_A_world": [
+    -0.47971764392737587,
+    -0.49,
+    0.7018047640393509
+  ],
+  "points": "Visible surface samples from the same perspective renders, in the shared authored frame.",
+  "sources": [
+    "https://vgg-t.github.io/",
+    "https://github.com/facebookresearch/vggt#detailed-usage"
+  ]
+}

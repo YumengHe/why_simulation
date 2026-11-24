@@ -1,0 +1,55 @@
+{
+  "generator": "scripts/draw_automatic_articulation.py",
+  "geometry": "scripts/shared_cabinet.py",
+  "renderer": "scripts/preview_shared_cabinet.py; opaque depth-tested triangles",
+  "meaning": "Authored teaching illustrations, not inference results from either research method.",
+  "parts": [
+    "body",
+    "drawer with fixed handle",
+    "door with fixed handle"
+  ],
+  "moving_joints": [
+    "drawer slide",
+    "door hinge"
+  ],
+  "boxes": {
+    "drawer": [
+      [
+        114.02157981352364,
+        289.9033517062069
+      ],
+      [
+        269.4679022498598,
+        386.84937597598696
+      ]
+    ],
+    "door": [
+      [
+        114.02157981352364,
+        360.17012532288635
+      ],
+      [
+        269.4679022498598,
+        542.0218343794875
+      ]
+    ],
+    "handle": [
+      [
+        135.78746550650658,
+        325.9552374231224
+      ],
+      [
+        228.18293196768568,
+        366.8273208555016
+      ]
+    ]
+  },
+  "urdformer_proxy": "The canonical cabinet stands in for prepared part meshes. It is not the URDFormer asset library.",
+  "joint_guides": "Authored type predictions, connection plane, candidate points, and template axes explain responsibilities. A/B lie on the known canonical hinge. The plane normal is checked against the canonical slide direction. No axis estimation model is run.",
+  "sources": [
+    "https://articulate-anymesh.github.io/",
+    "https://arxiv.org/html/2502.02590v1#S3.SS3",
+    "https://urdformer.github.io/",
+    "https://github.com/WEIRDLabUW/urdformer/blob/main/utils.py"
+  ]
+}

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="1100" viewBox="0 0 480 1100" role="img">
+<title>Hunyuan3D 2.0 and original TRELLIS: two generation pipelines</title>
+<desc>Starting with a cabinet picture, Hunyuan3D creates a mesh and adds a texture. TRELLIS chooses locations near the surfaces, describes shape and appearance there, and converts its internal description into a mesh, Gaussians, or a radiance field.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1L9 5L0 9" fill="none" stroke="#64736c" stroke-width="1.5"/></marker></defs>
+<rect width="480" height="1100" fill="#fffefa"/>
+<text x="28" y="40" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="600" fill="#293632" text-anchor="start">From a cabinet picture</text>
+<text x="28" y="75" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="400" fill="#5f6862" text-anchor="start">Follow the shape and appearance.</text>
+<text x="28" y="125" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" fill="#528b82" text-anchor="start">Hunyuan3D 2.0</text>
+<rect x="40" y="150" width="400" height="98" rx="6" fill="white" stroke="#528b82" stroke-width="1.5"/>
+<text x="240.0" y="182" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="600" fill="#528b82" text-anchor="middle">Create the shape</text>
+<text x="240.0" y="214" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862" text-anchor="middle">Cabinet panels and raised handles</text>
+<path d="M240 248V287" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="296" width="400" height="98" rx="6" fill="white" stroke="#528b82" stroke-width="1.5"/>
+<text x="240.0" y="328" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="600" fill="#528b82" text-anchor="middle">Add a texture</text>
+<text x="240.0" y="360" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862" text-anchor="middle">Colors guided by the picture</text>
+<path d="M240 394V429" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="438" width="400" height="90" rx="6" fill="white" stroke="#528b82" stroke-width="1.5"/>
+<text x="240.0" y="470" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="600" fill="#528b82" text-anchor="middle">Textured mesh</text>
+<text x="240.0" y="502" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862" text-anchor="middle">Surface shape with its appearance</text>
+<text x="28" y="594" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" fill="#a67a20" text-anchor="start">Original TRELLIS</text>
+<rect x="40" y="620" width="400" height="98" rx="6" fill="white" stroke="#a67a20" stroke-width="1.5"/>
+<text x="240.0" y="652" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="600" fill="#a67a20" text-anchor="middle">Choose 3D locations</text>
+<text x="240.0" y="684" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862" text-anchor="middle">Where to describe the surfaces</text>
+<path d="M240 718V757" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="766" width="400" height="98" rx="6" fill="white" stroke="#a67a20" stroke-width="1.5"/>
+<text x="240.0" y="798" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="600" fill="#a67a20" text-anchor="middle">Describe the cabinet</text>
+<text x="240.0" y="830" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862" text-anchor="middle">Shape and appearance at these locations</text>
+<path d="M240 864V903" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="912" width="400" height="98" rx="6" fill="white" stroke="#a67a20" stroke-width="1.5"/>
+<text x="240.0" y="944" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="600" fill="#a67a20" text-anchor="middle">Choose an output</text>
+<text x="240.0" y="976" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#5f6862" text-anchor="middle">Mesh / Gaussians / radiance field</text>
+<text x="28" y="1060" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="400" fill="#5f6862" text-anchor="start">Convert the internal description to 3D data.</text>
+</svg>

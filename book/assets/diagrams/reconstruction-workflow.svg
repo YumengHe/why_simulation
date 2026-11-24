@@ -15,9 +15,9 @@
 <rect x="36" y="246" width="424" height="167" rx="8" fill="white" stroke="#528b82" stroke-width="1.4"/>
 <rect x="500" y="246" width="424" height="167" rx="8" fill="white" stroke="#a67a20" stroke-width="1.4"/>
 <text x="58" y="282" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" fill="#528b82">Reconstruction</text>
-<text x="58" y="315" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">COLMAP / VGGT: cameras + geometry</text>
-<text x="58" y="344" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">Further routes: surface reconstruction,</text>
-<text x="58" y="373" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">3DGS fitting, or NeRF training</text>
+<text x="58" y="315" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">COLMAP / DUSt3R / VGGT</text>
+<text x="58" y="344" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">Cameras + geometry; further routes:</text>
+<text x="58" y="373" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">surface meshes, 3DGS, or NeRF</text>
 <text x="522" y="282" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="600" fill="#a67a20">Generation</text>
 <text x="522" y="315" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">Example: TRELLIS</text>
 <text x="522" y="344" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="400" fill="#293632">Uses prior training to propose an asset</text>

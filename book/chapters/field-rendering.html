@@ -11,11 +11,7 @@
 <p>Along a line toward the drawer, empty air contributes little. Locations near the blue front panel contribute blue and reduce the contribution from behind. Combining the answers produces the pixel’s color. Repeating this across the image produces a view of the cabinet.</p>
 
 <p>Here we use the NeRF example introduced in <a href="gaussians-and-fields.html#nerf-network">Section 2.3.2</a>. The network supplies color and density; the renderer supplies the sample locations and combines the answers.</p>
-  <div class="generation-flow" aria-label="One NeRF query takes a position and viewing direction and returns color and density">
-    <div><strong>One query</strong><br>3D position<br>+ viewing direction</div><span aria-hidden="true">→</span>
-    <div><strong>NeRF network</strong><br>Evaluates the field</div><span aria-hidden="true">→</span>
-    <div><strong>Two answers</strong><br>Color + density</div>
-  </div>
+  {{diagram:field-rendering-flow-1}}
 <p>The network’s saved numerical settings are called <strong>weights</strong>. They determine its answers. During this rendering step, we keep those settings fixed and query the network at different positions.</p>
 </section>
 
@@ -52,11 +48,7 @@
   <h2><span class="section-number">2.6.3</span> From network outputs to the selected pixel</h2>
   <p><a href="#nerf-query-inputs">Section 2.6.2</a> calculated P1, P2, and P3 along the ray for one selected image pixel. Each position and the shared viewing direction are supplied <strong>as input</strong> to the same NeRF network. The network uses its current weights to calculate a color and density for each sample <strong>as output</strong>.</p>
   <p>For example, a prediction at P3, near the blue drawer front, could be:</p>
-  <div class="generation-flow" aria-label="P3 input passes through the NeRF network to produce color and density">
-    <div><strong>P3 input</strong><br>Position: (0, −0.46, 0.64)<br>Direction: (0, 1, 0)</div><span aria-hidden="true">→</span>
-    <div><strong>NeRF network</strong><br>Evaluates this input</div><span aria-hidden="true">→</span>
-    <div><strong>P3 output</strong><br>Color: blue<br>Density: high</div>
-  </div>
+  {{diagram:field-rendering-flow-2}}
   <p>These outputs describe individual samples. The renderer still needs to combine them into <strong>one color for the original selected pixel</strong>. The diagram continues with the same camera, ray, and sample positions:</p>
   <figure class="nerf-wide-figure">
     <a href="assets/nerf-cabinet/one-pixel.png" data-enlarge aria-label="Enlarge the same P1–P3 ray and its resulting pixel"><img src="assets/nerf-cabinet/one-pixel.png" width="1200" height="700" alt="The same ray as Section 2.6.2 passes P1 and P2 in air, then P3 at the blue drawer front. The corresponding central pixel in the rendered camera view is marked blue." loading="lazy"></a>

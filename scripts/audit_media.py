@@ -16,6 +16,7 @@ ASSETS=ROOT/'book/assets'
 MANIFEST=ROOT/'scripts/media-inventory.json'
 SUFFIXES={'.svg','.png','.jpg','.jpeg','.webp','.gif','.mp4','.webm'}
 DIRECTORIES={
+    'diagram-panels':'draw_diagram_panels.py',
     'cabinet-model':'preview_shared_cabinet.py',
     'experiments':'animate_urdf_examples.py',
     'figures':'draw_urdf_figures.py',
@@ -28,6 +29,13 @@ DIRECTORIES={
     'projection-cabinet/opacity':'draw_cabinet_opacity.py',
     'simulation-workflow':'draw_simulation_workflow.py',
     'examples/cabinet-representations':'render_cabinet_comparison.py',
+    'generation-methods':'draw_generation_methods.py',
+    'dust3r':'draw_dust3r_examples.py',
+    'vggt':'draw_vggt_examples.py',
+    'colmap':'draw_colmap_matches.py',
+    '2dgs':'draw_2dgs_examples.py',
+    'automatic-articulation':'draw_automatic_articulation.py',
+    'simulation-platforms':'draw_simulation_platforms.py',
     'maya':'draw_maya_examples.py',
     'software-physics':'render_blender_physics.py',
 }

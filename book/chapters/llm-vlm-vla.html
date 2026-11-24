@@ -81,19 +81,11 @@
     <p>A chat application can connect its main model to other models through <strong>tools</strong>. The assistant requests a tool, and the application sends the required inputs to it and returns the result. This lets the assistant delegate a task.</p>
 
     <h4 class="model-route-title">Call a VLM to read the picture</h4>
-    <ol class="model-tool-flow" aria-label="An assistant delegates the cabinet question to a vision-language model">
-      <li><strong>Assistant requests help</strong><p>Ask a visual tool to locate the drawer handle.</p></li>
-      <li><strong>VLM examines the image</strong><p>The application supplies the cabinet picture and question. The VLM returns a description of the handle’s location.</p></li>
-      <li><strong>Assistant uses the result</strong><p>Answer: “On the blue drawer at the top.”</p></li>
-    </ol>
+    {{diagram:llm-vlm-vla-flow-1}}
     <p>This is an alternative to the main model reading the image itself. <a href="https://arxiv.org/abs/2303.17580">HuggingGPT</a> is a research example of an LLM selecting other models and using their results to compose a response.</p>
 
     <h4 class="model-route-title">Call an image model to draw a picture</h4>
-    <ol class="model-tool-flow" aria-label="An assistant delegates creating a cabinet picture to an image-generation model">
-      <li><strong>Assistant requests an image</strong><p>Send “Draw a blue cabinet with a gold door” to an image-generation tool.</p></li>
-      <li><strong>Image model creates it</strong><p>The model generates an image from the description.</p></li>
-      <li><strong>Application displays it</strong><p>The new cabinet picture appears in the conversation.</p></li>
-    </ol>
+    {{diagram:llm-vlm-vla-flow-2}}
     <p>OpenAI’s <a href="https://developers.openai.com/api/docs/guides/tools-image-generation">image-generation tool</a> supports this arrangement: a main model can call a separate GPT Image model to generate or edit an image.</p>
     <p><strong>Reading and drawing name the tasks. Calling a tool describes how the work is assigned.</strong> A model with its own vision capability can still call another model to create pictures.</p>
   </div>
@@ -119,11 +111,7 @@
       <li>
         <h4><span class="vla-step-number">2</span> Process the image and instruction</h4>
         <p>This example follows the broad structure of <a href="https://openvla.github.io/">OpenVLA</a>. These components work together within the VLA.</p>
-        <ol class="vla-components">
-          <li><strong>Image encoder + adapter</strong><p>Turn the image into numerical features the main model can use.</p></li>
-          <li><strong>Vision-language backbone</strong><p>Combine those features with the instruction “Open the drawer.”</p></li>
-          <li><strong>Action output</strong><p>Produce action values. Here, a possible result is an outward movement with the gripper kept closed.</p></li>
-        </ol>
+        {{diagram:vla-components}}
       </li>
       <li id="vla-command-example">
         <h4><span class="vla-step-number">3</span> A possible command</h4>

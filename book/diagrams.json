@@ -1,0 +1,916 @@
+{
+  "gaussian-splatting-flow-1": {
+    "title": "Fit the Gaussian cabinet",
+    "nodes": [
+      {
+        "title": "Render",
+        "text": "",
+        "body": "<span>3D blobs → 2D image</span>"
+      },
+      {
+        "title": "Compare",
+        "text": "",
+        "body": "<span>Rendered image ↔ photo</span>"
+      },
+      {
+        "title": "Update",
+        "text": "",
+        "body": "<span>Change the 3D blobs</span>"
+      }
+    ],
+    "repeat": "Render again, compare again, update again."
+  },
+  "nerf-flow-1": {
+    "title": "From prepared cameras to field queries",
+    "nodes": [
+      {
+        "title": "Prepared inputs",
+        "text": "",
+        "body": "Cabinet photos + camera parameters"
+      },
+      {
+        "title": "NeRF renderer",
+        "text": "",
+        "body": "Rays + sampled 3D positions"
+      },
+      {
+        "title": "NeRF network",
+        "text": "",
+        "body": "Color + density per sample"
+      }
+    ]
+  },
+  "nerf-flow-2": {
+    "title": "Fit the field to the photographs",
+    "nodes": [
+      {
+        "title": "Render a prediction.",
+        "text": "",
+        "body": "Generate rays, query the network, and combine its answers."
+      },
+      {
+        "title": "Measure the error.",
+        "text": "",
+        "body": "Compare the predicted colors with the corresponding photo pixels."
+      },
+      {
+        "title": "Adjust the network’s weights.",
+        "text": "",
+        "body": "The training algorithm calculates changes intended to reduce that error."
+      },
+      {
+        "title": "Repeat with more pixels and views.",
+        "text": "",
+        "body": "Render again with the updated network and compare again."
+      }
+    ],
+    "repeat": "Repeat across the photographed camera views, updating the network’s weights."
+  },
+  "nerf-flow-3": {
+    "title": "Render a new view",
+    "nodes": [
+      {
+        "title": "Saved NeRF + new camera",
+        "text": "",
+        "body": "Keep the learned weights fixed"
+      },
+      {
+        "title": "Render",
+        "text": "",
+        "body": "Calculate rays, query color and density, combine the answers"
+      },
+      {
+        "title": "New 2D view",
+        "text": "",
+        "body": "A picture of the same cabinet"
+      }
+    ]
+  },
+  "robot-interaction-flow-1": {
+    "title": "From an action to a physical response",
+    "nodes": [
+      {
+        "title": "Choose an action.",
+        "text": "",
+        "body": "A predefined program can request the movement. A VLA can instead propose it from the camera image and an instruction, as in <a href=\"llm-vlm-vla.html#vision-language-action-models\">Section 1.3</a>."
+      },
+      {
+        "title": "The controller tries to execute it.",
+        "text": "",
+        "body": "It sends control signals to move the arm and keep the gripper closed."
+      },
+      {
+        "title": "MuJoCo calculates the response.",
+        "text": "",
+        "body": "The simulated motors move the robot; contact with the handle can transfer the pull to the drawer. The grip may hold or slip, and the drawer may move or stay stuck."
+      },
+      {
+        "title": "Observe the result.",
+        "text": "",
+        "body": "Read the new robot and drawer positions. A renderer can make the next camera image for a VLA to use when choosing another action."
+      }
+    ]
+  },
+  "rendering-flow-1": {
+    "title": "From a 3D scene to a 2D image",
+    "nodes": [
+      {
+        "title": "3D scene",
+        "text": "",
+        "body": "The cabinet and its appearance"
+      },
+      {
+        "title": "Camera + renderer",
+        "text": "",
+        "body": "Choose a view and calculate its pixels"
+      },
+      {
+        "title": "2D image",
+        "text": "",
+        "body": "A picture of the cabinet"
+      }
+    ]
+  },
+  "field-rendering-flow-1": {
+    "title": "Query a radiance field",
+    "nodes": [
+      {
+        "title": "One query",
+        "text": "",
+        "body": "3D position<br>+ viewing direction"
+      },
+      {
+        "title": "NeRF network",
+        "text": "",
+        "body": "Evaluates the field"
+      },
+      {
+        "title": "Two answers",
+        "text": "",
+        "body": "Color + density"
+      }
+    ]
+  },
+  "field-rendering-flow-2": {
+    "title": "One query near the drawer front",
+    "nodes": [
+      {
+        "title": "P3 input",
+        "text": "",
+        "body": "Position: (0, −0.46, 0.64)<br>Direction: (0, 1, 0)"
+      },
+      {
+        "title": "NeRF network",
+        "text": "",
+        "body": "Evaluates this input"
+      },
+      {
+        "title": "P3 output",
+        "text": "",
+        "body": "Color: blue<br>Density: high"
+      }
+    ]
+  },
+  "3d-software-flow-1": {
+    "title": "Scene, camera, and rendering",
+    "nodes": [
+      {
+        "title": "3D scene",
+        "text": "",
+        "body": "<p>Model, materials, and lights.</p>"
+      },
+      {
+        "title": "Virtual camera",
+        "text": "",
+        "body": "<p>Choose the viewpoint and framing.</p>"
+      },
+      {
+        "title": "Render",
+        "text": "",
+        "body": "<p>Calculate a 2D picture from that view.</p>"
+      }
+    ]
+  },
+  "llm-vlm-vla-flow-1": {
+    "title": "Call a VLM to read the picture",
+    "nodes": [
+      {
+        "title": "Assistant requests help",
+        "text": "",
+        "body": "<p>Ask a visual tool to locate the drawer handle.</p>"
+      },
+      {
+        "title": "VLM examines the image",
+        "text": "",
+        "body": "<p>The application supplies the cabinet picture and question. The VLM returns a description of the handle’s location.</p>"
+      },
+      {
+        "title": "Assistant uses the result",
+        "text": "",
+        "body": "<p>Answer: “On the blue drawer at the top.”</p>"
+      }
+    ]
+  },
+  "llm-vlm-vla-flow-2": {
+    "title": "Call an image model to draw a picture",
+    "nodes": [
+      {
+        "title": "Assistant requests an image",
+        "text": "",
+        "body": "<p>Send “Draw a blue cabinet with a gold door” to an image-generation tool.</p>"
+      },
+      {
+        "title": "Image model creates it",
+        "text": "",
+        "body": "<p>The model generates an image from the description.</p>"
+      },
+      {
+        "title": "Application displays it",
+        "text": "",
+        "body": "<p>The new cabinet picture appears in the conversation.</p>"
+      }
+    ]
+  },
+  "cameras-and-geometry-flow-1": {
+    "title": "From photographs to cameras and geometry",
+    "nodes": [
+      {
+        "title": "2D photographs",
+        "text": "",
+        "body": "Several views of the cabinet"
+      },
+      {
+        "title": "Choose a method",
+        "text": "",
+        "body": "COLMAP, DUSt3R, or VGGT"
+      },
+      {
+        "title": "Cameras + 3D geometry",
+        "text": "",
+        "body": "Camera settings + surface positions"
+      }
+    ]
+  },
+  "cameras-and-geometry-flow-2": {
+    "title": "Check a 3D estimate",
+    "nodes": [
+      {
+        "title": "Estimate 3D",
+        "text": "",
+        "body": "<p>Propose a cabinet representation from its photographs.</p>"
+      },
+      {
+        "title": "Render and compare",
+        "text": "",
+        "body": "<p>Draw that representation from the photograph’s camera and compare the two images.</p>"
+      }
+    ],
+    "repeat": "Adjust the 3D estimate using the image differences, then render and compare again."
+  },
+  "cameras-and-geometry-flow-3": {
+    "title": "DUSt3R: predict, then align",
+    "nodes": [
+      {
+        "title": "Overlapping photos",
+        "text": "",
+        "body": "Form image pairs"
+      },
+      {
+        "title": "DUSt3R predictions",
+        "text": "",
+        "body": "Two pointmaps per pair"
+      },
+      {
+        "title": "Align pair results",
+        "text": "",
+        "body": "One shared reconstruction"
+      }
+    ]
+  },
+  "cameras-and-geometry-flow-4": {
+    "title": "VGGT: predict cameras and geometry",
+    "nodes": [
+      {
+        "title": "Input",
+        "text": "",
+        "body": "Cabinet images"
+      },
+      {
+        "title": "VGGT",
+        "text": "",
+        "body": "A pretrained geometry model"
+      },
+      {
+        "title": "Outputs",
+        "text": "",
+        "body": "Cameras + depth / 3D points"
+      }
+    ]
+  },
+  "mujoco-experiments-flow-1": {
+    "title": "Advance one small time step",
+    "nodes": [
+      {
+        "title": "Now",
+        "text": "",
+        "body": "<span>Drawer opening and speed now</span>"
+      },
+      {
+        "title": "Calculate a small step",
+        "text": "",
+        "body": "<span>Use the current force, mass, resistance, contacts, and joint limits</span>"
+      },
+      {
+        "title": "A moment later",
+        "text": "",
+        "body": "<span>Opening and speed a small time step later</span>"
+      }
+    ],
+    "repeat": "Continue from that new opening and speed. Each step advances time a little; this experiment stops at 2 seconds."
+  },
+  "mujoco-experiments-flow-2": {
+    "title": "From motion to video frames",
+    "nodes": [
+      {
+        "title": "MuJoCo physics",
+        "text": "",
+        "body": "Calculates a new drawer pose"
+      },
+      {
+        "title": "Mesh + renderer",
+        "text": "",
+        "body": "Draws that pose from a camera"
+      },
+      {
+        "title": "2D frame",
+        "text": "",
+        "body": "Many frames make a video"
+      }
+    ]
+  },
+  "mujoco-experiments-flow-3": {
+    "title": "From an asset to a simulation video",
+    "nodes": [
+      {
+        "title": "TRELLIS · create the asset",
+        "text": "",
+        "body": "<span>Cabinet image → a proposed mesh</span>"
+      },
+      {
+        "title": "Blender · prepare the geometry",
+        "text": "",
+        "body": "<span>Mesh → separate body, drawer, and door shapes, at the correct scale</span>"
+      },
+      {
+        "title": "Model preparation · write an MJCF model",
+        "text": "",
+        "body": "<span>Part shapes + joints + collision shapes + physical settings → a simulation model</span>"
+      },
+      {
+        "title": "MuJoCo · calculate the movement",
+        "text": "",
+        "body": "<span>Simulation model + initial state + pull → positions and speeds over time</span>"
+      },
+      {
+        "title": "Renderer · make the pictures",
+        "text": "",
+        "body": "<span>Those positions + visible geometry + appearance + camera and lighting → video frames</span>"
+      }
+    ]
+  },
+  "representation-map": {
+    "kind": "groups",
+    "kicker": "Representation map",
+    "title": "Ways to describe the same 3D cabinet",
+    "intro": "Representation is the information kept about the object.",
+    "groups": [
+      {
+        "title": "Stored elements",
+        "nodes": [
+          {
+            "title": "Point cloud",
+            "text": "3D positions; optional colors."
+          },
+          {
+            "title": "Mesh",
+            "text": "Vertices and connected triangle or quad faces."
+          },
+          {
+            "title": "Voxel grid",
+            "text": "Values in small 3D cells, such as occupied or empty."
+          },
+          {
+            "title": "3D Gaussians",
+            "text": "Positions, sizes, orientations, opacities, and appearance."
+          }
+        ]
+      },
+      {
+        "title": "Fields: ask about a location",
+        "nodes": [
+          {
+            "title": "Signed distance (SDF)",
+            "text": "How far from the surface, and on which side?"
+          },
+          {
+            "title": "Occupancy",
+            "text": "Is this location inside the solid, or how likely is it to be inside?"
+          },
+          {
+            "title": "Radiance field",
+            "text": "Density and view-dependent color. NeRF represents a field with a neural network."
+          }
+        ]
+      }
+    ],
+    "note": "<strong>Storage and field meaning can be combined.</strong> A voxel grid can store sampled distance or occupancy values.",
+    "caption": "A field describes what we can ask; its storage describes how the answers are kept. For example, a voxel grid can store an occupancy value in every cell."
+  },
+  "reconstruction-map": {
+    "kind": "lanes",
+    "title": "Create 3D data, then render a view",
+    "routes": [
+      "Reconstruction",
+      "Generation"
+    ],
+    "rows": [
+      {
+        "title": "Input",
+        "nodes": [
+          {
+            "title": "Cabinet photographs",
+            "text": "Overlapping views of the same scene."
+          },
+          {
+            "title": "An image or a prompt",
+            "text": "A condition for a pretrained generator."
+          }
+        ]
+      },
+      {
+        "title": "Method",
+        "nodes": [
+          {
+            "title": "Recover the scene",
+            "text": "COLMAP, DUSt3R, or VGGT estimates cameras and geometry. Further routes include surface meshes, 3DGS, and NeRF."
+          },
+          {
+            "title": "Propose an asset",
+            "text": "A generator such as TRELLIS uses prior training to create a supported 3D output."
+          }
+        ]
+      }
+    ],
+    "intro": "Follow either creation route, then use the renderer for its output.",
+    "output": {
+      "title": "3D representation",
+      "text": "For example: points, a mesh, Gaussians, or a field.",
+      "accent": true
+    },
+    "after": [
+      {
+        "title": "Renderer + virtual camera",
+        "text": "Calculate a picture from the chosen viewpoint."
+      },
+      {
+        "title": "2D image",
+        "text": "A view of the cabinet."
+      }
+    ],
+    "repeat": "<strong>During 3DGS / NeRF fitting:</strong> render → compare with the input photographs → update the 3D representation → render again.",
+    "caption": "A method can support several output representations. During 3DGS or NeRF fitting, image comparison updates the representation; after fitting, rendering makes new views."
+  },
+  "gaussian-routes": {
+    "kind": "lanes",
+    "title": "One set of cabinet photographs, two routes",
+    "routes": [
+      "3DGS",
+      "2DGS"
+    ],
+    "rows": [
+      {
+        "title": "Initialize",
+        "nodes": [
+          {
+            "title": "Soft ellipsoids",
+            "text": "Three sizes describe width, height, and thickness."
+          },
+          {
+            "title": "Flat Gaussian disks",
+            "text": "Two sizes describe a plane placed and oriented in 3D.",
+            "accent": true
+          }
+        ]
+      },
+      {
+        "title": "Fit repeatedly",
+        "nodes": [
+          {
+            "title": "Render → compare → adjust",
+            "text": "Use the 3DGS renderer. Compare with the same-camera photograph and adjust using image differences."
+          },
+          {
+            "title": "Render → compare → adjust",
+            "text": "Use the 2DGS renderer. Adjust using image differences and surface constraints for depth and facing direction.",
+            "accent": true
+          }
+        ]
+      },
+      {
+        "title": "Save",
+        "nodes": [
+          {
+            "title": "Fitted ellipsoids",
+            "text": "Store the Gaussians and their learned parameters."
+          },
+          {
+            "title": "Fitted disks",
+            "text": "Store the disks and their learned parameters."
+          }
+        ]
+      },
+      {
+        "title": "Use the result",
+        "nodes": [
+          {
+            "title": "Render new views",
+            "text": "Saved ellipsoids + a new camera + the 3DGS renderer → a 2D color image."
+          },
+          {
+            "title": "Two uses of the saved disks",
+            "body": "<p><strong>New view:</strong> new camera + 2DGS renderer → a 2D color image.</p><p><strong>Optional mesh:</strong> render depth maps → combine depth → extract surfaces.</p>"
+          }
+        ]
+      }
+    ],
+    "input": {
+      "title": "Prepare shared inputs",
+      "text": "Cabinet photographs, camera parameters, and sparse 3D points.",
+      "href": "cameras-and-geometry.html#colmap-cabinet"
+    },
+    "intro": "Each route fits its own representation. The steps line up for comparison.",
+    "repeat": "<strong>Fitting loop:</strong> repeat rendering, comparison, and adjustment across the input camera views before saving.",
+    "note": "Mesh extraction uses the saved 2DGS disks to render depth; new color images are a separate output. A 3DGS mesh requires an additional surface-reconstruction workflow.",
+    "caption": "<strong>Read either column from top to bottom.</strong> Matching steps line up across the two methods. Gold highlights method-specific details, including 2DGS constraints on surface depth and facing direction. Each fitting loop repeats before its result is saved. The optional mesh branch starts from the saved disks."
+  },
+  "generation-routes": {
+    "kind": "lanes",
+    "title": "From a cabinet picture",
+    "routes": [
+      "Hunyuan3D 2.0",
+      "Original TRELLIS"
+    ],
+    "rows": [
+      {
+        "title": "First stage",
+        "nodes": [
+          {
+            "title": "Create the shape",
+            "text": "Generate a bare mesh of the cabinet panels and handles."
+          },
+          {
+            "title": "Choose 3D locations",
+            "text": "Choose active locations near the cabinet’s surfaces."
+          }
+        ]
+      },
+      {
+        "title": "Second stage",
+        "nodes": [
+          {
+            "title": "Add a texture",
+            "text": "Generate colors and patterns guided by the image."
+          },
+          {
+            "title": "Describe shape and appearance",
+            "text": "Generate local codes around the chosen locations."
+          }
+        ]
+      },
+      {
+        "title": "Output",
+        "nodes": [
+          {
+            "title": "Textured mesh",
+            "text": "A surface shape with its appearance.",
+            "accent": true
+          },
+          {
+            "title": "Choose a representation",
+            "text": "Decode the description into a mesh, Gaussians, or a radiance field.",
+            "accent": true
+          }
+        ]
+      }
+    ],
+    "input": {
+      "title": "Input: a cabinet picture",
+      "text": "The same kind of reference is used for both examples."
+    },
+    "intro": "Compare what each stage creates and what can be saved."
+  },
+  "anymesh-stages": {
+    "title": "Articulate AnyMesh: from a mesh to moving parts",
+    "nodes": [
+      {
+        "title": "Cabinet mesh",
+        "text": "Existing surfaces before adding movement.",
+        "image": "assets/diagram-panels/anymesh-input.png",
+        "alt": "The shared cabinet as a gray surface mesh."
+      },
+      {
+        "title": "Identify parts and joints",
+        "text": "VLM judgments and geometry calculations locate parts and their movement.",
+        "image": "assets/diagram-panels/anymesh-parts.png",
+        "alt": "Teal body, blue drawer, and gold door surface groups."
+      },
+      {
+        "title": "Articulated asset",
+        "text": "The drawer slides; the door rotates. Shape and appearance are also refined.",
+        "image": "assets/diagram-panels/articulated-output.png",
+        "alt": "The same cabinet with the drawer and door open."
+      }
+    ],
+    "caption": "Colors in the middle identify groups of <strong>3D surfaces</strong>. The drawer front, tray, and handle form one moving part. These scripted cabinet views explain the stages; the research method’s predictions can differ."
+  },
+  "urdformer-stages": {
+    "title": "URDFormer: from an image to an assembled model",
+    "nodes": [
+      {
+        "title": "Image + part boxes",
+        "text": "Detected rectangles locate visible parts in the picture.",
+        "image": "assets/diagram-panels/detected-parts.png",
+        "alt": "Cabinet image with boxes around the drawer, door and handle."
+      },
+      {
+        "title": "Predict, then assemble",
+        "text": "",
+        "body": "<dl><dt>Predicted drawer category</dt><dd>Select a drawer mesh</dd><dt>Position, size, parent</dt><dd>Place it in the upper cabinet body</dd></dl><p>Program rules assign the category’s joints and write the URDF.</p>"
+      },
+      {
+        "title": "URDF + part meshes",
+        "text": "A proposed 3D arrangement with movable parts.",
+        "image": "assets/diagram-panels/articulated-output.png",
+        "alt": "The assembled teaching cabinet with its drawer and door open."
+      }
+    ],
+    "caption": "The rectangles mark <strong>2D image regions</strong>. The middle lists examples of predicted attributes. The same scripted cabinet stands in for the assembled result so we can follow its parts; this is an illustration, not a URDFormer prediction."
+  },
+  "anymesh-joints": {
+    "kind": "lanes",
+    "title": "Choose a joint, then locate its axis",
+    "routes": [
+      "Drawer",
+      "Door"
+    ],
+    "rows": [
+      {
+        "title": "Model prediction",
+        "nodes": [
+          {
+            "title": "Slide inward / outward",
+            "text": "GPT-4o proposes a sliding joint.",
+            "label": "Model prediction"
+          },
+          {
+            "title": "Rotate around a hinge",
+            "text": "GPT-4o proposes rotation and selects hinge candidates A and B.",
+            "label": "Model prediction"
+          }
+        ]
+      },
+      {
+        "title": "Locate the axis",
+        "nodes": [
+          {
+            "title": "Slide direction",
+            "text": "Perpendicular to the illustrated connection plane.",
+            "image": "assets/diagram-panels/anymesh-drawer.png",
+            "alt": "Cabinet with an outward arrow indicating the drawer sliding direction."
+          },
+          {
+            "title": "Vertical hinge",
+            "text": "Selected candidates A and B lie along the left hinge.",
+            "image": "assets/diagram-panels/anymesh-door.png",
+            "alt": "Cabinet door with its vertical hinge and rotation direction marked."
+          }
+        ]
+      },
+      {
+        "title": "Program step",
+        "nodes": [
+          {
+            "title": "Calculate a direction",
+            "text": "Fit the connection plane; use its perpendicular direction as the slide axis.",
+            "label": "Geometry calculation",
+            "accent": true
+          },
+          {
+            "title": "Fit a hinge line",
+            "text": "Fit a line through the selected 3D points to obtain the rotation axis.",
+            "label": "Geometry calculation",
+            "accent": true
+          }
+        ]
+      }
+    ],
+    "kicker": "Joint estimation",
+    "intro": "Articulate AnyMesh",
+    "caption": "The labels distinguish model predictions from geometry calculations. The plane and candidate points are authored guides on the shared cabinet."
+  },
+  "urdformer-joints": {
+    "kind": "lanes",
+    "title": "Predict a category, then apply joint rules",
+    "routes": [
+      "Drawer",
+      "Door"
+    ],
+    "rows": [
+      {
+        "title": "Model prediction",
+        "nodes": [
+          {
+            "title": "Drawer category",
+            "text": "The network also predicts position, size, and parent.",
+            "label": "Model prediction"
+          },
+          {
+            "title": "Door category",
+            "text": "The predicted category specifies an opening arrangement.",
+            "label": "Model prediction"
+          }
+        ]
+      },
+      {
+        "title": "Locate the axis",
+        "nodes": [
+          {
+            "title": "Slide direction",
+            "text": "The preset local axis moves with the placed drawer.",
+            "image": "assets/diagram-panels/urdformer-drawer.png",
+            "alt": "Cabinet with an outward arrow indicating the drawer sliding direction."
+          },
+          {
+            "title": "Vertical hinge",
+            "text": "The preset hinge is located with the selected door arrangement.",
+            "image": "assets/diagram-panels/urdformer-door.png",
+            "alt": "Cabinet door with its vertical hinge and rotation direction marked."
+          }
+        ]
+      },
+      {
+        "title": "Program step",
+        "nodes": [
+          {
+            "title": "Assign a sliding joint",
+            "text": "Use the drawer category’s preset local slide axis, placed with the predicted part.",
+            "label": "Preset assembly rule",
+            "accent": true
+          },
+          {
+            "title": "Assign a rotating joint",
+            "text": "Use the category’s preset local hinge axis; part placement locates it in the cabinet.",
+            "label": "Preset assembly rule",
+            "accent": true
+          }
+        ]
+      }
+    ],
+    "kicker": "Joint estimation",
+    "intro": "URDFormer",
+    "caption": "The labels distinguish network predictions from preset assembly rules. The shared cabinet illustrates the axes of the chosen part arrangements."
+  },
+  "articulated-structure": {
+    "kind": "tree",
+    "kicker": "Movement structure",
+    "title": "Inspect the cabinet’s connections",
+    "image": "assets/diagram-panels/cabinet-structure.png",
+    "alt": "Teaching cabinet with its drawer extended and door open.",
+    "root": {
+      "title": "Cabinet body",
+      "text": "The fixed parent part."
+    },
+    "children": [
+      {
+        "title": "Drawer",
+        "text": "Front, tray, and fixed handle.",
+        "label": "Sliding joint"
+      },
+      {
+        "title": "Door",
+        "text": "Panel and fixed handle.",
+        "label": "Hinge joint"
+      }
+    ],
+    "note": "URDF records the connections and joints. Part mesh files supply the visible shapes.",
+    "caption": "For this teaching cabinet, the intended structure has <strong>two movable joints</strong>. Handles remain fixed to their owners. The diagram shows the structure to inspect in an output from either method."
+  },
+  "physics-step": {
+    "title": "One short physics step",
+    "nodes": [
+      {
+        "title": "Current state",
+        "text": "Drawer opening and speed; robot positions and speeds.",
+        "image": "assets/diagram-panels/physics-current.png",
+        "alt": "Cabinet drawer in the current example position."
+      },
+      {
+        "title": "Physics engine",
+        "text": "",
+        "body": "<ol><li><strong>Find contacts.</strong> Where do collision shapes meet?</li><li><strong>Solve the response.</strong> Use motor and contact forces, friction, and joint constraints.</li><li><strong>Advance motion.</strong> Update velocities and positions.</li></ol>",
+        "accent": true
+      },
+      {
+        "title": "Next state",
+        "text": "Updated drawer opening and robot / drawer speeds.",
+        "image": "assets/diagram-panels/physics-next.png",
+        "alt": "Cabinet drawer in a later example position."
+      }
+    ],
+    "intro": "The physical model and control inputs determine the update.",
+    "repeat": "Use the updated state as the current state for the next short time step.",
+    "caption": "The two cabinet poses illustrate successive states. Their positions are authored for this diagram; the existing <a href=\"mujoco-experiments.html\">MuJoCo experiments in Section 4.3</a> show calculated motion."
+  },
+  "cabinet-tasks": {
+    "kind": "task",
+    "kicker": "Task examples",
+    "title": "From one skill to a kitchen activity",
+    "image": "assets/diagram-panels/task-open.png",
+    "alt": "Cabinet with the drawer nearly fully open.",
+    "criterion": {
+      "title": "ManiSkill: open the target drawer",
+      "text": "Check both opening and low motion. For the teaching cabinet, 90% × 76 cm = 68.4 cm.",
+      "accent": true
+    },
+    "nodes": [
+      {
+        "title": "Open the drawer",
+        "text": "Create access to the cup.",
+        "image": "assets/diagram-panels/kitchen-0.png",
+        "alt": "Open drawer with a cup inside, beside a counter."
+      },
+      {
+        "title": "Take out the cup",
+        "text": "Lift the cup clear of the drawer.",
+        "image": "assets/diagram-panels/kitchen-1.png",
+        "alt": "The cup above the open drawer."
+      },
+      {
+        "title": "Place on the counter",
+        "text": "Leave the cup on the counter.",
+        "image": "assets/diagram-panels/kitchen-2.png",
+        "alt": "The cup on the counter beside the cabinet."
+      }
+    ],
+    "intro": "The drawer example defines success; the kitchen example combines several actions.",
+    "caption": "The shared cabinet is used for explanation. The upper panel illustrates the documented ManiSkill success condition; the lower sequence is an authored example of a composite kitchen task. These are scripted teaching views, rather than simulator screenshots or measured policy results."
+  },
+  "task-loop": {
+    "title": "One interaction in a robot task",
+    "nodes": [
+      {
+        "title": "Observation",
+        "text": "A camera image or state values."
+      },
+      {
+        "title": "Policy",
+        "text": "Choose an action, such as pulling outward."
+      },
+      {
+        "title": "Controller",
+        "text": "Translate the requested movement into motor control inputs."
+      },
+      {
+        "title": "Physics",
+        "text": "Calculate contacts and motion over short time steps.",
+        "accent": true
+      },
+      {
+        "title": "Task feedback",
+        "text": "Provide the next image or state values, reward, and success information."
+      }
+    ],
+    "intro": "An action is executed; its outcome becomes the next observation.",
+    "repeat": "Return the new observation to the policy while the episode continues.",
+    "note": "End the attempt using the experiment’s stopping rule or time limit, then reset.",
+    "caption": "One policy action may span many short physics steps. The renderer creates camera images from the updated scene; task code computes the reward and success flag."
+  },
+  "vla-components": {
+    "title": "Process an image and an instruction",
+    "kicker": "Inside a VLA",
+    "nodes": [
+      {
+        "title": "Image encoder + adapter",
+        "body": "Turn the image into numerical features the main model can use."
+      },
+      {
+        "title": "Vision-language backbone",
+        "body": "Combine those features with the instruction “Open the drawer.”"
+      },
+      {
+        "title": "Action output",
+        "body": "Produce action values. Here, a possible result is an outward movement with the gripper kept closed."
+      }
+    ]
+  }
+}

@@ -7,6 +7,7 @@ from hashlib import sha256
 import json
 import re
 import shutil
+from book_diagrams import expand_diagrams
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'book'
@@ -55,7 +56,7 @@ def build():
     asset_version = sha256(b''.join((SOURCE / 'assets' / name).read_bytes() for name in ['book.css', 'book.js', 'articulation.js', 'frames.js'] + chapter_scripts)).hexdigest()[:12]
     chapters = []
     for chapter in config['chapters']:
-        content = (SOURCE / chapter['source']).read_text()
+        content = expand_diagrams((SOURCE / chapter['source']).read_text())
         if '{{citation_bibtex}}' in content:
             citation = (SOURCE / 'citation.bib').read_text().strip()
             content = content.replace('{{citation_bibtex}}', escape(citation))

@@ -20,12 +20,7 @@
   <h2><span class="section-number">4.3.2</span> Calculate the drawer’s motion</h2>
 <p>For a simple experiment, start with the drawer closed and still. Apply an outward <strong>3 N force for 0.5 seconds</strong>, then remove that force. A newton (N) measures force. Continue the simulation until <strong>2 seconds of simulated time</strong> to observe what happens after the pull ends. These are example settings for the experiment.</p>
   <p>MuJoCo calculates the motion in small time steps. At each step, the drawer has an opening distance and a speed; together, these describe its <strong>state</strong>. “Current” and “next” refer to the same drawer at two nearby times, not simply to “closed” and “open.”</p>
-  <div class="gs-loop" aria-label="Repeat physics steps until the experiment reaches two seconds">
-    <div><strong>Now</strong><span>Drawer opening and speed now</span></div><span aria-hidden="true">→</span>
-    <div><strong>Calculate a small step</strong><span>Use the current force, mass, resistance, contacts, and joint limits</span></div><span aria-hidden="true">→</span>
-    <div><strong>A moment later</strong><span>Opening and speed a small time step later</span></div>
-    <p>Continue from that new opening and speed. Each step advances time a little; this experiment stops at 2 seconds.</p>
-  </div>
+  {{diagram:mujoco-experiments-flow-1}}
   <p><strong>Ending the pull does not end the simulation.</strong> After 0.5 seconds, the applied pulling force is zero, but the drawer may still be moving. Later steps calculate whether it slows down, stops, or reaches its joint limit.</p>
   <p>The experiment chooses when to stop stepping. Here it stops at 2 seconds, even if the drawer is still moving. Another test could stop when a target opening is reached, with a time limit if it never gets there. <a href="https://mujoco.readthedocs.io/en/stable/programming/simulation.html#simulation-loop">MuJoCo’s simulation loop.</a></p>
 </section>
@@ -41,20 +36,10 @@
 <section class="simulation-lesson" id="simulation-render" data-title="Turn the calculated positions into images">
   <h2><span class="section-number">4.3.4</span> Turn the calculated positions into images</h2>
 <p><a href="#drawer-motion-output">Section 4.3.3</a> gives opening distances over time. To make a video frame, place the visible drawer at the position calculated for that frame’s time. A <strong>renderer</strong> uses those shapes, their appearance, lighting, and a camera to make a 2D frame. Save a sequence of frames to make a video. MuJoCo has its own renderer, so a separate rendering application is not required. <a href="https://mujoco.readthedocs.io/en/stable/programming/rendering.html">MuJoCo rendering.</a></p>
-  <div class="generation-flow" aria-label="Physics output becomes rendered video frames">
-    <div><strong>MuJoCo physics</strong><br>Calculates a new drawer pose</div><span aria-hidden="true">→</span>
-    <div><strong>Mesh + renderer</strong><br>Draws that pose from a camera</div><span aria-hidden="true">→</span>
-    <div><strong>2D frame</strong><br>Many frames make a video</div>
-  </div>
+  {{diagram:mujoco-experiments-flow-2}}
   <p>Changing only the camera makes a different picture of the same state. Changing the pull, mass, or friction can change the movement itself. This is why rendering and physics occupy different places in the workflow.</p>
   <h3>Where all the names fit</h3>
-  <ol class="simulation-toolchain" aria-label="One complete workflow connecting the tools and the data passed between them">
-    <li><strong>TRELLIS · create the asset</strong><span>Cabinet image → a proposed mesh</span></li>
-    <li><strong>Blender · prepare the geometry</strong><span>Mesh → separate body, drawer, and door shapes, at the correct scale</span></li>
-    <li><strong>Model preparation · write an MJCF model</strong><span>Part shapes + joints + collision shapes + physical settings → a simulation model</span></li>
-    <li><strong>MuJoCo · calculate the movement</strong><span>Simulation model + initial state + pull → positions and speeds over time</span></li>
-    <li><strong>Renderer · make the pictures</strong><span>Those positions + visible geometry + appearance + camera and lighting → video frames</span></li>
-  </ol>
+  {{diagram:mujoco-experiments-flow-3}}
   <p>The preparation between a generated mesh and a simulation is real work; a file conversion alone does not complete it.</p>
   <p>With NeRF or 3DGS, the beginning changes: <strong>photos → fit a scene → render new views</strong> already gives a visual result. To simulate a moving drawer, add the same physical structure described here. Keeping its learned appearance on moving parts requires an additional way to associate and move that appearance with each part.</p>
   <p>Finally, check the test: does the drawer follow the rail, stay attached, and stop near its limit? Are there unintended overlaps? If we have a real cabinet, compare the same pull in both. When they disagree, revisit the geometry or physical settings instead of judging the simulation only by how good its video looks.</p>

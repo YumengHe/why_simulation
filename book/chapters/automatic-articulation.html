@@ -1,0 +1,88 @@
+<header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">3.6</span> Automatically build articulated models</h1>
+  <p class="lead">An articulated cabinet needs separate parts and joints: the drawer slides relative to the body, and the door rotates around a hinge. Research methods can help infer this structure. Articulate AnyMesh starts with a 3D mesh; URDFormer starts with an image and detected part locations.</p>
+  <p>The links and joints introduced in <a href="articulated-objects.html#links-and-joints">Section 3.1</a> are the information these methods aim to recover. We follow the same cabinet through each method’s input, processing steps, output, and checks.</p>
+</header>
+
+<section class="simulation-lesson" id="articulate-anymesh" data-title="Articulate AnyMesh: from a mesh to moving parts">
+  <h2><span class="section-number">3.6.1</span> Articulate AnyMesh: from a mesh to moving parts</h2>
+  <p><strong>Articulate AnyMesh</strong> adds part identities and joints to an existing 3D object. It combines a <a href="llm-vlm-vla.html#vision-language-models">vision-language model (VLM)</a>, part-segmentation tools, and geometry calculations. <a href="https://articulate-anymesh.github.io/">The project page</a> shows the authors’ results.</p>
+
+  <h3>Input</h3>
+  <p>A <strong>cabinet mesh</strong>. Its surfaces already describe the cabinet’s shape. This mesh could come from an editor, a generator such as <a href="generating-3d-assets.html">TRELLIS or Hunyuan3D</a>, or surface reconstruction such as the <a href="gaussian-splatting.html#surface-gaussians">2DGS mesh extraction in Section 2.8</a>.</p>
+
+  {{diagram:anymesh-stages}}
+
+  <h3>Processing steps</h3>
+  <ol>
+    <li><strong>Identify and separate parts.</strong> GPT-4o interprets rendered views of the mesh. A part-segmentation pipeline, PartSlip++, combines detections and masks from several views into 3D part groups.</li>
+    <li><strong>Propose the movement structure.</strong> GPT-4o uses the recognized object and parts to propose parent–child connections and joint types, such as a sliding drawer and a hinged door.</li>
+    <li><strong>Locate the motion axes.</strong> Geometry calculations and further model judgments determine where those movements take place, as illustrated below.</li>
+    <li><strong>Refine the asset.</strong> A diffusion-based method, RichDreamer, helps refine shape and appearance across different joint positions. The <a href="https://arxiv.org/html/2502.02590v1#S3">paper’s method section</a> describes these components.</li>
+  </ol>
+
+  <h3 id="anymesh-joint-estimation">How the drawer and door get their joints</h3>
+  <p><strong>First choose a type of movement; then locate its axis.</strong> A sliding joint needs a direction. A rotating joint needs both the direction and position of its hinge line.</p>
+  <p><strong>The drawer.</strong> GPT-4o proposes a sliding joint and classifies its movement as inward/outward. The program fits a plane to the region where the drawer and body are close together, then uses the direction perpendicular to that plane as the sliding axis. On this cabinet, that gives the direction through the front opening.</p>
+  <p><strong>The door.</strong> GPT-4o proposes a rotating joint. The program marks candidate 3D points on a rendered view; the model selects points likely to lie on the hinge. A line fitted through the selected points becomes the estimated rotation axis. On this cabinet, the intended axis runs vertically along the door’s left edge. The <a href="https://arxiv.org/html/2502.02590v1#A3">published prompts</a> show the judgments requested from GPT-4o.</p>
+  {{diagram:anymesh-joints}}
+
+  <h3>Output</h3>
+  <p>An <strong>articulated 3D asset</strong>: part geometry with estimated connections and joint information. The project’s robot demonstration exports this structure as a <strong>URDF with part meshes</strong>. As in <a href="reading-urdf.html#file-and-tree">Section 3.4</a>, the URDF describes the links and joints, while the mesh files describe their shapes.</p>
+
+  <h3>What to check</h3>
+  <p>Move the drawer and door through their intended ranges. Check the part boundaries, sliding direction, hinge location, and the hidden surfaces exposed by opening them. Each fixed handle should move with its drawer or door. <a href="changing-urdf.html">Section 3.5</a> illustrates how changes to the joint or mesh affect movement.</p>
+</section>
+
+<section class="simulation-lesson" id="urdformer" data-title="URDFormer: from an image to an assembled model">
+  <h2><span class="section-number">3.6.2</span> URDFormer: from an image to an assembled model</h2>
+  <p><strong>URDFormer</strong> combines a part detector, a trained structure-prediction network, and assembly rules. Its network learns from paired images and scene descriptions. At use time, the predictions select and arrange prepared meshes in a URDF model. <a href="https://urdformer.github.io/">The project page</a> shows single objects and larger scenes.</p>
+
+  <h3>Input</h3>
+  <p>A <strong>cabinet image and bounding boxes around its visible parts</strong>. A bounding box is a rectangle marking a part’s location in the picture. The pipeline’s detector supplies these boxes—for example, around a drawer or handle—and URDFormer uses them together with the image.</p>
+
+  {{diagram:urdformer-stages}}
+
+  <h3>Processing steps</h3>
+  <ol>
+    <li><strong>Locate the visible parts.</strong> A fine-tuned <strong>Grounding DINO</strong> detector supplies boxes for image regions such as the drawer, door, and handles.</li>
+    <li><strong>Predict the structure.</strong> The <strong>URDFormer network</strong> uses the image and boxes to predict each part’s mesh category, position, size, and parent. For the drawer, these describe which prepared shape to use and where it belongs in the cabinet.</li>
+    <li><strong>Assemble the model.</strong> The program selects and places the meshes, then applies category-specific rules for their joints. These rules and a URDF template create the linked model. See the <a href="https://arxiv.org/html/2405.11656v1#S2">paper’s pipeline description</a>.</li>
+  </ol>
+
+  <h3 id="urdformer-joint-assembly">How the drawer and door get their joints</h3>
+  <p><strong>The network predicts a part category; the program assigns that category’s joint.</strong> In the released implementation, the available categories distinguish drawers and different door-opening arrangements.</p>
+  <p><strong>The drawer.</strong> A prediction of the drawer category selects a prepared drawer mesh. The program assigns a sliding joint and the preset sliding axis in that part’s coordinate system. Placing the part in the cabinet places this axis with it, giving the outward direction shown below.</p>
+  <p><strong>The door.</strong> A prediction of the appropriate door category selects its prepared door shape and opening arrangement. The program assigns a rotating joint and a preset local hinge axis. The part placement and category-specific setup locate that hinge in the cabinet. For our example, the intended result is a vertical hinge at the left edge. These mappings are explicit in the <a href="https://github.com/WEIRDLabUW/urdformer/blob/main/utils.py">official assembly code</a>.</p>
+  {{diagram:urdformer-joints}}
+
+  <h3>Output</h3>
+  <p>A <strong>URDF scene with referenced part meshes</strong>. For the cabinet, this is a proposed arrangement of a body, drawer, door, and handles that can be loaded into a simulator. Its shape depends on the available mesh collection and the predicted sizes and positions.</p>
+
+  <h3>What to check</h3>
+  <p>Check that the detector found the relevant parts, that the chosen meshes fit the cabinet, and that the drawer and door move without unwanted overlaps. Physical properties such as mass and friction are supplied during <a href="preparing-simulation.html#simulation-properties">simulation preparation in Section 4.2</a>.</p>
+</section>
+
+<section class="simulation-lesson" id="articulation-methods-compared" data-title="Two routes to an articulated cabinet">
+  <h2><span class="section-number">3.6.3</span> Two routes to an articulated cabinet</h2>
+  <table class="learning-table">
+    <caption>Where the two methods begin and how they build the result</caption>
+    <thead><tr><th scope="col">Stage</th><th scope="col">Articulate AnyMesh</th><th scope="col">URDFormer</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Input</th><td>An existing 3D mesh.</td><td>An image and detected part boxes.</td></tr>
+      <tr><th scope="row">Part geometry</th><td>Separate and refine the supplied mesh.</td><td>Select, size, and place prepared meshes.</td></tr>
+      <tr><th scope="row">Model predictions</th><td>Part identities, connections, joint types, and judgments such as which points mark a hinge.</td><td>Part categories, positions, sizes, and parent relationships.</td></tr>
+      <tr><th scope="row">Program calculations and rules</th><td>Fit a sliding direction or hinge line using geometry and the model’s choices.</td><td>Assign category-specific joint types and local axes, then place the parts.</td></tr>
+      <tr><th scope="row">Output</th><td>An articulated asset; the project demonstrates URDF export.</td><td>An assembled URDF scene with its part meshes.</td></tr>
+    </tbody>
+  </table>
+  <p>For a cabinet mesh already created in Chapter 2, Articulate AnyMesh provides a route to adding articulation. For a cabinet photograph, URDFormer provides a route to assembling an articulated model from prepared parts. Both aim to produce a structure whose parts can move relative to one another.</p>
+
+  <h3 id="articulation-model-roles">The models have different jobs</h3>
+  <p>In <strong>Articulate AnyMesh</strong>, GPT-4o supplies part and joint judgments; segmentation models locate the corresponding surfaces; RichDreamer supplies shape and appearance priors during refinement.</p>
+  <p>In <strong>URDFormer</strong>, <a href="https://github.com/IDEA-Research/GroundingDINO">Grounding DINO</a> combines image features and text labels to locate parts. This is a vision-language detection task. The separate URDFormer network predicts the structure, and the assembly program supplies the category-specific joints. <strong>Detection, structure prediction, and joint assembly are distinct jobs.</strong></p>
+  <p>The URDFormer project also uses Stable Diffusion to help create training images, and its released workflow offers optional texture preparation. These image-generation steps concern appearance. The joint structure follows the prediction and assembly steps above. See the <a href="https://github.com/WEIRDLabUW/urdformer#details">implementation notes</a>.</p>
+
+  {{diagram:articulated-structure}}
+  <p>To use the asset in a robot experiment, continue with <a href="preparing-simulation.html">contact shapes and physical properties in Section 4.2</a>, then <a href="robot-interaction.html">the robot and controller in Section 4.4</a>. The <a href="robot-interaction.html#articulate-anymesh-example">Articulate AnyMesh project example</a> connects reconstruction, articulation, and robot motion planning.</p>
+</section>

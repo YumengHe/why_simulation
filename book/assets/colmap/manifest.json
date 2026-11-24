@@ -1,0 +1,24 @@
+{
+  "generator": "scripts/draw_colmap_matches.py",
+  "geometry": "scripts/shared_cabinet.py",
+  "provenance": "Known geometric correspondences rendered by script; not detected COLMAP features or reconstruction results.",
+  "matched_points_world": [
+    [
+      -0.47971764392737587,
+      -0.49,
+      0.7018047640393509
+    ],
+    [
+      -0.21019114063201844,
+      -0.6997762094532309,
+      0.5277278164475172
+    ],
+    [
+      0.4788250791952431,
+      -0.49,
+      -0.7011112174001385
+    ]
+  ],
+  "checks": "Every labeled world point is visible in both views at its projected pixel.",
+  "source": "https://colmap.github.io/tutorial.html#feature-matching-and-geometric-verification"
+}

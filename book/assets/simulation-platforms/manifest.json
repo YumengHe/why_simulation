@@ -1,0 +1,15 @@
+{
+  "source": "scripts/draw_simulation_platforms.py",
+  "model": "scripts/shared_cabinet.py",
+  "provenance": "Authored diagrams with depth-tested cabinet, cup and counter meshes. No engine, task environment or policy is executed.",
+  "drawer_travel_m": 0.76,
+  "illustrative_90_percent_opening_m": 0.684,
+  "sources": [
+    "https://maniskill.readthedocs.io/en/latest/user_guide/getting_started/quickstart.html",
+    "https://maniskill.readthedocs.io/en/latest/api/mani_skill/envs/tasks/mobile_manipulation/open_cabinet_drawer/index.html",
+    "https://github.com/haosulab/SAPIEN",
+    "https://robosuite.ai/docs/overview.html",
+    "https://github.com/robocasa/robocasa",
+    "https://mujoco.readthedocs.io/en/stable/computation/index.html"
+  ]
+}

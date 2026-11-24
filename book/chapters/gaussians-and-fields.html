@@ -17,6 +17,7 @@
   <p>The first two views show shape guides so we can distinguish the blobs; their influence fades beyond those guides. The last view blends the blobs as a renderer does. This count belongs to our scripted teaching cabinet; different scenes use different numbers of Gaussians.</p>
 <p><strong>3D Gaussians</strong> names the stored elements. <strong>3D Gaussian Splatting (3DGS)</strong> names the method studied later, which fits these elements to photographs and renders them by splatting. A generator can also produce Gaussian data. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project.</a></p>
 <p>For now, keep the blobs fixed. <a href="gaussian-rendering.html">Section 2.5</a> shows their projection and opacity with the two-blob and cabinet videos.</p>
+<p>A related method, <strong>2D Gaussian Splatting (2DGS)</strong>, uses flat Gaussian disks placed and oriented in 3D. The <a href="gaussian-splatting.html#surface-gaussians">cabinet comparison in Section 2.8</a> shows how these surface elements differ from 3D Gaussian volumes.</p>
 </section>
 <section class="representation-lesson" id="spatial-fields" data-title="Fields: ask about a location in space">
 <h2><span class="section-number">2.3.2</span> Ask a field about a location</h2>
@@ -40,6 +41,6 @@
   <h2><span class="section-number">2.3.3</span> Summary: a map of 3D representations</h2>
   <p>We have described the same cabinet using <strong>points, connected faces, soft blobs, or answers at locations in space</strong>. This map brings those choices together.</p>
   <p>The <a href="3d-generation.html#voxel-grid">voxel grid introduced in Section 2.1</a> stores values in small 3D cells. It also connects to fields: each cell can keep an occupancy or distance value.</p>
-  <figure class="chapter-map"><a href="assets/diagrams/representation-map.svg" data-enlarge aria-label="Enlarge the summary map of 3D representations"><img src="assets/diagrams/representation-map.svg" width="960" height="770" alt="Summary: points, mesh faces, voxel cells and Gaussians are stored elements. Occupancy, signed distance and radiance fields answer different questions at a 3D location. A grid can store field values."></a><figcaption>A field describes what we can ask; its storage describes how the answers are kept. For example, a voxel grid can store an occupancy value in every cell.</figcaption></figure>
+  {{diagram:representation-map}}
   <p><strong>Representation tells us what 3D information is available.</strong> In <a href="rendering.html">Part B: Rendering</a>, we use that information and a virtual camera to make a picture.</p>
 </section>

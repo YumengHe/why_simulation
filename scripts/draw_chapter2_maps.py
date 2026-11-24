@@ -68,7 +68,7 @@ def workflow():
     d.path('M248 210V241');d.path('M712 210V241')
     d.box(36,246,424,167,'white',TEAL);d.box(500,246,424,167,'white',GOLD)
     d.text(58,282,'Reconstruction',25,TEAL,True)
-    d.text(58,315,['COLMAP / VGGT: cameras + geometry','Further routes: surface reconstruction,','3DGS fitting, or NeRF training'],20,gap=29)
+    d.text(58,315,['COLMAP / DUSt3R / VGGT','Cameras + geometry; further routes:','surface meshes, 3DGS, or NeRF'],20,gap=29)
     d.text(522,282,'Generation',25,GOLD,True)
     d.text(522,315,['Example: TRELLIS','Uses prior training to propose an asset','with one or more supported outputs'],20,gap=29)
     d.path('M248 413V444H480V472');d.path('M712 413V444H480',arrow=False)

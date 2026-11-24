@@ -1,0 +1,13 @@
+{
+  "generator": "scripts/draw_generation_methods.py",
+  "geometry": "scripts/shared_cabinet.py",
+  "renderer": "scripts/preview_shared_cabinet.py; opaque depth-tested triangles",
+  "meaning": "Illustrations of the inputs and outputs of the two stages, not model predictions.",
+  "appearance": "Authored surface colors illustrate where a generated texture would supply appearance; no texture generation is run.",
+  "comparison": "Shape and appearance panels share the same triangles, camera, lighting and framing.",
+  "method_scope": "Hunyuan3D 2.0 and original TRELLIS only.",
+  "sources": [
+    "https://arxiv.org/abs/2501.12202",
+    "https://arxiv.org/abs/2412.01506"
+  ]
+}

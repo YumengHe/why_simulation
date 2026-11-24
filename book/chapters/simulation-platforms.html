@@ -1,0 +1,89 @@
+<header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">4.5</span> From physics engines to robot learning tasks</h1>
+  <p class="lead">Opening a drawer involves several jobs: calculate contact and motion, organize the robot and its surroundings, define the task, and choose actions. Simulation software connects these jobs so that a robot policy can practice and be evaluated.</p>
+  <p>A <strong>policy</strong> is a program or model that chooses an action from an observation. An <strong>environment</strong> is the simulated world and task that the policy interacts with. The diagram locates the software used in two common environments.</p>
+  <figure class="software-layer-map" id="software-map" aria-labelledby="software-map-title" aria-describedby="software-map-caption">
+    <div class="software-map-panel">
+      <div class="software-map-heading">
+        <span class="software-map-kicker">Software map</span>
+        <h3 id="software-map-title">From a task to physical motion</h3>
+        <p>Follow either branch downward. Select a name to read its explanation.</p>
+      </div>
+      <div class="software-layer-grid">
+        <div class="software-map-role software-map-role--policy"><strong>Choose an action</strong><span>From the observation</span></div>
+        <a class="software-map-policy" href="#task-interaction-loop"><strong>Policy</strong><span>Chooses the next robot action</span><span class="software-map-linkmark" aria-hidden="true">↗</span></a>
+        <svg class="software-map-branch" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path d="M500 1V14M250 35V14H750V35"/><path d="m244 29 6 7 6-7m488 0 6 7 6-7"/></svg>
+
+        <div class="software-map-role"><span class="software-map-index">01</span><strong>Task environment</strong><span>What is the goal?</span></div>
+        <a class="software-map-node" href="#maniskill-drawer-task"><span class="software-map-name">ManiSkill</span><span class="software-map-description">Manipulation tasks and success criteria</span><span class="software-map-linkmark" aria-hidden="true">↗</span></a>
+        <a class="software-map-node" href="#robocasa-kitchen-tasks"><span class="software-map-name">RoboCasa</span><span class="software-map-description">Kitchen tasks and varied scenes</span><span class="software-map-linkmark" aria-hidden="true">↗</span></a>
+
+        <span class="software-map-spacer" aria-hidden="true"></span>
+        <span class="software-map-connector" aria-hidden="true"><svg viewBox="0 0 14 30"><path d="M7 1v26m-5-5 5 5 5-5"/></svg><span>uses</span></span>
+        <span class="software-map-connector" aria-hidden="true"><svg viewBox="0 0 14 30"><path d="M7 1v26m-5-5 5 5 5-5"/></svg><span>uses</span></span>
+
+        <div class="software-map-role"><span class="software-map-index">02</span><strong>Scene support</strong><span>Build and operate the world</span></div>
+        <a class="software-map-node" href="#sapien-scene-framework"><span class="software-map-name">SAPIEN</span><span class="software-map-description">Scene objects, cameras, and rendering</span><span class="software-map-linkmark" aria-hidden="true">↗</span></a>
+        <a class="software-map-node" href="#robosuite-scene-framework"><span class="software-map-name">robosuite</span><span class="software-map-description">Robot models, controllers, and observations</span><span class="software-map-linkmark" aria-hidden="true">↗</span></a>
+
+        <span class="software-map-spacer" aria-hidden="true"></span>
+        <span class="software-map-connector" aria-hidden="true"><svg viewBox="0 0 14 30"><path d="M7 1v26m-5-5 5 5 5-5"/></svg><span>uses</span></span>
+        <span class="software-map-connector" aria-hidden="true"><svg viewBox="0 0 14 30"><path d="M7 1v26m-5-5 5 5 5-5"/></svg><span>uses</span></span>
+
+        <div class="software-map-role"><span class="software-map-index">03</span><strong>Physics engine</strong><span>Calculate the motion</span></div>
+        <a class="software-map-node software-map-node--physics" href="#physics-engines"><span class="software-map-name">PhysX</span><span class="software-map-description">Forces, contacts, and the next state</span><span class="software-map-linkmark" aria-hidden="true">↗</span></a>
+        <a class="software-map-node software-map-node--physics" href="#physics-engines"><span class="software-map-name">MuJoCo</span><span class="software-map-description">Forces, contacts, and the next state</span><span class="software-map-linkmark" aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <figcaption id="software-map-caption">The rows highlight each system’s role in these workflows. Capabilities can overlap: MuJoCo also provides rendering and visualization.</figcaption>
+  </figure>
+  <p>ManiSkill is built on <a href="https://maniskill.readthedocs.io/en/latest/user_guide/getting_started/quickstart.html">SAPIEN</a> and uses a <a href="https://maniskill.readthedocs.io/en/latest/api/mani_skill/envs/index.html">PhysX physics backend</a>. RoboCasa builds on <a href="https://github.com/robocasa/robocasa#installation">robosuite</a>, which uses <a href="https://robosuite.ai/docs/overview.html">MuJoCo</a>. The sections below follow these responsibilities from physical motion up to a complete task.</p>
+</header>
+
+<section class="simulation-lesson" id="physics-engines" data-title="Physics: calculate contact and motion">
+  <h2><span class="section-number">4.5.1</span> Physics: calculate contact and motion</h2>
+  <p><strong>MuJoCo and PhysX are physics engines.</strong> They use a supplied physical model and its current state to calculate how it evolves over a small time interval. For our cabinet, the model includes the drawer’s mass, sliding joint, collision shapes, and friction settings, prepared as in <a href="preparing-simulation.html">Section 4.2</a>.</p>
+  <p>Suppose a robot closes its fingers around the handle and begins pulling. The engine performs three connected calculations:</p>
+  <ol>
+    <li><strong>Find contacts.</strong> Use the collision shapes and current positions to find where fingers meet the handle and where other surfaces may touch.</li>
+    <li><strong>Calculate the physical response.</strong> Combine motor forces, gravity, contact forces, friction, and joint constraints. Contact can transmit the robot’s pull to the drawer. Friction affects whether the fingers hold or slip; the sliding joint guides the drawer along its rail.</li>
+    <li><strong>Advance the state.</strong> Calculate updated velocities and positions for the next small time step. The drawer’s opening distance and speed are part of that new state.</li>
+  </ol>
+  {{diagram:physics-step}}
+  <p>The new state becomes the starting state for the next step. Repeating these short steps produces the full movement. If a grasp slips, the finger–handle contacts change, and later steps calculate the resulting motion. The experiment’s task code uses these states to judge progress. See <a href="https://mujoco.readthedocs.io/en/stable/computation/index.html">MuJoCo’s dynamics description</a>.</p>
+</section>
+
+<section class="simulation-lesson" id="scene-frameworks" data-title="Scene support: organize objects, robots, and cameras">
+  <h2><span class="section-number">4.5.2</span> Scene support: organize objects, robots, and cameras</h2>
+  <p id="sapien-scene-framework"><strong>SAPIEN</strong> provides tools to create a scene containing the cabinet, a robot, the floor, lights, and virtual cameras. Each object has a pose and can have both a visual appearance and physical properties. SAPIEN connects its PhysX physics system with rendering and scene-management tools. <a href="https://github.com/haosulab/SAPIEN">SAPIEN project.</a></p>
+  <p>For the cabinet, advancing physics changes the drawer’s position. Rendering then draws the scene from a chosen camera, including the drawer at that position. A camera observation is an image; a state observation can instead contain numerical values such as joint positions and speeds. This connects <a href="rendering.html">rendering in Section 2.4</a> to the moving scene.</p>
+  <p id="robosuite-scene-framework"><strong>robosuite</strong> organizes robot environments around MuJoCo. It supplies reusable robot models, grippers, controllers, objects, and observation interfaces. RoboCasa uses this foundation to construct its kitchen tasks. A controller translates a requested movement into robot control inputs, as explained in <a href="robot-interaction.html#robot-controller">Section 4.4.2</a>. <a href="https://robosuite.ai/docs/modules/overview.html">robosuite’s components.</a></p>
+  <p>These frameworks make it easier to assemble and operate a scene. The task definition adds a goal and a way to judge the outcome.</p>
+</section>
+
+<section class="simulation-lesson" id="maniskill-drawer-task" data-title="ManiSkill: define an opening task">
+  <h2><span class="section-number">4.5.3</span> ManiSkill: define an opening task</h2>
+  <p><strong>ManiSkill</strong> provides robot manipulation environments, demonstrations, and interfaces for learning and evaluation. A task specifies the scene, starting conditions, available observations and actions, and success criteria.</p>
+  <h3>The cabinet example</h3>
+  <p>In the documented <strong>OpenCabinetDrawer</strong> task, a Fetch mobile manipulator approaches a cabinet and opens a selected drawer. The environment selects a cabinet and target drawer and initializes the robot’s position. Success requires the drawer to reach at least <strong>90% of its opening range</strong> while its motion is sufficiently small. <a href="https://maniskill.readthedocs.io/en/latest/api/mani_skill/envs/tasks/mobile_manipulation/open_cabinet_drawer/index.html">Official task definition.</a></p>
+  <p>For our teaching cabinet, whose drawer travels 76 cm, the same opening threshold would be 68.4 cm. The environment reads the simulated opening and motion to evaluate that condition. This is a chosen task criterion; the physical motion is calculated by PhysX through SAPIEN.</p>
+  <p><strong>How it is used.</strong> Connect a policy, reset the environment to a starting condition, and repeatedly supply actions. Each interaction returns observations and task information. During evaluation, record whether the policy succeeds across multiple trials. During learning, an algorithm can use demonstrations or collected interactions to improve the policy. <a href="https://maniskill.readthedocs.io/en/latest/user_guide/getting_started/quickstart.html">ManiSkill’s environment interface.</a></p>
+</section>
+
+<section class="simulation-lesson" id="robocasa-kitchen-tasks" data-title="RoboCasa: organize tasks in varied kitchens">
+  <h2><span class="section-number">4.5.4</span> RoboCasa: organize tasks in varied kitchens</h2>
+  <p><strong>RoboCasa</strong> supplies kitchen scenes, interactive furniture and objects, robot tasks, and demonstration data for training and evaluation. Its environments build on robosuite, with MuJoCo calculating the physical motion. The collection includes individual skills, such as opening drawers, and longer tasks that combine several skills. <a href="https://robocasa.ai/">RoboCasa project.</a></p>
+  <h3>The cabinet example</h3>
+  <p>Consider a teaching task: <strong>open the drawer → take out a cup → place the cup on the counter</strong>. Opening creates access to the cup; grasping and placement complete the activity. A task implementation specifies the initial cup location and the required final conditions, such as the cup being on the counter and released by the gripper.</p>
+  <p><strong>How it is used.</strong> Run a policy in selected kitchen environments and evaluate the task outcome over repeated trials. Changes in layout, object placement, and appearance let researchers study how well a policy works across different situations. Demonstration data can also support learning the required skills. <a href="https://robocasa.ai/docs/build/html/introduction/overview.html">RoboCasa’s environments and learning resources.</a></p>
+  {{diagram:cabinet-tasks}}
+  <p>Both ManiSkill and RoboCasa support learning and evaluation. Here, the drawer task makes a success criterion concrete, while the kitchen example shows how a task can combine several actions and vary across scenes.</p>
+</section>
+
+<section class="simulation-lesson" id="task-interaction-loop" data-title="Run, learn, and evaluate">
+  <h2><span class="section-number">4.5.5</span> Run, learn, and evaluate</h2>
+  <p>The software layers work together during each interaction. The <strong>policy chooses an action</strong>, the <strong>controller produces control inputs</strong>, the <strong>physics engine advances the scene</strong>, and the <strong>environment produces observations and task information</strong>.</p>
+  {{diagram:task-loop}}
+  <p>An <strong>episode</strong> is one attempt, from resetting the environment until its stopping condition or time limit. The environment can report success during an attempt; the experiment decides when to end it. Repeated attempts provide data for evaluation or learning.</p>
+  <p><strong>Training</strong> changes the policy using demonstrations or interaction data; a reward is a numerical signal that can guide reinforcement learning. <strong>Evaluation</strong> runs a chosen policy under specified test conditions and records results such as success rate. A VLA, as introduced in <a href="llm-vlm-vla.html#vision-language-action-models">Chapter 1</a>, is one possible policy. The environment and physics engine execute the actions it proposes.</p>
+</section>

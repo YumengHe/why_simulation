@@ -79,17 +79,17 @@
       "title": "Reconstruction: cameras, points, and meshes",
       "source": "chapters/cameras-and-geometry.html",
       "output": "cameras-and-geometry.html",
-      "description": "Reconstruction: cameras and geometry — how photographs or pretrained models produce 3D data.",
+      "description": "Reconstruction with COLMAP, DUSt3R, and VGGT: cameras, pointmaps, point clouds, and surface meshes.",
       "group": "3d-generation",
       "review_added": true,
       "subgroup": "reconstruction"
     },
     {
       "number": "2.8",
-      "title": "Gaussians: reconstruction with 3DGS",
+      "title": "Gaussians: reconstruction with 3DGS and 2DGS",
       "source": "chapters/gaussian-splatting.html",
       "output": "gaussian-splatting.html",
-      "description": "Reconstruct a cabinet with 3DGS — how photographs or pretrained models produce 3D data.",
+      "description": "Fit a cabinet with 3D Gaussian volumes or 2D surface Gaussians, render new views, and extract surface geometry.",
       "group": "3d-generation",
       "review_added": true,
       "subgroup": "reconstruction"
@@ -105,10 +105,10 @@
     },
     {
       "number": "2.10",
-      "title": "Generation: multiple outputs with TRELLIS",
+      "title": "Generation: TRELLIS and Hunyuan3D",
       "source": "chapters/generating-3d-assets.html",
       "output": "generating-3d-assets.html",
-      "description": "Generate an asset with TRELLIS — how photographs or pretrained models produce 3D data.",
+      "description": "Compare original TRELLIS and Hunyuan3D 2.0: multiple output representations, mesh generation, and texture generation.",
       "group": "3d-generation",
       "review_added": true,
       "subgroup": "reconstruction"
@@ -160,6 +160,14 @@
       "group": "articulated-objects"
     },
     {
+      "number": "3.6",
+      "title": "Automatically build articulated models",
+      "source": "chapters/automatic-articulation.html",
+      "output": "automatic-articulation.html",
+      "description": "Follow Articulate AnyMesh and URDFormer from their different inputs through part and joint modeling to articulated cabinet outputs.",
+      "group": "articulated-objects"
+    },
+    {
       "number": "4.1",
       "title": "From animation to simulation",
       "source": "chapters/animation-and-simulation.html",
@@ -192,6 +200,14 @@
       "source": "chapters/robot-interaction.html",
       "output": "robot-interaction.html",
       "description": "Connect robot actions, a controller, simulated contact, and new camera observations.",
+      "group": "simulation"
+    },
+    {
+      "number": "4.5",
+      "title": "From physics engines to robot learning tasks",
+      "source": "chapters/simulation-platforms.html",
+      "output": "simulation-platforms.html",
+      "description": "Locate MuJoCo, PhysX, SAPIEN, robosuite, ManiSkill, and RoboCasa in the cabinet simulation workflow, from contact forces to task evaluation.",
       "group": "simulation"
     }
   ],

@@ -1,21 +1,25 @@
 <header class="chapter-header draft-addition" id="chapter-start">
-  <h1><span class="chapter-number">2.8</span> Gaussians: reconstruction with 3DGS</h1>
-  <p class="chapter-purpose draft-addition"><strong>C. Reconstruction and generation</strong> · 3D Gaussian Splatting (3DGS)</p>
-  <p class="lead"><strong>First, train:</strong> use multiple views of the cabinet and their camera information to adjust the 3D Gaussians. Repeatedly render images, compare with the photographs, and update the Gaussians.</p>
-  <p><strong>Then, render:</strong> use the saved Gaussians and a new virtual camera position and settings to produce another view of the same cabinet. No photograph from that new angle is needed.</p>
+  <h1><span class="chapter-number">2.8</span> Gaussians: reconstruction with 3DGS and 2DGS</h1>
+  <p class="chapter-purpose draft-addition"><strong>C. Reconstruction and generation</strong> · 3DGS and 2DGS</p>
+  <p class="lead"><strong>3DGS and 2DGS are two ways to reconstruct the same cabinet from photographs.</strong> Both first fit a 3D representation to multiple views, then use the saved result and a virtual camera to render new views.</p>
+  <p>Choose either method for a reconstruction. To compare them, run each on the same prepared photographs and cameras, producing two separate results. Each result uses its corresponding renderer.</p>
 <nav class="representation-trail" aria-label="Gaussian reading route"><strong>3D Gaussians:</strong> <a href="gaussians-and-fields.html#gaussian-data">Representation · 2.3.1</a><span> · </span><a href="gaussian-rendering.html">Rendering · 2.5</a><span> · </span><a href="gaussian-splatting.html">Reconstruction with 3DGS · 2.8</a></nav>
 </header>
 
-<section class="representation-lesson draft-addition" id="gaussian-example" data-title="Inputs and output of Gaussian reconstruction">
-  <h2>Start with the prepared inputs</h2>
-  <p>The <a href="cameras-and-geometry.html#colmap-cabinet">COLMAP example in Section 2.7.3</a> estimates camera viewpoints and sparse 3D points. These points provide initial blob locations. The <a href="cameras-and-geometry.html#vggt-cabinet">VGGT export in Section 2.7.4</a> is another supported source of cameras and starting points for a Gaussian training pipeline.</p>
-  <p>Each initial Gaussian also needs size, orientation, opacity, and appearance. Fitting adjusts these values using the photographs. The result is a set of Gaussian parameters we can save and render from another camera.</p>
-  <p><a href="gaussian-rendering.html#rendering-gaussians">Section 2.5.1</a> showed how to project and blend a given set of Gaussians. Here we use that same rendering operation repeatedly to find better Gaussians.</p>
+<section class="representation-lesson" id="gaussian-comparison" data-title="3DGS and 2DGS: the shared task and different emphasis">
+  <h2>The same photographs, two reconstruction methods</h2>
+  <p><strong>Original 3DGS focuses on making accurate-looking views of the scene.</strong> Its training adjusts soft 3D ellipsoids until their rendered pictures resemble the photographs. <strong>2DGS also fits the pictures, while explicitly encouraging a consistent surface.</strong> It uses flat Gaussian disks and adds training constraints on where the surface lies and which way it faces. See the <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">3DGS</a> and <a href="https://surfsplatting.github.io/">2DGS</a> projects.</p>
+  <p>For the blue drawer front, <strong>image quality</strong> means that the blue panel and handle look right in a rendered picture. <strong>Surface quality</strong> means that the recovered panel lies in the right place in 3D, faces the right direction, and forms a coherent surface. These are two ways to evaluate the reconstruction.</p>
+  {{diagram:gaussian-routes}}
+  <p>For a cabinet viewer, both methods can produce new camera views. When recovering panel surfaces and an editable mesh is also a goal, 2DGS provides a workflow designed around that goal. Inspect both the rendered pictures and the recovered geometry for the intended use.</p>
+  <p>The two walkthroughs below use the same five steps: <strong>prepare → initialize → render and adjust → save → use</strong>.</p>
 </section>
+
+
 <section class="representation-lesson gaussian-learning" id="gaussian-learning" data-title="Fit the cabinet Gaussians to photographs">
-  <h2 class="draft-addition">Fit the cabinet to its photographs</h2>
+  <h2 class="draft-addition">The 3DGS fitting loop in pictures</h2>
   <p class="gs-example-note">This is a teaching diagram. Rendered cabinet views stand in for photographs; the stages below illustrate the process, rather than showing a recorded training run.</p>
-    <h3 class="gs-step-heading">1. Put an initial blob at each 3D point</h3>
+    <h3 class="gs-step-heading">Initialize the blobs and render a first picture</h3>
     <div class="gs-grid gs-three gs-fit-row">
       <figure><a href="assets/gaussian-learning/initial-blobs.png" data-enlarge aria-label="Enlarge the initial 3D cabinet blobs"><img src="assets/gaussian-learning/initial-blobs.png" width="420" height="430" loading="lazy" alt="An outside view of initial Gaussian blobs centered on the sparse cabinet points"></a><figcaption><strong>Initial 3D blobs</strong><br>Points now have size, color, and opacity.</figcaption></figure>
       <figure><img src="assets/gaussian-learning/early-render.png" width="420" height="430" loading="lazy" alt="Early 2D rendering of the cabinet is blurry and patchy; the handle is poorly defined"><figcaption><strong>Their rendered 2D image</strong><br>The drawer and handle look blurry.</figcaption></figure>
@@ -23,13 +27,8 @@
     </div>
     <p><strong>Compare from the same camera position.</strong> Otherwise, a difference could simply come from looking at the cabinet from a different angle.</p>
 
-    <h3 class="gs-step-heading" id="gaussian-fitting-loop">2. Use the image differences to update the blobs</h3>
-    <div class="gs-loop" aria-label="Repeated cycle: render the current 3D blobs, compare the 2D image with the reference photograph, update the 3D blobs, then render again">
-      <div><strong>Render</strong><span>3D blobs → 2D image</span></div><span aria-hidden="true">→</span>
-      <div><strong>Compare</strong><span>Rendered image ↔ photo</span></div><span aria-hidden="true">→</span>
-      <div><strong>Update</strong><span>Change the 3D blobs</span></div>
-      <p>↶ Render again, compare again, update again.</p>
-    </div>
+    <h3 class="gs-step-heading" id="gaussian-fitting-loop">Use the image differences to update the blobs</h3>
+    {{diagram:gaussian-splatting-flow-1}}
     <p>The comparison gives an error: how different are the images? The fitting process uses that error to adjust the blobs. For example, several smaller blobs can describe the handle more precisely than one large, blurry blob.</p>
     <div class="gs-grid gs-three gs-updates">
       <figure><img src="assets/gaussian-learning/update-adjust.svg" width="420" height="230" loading="lazy" alt="A blue blob moves and becomes thinner near a panel"><figcaption><strong>Adjust</strong><br>Change position, size, orientation, color, or opacity.</figcaption></figure>
@@ -38,11 +37,61 @@
     </div>
     <p>These changes happen in <strong>3D</strong>, so they affect several camera views. The <a href="https://arxiv.org/html/2308.04079v1#S5">original 3DGS method</a> alternates parameter updates with adding and removing blobs.</p>
 
-    <h3 class="gs-step-heading">3. Keep checking the other views, too</h3>
+    <h3 class="gs-step-heading">Fit across the views, then render a new view</h3>
     <div class="gs-grid gs-two gs-results">
       <figure><img src="assets/gaussian-learning/later-render.png" width="420" height="430" loading="lazy" alt="Later illustrative rendering shows a continuous cabinet front and a distinct handle"><figcaption><strong>A closer match</strong><br>Many overlapping blobs form a clearer cabinet image.</figcaption></figure>
       <figure><img src="assets/gaussian-learning/new-view.png" width="420" height="430" loading="lazy" alt="The same final 3D Gaussian cabinet rendered from a different camera angle"><figcaption><strong>A new camera view</strong><br>Render the same 3D blobs from another position.</figcaption></figure>
     </div>
     <p>Fitting repeats across the photographs so that <strong>one set of 3D blobs explains many views</strong>. We save those blobs and can then render new views. This is the purpose of the <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">3DGS representation</a>; it does not automatically add a drawer joint or the cabinet’s mass.</p>
 
+</section>
+
+<section class="representation-lesson draft-addition" id="gaussian-example" data-title="Reconstruct the cabinet with 3DGS">
+  <h2>Reconstruct the cabinet with 3DGS</h2>
+  <ol class="gaussian-method-steps">
+    <li><strong>Prepare the inputs.</strong> Collect overlapping cabinet photographs. Use the <a href="cameras-and-geometry.html#colmap-cabinet">COLMAP workflow in Section 2.7.3</a> to estimate cameras and sparse 3D points. The points provide starting locations for the Gaussians.</li>
+    <li><strong>Initialize the elements.</strong> Place a soft 3D ellipsoid at each starting point. Give it a position, orientation, three sizes, opacity, and appearance.</li>
+    <li><strong>Render, compare, and adjust.</strong> Render from a training photograph’s camera and compare the pixels. Adjust the ellipsoids to reduce the image differences, repeating across the views. The method can also add, split, or remove elements. At the blue drawer, the fit is guided by how well the rendered panel and handle match the photographs.</li>
+    <li><strong>Save the fitted representation.</strong> Keep the ellipsoids’ positions, orientations, sizes, opacity, and appearance. Together they describe this cabinet in 3D.</li>
+    <li><strong>Use the result.</strong> Give the saved ellipsoids and a new virtual camera to a 3DGS renderer to make another image. Surface reconstruction is an additional operation when a mesh is needed.</li>
+  </ol>
+  <p><a href="gaussian-rendering.html#rendering-gaussians">Section 2.5.1</a> explains the rendering operation used in Step 3: project the ellipsoids into soft image marks and blend them. The <a href="https://arxiv.org/html/2308.04079v1#S5">original paper</a> explains the updates. The <a href="cameras-and-geometry.html#vggt-cabinet">VGGT export in Section 2.7.5</a> provides another source of cameras and starting points for a supported Gaussian training pipeline.</p>
+</section>
+
+<section class="representation-lesson" id="surface-gaussians" data-title="2DGS: reconstruct with surface Gaussians">
+  <h2>2DGS: reconstruct with surface Gaussians</h2>
+  <p><strong>2D Gaussian Splatting (2DGS)</strong> reconstructs a scene using oriented Gaussian disks. For the cabinet, these disks can follow the drawer front, side panels, and top. It fits them to photographs while also encouraging a coherent surface. <a href="https://surfsplatting.github.io/">2DGS project.</a></p>
+
+  <h3>What does “2D” describe?</h3>
+  <p><strong>Both methods describe a scene in 3D and render 2D images.</strong> Here, “2D” and “3D” describe the dimensions of <em>one Gaussian element</em>:</p>
+  <div class="gs-grid gs-two surface-gs-figures">
+    <figure><a href="assets/2dgs/element-3d.png" data-enlarge aria-label="Enlarge the three dimensions of one 3D Gaussian"><img src="assets/2dgs/element-3d.png" width="600" height="700" loading="lazy" alt="A soft 3D ellipsoid with width, height, and thickness axes; an edge-on view still has thickness"></a><figcaption><strong>3DGS: a soft volume.</strong> Each element has three size parameters, shown here as width, height, and thickness. Its position and orientation place that volume in 3D.</figcaption></figure>
+    <figure><a href="assets/2dgs/element-2d.png" data-enlarge aria-label="Enlarge the two dimensions of one planar Gaussian"><img src="assets/2dgs/element-2d.png" width="600" height="700" loading="lazy" alt="A soft planar Gaussian with two in-plane axes; seen edge-on, its zero-thickness plane appears as a line"></a><figcaption><strong>2DGS: a soft surface patch.</strong> Each element has two sizes within its plane and zero thickness through it. Its center still has three coordinates, and its orientation determines which way the plane faces.</figcaption></figure>
+  </div>
+  <p>Both elements store opacity and appearance, with influence fading away from the center. The outlines are shape guides; the edge-on line makes the disk’s plane visible. A 3D Gaussian can also become very flat during fitting. 2DGS explicitly uses a plane and a renderer designed for it.</p>
+
+  <h3>Arrange the elements around the same cabinet</h3>
+  <p>A disk on the drawer front faces forward; one on the side faces sideways; one on top faces upward. Many such patches describe a 3D object. The front and back of a thick panel can be represented by separate sets of surface patches.</p>
+  <div class="gs-grid gs-two surface-gs-figures">
+    <figure><a href="assets/2dgs/cabinet-3d.png" data-enlarge aria-label="Enlarge selected ellipsoids around the shared cabinet"><img src="assets/2dgs/cabinet-3d.png" width="600" height="700" loading="lazy" alt="The shared cabinet with selected blue, gold, and teal ellipsoid guides near its front, side, and top surfaces"></a><figcaption><strong>3D Gaussian elements.</strong> The guides show their extent through space.</figcaption></figure>
+    <figure><a href="assets/2dgs/cabinet-2d.png" data-enlarge aria-label="Enlarge selected Gaussian disks on the same cabinet"><img src="assets/2dgs/cabinet-2d.png" width="600" height="700" loading="lazy" alt="The same cabinet and selected centers, now shown as flat Gaussian disks oriented along the front, side, and top"></a><figcaption><strong>2D Gaussian elements.</strong> Each disk lies in its own oriented plane.</figcaption></figure>
+  </div>
+  <p class="media-note">Scripted illustrations with the same cabinet, camera, and 29 selected centers. The pale solid cabinet provides context; the colored guides show individual elements. A fitted reconstruction uses many more elements. These diagrams illustrate their structure; the <a href="https://surfsplatting.github.io/">authors’ results</a> show reconstruction quality.</p>
+
+  <h3 id="surface-quality">What does improving the drawer surface mean?</h3>
+  <p>Both methods adjust their elements to make the blue drawer look right in the photographs. <strong>2DGS also encourages the patches to describe one coherent panel in 3D.</strong> Along a view of the drawer front, its constraints encourage the visible contributions to gather near one surface depth. They also encourage the disks to face in directions that agree with the reconstructed panel’s shape.</p>
+  <p>This helps when recovering the panel’s surface and extracting a mesh. The image fit, disk geometry, and surface constraints work together. Their technical names and equations are in the paper’s <a href="https://arxiv.org/html/2403.17888v3#S5">depth-distortion and normal-consistency description</a>.</p>
+
+  <h3 id="2dgs-workflow">Reconstruct the cabinet with 2DGS</h3>
+  <ol class="gaussian-method-steps">
+    <li><strong>Prepare the inputs.</strong> Collect overlapping cabinet photographs. Use the same <a href="cameras-and-geometry.html#colmap-cabinet">COLMAP workflow in Section 2.7.3</a> to estimate cameras and sparse 3D points. The official 2DGS implementation accepts this preparation.</li>
+    <li><strong>Initialize the elements.</strong> Place a soft disk at each starting point. Give it a position, orientation, two sizes within its plane, opacity, and appearance.</li>
+    <li><strong>Render, compare, and adjust.</strong> Render from a training photograph’s camera and compare the pixels. Adjust the disks using both image differences and the surface constraints above, repeating across the views. The method can also add, split, or remove elements. At the blue drawer, both its photographed appearance and the consistency of its recovered panel guide the fit.</li>
+    <li><strong>Save the fitted representation.</strong> Keep the disks’ positions, orientations, sizes, opacity, and appearance. Together they describe this cabinet in 3D.</li>
+    <li><strong>Use the result.</strong> Give the saved disks and a new virtual camera to a 2DGS renderer to make another image. For a mesh, use the supplied depth-fusion and surface-extraction workflow described below.</li>
+  </ol>
+  <p>In Step 3, the 2DGS renderer calculates where each pixel’s camera ray meets a disk’s plane, then blends the disks’ contributions into the pixel. This uses the plane’s location and orientation in 3D. See the <a href="https://arxiv.org/html/2403.17888v3#S4">rendering description</a> and <a href="https://github.com/hbb1/2d-gaussian-splatting#training">official training implementation</a>.</p>
+
+  <p><strong>A mesh is an additional output.</strong> The provided extraction workflow renders depth maps from several cameras. It combines those depth observations—a step called <em>depth fusion</em>—then extracts connected surface faces. The resulting mesh can be inspected in a mesh editor: check the cabinet panels and the gap behind the handle. See the <a href="https://github.com/hbb1/2d-gaussian-splatting#bounded-mesh-extraction">official mesh-extraction workflow</a> and <a href="https://surfsplatting.github.io/">rendering and geometry examples</a>.</p>
+  <p>To describe how the recovered object’s parts move, a mesh can continue into <a href="automatic-articulation.html#articulate-anymesh">Articulate AnyMesh in Section 3.6</a>. Its project demonstrates this route from a 2DGS surface mesh to an articulated URDF.</p>
 </section>

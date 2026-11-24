@@ -3,6 +3,90 @@
   "scope": "All image/video files under book/assets, including unused retained figures.",
   "entries": [
     {
+      "asset": "book/assets/2dgs/cabinet-2d.png",
+      "source": "scripts/draw_2dgs_examples.py",
+      "kind": "script-rendered",
+      "sha256": "fd9741755d39c1e17386db79cc97c2bb5d7d16194372d56447971a8285d90f3e"
+    },
+    {
+      "asset": "book/assets/2dgs/cabinet-3d.png",
+      "source": "scripts/draw_2dgs_examples.py",
+      "kind": "script-rendered",
+      "sha256": "22f4e55faa91e1b4a2e16529de59e64ae391644fed09de384f57b18b4cb51ae2"
+    },
+    {
+      "asset": "book/assets/2dgs/element-2d.png",
+      "source": "scripts/draw_2dgs_examples.py",
+      "kind": "script-rendered",
+      "sha256": "8dc562399ff72b9e0b881409b640f8bfbcafd52860ebb66a2c02e7fc24ff6c5c"
+    },
+    {
+      "asset": "book/assets/2dgs/element-3d.png",
+      "source": "scripts/draw_2dgs_examples.py",
+      "kind": "script-rendered",
+      "sha256": "2ae7aa42e56ddc7353a81fcf32ba85a510eed3592ce27d273f288d0d8948efa6"
+    },
+    {
+      "asset": "book/assets/2dgs/workflow.svg",
+      "source": "scripts/draw_2dgs_examples.py",
+      "kind": "script-rendered",
+      "sha256": "064ce550dc207071d737237ccc0b77ab01e5515613ccddeaab3f59264ca0fcf4"
+    },
+    {
+      "asset": "book/assets/automatic-articulation/anymesh-cabinet-mobile.png",
+      "source": "scripts/draw_automatic_articulation.py",
+      "kind": "script-rendered",
+      "sha256": "8ed10bc882dc98bf67f40adf4576245b48dee6a3e2d93464a950f357b64a2a8f"
+    },
+    {
+      "asset": "book/assets/automatic-articulation/anymesh-cabinet.png",
+      "source": "scripts/draw_automatic_articulation.py",
+      "kind": "script-rendered",
+      "sha256": "de74beeaf7d8324f4f2994a2ddcfe75c65b169b567759b6c7d8977bab794c929"
+    },
+    {
+      "asset": "book/assets/automatic-articulation/anymesh-joints-mobile.png",
+      "source": "scripts/draw_automatic_articulation.py",
+      "kind": "script-rendered",
+      "sha256": "257299c7b43fe3729816374b59bc38292bac10a5b3f30ebb6cb4c448b89c2974"
+    },
+    {
+      "asset": "book/assets/automatic-articulation/anymesh-joints.png",
+      "source": "scripts/draw_automatic_articulation.py",
+      "kind": "script-rendered",
+      "sha256": "77baa513fe217c5e71022d36147f3cc7d84aa7d7ef94326f4e5df119b5157427"
+    },
+    {
+      "asset": "book/assets/automatic-articulation/cabinet-output.png",
+      "source": "scripts/draw_automatic_articulation.py",
+      "kind": "script-rendered",
+      "sha256": "fd439ff35ce1e58a739c6caf3ce1cd2e0971686501b7903d88fbb87886eb73a2"
+    },
+    {
+      "asset": "book/assets/automatic-articulation/urdformer-cabinet-mobile.png",
+      "source": "scripts/draw_automatic_articulation.py",
+      "kind": "script-rendered",
+      "sha256": "117aeaa1fcf0264f9a7e9b4f05cbdf050c79489ef2149469d4d7a3ad1bee77c8"
+    },
+    {
+      "asset": "book/assets/automatic-articulation/urdformer-cabinet.png",
+      "source": "scripts/draw_automatic_articulation.py",
+      "kind": "script-rendered",
+      "sha256": "656f5af5ed3a5cee4806115161329aab3ffd066ffce25a171654f07bdfb80b8e"
+    },
+    {
+      "asset": "book/assets/automatic-articulation/urdformer-joints-mobile.png",
+      "source": "scripts/draw_automatic_articulation.py",
+      "kind": "script-rendered",
+      "sha256": "56340724d5d1021edc3f5e34588208b27aeebd24e3fd6e705a4ef10f0795636d"
+    },
+    {
+      "asset": "book/assets/automatic-articulation/urdformer-joints.png",
+      "source": "scripts/draw_automatic_articulation.py",
+      "kind": "script-rendered",
+      "sha256": "9daf20121d37bbb053bf641e0464c47b386a2b0e3870683864049a6ee73a79aa"
+    },
+    {
       "asset": "book/assets/blender/camera-setup-a.jpg",
       "source": "scripts/prepare_blender_figures.py",
       "kind": "annotated-user-screenshot",
@@ -145,6 +229,102 @@
       "source": "scripts/preview_shared_cabinet.py",
       "kind": "script-rendered",
       "sha256": "4bd229a2680dee1d44b4b9f26a28b7e737ab3a150e78d1a9e2125218b6c88eab"
+    },
+    {
+      "asset": "book/assets/colmap/matched-details.png",
+      "source": "scripts/draw_colmap_matches.py",
+      "kind": "script-rendered",
+      "sha256": "54218b8829b19c651b17a59e2737920cfad2723515b819e314c42b1c735511df"
+    },
+    {
+      "asset": "book/assets/diagram-panels/anymesh-door.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "f5d3d465edbce58f4c0bcf7d7bdf3b54e553c395ecd8a83446d2c77184e0d6d0"
+    },
+    {
+      "asset": "book/assets/diagram-panels/anymesh-drawer.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "92af84428507391673f7ddb4d9b3f4305dc52cd748b7bc41ec8b408746c6f0f9"
+    },
+    {
+      "asset": "book/assets/diagram-panels/anymesh-input.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "0d9948bd002af7f94d6ef871393c074a03c32a536803233a4853737967d00333"
+    },
+    {
+      "asset": "book/assets/diagram-panels/anymesh-parts.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "3c28ca6654fcf77b5d7ef08c337dc1a6dbb5e73d0043efc5664a8f09be89e41c"
+    },
+    {
+      "asset": "book/assets/diagram-panels/articulated-output.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "33238d92b8618f5cd4f7689b98ad36dbab70195dcf446b12d80279ae0aa76426"
+    },
+    {
+      "asset": "book/assets/diagram-panels/cabinet-structure.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "1ff1a3bd7ffc1a46ef2c1a88551ca3a58ac4720502cf0e54aa4970cc73ce3879"
+    },
+    {
+      "asset": "book/assets/diagram-panels/detected-parts.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "02c3a999ef4be897d26e4232f767db6fc5dde6186b8d6738ce05e901cc0a3800"
+    },
+    {
+      "asset": "book/assets/diagram-panels/kitchen-0.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "855c5cd338b743961613883972ba2ab9f6e94259a38b992935e9c9db1f8e6796"
+    },
+    {
+      "asset": "book/assets/diagram-panels/kitchen-1.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "5a21562af6ab80ee4302ecc47b1ab66a3c67cc81abb340ebc912d1cb1da8d012"
+    },
+    {
+      "asset": "book/assets/diagram-panels/kitchen-2.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "0c1dda8a2137308983aca6bd1acb2b88df8f5f3571b23158984f1d2cc584ebcb"
+    },
+    {
+      "asset": "book/assets/diagram-panels/physics-current.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "6424ce63091b5db6c58dc0bbea08b799ace0aa7e43dd240983e3687069fea131"
+    },
+    {
+      "asset": "book/assets/diagram-panels/physics-next.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "6be76c6de996ba280f2ea5c9c38e03988e980863a3fa8b1852b6d58b372071a4"
+    },
+    {
+      "asset": "book/assets/diagram-panels/task-open.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "1ff2d3d78aeb0685648a6971a47866f07887271700e189c810fe92c6e4aa247b"
+    },
+    {
+      "asset": "book/assets/diagram-panels/urdformer-door.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "fe89c5d2a2801b09127fa4ca6c5611c6e339fad4b90c4987da85872f1df45a41"
+    },
+    {
+      "asset": "book/assets/diagram-panels/urdformer-drawer.png",
+      "source": "scripts/draw_diagram_panels.py",
+      "kind": "script-rendered",
+      "sha256": "a21328ec3dd8793625e3416790af86fe40f4400f78b6a308e1fc9d683e8eed82"
     },
     {
       "asset": "book/assets/diagrams/cabinet-mesh-coarse.png",
@@ -342,7 +522,7 @@
       "asset": "book/assets/diagrams/reconstruction-workflow.svg",
       "source": "scripts/draw_chapter2_maps.py",
       "kind": "script-rendered",
-      "sha256": "cae8b0e6bb46846ba70734c2fcab916ba2f01e5eb62da041c19408cdb701040a"
+      "sha256": "59ce5e58b1fc7efa89fb96690e4ad6f137e4941bf432da3c3c370e031040cbf5"
     },
     {
       "asset": "book/assets/diagrams/representation-gaussians.svg",
@@ -403,6 +583,54 @@
       "source": "scripts/draw_vla_flow.py",
       "kind": "script-rendered",
       "sha256": "c37c1e168ce82cfaab8ea6891bb4621473fca12a1a8c5fcb034b836565ce04a3"
+    },
+    {
+      "asset": "book/assets/dust3r/alignment-after.png",
+      "source": "scripts/draw_dust3r_examples.py",
+      "kind": "script-rendered",
+      "sha256": "cd49608c9b15873b8a995ac6b7b41461690035139bc882230485f6167296d350"
+    },
+    {
+      "asset": "book/assets/dust3r/alignment-before.png",
+      "source": "scripts/draw_dust3r_examples.py",
+      "kind": "script-rendered",
+      "sha256": "15395fa0205db5e0d31579d37fe1603a0860e0be9bff6dd50bae5995c136f8bb"
+    },
+    {
+      "asset": "book/assets/dust3r/image-pixel.png",
+      "source": "scripts/draw_dust3r_examples.py",
+      "kind": "script-rendered",
+      "sha256": "fd01af2c2b9a9a455ae0fed0a87b3f8305c3c16a4739f0a77cbf851c8f9940d5"
+    },
+    {
+      "asset": "book/assets/dust3r/point-cloud.png",
+      "source": "scripts/draw_dust3r_examples.py",
+      "kind": "script-rendered",
+      "sha256": "5933caeb98d782191d544d2e9361beab29759b6d46bb8c53f24e08f761e57e8e"
+    },
+    {
+      "asset": "book/assets/dust3r/pointmap-grid.png",
+      "source": "scripts/draw_dust3r_examples.py",
+      "kind": "script-rendered",
+      "sha256": "ba0339b24ce8614af40245bcdc5b35cd4174b75f0020d897e82961287429bcab"
+    },
+    {
+      "asset": "book/assets/dust3r/view-front.png",
+      "source": "scripts/draw_dust3r_examples.py",
+      "kind": "script-rendered",
+      "sha256": "33a2bfa04cec883dae9a2fa12318a441d4f30570cb9162402fb4433179ccaa22"
+    },
+    {
+      "asset": "book/assets/dust3r/view-left.png",
+      "source": "scripts/draw_dust3r_examples.py",
+      "kind": "script-rendered",
+      "sha256": "326db1af995c0c0da84154c0cf96795627ef2a26c3b9f97b5a8e87ba3419d853"
+    },
+    {
+      "asset": "book/assets/dust3r/view-right.png",
+      "source": "scripts/draw_dust3r_examples.py",
+      "kind": "script-rendered",
+      "sha256": "ae13dbe8cd3b48a931649d2872178d1b0cb8919e030b68a168691f006a029ee1"
     },
     {
       "asset": "book/assets/examples/cabinet-representations/gaussians.png",
@@ -747,6 +975,36 @@
       "sha256": "7163b830cd8bc4959b92ce045ad94f44e79626f2479785ca7395bb9947529b36"
     },
     {
+      "asset": "book/assets/generation-methods/appearance.png",
+      "source": "scripts/draw_generation_methods.py",
+      "kind": "script-rendered",
+      "sha256": "d704ad284ff04cb46c60d201d12123afbf777bd087cb4d6acb5b9ef74f213fda"
+    },
+    {
+      "asset": "book/assets/generation-methods/input.png",
+      "source": "scripts/draw_generation_methods.py",
+      "kind": "script-rendered",
+      "sha256": "fcd6eb3164dd83b12f1f4024e106990552452b78ddb81a990af20beae978f674"
+    },
+    {
+      "asset": "book/assets/generation-methods/pipelines-mobile.svg",
+      "source": "scripts/draw_generation_methods.py",
+      "kind": "script-rendered",
+      "sha256": "c2befd0dbd47424a2fa5ab962f7970e535b7f85b868444ce7e8a9d3dd871f4e7"
+    },
+    {
+      "asset": "book/assets/generation-methods/pipelines.svg",
+      "source": "scripts/draw_generation_methods.py",
+      "kind": "script-rendered",
+      "sha256": "787f9861125543d476d91e949fc38c4ce014ad4761b429ce1df48c75a528427c"
+    },
+    {
+      "asset": "book/assets/generation-methods/shape.png",
+      "source": "scripts/draw_generation_methods.py",
+      "kind": "script-rendered",
+      "sha256": "3757d3235aa349d8285f3a148b6416a6579a9812ab547d902a5b2a72fcbaf4b5"
+    },
+    {
       "asset": "book/assets/maya/arm-ik.svg",
       "source": "scripts/draw_maya_examples.py",
       "kind": "script-rendered",
@@ -1041,6 +1299,54 @@
       "sha256": "f8ec2f24eae9bc1bcf4d2736f747b6f263833c3dfd6da3d7f09b09fe248c728d"
     },
     {
+      "asset": "book/assets/simulation-platforms/cabinet-tasks-mobile.png",
+      "source": "scripts/draw_simulation_platforms.py",
+      "kind": "script-rendered",
+      "sha256": "997ba3f0ec6ed57f842738735eadb3380b3f14e270f27caac0659eb0f97bba99"
+    },
+    {
+      "asset": "book/assets/simulation-platforms/cabinet-tasks.png",
+      "source": "scripts/draw_simulation_platforms.py",
+      "kind": "script-rendered",
+      "sha256": "4034f7582832442436514eeca8de85f74cfc4291f06e90a25fa32296fe6fc4d0"
+    },
+    {
+      "asset": "book/assets/simulation-platforms/interaction-loop-mobile.png",
+      "source": "scripts/draw_simulation_platforms.py",
+      "kind": "script-rendered",
+      "sha256": "68e5c39471f1febf36fe73060c1ba10bd6f4a6804bf61c5ca577490801a38cba"
+    },
+    {
+      "asset": "book/assets/simulation-platforms/interaction-loop.png",
+      "source": "scripts/draw_simulation_platforms.py",
+      "kind": "script-rendered",
+      "sha256": "eb4b4286cace4f15c0bc1a8b64b488e4ac05a54732809da7820fd51a52e16674"
+    },
+    {
+      "asset": "book/assets/simulation-platforms/physics-step-mobile.png",
+      "source": "scripts/draw_simulation_platforms.py",
+      "kind": "script-rendered",
+      "sha256": "cb9e0e2dba2fd902f36ea1b756b6440634b038cc2a971979a7dbd32041d2e3a5"
+    },
+    {
+      "asset": "book/assets/simulation-platforms/physics-step.png",
+      "source": "scripts/draw_simulation_platforms.py",
+      "kind": "script-rendered",
+      "sha256": "f22f6d0011fc656380f9d2a5fee41c1543d2907151a721281374c574611f8de2"
+    },
+    {
+      "asset": "book/assets/simulation-platforms/software-layers-mobile.png",
+      "source": "scripts/draw_simulation_platforms.py",
+      "kind": "script-rendered",
+      "sha256": "a37a27cb478589c6204fefdae9306309a23e25f2b11b0de4cc10c3d107cf9f42"
+    },
+    {
+      "asset": "book/assets/simulation-platforms/software-layers.png",
+      "source": "scripts/draw_simulation_platforms.py",
+      "kind": "script-rendered",
+      "sha256": "806319273b4b7616c4a0f58bdca2c24d518a9aab4b9b6033ff6c4aed705f946d"
+    },
+    {
       "asset": "book/assets/simulation-workflow/cabinet-parts.png",
       "source": "scripts/draw_simulation_workflow.py",
       "kind": "script-rendered",
@@ -1087,6 +1393,42 @@
       "source": "scripts/render_blender_physics.py",
       "kind": "script-rendered",
       "sha256": "50f51076f5a12c4ce3acc07dcdd670df41f07ebab95012d4f5f10391454a14da"
+    },
+    {
+      "asset": "book/assets/vggt/camera-views.png",
+      "source": "scripts/draw_vggt_examples.py",
+      "kind": "script-rendered",
+      "sha256": "b1308774a05dc9ccde58cca084a27edef1cea0662a1a1589624698d3c47ab3cf"
+    },
+    {
+      "asset": "book/assets/vggt/depth-map.png",
+      "source": "scripts/draw_vggt_examples.py",
+      "kind": "script-rendered",
+      "sha256": "31ecd916bf70dc54152b39521d6e39df818e8d212a72a00fe1ed35868269c31f"
+    },
+    {
+      "asset": "book/assets/vggt/input-front.png",
+      "source": "scripts/draw_vggt_examples.py",
+      "kind": "script-rendered",
+      "sha256": "9826b3b23cd6c9277b2f7df0ac229b6b89f0a0f21e3ded9441c29e758135bb62"
+    },
+    {
+      "asset": "book/assets/vggt/input-left.png",
+      "source": "scripts/draw_vggt_examples.py",
+      "kind": "script-rendered",
+      "sha256": "7a47ff31acd24677fae93579ed7fe2cd32830d29ea12a8b3e7650d58ca00cd06"
+    },
+    {
+      "asset": "book/assets/vggt/input-right.png",
+      "source": "scripts/draw_vggt_examples.py",
+      "kind": "script-rendered",
+      "sha256": "aa6374964e05b6f241f44f4eeebe8a2ce307ff1110aea9199f3c22593f7d8d12"
+    },
+    {
+      "asset": "book/assets/vggt/surface-points.png",
+      "source": "scripts/draw_vggt_examples.py",
+      "kind": "script-rendered",
+      "sha256": "046a0584b6382df89b6c675fe8f646423b815e2b84fb900228ea41ac4fee5179"
     }
   ]
 }

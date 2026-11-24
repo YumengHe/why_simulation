@@ -1,0 +1,29 @@
+{
+  "generator": "scripts/draw_dust3r_examples.py",
+  "geometry": "scripts/shared_cabinet.py",
+  "provenance": "Scripted teaching illustrations, not DUSt3R inference or recorded optimization.",
+  "rasterization": "Perspective-correct triangle interpolation with a depth buffer; position per visible pixel.",
+  "pixel_A": {
+    "column": 236,
+    "row": 181,
+    "world": [
+      -0.47971764392737587,
+      -0.49,
+      0.7018047640393509
+    ],
+    "camera_frame": [
+      -0.23237407858721648,
+      -0.43364296555252235,
+      2.7811700744296783
+    ]
+  },
+  "coordinate_units": "Authored teaching units. Model predictions require a scale reference for metric measurements.",
+  "pointmap_and_cloud": "The cloud is sampled from the same position array; no new geometry is inferred during reorganization.",
+  "pair_alignment": "Known overlap between Left+Front and Front+Right. Prescribed mismatch is removed by a fitted similarity transform.",
+  "alignment_rms": 4.469490603107554e-15,
+  "scope": "Visible surface samples only; hidden cabinet surfaces are not filled in.",
+  "sources": [
+    "https://arxiv.org/abs/2312.14132",
+    "https://github.com/naver/dust3r"
+  ]
+}
