@@ -6,10 +6,10 @@
   <title>Automatically build articulated models · Why Simulation?</title>
   <meta name="description" content="Follow Articulate AnyMesh and URDFormer from their different inputs through part and joint modeling to articulated cabinet outputs.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=6e5b41e917c1">
-  <script src="assets/book.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/articulation.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/frames.js?v=6e5b41e917c1" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=8ca490f2c1eb">
+  <script src="assets/book.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/articulation.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/frames.js?v=8ca490f2c1eb" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -46,7 +46,7 @@
 
 <section class="simulation-lesson" id="articulate-anymesh" data-title="Articulate AnyMesh: from a mesh to moving parts">
   <h2><span class="section-number">3.6.1</span> Articulate AnyMesh: from a mesh to moving parts</h2>
-  <p><strong>Articulate AnyMesh</strong> adds part identities and joints to an existing 3D object. It combines a <a href="llm-vlm-vla.html#vision-language-models">vision-language model (VLM)</a>, part-segmentation tools, and geometry calculations. <a href="https://articulate-anymesh.github.io/">The project page</a> shows the authors’ results.</p>
+  <p><strong>Articulate AnyMesh</strong><sup class="citation">[<a href="#ref-qiu2025articulateanymeshopenvocabulary3d">1</a>]</sup> adds part identities and joints to an existing 3D object. It combines a <a href="llm-vlm-vla.html#vision-language-models">vision-language model (VLM)</a>, part-segmentation tools, and geometry calculations. <a href="https://articulate-anymesh.github.io/">The project page</a> shows the authors’ results.</p>
 
   <h3>Input</h3>
   <p>A <strong>cabinet mesh</strong>. Its surfaces already describe the cabinet’s shape. This mesh could come from an editor, a generator such as <a href="generating-3d-assets.html">TRELLIS or Hunyuan3D</a>, or surface reconstruction such as the <a href="gaussian-splatting.html#surface-gaussians">2DGS mesh extraction in Section 2.8</a>.</p>
@@ -55,10 +55,10 @@
 
   <h3>Processing steps</h3>
   <ol>
-    <li><strong>Identify and separate parts.</strong> GPT-4o interprets rendered views of the mesh. A part-segmentation pipeline, PartSlip++, combines detections and masks from several views into 3D part groups.</li>
+    <li><strong>Identify and separate parts.</strong> GPT-4o<sup class="citation">[<a href="#ref-openai2024gpt4ocard">2</a>]</sup> interprets rendered views of the mesh. A part-segmentation pipeline, PartSlip++<sup class="citation">[<a href="#ref-zhou2023partslipenhancinglowshot3d">3</a>]</sup>, combines detections and masks from several views into 3D part groups.</li>
     <li><strong>Propose the movement structure.</strong> GPT-4o uses the recognized object and parts to propose parent–child connections and joint types, such as a sliding drawer and a hinged door.</li>
     <li><strong>Locate the motion axes.</strong> Geometry calculations and further model judgments determine where those movements take place, as illustrated below.</li>
-    <li><strong>Refine the asset.</strong> A diffusion-based method, RichDreamer, helps refine shape and appearance across different joint positions. The <a href="https://arxiv.org/html/2502.02590v1#S3">paper’s method section</a> describes these components.</li>
+    <li><strong>Refine the asset.</strong> A diffusion-based method, RichDreamer<sup class="citation">[<a href="#ref-qiu2024richdreamer">4</a>]</sup>, helps refine shape and appearance across different joint positions. The <a href="https://arxiv.org/html/2502.02590v1#S3">paper’s method section</a> describes these components.</li>
   </ol>
 
   <h3 id="anymesh-joint-estimation">How the drawer and door get their joints</h3>
@@ -76,7 +76,7 @@
 
 <section class="simulation-lesson" id="urdformer" data-title="URDFormer: from an image to an assembled model">
   <h2><span class="section-number">3.6.2</span> URDFormer: from an image to an assembled model</h2>
-  <p><strong>URDFormer</strong> combines a part detector, a trained structure-prediction network, and assembly rules. Its network learns from paired images and scene descriptions. At use time, the predictions select and arrange prepared meshes in a URDF model. <a href="https://urdformer.github.io/">The project page</a> shows single objects and larger scenes.</p>
+  <p><strong>URDFormer</strong><sup class="citation">[<a href="#ref-chen2024urdformerpipelineconstructingarticulated">5</a>]</sup> combines a part detector, a trained structure-prediction network, and assembly rules. Its network learns from paired images and scene descriptions. At use time, the predictions select and arrange prepared meshes in a URDF model. <a href="https://urdformer.github.io/">The project page</a> shows single objects and larger scenes.</p>
 
   <h3>Input</h3>
   <p>A <strong>cabinet image and bounding boxes around its visible parts</strong>. A bounding box is a rectangle marking a part’s location in the picture. The pipeline’s detector supplies these boxes—for example, around a drawer or handle—and URDFormer uses them together with the image.</p>
@@ -85,7 +85,7 @@
 
   <h3>Processing steps</h3>
   <ol>
-    <li><strong>Locate the visible parts.</strong> A fine-tuned <strong>Grounding DINO</strong> detector supplies boxes for image regions such as the drawer, door, and handles.</li>
+    <li><strong>Locate the visible parts.</strong> A fine-tuned <strong>Grounding DINO</strong><sup class="citation">[<a href="#ref-liu2023grounding">6</a>]</sup> detector supplies boxes for image regions such as the drawer, door, and handles.</li>
     <li><strong>Predict the structure.</strong> The <strong>URDFormer network</strong> uses the image and boxes to predict each part’s mesh category, position, size, and parent. For the drawer, these describe which prepared shape to use and where it belongs in the cabinet.</li>
     <li><strong>Assemble the model.</strong> The program selects and places the meshes, then applies category-specific rules for their joints. These rules and a URDF template create the linked model. See the <a href="https://arxiv.org/html/2405.11656v1#S2">paper’s pipeline description</a>.</li>
   </ol>
@@ -121,10 +121,24 @@
   <h3 id="articulation-model-roles">The models have different jobs</h3>
   <p>In <strong>Articulate AnyMesh</strong>, GPT-4o supplies part and joint judgments; segmentation models locate the corresponding surfaces; RichDreamer supplies shape and appearance priors during refinement.</p>
   <p>In <strong>URDFormer</strong>, <a href="https://github.com/IDEA-Research/GroundingDINO">Grounding DINO</a> combines image features and text labels to locate parts. This is a vision-language detection task. The separate URDFormer network predicts the structure, and the assembly program supplies the category-specific joints. <strong>Detection, structure prediction, and joint assembly are distinct jobs.</strong></p>
-  <p>The URDFormer project also uses Stable Diffusion to help create training images, and its released workflow offers optional texture preparation. These image-generation steps concern appearance. The joint structure follows the prediction and assembly steps above. See the <a href="https://github.com/WEIRDLabUW/urdformer#details">implementation notes</a>.</p>
+  <p>The URDFormer project also uses Stable Diffusion<sup class="citation">[<a href="#ref-rombach2022highresolutionimagesynthesislatent">7</a>]</sup> to help create training images, and its released workflow offers optional texture preparation. These image-generation steps concern appearance. The joint structure follows the prediction and assembly steps above. See the <a href="https://github.com/WEIRDLabUW/urdformer#details">implementation notes</a>.</p>
 
   <figure class="book-diagram" id="diagram-articulated-structure" data-diagram="articulated-structure" aria-labelledby="diagram-articulated-structure-title" aria-describedby="diagram-articulated-structure-caption"><div class="diagram-panel"><div class="diagram-heading"><span class="diagram-kicker">Movement structure</span><h3 id="diagram-articulated-structure-title">Inspect the cabinet’s connections</h3></div><div class="diagram-structure"><img class="diagram-cabinet" src="assets/diagram-panels/cabinet-structure.png" alt="Teaching cabinet with its drawer extended and door open." loading="lazy"><div class="diagram-tree"><div class="diagram-card"><strong class="diagram-card-title">Cabinet body</strong><span class="diagram-card-text">The fixed parent part.</span></div><svg class="diagram-arrow diagram-arrow--fork" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M500 0V14M250 36V14H750V36m-506-6 6 6 6-6m488 0 6 6 6-6"/></svg><div class="diagram-tree-children"><div class="diagram-card"><span class="diagram-card-label">Sliding joint</span><strong class="diagram-card-title">Drawer</strong><span class="diagram-card-text">Front, tray, and fixed handle.</span></div><div class="diagram-card"><span class="diagram-card-label">Hinge joint</span><strong class="diagram-card-title">Door</strong><span class="diagram-card-text">Panel and fixed handle.</span></div></div></div></div><p class="diagram-note">URDF records the connections and joints. Part mesh files supply the visible shapes.</p></div><figcaption id="diagram-articulated-structure-caption">For this teaching cabinet, the intended structure has <strong>two movable joints</strong>. Handles remain fixed to their owners. The diagram shows the structure to inspect in an output from either method.</figcaption></figure>
   <p>To use the asset in a robot experiment, continue with <a href="preparing-simulation.html">contact shapes and physical properties in Section 4.2</a>, then <a href="robot-interaction.html">the robot and controller in Section 4.4</a>. The <a href="robot-interaction.html#articulate-anymesh-example">Articulate AnyMesh project example</a> connects reconstruction, articulation, and robot motion planning.</p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-qiu2025articulateanymeshopenvocabulary3d">Xiaowen Qiu, Jincheng Yang, Yian Wang et al. <em>Articulate AnyMesh: Open-Vocabulary 3D Articulated Objects Modeling</em>. arXiv preprint arXiv:2502.02590, 2025. <a href="https://arxiv.org/abs/2502.02590">arXiv</a></li>
+  <li id="ref-openai2024gpt4ocard">OpenAI, Aaron Hurst, Adam Lerer et al. <em>GPT-4o System Card</em>. arXiv preprint arXiv:2410.21276, 2024. <a href="https://arxiv.org/abs/2410.21276">arXiv</a></li>
+  <li id="ref-zhou2023partslipenhancinglowshot3d">Yuchen Zhou, Jiayuan Gu, Xuanlin Li et al. <em>PartSLIP++: Enhancing Low-Shot 3D Part Segmentation via Multi-View Instance Segmentation and Maximum Likelihood Estimation</em>. arXiv preprint arXiv:2312.03015, 2023. <a href="https://arxiv.org/abs/2312.03015">arXiv</a></li>
+  <li id="ref-qiu2024richdreamer">Lingteng Qiu, Guanying Chen, Xiaodong Gu et al. <em>Richdreamer: A generalizable normal-depth diffusion model for detail richness in text-to-3d</em>. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2024.</li>
+  <li id="ref-chen2024urdformerpipelineconstructingarticulated">Zoey Chen, Aaron Walsman, Marius Memmel et al. <em>URDFormer: A Pipeline for Constructing Articulated Simulation Environments from Real-World Images</em>. arXiv preprint arXiv:2405.11656, 2024. <a href="https://arxiv.org/abs/2405.11656">arXiv</a></li>
+  <li id="ref-liu2023grounding">Shilong Liu, Zhaoyang Zeng, Tianhe Ren et al. <em>Grounding dino: Marrying dino with grounded pre-training for open-set object detection</em>. arXiv preprint arXiv:2303.05499, 2023. <a href="https://arxiv.org/abs/2303.05499">arXiv</a></li>
+  <li id="ref-rombach2022highresolutionimagesynthesislatent">Robin Rombach, Andreas Blattmann, Dominik Lorenz et al. <em>High-Resolution Image Synthesis with Latent Diffusion Models</em>. arXiv preprint arXiv:2112.10752, 2022. <a href="https://arxiv.org/abs/2112.10752">arXiv</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="changing-urdf.html">← Changing a URDF</a><a class="page-next" rel="next" href="animation-and-simulation.html">From animation to simulation →</a></nav>

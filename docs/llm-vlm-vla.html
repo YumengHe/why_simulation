@@ -6,10 +6,10 @@
   <title>Language, vision, and robot actions · Why Simulation?</title>
   <meta name="description" content="Compare LLM, VLM, and VLA with a cabinet: language, image understanding, image generation, model tools, and robot actions.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=6e5b41e917c1">
-  <script src="assets/book.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/articulation.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/frames.js?v=6e5b41e917c1" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=8ca490f2c1eb">
+  <script src="assets/book.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/articulation.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/frames.js?v=8ca490f2c1eb" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -69,7 +69,7 @@
 
 <section id="vision-language-models" data-title="VLM: connect images and words">
   <h2><span class="section-number">1.2</span> VLM: connect images and words</h2>
-  <p>A <strong>vision-language model (VLM)</strong> combines visual information with language. Given the cabinet image and a question, it can connect the words “drawer handle” to a particular part of the picture. <a href="https://llava-vl.github.io/">LLaVA</a> is one example: its image-processing component passes visual information to a language model.</p>
+  <p>A <strong>vision-language model (VLM)</strong> combines visual information with language. Given the cabinet image and a question, it can connect the words “drawer handle” to a particular part of the picture. <a href="https://llava-vl.github.io/">LLaVA</a><sup class="citation">[<a href="#ref-liu2023visualinstructiontuning">1</a>]</sup> is one example: its image-processing component passes visual information to a language model.</p>
 
   <div id="image-input-example" class="model-comparison-example">
     <h3>A chat example: add a cabinet picture</h3>
@@ -94,7 +94,7 @@
   <div class="model-topic" id="one-model-many-capabilities">
     <h3>One model can understand words and pictures</h3>
     <p><strong>LLM</strong> emphasizes language ability; <strong>VLM</strong> emphasizes combining vision and language. The labels can overlap. A model that handles more than one kind of information, such as text and images, is called <strong>multimodal</strong>.</p>
-    <p><a href="https://openai.com/index/hello-gpt-4o/">GPT-4o</a>, for example, was trained to process text and images within one model. When it receives the cabinet picture, it can use its own visual capability to answer. Uploading a picture therefore does not, by itself, mean that the application has switched models.</p>
+    <p><a href="https://openai.com/index/hello-gpt-4o/">GPT-4o</a><sup class="citation">[<a href="#ref-openai2024gpt4ocard">2</a>]</sup>, for example, was trained to process text and images within one model. When it receives the cabinet picture, it can use its own visual capability to answer. Uploading a picture therefore does not, by itself, mean that the application has switched models.</p>
   </div>
 
   <div class="model-topic" id="reading-and-generating-images">
@@ -113,7 +113,7 @@
         <p>Editing is another image-generation task: supply a picture and ask to change the door’s color.</p>
       </div>
     </div>
-    <p>Both tasks can appear in the same chat application. Their requested outputs are different: an answer about an image, or an image itself. <a href="https://developers.openai.com/api/docs/guides/images-vision">OpenAI’s image guide</a> describes both uses.</p>
+    <p>Both tasks can appear in the same chat application. Their requested outputs are different: an answer about an image, or an image itself. <a href="https://developers.openai.com/api/docs/guides/images-vision">OpenAI’s image guide</a><sup class="citation">[<a href="#ref-openai_images_vision">3</a>]</sup> describes both uses.</p>
   </div>
 
   <div class="model-topic" id="calling-other-models">
@@ -122,11 +122,11 @@
 
     <h4 class="model-route-title">Call a VLM to read the picture</h4>
     <figure class="book-diagram" id="diagram-llm-vlm-vla-flow-1" data-diagram="llm-vlm-vla-flow-1" aria-labelledby="diagram-llm-vlm-vla-flow-1-title"><div class="diagram-panel"><div class="diagram-heading"><span class="diagram-kicker">Workflow</span><h3 id="diagram-llm-vlm-vla-flow-1-title">Call a VLM to read the picture</h3></div><ol class="diagram-flow"><li><div class="diagram-card"><span class="diagram-card-label">01</span><strong class="diagram-card-title">Assistant requests help</strong><div class="diagram-card-text"><p>Ask a visual tool to locate the drawer handle.</p></div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">02</span><strong class="diagram-card-title">VLM examines the image</strong><div class="diagram-card-text"><p>The application supplies the cabinet picture and question. The VLM returns a description of the handle’s location.</p></div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">03</span><strong class="diagram-card-title">Assistant uses the result</strong><div class="diagram-card-text"><p>Answer: “On the blue drawer at the top.”</p></div></div></li></ol></div></figure>
-    <p>This is an alternative to the main model reading the image itself. <a href="https://arxiv.org/abs/2303.17580">HuggingGPT</a> is a research example of an LLM selecting other models and using their results to compose a response.</p>
+    <p>This is an alternative to the main model reading the image itself. <a href="https://arxiv.org/abs/2303.17580">HuggingGPT</a><sup class="citation">[<a href="#ref-shen2023hugginggptsolvingaitasks">4</a>]</sup> is a research example of an LLM selecting other models and using their results to compose a response.</p>
 
     <h4 class="model-route-title">Call an image model to draw a picture</h4>
     <figure class="book-diagram" id="diagram-llm-vlm-vla-flow-2" data-diagram="llm-vlm-vla-flow-2" aria-labelledby="diagram-llm-vlm-vla-flow-2-title"><div class="diagram-panel"><div class="diagram-heading"><span class="diagram-kicker">Workflow</span><h3 id="diagram-llm-vlm-vla-flow-2-title">Call an image model to draw a picture</h3></div><ol class="diagram-flow"><li><div class="diagram-card"><span class="diagram-card-label">01</span><strong class="diagram-card-title">Assistant requests an image</strong><div class="diagram-card-text"><p>Send “Draw a blue cabinet with a gold door” to an image-generation tool.</p></div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">02</span><strong class="diagram-card-title">Image model creates it</strong><div class="diagram-card-text"><p>The model generates an image from the description.</p></div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">03</span><strong class="diagram-card-title">Application displays it</strong><div class="diagram-card-text"><p>The new cabinet picture appears in the conversation.</p></div></div></li></ol></div></figure>
-    <p>OpenAI’s <a href="https://developers.openai.com/api/docs/guides/tools-image-generation">image-generation tool</a> supports this arrangement: a main model can call a separate GPT Image model to generate or edit an image.</p>
+    <p>OpenAI’s <a href="https://developers.openai.com/api/docs/guides/tools-image-generation">image-generation tool</a><sup class="citation">[<a href="#ref-openai_image_generation">5</a>]</sup> supports this arrangement: a main model can call a separate GPT Image model to generate or edit an image.</p>
     <p><strong>Reading and drawing name the tasks. Calling a tool describes how the work is assigned.</strong> A model with its own vision capability can still call another model to create pictures.</p>
   </div>
 </section>
@@ -150,7 +150,7 @@
       </li>
       <li>
         <h4><span class="vla-step-number">2</span> Process the image and instruction</h4>
-        <p>This example follows the broad structure of <a href="https://openvla.github.io/">OpenVLA</a>. These components work together within the VLA.</p>
+        <p>This example follows the broad structure of <a href="https://openvla.github.io/">OpenVLA</a><sup class="citation">[<a href="#ref-kim2024openvlaopensourcevisionlanguageactionmodel">6</a>]</sup>. These components work together within the VLA.</p>
         <figure class="book-diagram" id="diagram-vla-components" data-diagram="vla-components" aria-labelledby="diagram-vla-components-title"><div class="diagram-panel"><div class="diagram-heading"><span class="diagram-kicker">Inside a VLA</span><h3 id="diagram-vla-components-title">Process an image and an instruction</h3></div><ol class="diagram-flow"><li><div class="diagram-card"><span class="diagram-card-label">01</span><strong class="diagram-card-title">Image encoder + adapter</strong><div class="diagram-card-text">Turn the image into numerical features the main model can use.</div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">02</span><strong class="diagram-card-title">Vision-language backbone</strong><div class="diagram-card-text">Combine those features with the instruction “Open the drawer.”</div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">03</span><strong class="diagram-card-title">Action output</strong><div class="diagram-card-text">Produce action values. Here, a possible result is an outward movement with the gripper kept closed.</div></div></li></ol></div></figure>
       </li>
       <li id="vla-command-example">
@@ -190,6 +190,19 @@
     <p>The VLA proposes a movement; the controller tries to carry it out. A freely sliding drawer may follow the gripper, while a locked drawer stays shut. The next observation helps the model choose what to do next.</p>
     <p>This interaction can happen with a real cabinet or in a simulation. In simulation, a physics engine calculates the movement, and a renderer produces the next camera image. <a href="robot-interaction.html">Robot interaction in Chapter 4</a> explains how the model, controller, and simulator work together.</p>
   </div>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-liu2023visualinstructiontuning">Haotian Liu, Chunyuan Li, Qingyang Wu, Yong Jae Lee. <em>Visual Instruction Tuning</em>. arXiv preprint arXiv:2304.08485, 2023. <a href="https://arxiv.org/abs/2304.08485">arXiv</a></li>
+  <li id="ref-openai2024gpt4ocard">OpenAI, Aaron Hurst, Adam Lerer et al. <em>GPT-4o System Card</em>. arXiv preprint arXiv:2410.21276, 2024. <a href="https://arxiv.org/abs/2410.21276">arXiv</a></li>
+  <li id="ref-openai_images_vision">OpenAI. <em>Images and Vision</em>. OpenAI API documentation, 2026. Accessed 25 November 2026. <a href="https://developers.openai.com/api/docs/guides/images-vision">link</a></li>
+  <li id="ref-shen2023hugginggptsolvingaitasks">Yongliang Shen, Kaitao Song, Xu Tan et al. <em>HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face</em>. arXiv preprint arXiv:2303.17580, 2023. <a href="https://arxiv.org/abs/2303.17580">arXiv</a></li>
+  <li id="ref-openai_image_generation">OpenAI. <em>Image Generation</em>. OpenAI API documentation, 2026. Accessed 25 November 2026. <a href="https://developers.openai.com/api/docs/guides/tools-image-generation">link</a></li>
+  <li id="ref-kim2024openvlaopensourcevisionlanguageactionmodel">Moo Jin Kim, Karl Pertsch, Siddharth Karamcheti et al. <em>OpenVLA: An Open-Source Vision-Language-Action Model</em>. arXiv preprint arXiv:2406.09246, 2024. <a href="https://arxiv.org/abs/2406.09246">arXiv</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="overview.html">← Overview</a><a class="page-next" rel="next" href="3d-generation.html">Overview: 3D representations →</a></nav>

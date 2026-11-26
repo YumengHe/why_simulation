@@ -6,10 +6,10 @@
   <title>Meshes: representation · Why Simulation?</title>
   <meta name="description" content="Meshes: surfaces and useful detail — what is stored in 3D.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=6e5b41e917c1">
-  <script src="assets/book.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/articulation.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/frames.js?v=6e5b41e917c1" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=8ca490f2c1eb">
+  <script src="assets/book.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/articulation.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/frames.js?v=8ca490f2c1eb" defer></script>
 <script>(() => { const routes = {"what-is-blender": "3d-software.html"}; function redirect() { const hash = location.hash.slice(1); if (routes[hash]) location.replace(routes[hash]+location.hash); } redirect(); addEventListener("hashchange", redirect); })();</script>
 
 </head>
@@ -62,7 +62,7 @@
       <figure><img src="assets/diagrams/cabinet-representation-triangles.png" width="340" height="320" alt="The same cabinet surface patches divided diagonally into triangular faces"><figcaption><h3>Triangle faces</h3><p>Each four-sided patch here is divided into two triangles. The cabinet’s shape stays the same.</p></figcaption></figure>
     </div>
     <h3>Why use triangles or quads?</h3>
-    <p><strong>Quads are useful for editing:</strong> rows of four-sided faces make it easier to select a strip of the cabinet surface and reshape it. <strong>Triangles are useful for rendering:</strong> three corners define a flat patch that software can project and draw. A common workflow is to edit with quads and let the software divide them into triangles for rendering. <a href="https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/triangulate.html">Blender’s triangulation tool.</a></p>
+    <p><strong>Quads are useful for editing:</strong> rows of four-sided faces make it easier to select a strip of the cabinet surface and reshape it. <strong>Triangles are useful for rendering:</strong> three corners define a flat patch that software can project and draw. A common workflow is to edit with quads and let the software divide them into triangles for rendering. <a href="https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/triangulate.html">Blender’s triangulation tool.</a><sup class="citation">[<a href="#ref-blender_manual">1</a>]</sup></p>
     <p><strong>Face type and amount of detail are two separate choices.</strong> A mesh can have a few large triangles or many small triangles; the same applies to quads. More, well-placed corners can follow a curved handle more closely, while more faces generally require more storage and processing. In the two cabinets above, splitting each flat quad into two triangles leaves the surface in exactly the same place.</p>
   </div>
   <p>Measured points can be turned into a mesh by estimating a connected surface. <a href="cameras-and-geometry.html#points-to-surfaces">Section 2.7.7</a> explains where this surface-reconstruction step fits.</p>
@@ -94,6 +94,14 @@
     </div>
   </div>
   <p>For software used to inspect and edit these surfaces, see the <a href="3d-software.html">3D software guide</a>.</p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-blender_manual">Blender Foundation. <em>Blender Reference Manual</em>. Online documentation, 2026. Accessed 25 November 2026. <a href="https://docs.blender.org/manual/">link</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="3d-generation.html">← Overview: 3D representations</a><a class="page-next" rel="next" href="gaussians-and-fields.html">Gaussians and fields: representation →</a></nav>

@@ -6,10 +6,10 @@
   <title>Generation: TRELLIS and Hunyuan3D · Why Simulation?</title>
   <meta name="description" content="Compare original TRELLIS and Hunyuan3D 2.0: multiple output representations, mesh generation, and texture generation.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=6e5b41e917c1">
-  <script src="assets/book.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/articulation.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/frames.js?v=6e5b41e917c1" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=8ca490f2c1eb">
+  <script src="assets/book.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/articulation.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/frames.js?v=8ca490f2c1eb" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -42,7 +42,7 @@
   <h1><span class="chapter-number">2.10</span> Generation: TRELLIS and Hunyuan3D</h1>
   <p class="chapter-purpose draft-addition"><strong>C. Reconstruction and generation</strong> · Pretrained 3D generators</p>
   <p class="lead">A <strong>pretrained 3D generator</strong> offers another route to a 3D asset, the object’s digital model. Give the system a cabinet image, and it uses knowledge learned from many objects to propose the cabinet’s shape and appearance in 3D.</p>
-  <p>We follow two examples: <strong>TRELLIS</strong> creates a shared 3D description that can be decoded into several representations; <strong>Hunyuan3D 2.0</strong> creates a mesh, then generates its texture. Both use the shape, appearance, and rendering concepts from Parts A and B.</p>
+  <p>We follow two examples: <strong>TRELLIS</strong><sup class="citation">[<a href="#ref-xiang2025structured3dlatentsscalable">1</a>]</sup> creates a shared 3D description that can be decoded into several representations; <strong>Hunyuan3D 2.0</strong><sup class="citation">[<a href="#ref-zhao2026hunyuan3d20scalingdiffusion">2</a>]</sup> creates a mesh, then generates its texture. Both use the shape, appearance, and rendering concepts from Parts A and B.</p>
   <p>The routes in <a href="gaussian-splatting.html">2.8</a> and <a href="nerf.html">2.9</a> fit a cabinet’s representation to photographs of that scene. Here, pretrained systems use an input image to guide the creation of a new asset. The examples below refer to the original TRELLIS and Hunyuan3D 2.0 releases.</p>
 </header>
 
@@ -74,7 +74,7 @@
     <h3 class="representation-question">Using TRELLIS’s mesh output</h3>
     <p>Suppose we want to use the generated cabinet in a robot-grasping experiment. Choosing TRELLIS’s mesh output gives us surface patches to inspect and edit. We can check the handle’s shape and the gap behind it, then prepare shapes for contact. We can also organize its geometry into parts before adding joints and physical properties.</p>
     <h3 class="representation-question">Using TRELLIS’s Gaussian output</h3>
-    <p>If our immediate goal is to display the asset from new viewpoints, a Gaussian representation supplies colored blobs that can be projected and blended directly. The same rendering operation works for Gaussians produced by TRELLIS or fitted with 3DGS. The choice depends on what we want to do with the result; surface geometry and Gaussian appearance can also be used together. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project</a>.</p>
+    <p>If our immediate goal is to display the asset from new viewpoints, a Gaussian representation supplies colored blobs that can be projected and blended directly. The same rendering operation works for Gaussians produced by TRELLIS or fitted with 3DGS. The choice depends on what we want to do with the result; surface geometry and Gaussian appearance can also be used together. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project</a><sup class="citation">[<a href="#ref-kerbl20233dgaussiansplattingrealtime">3</a>]</sup>.</p>
 </section>
 
 <section class="representation-lesson" id="hunyuan3d" data-title="Hunyuan3D: first shape, then texture">
@@ -127,6 +127,16 @@
     <p><strong>Hunyuan3D shape and texture.</strong> The shape model generates a compact numerical description that is decoded into a mesh. For texture generation, the pipeline renders geometric information from several viewpoints; Paint uses it with the reference image to generate colored views. Transferring those colors onto a texture map is called <strong>texture baking</strong>. See the paper’s <a href="https://arxiv.org/html/2501.12202v1#S3">shape method</a> and <a href="https://arxiv.org/html/2501.12202v1#S4">texture method</a>.</p>
     <p><strong>Exporting a textured mesh from TRELLIS.</strong> Its GLB export can transfer appearance from the generated Gaussians onto the generated mesh. The <a href="https://microsoft.github.io/TRELLIS/">official export notes</a> describe this step. For Hunyuan3D, the <a href="https://github.com/Tencent-Hunyuan/Hunyuan3D-2/blob/main/docs/source/started/code.md">code examples</a> show how to use the shape and Paint models.</p>
   </details>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-xiang2025structured3dlatentsscalable">Jianfeng Xiang, Zelong Lv, Sicheng Xu et al. <em>Structured 3D Latents for Scalable and Versatile 3D Generation</em>. arXiv preprint arXiv:2412.01506, 2025. <a href="https://arxiv.org/abs/2412.01506">arXiv</a></li>
+  <li id="ref-zhao2026hunyuan3d20scalingdiffusion">Zibo Zhao, Zeqiang Lai, Qingxiang Lin et al. <em>Hunyuan3D 2.0: Scaling Diffusion Models for High Resolution Textured 3D Assets Generation</em>. arXiv preprint arXiv:2501.12202, 2026. <a href="https://arxiv.org/abs/2501.12202">arXiv</a></li>
+  <li id="ref-kerbl20233dgaussiansplattingrealtime">Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler, George Drettakis. <em>3D Gaussian Splatting for Real-Time Radiance Field Rendering</em>. arXiv preprint arXiv:2308.04079, 2023. <a href="https://arxiv.org/abs/2308.04079">arXiv</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="nerf.html">← Radiance fields: reconstruction with NeRF</a><a class="page-next" rel="next" href="3d-software.html">3D software →</a></nav>

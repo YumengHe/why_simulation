@@ -6,10 +6,10 @@
   <title>Reading a URDF file · Why Simulation?</title>
   <meta name="description" content="Read a cabinet URDF with illustrated examples of links, visual shapes, sliding and rotating joints, collision shapes, and the base link.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=6e5b41e917c1">
-  <script src="assets/book.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/articulation.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/frames.js?v=6e5b41e917c1" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=8ca490f2c1eb">
+  <script src="assets/book.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/articulation.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/frames.js?v=8ca490f2c1eb" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -40,7 +40,7 @@
       </div>
       <article><header class="chapter-header" id="chapter-start">
   <h1><span class="chapter-number">3.4</span> Reading a URDF file</h1>
-  <p class="lead">A URDF file tells us what the parts are, what they look like, and how they connect. We use a URDF of the same teaching cabinet shown throughout the book.</p>
+  <p class="lead">A URDF file<sup class="citation">[<a href="#ref-rosindustrial_urdf">1</a>]</sup> tells us what the parts are, what they look like, and how they connect. We use a URDF of the same teaching cabinet shown throughout the book.</p>
 </header>
 
 <section id="file-and-tree" data-title="One file, parts and connections">
@@ -200,6 +200,14 @@
   <p>The <code>base</code> link would be left disconnected from the cabinet. We would have two separate roots: <code>base</code> and the cabinet body. A URDF needs one connected tree, so a standard URDF loader rejects this arrangement. None of the three pictures shows this disconnected case.</p>
   <p>The fixed joint adds <strong>zero degrees of freedom</strong>. With the cabinet held still, the drawer and door still provide two independent movements: one slide and one rotation.</p>
   <p class="urdf-source-links"><a href="assets/cabinet-model/teaching-urdf/cabinet.urdf">Teaching cabinet URDF</a><a href="assets/cabinet-model/teaching-cabinet-urdf.zip" download>URDF + mesh files</a><a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">URDF reference ↗</a></p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-rosindustrial_urdf">ROS-Industrial Consortium. <em>Introduction to URDF</em>. ROS2 Industrial Training materials, 2026. Accessed 25 November 2026. <a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">link</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="frames-and-urdf.html">← Frames, orientation &amp; URDF</a><a class="page-next" rel="next" href="changing-urdf.html">Changing a URDF →</a></nav>

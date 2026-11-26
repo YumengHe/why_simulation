@@ -6,10 +6,10 @@
   <title>From 3D shape to a movable object · Why Simulation?</title>
   <meta name="description" content="Prepare a cabinet’s visible parts and describe the joints that make it movable.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=6e5b41e917c1">
-  <script src="assets/book.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/articulation.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/frames.js?v=6e5b41e917c1" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=8ca490f2c1eb">
+  <script src="assets/book.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/articulation.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/frames.js?v=8ca490f2c1eb" defer></script>
 <script>(() => { const routes = {"simulation-parts": "preparing-simulation.html", "space-for-the-drawer": "preparing-simulation.html", "vertices-edges-faces": "preparing-simulation.html", "create-collision-shapes": "preparing-simulation.html", "prepare-contact-pieces": "preparing-simulation.html", "check-collision-shapes": "preparing-simulation.html", "painted-and-raised-handle": "preparing-simulation.html", "handle-and-finger-contact": "preparing-simulation.html", "simulation-properties": "preparing-simulation.html", "what-is-mujoco": "mujoco-experiments.html", "mujoco-test-environment": "mujoco-experiments.html", "direct-pull-duration": "mujoco-experiments.html", "drawer-motion-output": "mujoco-experiments.html", "simulation-render": "mujoco-experiments.html", "robot-pull-control": "robot-interaction.html"}; function redirect() { const hash = location.hash.slice(1); if (routes[hash]) location.replace(routes[hash]+location.hash); } redirect(); addEventListener("hashchange", redirect); })();</script>
 
 </head>
@@ -49,7 +49,7 @@
   <p>A 3D reconstruction describes an object’s shape or appearance from photographs. A generated asset proposes a model from an input such as an image. Either result can show a cabinet without identifying its moving parts.</p>
   <p>These outputs describe shape or appearance. They do not automatically tell us that the blue drawer should slide independently of the cabinet body, or how far a pull will move it.</p>
   <p>In this example, we use meshes for the visible parts. A <a href="3d-software.html">3D editor such as Blender or Maya</a> can help separate or rebuild those parts and check their size. A closed-cabinet reconstruction may omit the drawer’s hidden tray or the space inside the body; those details need to be checked and, where necessary, added.</p>
-  <p><a href="automatic-articulation.html">Section 3.6</a> introduces research methods that help build this structure: Articulate AnyMesh starts with an existing mesh, while URDFormer assembles parts from an image and detected part locations.</p>
+  <p><a href="automatic-articulation.html">Section 3.6</a> introduces research methods that help build this structure: Articulate AnyMesh<sup class="citation">[<a href="#ref-qiu2025articulateanymeshopenvocabulary3d">1</a>]</sup> starts with an existing mesh, while URDFormer<sup class="citation">[<a href="#ref-chen2024urdformerpipelineconstructingarticulated">2</a>]</sup> assembles parts from an image and detected part locations.</p>
 </section>
 
 <section class="simulation-lesson" id="movable-cabinet" data-title="From a cabinet shape to moving parts">
@@ -70,6 +70,15 @@
     <li><a href="animation-and-simulation.html"><strong>Simulation</strong><span>Prepare contact and physical properties, apply a force, and calculate the movement.</span></a></li>
   </ol>
   <p>For the drawer, the distinction is concrete: <strong>shape</strong> describes the drawer and handle; <strong>articulation</strong> lets the drawer slide; <strong>simulation</strong> calculates how it moves when pulled.</p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-qiu2025articulateanymeshopenvocabulary3d">Xiaowen Qiu, Jincheng Yang, Yian Wang et al. <em>Articulate AnyMesh: Open-Vocabulary 3D Articulated Objects Modeling</em>. arXiv preprint arXiv:2502.02590, 2025. <a href="https://arxiv.org/abs/2502.02590">arXiv</a></li>
+  <li id="ref-chen2024urdformerpipelineconstructingarticulated">Zoey Chen, Aaron Walsman, Marius Memmel et al. <em>URDFormer: A Pipeline for Constructing Articulated Simulation Environments from Real-World Images</em>. arXiv preprint arXiv:2405.11656, 2024. <a href="https://arxiv.org/abs/2405.11656">arXiv</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="articulated-objects.html">← Parts, joints, and motion</a><a class="page-next" rel="next" href="frames-and-urdf.html">Frames, orientation &amp; URDF →</a></nav>

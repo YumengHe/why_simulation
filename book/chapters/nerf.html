@@ -14,7 +14,7 @@
     <figure><img src="assets/nerf-cabinet/front.png" width="360" height="430" alt="The same teaching cabinet viewed from the front" loading="lazy"><figcaption>Photo 2 · from the front</figcaption></figure>
     <figure><img src="assets/nerf-cabinet/right.png" width="360" height="430" alt="The same teaching cabinet viewed from the right" loading="lazy"><figcaption>Photo 3 · from the right</figcaption></figure>
   </div>
-  <p>The original NeRF is trained separately for each scene. Photographs of this cabinet provide the training images: the network learns a description of this particular cabinet from those views.</p>
+  <p>The original NeRF{{cite:mildenhall2020nerfrepresentingscenesneural}} is trained separately for each scene. Photographs of this cabinet provide the training images: the network learns a description of this particular cabinet from those views.</p>
   <p>The three views illustrate the image collection step. Reconstruction may use many more photographs to cover the scene.</p>
 </section>
 
@@ -27,7 +27,7 @@
   </figure>
   <div class="draft-addition">
     <h3>Use the camera estimates from Section 2.7</h3>
-    <p><a href="cameras-and-geometry.html#colmap-cabinet">Section 2.7.3</a> explains how COLMAP estimates cameras from the cabinet photographs. <a href="cameras-and-geometry.html#vggt-cabinet">Section 2.7.5</a> introduces VGGT’s camera and geometry predictions. Either route must supply camera data in the form expected by the chosen NeRF implementation.</p>
+    <p><a href="cameras-and-geometry.html#colmap-cabinet">Section 2.7.3</a> explains how COLMAP{{cite:schoenberger2016sfm}} estimates cameras from the cabinet photographs. <a href="cameras-and-geometry.html#vggt-cabinet">Section 2.7.5</a> introduces VGGT’s camera and geometry predictions{{cite:wang2025vggtvisualgeometrygrounded}}. Either route must supply camera data in the form expected by the chosen NeRF implementation.</p>
     <p><strong>In the workflow illustrated here, COLMAP supplies the camera estimates.</strong> Keep each photograph paired with its camera position, orientation, and lens parameters. The <a href="https://github.com/bmild/nerf#generating-poses-for-your-own-scenes">original NeRF code</a> describes this preparation.</p>
     {{diagram:nerf-flow-1}}
     <p><strong>NeRF uses the same photographs and camera estimates through a separate reconstruction route.</strong> The 3DGS and NeRF routes branch after input preparation. In NeRF, the renderer calculates the sample positions sent to the network.</p>

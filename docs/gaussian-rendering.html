@@ -6,11 +6,11 @@
   <title>Gaussians: rendering · Why Simulation?</title>
   <meta name="description" content="Gaussian projection and blending — how a camera view is calculated.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=6e5b41e917c1">
-  <script src="assets/book.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/articulation.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/frames.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/representation-demo.js?v=6e5b41e917c1" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=8ca490f2c1eb">
+  <script src="assets/book.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/articulation.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/frames.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/representation-demo.js?v=8ca490f2c1eb" defer></script>
 </head>
 <body data-review-additions="false">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -49,7 +49,7 @@
   <h2 class="draft-addition"><span class="section-number">2.5.1</span> Gaussian rendering: project and blend</h2>
   <p>Start with the fixed 3D blobs introduced in <a href="gaussians-and-fields.html#gaussian-data">Section 2.3.1</a>. A camera determines where their colors land in the picture.</p>
   <h2 class="lesson-heading">How do the 3D blobs become an image?</h2>
-  <p class="draft-addition">A Gaussian renderer projects each 3D blob onto the flat image as a soft oval mark. Where marks overlap, it combines their colors, taking account of which blob is nearer the camera. Placing and blending these projected marks is called <strong>splatting</strong>. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3D Gaussian Splatting (3DGS) project</a>.</p>
+  <p class="draft-addition">A Gaussian renderer projects each 3D blob onto the flat image as a soft oval mark. Where marks overlap, it combines their colors, taking account of which blob is nearer the camera. Placing and blending these projected marks is called <strong>splatting</strong>. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3D Gaussian Splatting (3DGS) project</a><sup class="citation">[<a href="#ref-kerbl20233dgaussiansplattingrealtime">1</a>]</sup>.</p>
   <div class="projection-film" id="projection-video">
     <h3 class="representation-question">Watch the 3D setup become a 2D view</h3>
     <p>The <strong>image plane</strong> is a flat rectangle where we draw the camera’s picture. In this diagram it sits in front of the camera. Seen from its edge, that rectangle looks like a line; the image still has width and height.</p>
@@ -69,7 +69,7 @@
     <p><a href="assets/projection/projection-explained.mp4" download>Download the video</a></p>
   </div>
   <p>In the last part, watch the gold mark move behind the blue one, then separate again. The 3D blobs have not moved: the camera now sees them along different lines of sight. Their marks are calculated again for each new camera position. This is how the same 3D scene can produce different 2D pictures.</p>
-  <p>For implementation details, see <a href="https://docs.gsplat.studio/main/apis/rasterization.html">how gsplat uses the camera and Gaussian shapes to calculate these images</a>.</p>
+  <p>For implementation details, see <a href="https://docs.gsplat.studio/main/apis/rasterization.html">how gsplat uses the camera and Gaussian shapes to calculate these images</a><sup class="citation">[<a href="#ref-ye2025gsplat">2</a>]</sup>.</p>
 
   <div class="projection-film" id="cabinet-projection-video">
     <h3 class="representation-question">Now try a whole cabinet</h3>
@@ -139,6 +139,15 @@
     </div>
   </div>
 
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-kerbl20233dgaussiansplattingrealtime">Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler, George Drettakis. <em>3D Gaussian Splatting for Real-Time Radiance Field Rendering</em>. arXiv preprint arXiv:2308.04079, 2023. <a href="https://arxiv.org/abs/2308.04079">arXiv</a></li>
+  <li id="ref-ye2025gsplat">Vickie Ye, Ruilong Li, Justin Kerr et al. <em>gsplat: An open-source library for Gaussian splatting</em>. Journal of Machine Learning Research 26(34):1–17, 2025.</li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="rendering.html">← Meshes: rendering with a camera</a><a class="page-next" rel="next" href="field-rendering.html">Radiance fields: rendering with NeRF →</a></nav>

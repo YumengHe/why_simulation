@@ -6,10 +6,10 @@
   <title>Radiance fields: reconstruction with NeRF · Why Simulation?</title>
   <meta name="description" content="Reconstruct a cabinet with NeRF — how photographs or pretrained models produce 3D data.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=6e5b41e917c1">
-  <script src="assets/book.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/articulation.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/frames.js?v=6e5b41e917c1" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=8ca490f2c1eb">
+  <script src="assets/book.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/articulation.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/frames.js?v=8ca490f2c1eb" defer></script>
 <script>(() => { const routes = {"nerf-network": "gaussians-and-fields.html", "nerf-rendering": "field-rendering.html", "nerf-complete-image": "field-rendering.html", "nerf-query-inputs": "field-rendering.html"}; function redirect() { const hash = location.hash.slice(1); if (routes[hash]) location.replace(routes[hash]+location.hash); } redirect(); addEventListener("hashchange", redirect); })();</script>
 
 </head>
@@ -55,7 +55,7 @@
     <figure><img src="assets/nerf-cabinet/front.png" width="360" height="430" alt="The same teaching cabinet viewed from the front" loading="lazy"><figcaption>Photo 2 · from the front</figcaption></figure>
     <figure><img src="assets/nerf-cabinet/right.png" width="360" height="430" alt="The same teaching cabinet viewed from the right" loading="lazy"><figcaption>Photo 3 · from the right</figcaption></figure>
   </div>
-  <p>The original NeRF is trained separately for each scene. Photographs of this cabinet provide the training images: the network learns a description of this particular cabinet from those views.</p>
+  <p>The original NeRF<sup class="citation">[<a href="#ref-mildenhall2020nerfrepresentingscenesneural">1</a>]</sup> is trained separately for each scene. Photographs of this cabinet provide the training images: the network learns a description of this particular cabinet from those views.</p>
   <p>The three views illustrate the image collection step. Reconstruction may use many more photographs to cover the scene.</p>
 </section>
 
@@ -68,7 +68,7 @@
   </figure>
   <div class="draft-addition">
     <h3>Use the camera estimates from Section 2.7</h3>
-    <p><a href="cameras-and-geometry.html#colmap-cabinet">Section 2.7.3</a> explains how COLMAP estimates cameras from the cabinet photographs. <a href="cameras-and-geometry.html#vggt-cabinet">Section 2.7.5</a> introduces VGGT’s camera and geometry predictions. Either route must supply camera data in the form expected by the chosen NeRF implementation.</p>
+    <p><a href="cameras-and-geometry.html#colmap-cabinet">Section 2.7.3</a> explains how COLMAP<sup class="citation">[<a href="#ref-schoenberger2016sfm">2</a>]</sup> estimates cameras from the cabinet photographs. <a href="cameras-and-geometry.html#vggt-cabinet">Section 2.7.5</a> introduces VGGT’s camera and geometry predictions<sup class="citation">[<a href="#ref-wang2025vggtvisualgeometrygrounded">3</a>]</sup>. Either route must supply camera data in the form expected by the chosen NeRF implementation.</p>
     <p><strong>In the workflow illustrated here, COLMAP supplies the camera estimates.</strong> Keep each photograph paired with its camera position, orientation, and lens parameters. The <a href="https://github.com/bmild/nerf#generating-poses-for-your-own-scenes">original NeRF code</a> describes this preparation.</p>
     <figure class="book-diagram" id="diagram-nerf-flow-1" data-diagram="nerf-flow-1" aria-labelledby="diagram-nerf-flow-1-title"><div class="diagram-panel"><div class="diagram-heading"><span class="diagram-kicker">Workflow</span><h3 id="diagram-nerf-flow-1-title">From prepared cameras to field queries</h3></div><ol class="diagram-flow"><li><div class="diagram-card"><span class="diagram-card-label">01</span><strong class="diagram-card-title">Prepared inputs</strong><div class="diagram-card-text">Cabinet photos + camera parameters</div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">02</span><strong class="diagram-card-title">NeRF renderer</strong><div class="diagram-card-text">Rays + sampled 3D positions</div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">03</span><strong class="diagram-card-title">NeRF network</strong><div class="diagram-card-text">Color + density per sample</div></div></li></ol></div></figure>
     <p><strong>NeRF uses the same photographs and camera estimates through a separate reconstruction route.</strong> The 3DGS and NeRF routes branch after input preparation. In NeRF, the renderer calculates the sample positions sent to the network.</p>
@@ -117,6 +117,16 @@
   </div>
   <p>An unseen back or interior can still be wrong. Good-looking views do not guarantee accurate hidden geometry, moving joints, or mass.</p>
   <p>The stored scene differs from <a href="gaussian-splatting.html">3DGS</a>: <strong>3DGS adjusts a set of blobs; NeRF adjusts a network.</strong> Both use rendered images to check a 3D representation against photographs.</p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-mildenhall2020nerfrepresentingscenesneural">Ben Mildenhall, Pratul P. Srinivasan, Matthew Tancik et al. <em>NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis</em>. arXiv preprint arXiv:2003.08934, 2020. <a href="https://arxiv.org/abs/2003.08934">arXiv</a></li>
+  <li id="ref-schoenberger2016sfm">Johannes Lutz Schönberger, Jan-Michael Frahm. <em>Structure-from-Motion Revisited</em>. Conference on Computer Vision and Pattern Recognition (CVPR), 2016.</li>
+  <li id="ref-wang2025vggtvisualgeometrygrounded">Jianyuan Wang, Minghao Chen, Nikita Karaev et al. <em>VGGT: Visual Geometry Grounded Transformer</em>. arXiv preprint arXiv:2503.11651, 2025. <a href="https://arxiv.org/abs/2503.11651">arXiv</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="gaussian-splatting.html">← Gaussians: reconstruction with 3DGS and 2DGS</a><a class="page-next" rel="next" href="generating-3d-assets.html">Generation: TRELLIS and Hunyuan3D →</a></nav>

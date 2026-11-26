@@ -6,10 +6,10 @@
   <title>Meshes: rendering with a camera · Why Simulation?</title>
   <meta name="description" content="Cameras and mesh rendering — how a camera view is calculated.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=6e5b41e917c1">
-  <script src="assets/book.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/articulation.js?v=6e5b41e917c1" defer></script>
-  <script src="assets/frames.js?v=6e5b41e917c1" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=8ca490f2c1eb">
+  <script src="assets/book.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/articulation.js?v=8ca490f2c1eb" defer></script>
+  <script src="assets/frames.js?v=8ca490f2c1eb" defer></script>
 <script>(() => { const routes = {"projection-player": "gaussian-rendering.html", "opacity-example": "gaussian-rendering.html", "blended-pixel": "gaussian-rendering.html", "blend-description": "gaussian-rendering.html", "cabinet-projection-description": "gaussian-rendering.html", "front-opacity": "gaussian-rendering.html", "rendering-gaussians": "gaussian-rendering.html", "cabinet-opacity-value": "gaussian-rendering.html", "rendering-a-field": "field-rendering.html", "opacity-lab": "gaussian-rendering.html", "cabinet-opacity-example": "gaussian-rendering.html", "blend-calculation": "gaussian-rendering.html", "cabinet-opacity-caption": "gaussian-rendering.html", "cabinet-opacity-description": "gaussian-rendering.html", "opacity-blue-gradient": "gaussian-rendering.html", "cabinet-projection-video": "gaussian-rendering.html", "opacity-value": "gaussian-rendering.html", "cabinet-opacity-image": "gaussian-rendering.html", "opacity-front-splat": "gaussian-rendering.html", "weight-back": "gaussian-rendering.html", "projection-video": "gaussian-rendering.html", "weight-front": "gaussian-rendering.html", "opacity-gold-gradient": "gaussian-rendering.html", "weight-background": "gaussian-rendering.html", "cabinet-opacity": "gaussian-rendering.html", "cabinet-projection-player": "gaussian-rendering.html", "rendering-to-reconstruction": "cameras-and-geometry.html", "projection-video-description": "gaussian-rendering.html"}; function redirect() { const hash = location.hash.slice(1); if (routes[hash]) location.replace(routes[hash]+location.hash); } redirect(); addEventListener("hashchange", redirect); })();</script>
 
 </head>
@@ -63,8 +63,8 @@
         <thead><tr><th>What we have</th><th>Example tool</th><th>What we do</th></tr></thead>
         <tbody>
           <tr><th scope="row">A mesh</th><td><a href="3d-software.html#what-is-blender">Blender</a>, using a renderer such as Eevee or Cycles.</td><td>Load the model, set its appearance, place lights and a camera, then render and save an image.</td></tr>
-          <tr><th scope="row">3D Gaussians</th><td>A Gaussian renderer, such as <a href="https://docs.gsplat.studio/main/apis/rasterization.html">gsplat</a>.</td><td>Load the blobs and choose a camera. The renderer projects the blobs and blends their colors into the image.</td></tr>
-          <tr class="draft-addition"><th scope="row">A trained NeRF</th><td>A NeRF volume renderer, such as the one in the <a href="https://github.com/bmild/nerf">original NeRF implementation</a>.</td><td>Load the trained network and choose a camera. Query color and density along camera rays, then combine the answers into pixels.</td></tr>
+          <tr><th scope="row">3D Gaussians</th><td>A Gaussian renderer, such as <a href="https://docs.gsplat.studio/main/apis/rasterization.html">gsplat</a><sup class="citation">[<a href="#ref-ye2025gsplat">1</a>]</sup>.</td><td>Load the blobs and choose a camera. The renderer projects the blobs and blends their colors into the image.</td></tr>
+          <tr class="draft-addition"><th scope="row">A trained NeRF</th><td>A NeRF volume renderer, such as the one in the <a href="https://github.com/bmild/nerf">original NeRF implementation</a><sup class="citation">[<a href="#ref-mildenhall2020nerfrepresentingscenesneural">2</a>]</sup>.</td><td>Load the trained network and choose a camera. Query color and density along camera rays, then combine the answers into pixels.</td></tr>
         </tbody>
       </table>
     </div>
@@ -82,8 +82,18 @@
     <li><strong>Calculate the color.</strong> Use the visible surface’s material, texture, direction, and lighting. Repeat across the image.</li>
   </ol>
   <p>Imagine walking around a real cabinet: the cabinet stays still, but you see a different side. A virtual camera works similarly. Keep the 3D cabinet in place, move the camera from the front to the side, and render again. The new image shows the surfaces visible from the side. We do not need to rebuild the mesh for that camera movement.</p>
-  <p>This is what the mesh contributes: <strong>the cabinet’s surfaces in 3D</strong>. The camera chooses the view, and the renderer calculates the picture. <a href="https://docs.blender.org/manual/en/4.0/render/introduction.html">More on rendering</a>.</p>
+  <p>This is what the mesh contributes: <strong>the cabinet’s surfaces in 3D</strong>. The camera chooses the view, and the renderer calculates the picture. <a href="https://docs.blender.org/manual/en/4.0/render/introduction.html">More on rendering</a><sup class="citation">[<a href="#ref-blender_manual">3</a>]</sup>.</p>
   <p class="draft-addition">Renderers can also make pictures from other representations. For <strong>3D Gaussians</strong>, the renderer blends the blobs’ projected colors. For a <strong>NeRF radiance field</strong>, it asks a network about locations along each line of sight. <a href="gaussian-rendering.html">Section 2.5</a> shows Gaussian projection and blending; <a href="field-rendering.html">Section 2.6</a> follows a ray through a radiance field.</p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-ye2025gsplat">Vickie Ye, Ruilong Li, Justin Kerr et al. <em>gsplat: An open-source library for Gaussian splatting</em>. Journal of Machine Learning Research 26(34):1–17, 2025.</li>
+  <li id="ref-mildenhall2020nerfrepresentingscenesneural">Ben Mildenhall, Pratul P. Srinivasan, Matthew Tancik et al. <em>NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis</em>. arXiv preprint arXiv:2003.08934, 2020. <a href="https://arxiv.org/abs/2003.08934">arXiv</a></li>
+  <li id="ref-blender_manual">Blender Foundation. <em>Blender Reference Manual</em>. Online documentation, 2026. Accessed 25 November 2026. <a href="https://docs.blender.org/manual/">link</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="gaussians-and-fields.html">← Gaussians and fields: representation</a><a class="page-next" rel="next" href="gaussian-rendering.html">Gaussians: rendering →</a></nav>
