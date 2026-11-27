@@ -29,7 +29,7 @@
 
 <section id="vision-language-models" data-title="VLM: connect images and words">
   <h2><span class="section-number">1.2</span> VLM: connect images and words</h2>
-  <p>A <strong>vision-language model (VLM)</strong> combines visual information with language. Given the cabinet image and a question, it can connect the words “drawer handle” to a particular part of the picture. <a href="https://llava-vl.github.io/">LLaVA</a> is one example: its image-processing component passes visual information to a language model.</p>
+  <p>A <strong>vision-language model (VLM)</strong> combines visual information with language. Given the cabinet image and a question, it can connect the words “drawer handle” to a particular part of the picture. <a href="https://llava-vl.github.io/">LLaVA</a>{{cite:liu2023visualinstructiontuning}} is one example: its image-processing component passes visual information to a language model.</p>
 
   <div id="image-input-example" class="model-comparison-example">
     <h3>A chat example: add a cabinet picture</h3>
@@ -54,7 +54,7 @@
   <div class="model-topic" id="one-model-many-capabilities">
     <h3>One model can understand words and pictures</h3>
     <p><strong>LLM</strong> emphasizes language ability; <strong>VLM</strong> emphasizes combining vision and language. The labels can overlap. A model that handles more than one kind of information, such as text and images, is called <strong>multimodal</strong>.</p>
-    <p><a href="https://openai.com/index/hello-gpt-4o/">GPT-4o</a>, for example, was trained to process text and images within one model. When it receives the cabinet picture, it can use its own visual capability to answer. Uploading a picture therefore does not, by itself, mean that the application has switched models.</p>
+    <p><a href="https://openai.com/index/hello-gpt-4o/">GPT-4o</a>{{cite:openai2024gpt4ocard}}, for example, was trained to process text and images within one model. When it receives the cabinet picture, it can use its own visual capability to answer. Uploading a picture therefore does not, by itself, mean that the application has switched models.</p>
   </div>
 
   <div class="model-topic" id="reading-and-generating-images">
@@ -73,7 +73,7 @@
         <p>Editing is another image-generation task: supply a picture and ask to change the door’s color.</p>
       </div>
     </div>
-    <p>Both tasks can appear in the same chat application. Their requested outputs are different: an answer about an image, or an image itself. <a href="https://developers.openai.com/api/docs/guides/images-vision">OpenAI’s image guide</a> describes both uses.</p>
+    <p>Both tasks can appear in the same chat application. Their requested outputs are different: an answer about an image, or an image itself. <a href="https://developers.openai.com/api/docs/guides/images-vision">OpenAI’s image guide</a>{{cite:openai_images_vision}} describes both uses.</p>
   </div>
 
   <div class="model-topic" id="calling-other-models">
@@ -82,11 +82,11 @@
 
     <h4 class="model-route-title">Call a VLM to read the picture</h4>
     {{diagram:llm-vlm-vla-flow-1}}
-    <p>This is an alternative to the main model reading the image itself. <a href="https://arxiv.org/abs/2303.17580">HuggingGPT</a> is a research example of an LLM selecting other models and using their results to compose a response.</p>
+    <p>This is an alternative to the main model reading the image itself. <a href="https://arxiv.org/abs/2303.17580">HuggingGPT</a>{{cite:shen2023hugginggptsolvingaitasks}} is a research example of an LLM selecting other models and using their results to compose a response.</p>
 
     <h4 class="model-route-title">Call an image model to draw a picture</h4>
     {{diagram:llm-vlm-vla-flow-2}}
-    <p>OpenAI’s <a href="https://developers.openai.com/api/docs/guides/tools-image-generation">image-generation tool</a> supports this arrangement: a main model can call a separate GPT Image model to generate or edit an image.</p>
+    <p>OpenAI’s <a href="https://developers.openai.com/api/docs/guides/tools-image-generation">image-generation tool</a>{{cite:openai_image_generation}} supports this arrangement: a main model can call a separate GPT Image model to generate or edit an image.</p>
     <p><strong>Reading and drawing name the tasks. Calling a tool describes how the work is assigned.</strong> A model with its own vision capability can still call another model to create pictures.</p>
   </div>
 </section>
@@ -110,7 +110,7 @@
       </li>
       <li>
         <h4><span class="vla-step-number">2</span> Process the image and instruction</h4>
-        <p>This example follows the broad structure of <a href="https://openvla.github.io/">OpenVLA</a>. These components work together within the VLA.</p>
+        <p>This example follows the broad structure of <a href="https://openvla.github.io/">OpenVLA</a>{{cite:kim2024openvlaopensourcevisionlanguageactionmodel}}. These components work together within the VLA.</p>
         {{diagram:vla-components}}
       </li>
       <li id="vla-command-example">

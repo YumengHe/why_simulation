@@ -777,3 +777,10 @@ body.contents-hidden .book-body{margin-left:0}
 .cad-learning-figure { max-width: 480px; margin: 24px auto; }
 .cad-learning-figure img { display: block; width: 100%; height: auto; }
 .cad-learning-figure figcaption { color: var(--muted); font-size: 14px; line-height: 1.6; margin-top: 12px; }
+
+sup.citation{font-size:11px;line-height:0;letter-spacing:.02em}
+sup.citation a{text-decoration:none}
+.reference-list{margin:0;padding-left:24px;font-size:14px;line-height:1.7;color:var(--muted);display:grid;gap:10px}
+.reference-list li::marker{color:var(--muted)}
+.reference-list li:target{background:var(--gold-soft);outline:6px solid var(--gold-soft)}
+.reference-list em{font-style:italic}

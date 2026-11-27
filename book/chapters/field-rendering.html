@@ -17,7 +17,7 @@
 
 <section class="nerf-lesson" id="nerf-query-inputs" data-title="How the renderer generates 3D positions and viewing directions from a pixel">
   <h2><span class="section-number">2.7.2</span> Generate the 3D positions from a camera pixel</h2>
-  <p>Start with the camera’s <strong>position, orientation, and lens parameters</strong>. A virtual camera can supply these settings directly. When matching a photograph, COLMAP can estimate them, as described in <a href="cameras-and-geometry.html#colmap-cabinet">Section 2.8.3</a>. In either case, the renderer uses the camera settings to calculate sample positions and viewing directions:</p>
+  <p>Start with the camera’s <strong>position, orientation, and lens parameters</strong>. A virtual camera can supply these settings directly. When matching a photograph, COLMAP{{cite:schoenberger2016sfm}} can estimate them, as described in <a href="cameras-and-geometry.html#colmap-cabinet">Section 2.8.3</a>. In either case, the renderer uses the camera settings to calculate sample positions and viewing directions:</p>
   <ol class="nerf-instructions">
     <li>It selects a pixel in the image to be rendered.</li>
     <li>It uses <strong>the camera position, orientation, and lens parameters</strong> to calculate the pixel’s <strong>ray</strong>: a line of sight extending into the scene.</li>
@@ -60,7 +60,7 @@
     <div><dt>P2 · air</dt><dd>Low density again: most of the view continues toward the drawer.</dd></div>
     <div><dt>P3 · drawer</dt><dd>Blue color and high density: samples around the front panel supply most of the pixel’s color and reduce the contribution from farther behind.</dd></div>
   </dl>
-  <p>The renderer combines the sample colors from near to far. Density and the distance represented by each sample determine how strongly it contributes and how much of the view passes through to later samples. This calculation is called <strong>volume rendering</strong>. It uses many samples along the ray; P1–P3 are three labeled locations within that process. <a href="https://arxiv.org/html/2003.08934v2#S4">Rendering details in the paper.</a></p>
+  <p>The renderer combines the sample colors from near to far. Density and the distance represented by each sample determine how strongly it contributes and how much of the view passes through to later samples. This calculation is called <strong>volume rendering</strong>. It uses many samples along the ray; P1–P3 are three labeled locations within that process. <a href="https://arxiv.org/html/2003.08934v2#S4">Rendering details in the paper.</a>{{cite:mildenhall2020nerfrepresentingscenesneural}}</p>
   <p><strong>The combined color is written into the original selected pixel.</strong> In this example, the drawer front makes that pixel blue.</p>
   <h3 id="nerf-complete-image">From one pixel to a complete cabinet image</h3>
   <p>The renderer repeats the same calculation for every pixel, using a different ray for each one. The result is an ordinary <strong>2D color image</strong>, like this cabinet view:</p>

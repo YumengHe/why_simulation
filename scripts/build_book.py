@@ -8,6 +8,7 @@ import json
 import re
 import shutil
 from book_diagrams import expand_diagrams
+from book_references import expand_citations, load_bib, references_section
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'book'
@@ -54,9 +55,13 @@ def build():
     layout = (SOURCE / 'layout.html').read_text()
     chapter_scripts = sorted({name for chapter in config['chapters'] for name in chapter.get('scripts', [])})
     asset_version = sha256(b''.join((SOURCE / 'assets' / name).read_bytes() for name in ['book.css', 'book.js', 'articulation.js', 'frames.js'] + chapter_scripts)).hexdigest()[:12]
+    bib = load_bib(SOURCE / 'references.bib')
     chapters = []
     for chapter in config['chapters']:
         content = expand_diagrams((SOURCE / chapter['source']).read_text())
+        content, cited = expand_citations(content, bib, chapter['source'])
+        if cited:
+            content += references_section(cited, bib)
         if '{{citation_bibtex}}' in content:
             citation = (SOURCE / 'citation.bib').read_text().strip()
             content = content.replace('{{citation_bibtex}}', escape(citation))

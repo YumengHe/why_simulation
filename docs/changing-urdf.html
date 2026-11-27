@@ -6,10 +6,10 @@
   <title>Changing a URDF · Why Simulation?</title>
   <meta name="description" content="Watch what happens when we change a drawer’s direction, turn a hinge into a slide, remove a part, or swap shapes while keeping the joints.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=73fdf65e1c5e">
-  <script src="assets/book.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/articulation.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/frames.js?v=73fdf65e1c5e" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=bab7b102421a">
+  <script src="assets/book.js?v=bab7b102421a" defer></script>
+  <script src="assets/articulation.js?v=bab7b102421a" defer></script>
+  <script src="assets/frames.js?v=bab7b102421a" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -40,7 +40,7 @@
       </div>
       <article><header class="chapter-header" id="chapter-start">
   <h1><span class="chapter-number">3.5</span> What happens when we change the URDF?</h1>
-  <p class="lead">Use the same cabinet to see what changes when we edit its joints and shapes.</p>
+  <p class="lead">Use the same cabinet to see what changes when we edit its joints and shapes.<sup class="citation">[<a href="#ref-rosindustrial_urdf">1</a>]</sup></p>
 </header>
 
 <section id="change-direction" data-title="Change the drawer’s direction">
@@ -168,6 +168,14 @@
   <p>For this example, we exchange the two links’ <code>visual</code> and <code>collision</code> blocks. We also adjust their placement offsets so both shapes still start in the same closed positions. The joints keep their original locations, directions, and limits.</p>
   <p>The result is an unusual cabinet, but it makes the roles clear: <strong>the shapes describe the parts; the joints describe their movement.</strong></p>
   <p class="urdf-source-links"><a href="assets/cabinet-model/teaching-urdf/cabinet.urdf">Teaching cabinet URDF</a><a href="assets/cabinet-model/teaching-cabinet-urdf.zip" download>URDF + mesh files</a><a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">URDF reference ↗</a></p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-rosindustrial_urdf">ROS-Industrial Consortium. <em>Introduction to URDF</em>. ROS2 Industrial Training materials, 2026. Accessed 25 November 2026. <a href="https://ros-industrial.github.io/ros2_i_training/_source/urdf/introduction.html">link</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="reading-urdf.html">← Reading a URDF file</a><a class="page-next" rel="next" href="automatic-articulation.html">Automatically build articulated models →</a></nav>

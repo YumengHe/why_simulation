@@ -6,10 +6,10 @@
   <title>MuJoCo experiments · Why Simulation?</title>
   <meta name="description" content="Load a cabinet model, apply a pull, record opening distance over time, and render the calculated motion.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=73fdf65e1c5e">
-  <script src="assets/book.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/articulation.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/frames.js?v=73fdf65e1c5e" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=bab7b102421a">
+  <script src="assets/book.js?v=bab7b102421a" defer></script>
+  <script src="assets/articulation.js?v=bab7b102421a" defer></script>
+  <script src="assets/frames.js?v=bab7b102421a" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -40,7 +40,7 @@
       </div>
       <article><header class="chapter-header" id="chapter-start">
   <h1><span class="chapter-number">4.3</span> MuJoCo experiments</h1>
-  <p class="lead">The model from Section 4.2 describes the cabinet. A test script loads it, applies a chosen force, and asks MuJoCo to calculate the motion. Those calculated positions can then be rendered as a video.</p>
+  <p class="lead">The model from Section 4.2 describes the cabinet. A test script loads it, applies a chosen force, and asks MuJoCo<sup class="citation">[<a href="#ref-todorov2012mujoco">1</a>]</sup> to calculate the motion. Those calculated positions can then be rendered as a video.</p>
 </header>
 
 <span id="what-is-mujoco" aria-hidden="true"></span>
@@ -83,6 +83,14 @@
   <p>The preparation between a generated mesh and a simulation is real work; a file conversion alone does not complete it.</p>
   <p>With NeRF or 3DGS, the beginning changes: <strong>photos → fit a scene → render new views</strong> already gives a visual result. To simulate a moving drawer, add the same physical structure described here. Keeping its learned appearance on moving parts requires an additional way to associate and move that appearance with each part.</p>
   <p>Finally, check the test: does the drawer follow the rail, stay attached, and stop near its limit? Are there unintended overlaps? If we have a real cabinet, compare the same pull in both. When they disagree, revisit the geometry or physical settings instead of judging the simulation only by how good its video looks.</p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-todorov2012mujoco">Emanuel Todorov, Tom Erez, Yuval Tassa. <em>MuJoCo: A physics engine for model-based control</em>. 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems, 2012. <a href="https://doi.org/10.1109/IROS.2012.6386109">DOI</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="preparing-simulation.html">← Preparing a simulation model</a><a class="page-next" rel="next" href="robot-interaction.html">Robot interaction and control →</a></nav>

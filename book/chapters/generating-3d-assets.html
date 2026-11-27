@@ -2,7 +2,7 @@
   <h1><span class="chapter-number">2.11</span> Generation: TRELLIS and Hunyuan3D</h1>
   <p class="chapter-purpose draft-addition"><strong>C. Reconstruction and generation</strong> · Pretrained 3D generators</p>
   <p class="lead">A <strong>pretrained 3D generator</strong> offers another route to a 3D asset, the object’s digital model. Give the system a cabinet image, and it uses knowledge learned from many objects to propose the cabinet’s shape and appearance in 3D.</p>
-  <p>We follow two examples: <strong>TRELLIS</strong> creates a shared 3D description that can be decoded into several representations; <strong>Hunyuan3D 2.0</strong> creates a mesh, then generates its texture. Both use the shape, appearance, and rendering concepts from Parts A and B.</p>
+  <p>We follow two examples: <strong>TRELLIS</strong>{{cite:xiang2025structured3dlatentsscalable}} creates a shared 3D description that can be decoded into several representations; <strong>Hunyuan3D 2.0</strong>{{cite:zhao2026hunyuan3d20scalingdiffusion}} creates a mesh, then generates its texture. Both use the shape, appearance, and rendering concepts from Parts A and B.</p>
   <p>The routes in <a href="gaussian-splatting.html">2.9</a> and <a href="nerf.html">2.10</a> fit a cabinet’s representation to photographs of that scene. Here, pretrained systems use an input image to guide the creation of a new asset. The examples below refer to the original TRELLIS and Hunyuan3D 2.0 releases.</p>
 </header>
 
@@ -34,7 +34,7 @@
     <h3 class="representation-question">Using TRELLIS’s mesh output</h3>
     <p>Suppose we want to use the generated cabinet in a robot-grasping experiment. Choosing TRELLIS’s mesh output gives us surface patches to inspect and edit. We can check the handle’s shape and the gap behind it, then prepare shapes for contact. We can also organize its geometry into parts before adding joints and physical properties.</p>
     <h3 class="representation-question">Using TRELLIS’s Gaussian output</h3>
-    <p>If our immediate goal is to display the asset from new viewpoints, a Gaussian representation supplies colored blobs that can be projected and blended directly. The same rendering operation works for Gaussians produced by TRELLIS or fitted with 3DGS. The choice depends on what we want to do with the result; surface geometry and Gaussian appearance can also be used together. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project</a>.</p>
+    <p>If our immediate goal is to display the asset from new viewpoints, a Gaussian representation supplies colored blobs that can be projected and blended directly. The same rendering operation works for Gaussians produced by TRELLIS or fitted with 3DGS. The choice depends on what we want to do with the result; surface geometry and Gaussian appearance can also be used together. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project</a>{{cite:kerbl20233dgaussiansplattingrealtime}}.</p>
 </section>
 
 <section class="representation-lesson" id="hunyuan3d" data-title="Hunyuan3D: first shape, then texture">

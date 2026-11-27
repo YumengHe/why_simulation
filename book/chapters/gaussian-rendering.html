@@ -9,7 +9,7 @@
   <h2 class="draft-addition"><span class="section-number">2.6.1</span> Gaussian rendering: project and blend</h2>
   <p>Start with the fixed 3D blobs introduced in <a href="gaussians-and-fields.html#gaussian-data">Section 2.4.1</a>. A camera determines where their colors land in the picture.</p>
   <h2 class="lesson-heading">How do the 3D blobs become an image?</h2>
-  <p class="draft-addition">A Gaussian renderer projects each 3D blob onto the flat image as a soft oval mark. Where marks overlap, it combines their colors, taking account of which blob is nearer the camera. Placing and blending these projected marks is called <strong>splatting</strong>. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3D Gaussian Splatting (3DGS) project</a>.</p>
+  <p class="draft-addition">A Gaussian renderer projects each 3D blob onto the flat image as a soft oval mark. Where marks overlap, it combines their colors, taking account of which blob is nearer the camera. Placing and blending these projected marks is called <strong>splatting</strong>. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3D Gaussian Splatting (3DGS) project</a>{{cite:kerbl20233dgaussiansplattingrealtime}}.</p>
   <div class="projection-film" id="projection-video">
     <h3 class="representation-question">Watch the 3D setup become a 2D view</h3>
     <p>The <strong>image plane</strong> is a flat rectangle where we draw the camera’s picture. In this diagram it sits in front of the camera. Seen from its edge, that rectangle looks like a line; the image still has width and height.</p>
@@ -29,7 +29,7 @@
     <p><a href="assets/projection/projection-explained.mp4" download>Download the video</a></p>
   </div>
   <p>In the last part, watch the gold mark move behind the blue one, then separate again. The 3D blobs have not moved: the camera now sees them along different lines of sight. Their marks are calculated again for each new camera position. This is how the same 3D scene can produce different 2D pictures.</p>
-  <p>For implementation details, see <a href="https://docs.gsplat.studio/main/apis/rasterization.html">how gsplat uses the camera and Gaussian shapes to calculate these images</a>.</p>
+  <p>For implementation details, see <a href="https://docs.gsplat.studio/main/apis/rasterization.html">how gsplat uses the camera and Gaussian shapes to calculate these images</a>{{cite:ye2025gsplat}}.</p>
 
   <div class="projection-film" id="cabinet-projection-video">
     <h3 class="representation-question">Now try a whole cabinet</h3>

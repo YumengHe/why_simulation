@@ -6,10 +6,10 @@
   <title>Gaussians and fields: representation · Why Simulation?</title>
   <meta name="description" content="Gaussians and spatial fields — what is stored in 3D.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=73fdf65e1c5e">
-  <script src="assets/book.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/articulation.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/frames.js?v=73fdf65e1c5e" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=bab7b102421a">
+  <script src="assets/book.js?v=bab7b102421a" defer></script>
+  <script src="assets/articulation.js?v=bab7b102421a" defer></script>
+  <script src="assets/frames.js?v=bab7b102421a" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -55,7 +55,7 @@
     <figure><a href="assets/diagrams/gaussian-whole-cabinet.png" data-enlarge aria-label="Enlarge the cabinet made from 4,748 Gaussians"><img src="assets/diagrams/gaussian-whole-cabinet.png" width="600" height="560" alt="The whole cabinet rendered from 4,748 Gaussians, with a gold outline locating the twelve-blob patch on the blue drawer front"></a><figcaption><strong>4,748 blobs in this example.</strong> Their colors blend into one cabinet image. The gold outline locates the small group shown in the middle.</figcaption></figure>
   </div>
   <p>The first two views show shape guides so we can distinguish the blobs; their influence fades beyond those guides. The last view blends the blobs as a renderer does. This count belongs to our scripted teaching cabinet; different scenes use different numbers of Gaussians.</p>
-<p><strong>3D Gaussians</strong> names the stored elements. <strong>3D Gaussian Splatting (3DGS)</strong> names the method studied later, which fits these elements to photographs and renders them by splatting. A generator can also produce Gaussian data. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project.</a></p>
+<p><strong>3D Gaussians</strong> names the stored elements. <strong>3D Gaussian Splatting (3DGS)</strong> names the method studied later, which fits these elements to photographs and renders them by splatting. A generator can also produce Gaussian data. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project.</a><sup class="citation">[<a href="#ref-kerbl20233dgaussiansplattingrealtime">1</a>]</sup></p>
 <p>For now, keep the blobs fixed. <a href="gaussian-rendering.html">Section 2.6</a> shows their projection and opacity with the two-blob and cabinet videos.</p>
 <p>A related method, <strong>2D Gaussian Splatting (2DGS)</strong>, uses flat Gaussian disks placed and oriented in 3D. The <a href="gaussian-splatting.html#surface-gaussians">cabinet comparison in Section 2.9</a> shows how these surface elements differ from 3D Gaussian volumes.</p>
 </section>
@@ -68,7 +68,7 @@
 <div><dt>Radiance field</dt><dd>What color and density are present here? In the cabinet example, the drawer front contributes blue and blocks the view; air contributes little. Color can also depend on viewing direction.</dd></div>
 </dl>
 <p>These three fields answer different questions about the same cabinet. Occupancy and signed distance describe its shape; a radiance field supplies information for making pictures. Its density describes how a region affects visibility.</p>
-<p>Each kind of field can be implemented in different ways. Examples include <a href="https://github.com/autonomousvision/occupancy_networks">Occupancy Networks</a> for occupancy, <a href="https://github.com/facebookresearch/DeepSDF">DeepSDF</a> for signed distance, and <a href="https://www.matthewtancik.com/nerf">NeRF</a> for radiance fields.</p>
+<p>Each kind of field can be implemented in different ways. Examples include <a href="https://github.com/autonomousvision/occupancy_networks">Occupancy Networks</a><sup class="citation">[<a href="#ref-mescheder2019occupancy">2</a>]</sup> for occupancy, <a href="https://github.com/facebookresearch/DeepSDF">DeepSDF</a><sup class="citation">[<a href="#ref-Park_2019_CVPR">3</a>]</sup> for signed distance, and <a href="https://www.matthewtancik.com/nerf">NeRF</a><sup class="citation">[<a href="#ref-mildenhall2020nerfrepresentingscenesneural">4</a>]</sup> for radiance fields.</p>
 <div id="nerf-network">
 <nav class="representation-trail" aria-label="Radiance field reading route"><strong>Radiance field:</strong> <a href="gaussians-and-fields.html#spatial-fields">Representation · 2.4.2</a><span> · </span><a href="field-rendering.html">Rendering · 2.7</a><span> · </span><a href="nerf.html">Reconstruction with NeRF · 2.10</a></nav>
   <h3>Example: NeRF represents a radiance field</h3>
@@ -83,6 +83,17 @@
   <p>The <a href="3d-generation.html#voxel-grid">voxel grid introduced in Section 2.1</a> stores values in small 3D cells. It also connects to fields: each cell can keep an occupancy or distance value.</p>
   <figure class="book-diagram" id="diagram-representation-map" data-diagram="representation-map" aria-labelledby="diagram-representation-map-title" aria-describedby="diagram-representation-map-caption"><div class="diagram-panel"><div class="diagram-heading"><span class="diagram-kicker">Representation map</span><h3 id="diagram-representation-map-title">Ways to describe the same 3D cabinet</h3><p>Representation is the information kept about the object.</p></div><div class="diagram-groups"><div class="diagram-group"><h4>Stored elements</h4><div class="diagram-card"><strong class="diagram-card-title">Point cloud</strong><span class="diagram-card-text">3D positions; optional colors.</span></div><div class="diagram-card"><strong class="diagram-card-title">Mesh</strong><span class="diagram-card-text">Vertices and connected triangle or quad faces.</span></div><a class="diagram-card" href="cad.html"><strong class="diagram-card-title">CAD boundary representation</strong><span class="diagram-card-text">Mathematical curves and surfaces, their boundaries, and their connections.</span><span class="diagram-linkmark" aria-hidden="true">↗</span></a><div class="diagram-card"><strong class="diagram-card-title">Voxel grid</strong><span class="diagram-card-text">Values in small 3D cells, such as occupied or empty.</span></div><div class="diagram-card"><strong class="diagram-card-title">3D Gaussians</strong><span class="diagram-card-text">Positions, sizes, orientations, opacities, and appearance.</span></div></div><div class="diagram-group"><h4>Fields: ask about a location</h4><div class="diagram-card"><strong class="diagram-card-title">Signed distance (SDF)</strong><span class="diagram-card-text">How far from the surface, and on which side?</span></div><div class="diagram-card"><strong class="diagram-card-title">Occupancy</strong><span class="diagram-card-text">Is this location inside the solid, or how likely is it to be inside?</span></div><div class="diagram-card"><strong class="diagram-card-title">Radiance field</strong><span class="diagram-card-text">Density and view-dependent color. NeRF represents a field with a neural network.</span></div></div></div><p class="diagram-note"><strong>Storage and field meaning can be combined.</strong> A voxel grid can store sampled distance or occupancy values.</p></div><figcaption id="diagram-representation-map-caption">A field describes what we can ask; its storage describes how the answers are kept. For example, a voxel grid can store an occupancy value in every cell.</figcaption></figure>
   <p><strong>Representation tells us what 3D information is available.</strong> In <a href="rendering.html">Part B: Rendering</a>, we use that information and a virtual camera to make a picture.</p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-kerbl20233dgaussiansplattingrealtime">Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler, George Drettakis. <em>3D Gaussian Splatting for Real-Time Radiance Field Rendering</em>. arXiv preprint arXiv:2308.04079, 2023. <a href="https://arxiv.org/abs/2308.04079">arXiv</a></li>
+  <li id="ref-mescheder2019occupancy">Lars Mescheder, Michael Oechsle, Michael Niemeyer et al. <em>Occupancy Networks: Learning 3D Reconstruction in Function Space</em>. Proceedings IEEE Conf. on Computer Vision and Pattern Recognition (CVPR), 2019.</li>
+  <li id="ref-Park_2019_CVPR">Jeong Joon Park, Peter Florence, Julian Straub et al. <em>DeepSDF: Learning Continuous Signed Distance Functions for Shape Representation</em>. The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2019.</li>
+  <li id="ref-mildenhall2020nerfrepresentingscenesneural">Ben Mildenhall, Pratul P. Srinivasan, Matthew Tancik et al. <em>NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis</em>. arXiv preprint arXiv:2003.08934, 2020. <a href="https://arxiv.org/abs/2003.08934">arXiv</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="cad.html">← CAD: functions, surfaces, and meshes</a><a class="page-next" rel="next" href="rendering.html">Meshes: rendering with a camera →</a></nav>

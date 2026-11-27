@@ -22,8 +22,8 @@
         <thead><tr><th>What we have</th><th>Example tool</th><th>What we do</th></tr></thead>
         <tbody>
           <tr><th scope="row">A mesh</th><td><a href="3d-software.html#what-is-blender">Blender</a>, using a renderer such as Eevee or Cycles.</td><td>Load the model, set its appearance, place lights and a camera, then render and save an image.</td></tr>
-          <tr><th scope="row">3D Gaussians</th><td>A Gaussian renderer, such as <a href="https://docs.gsplat.studio/main/apis/rasterization.html">gsplat</a>.</td><td>Load the blobs and choose a camera. The renderer projects the blobs and blends their colors into the image.</td></tr>
-          <tr class="draft-addition"><th scope="row">A trained NeRF</th><td>A NeRF volume renderer, such as the one in the <a href="https://github.com/bmild/nerf">original NeRF implementation</a>.</td><td>Load the trained network and choose a camera. Query color and density along camera rays, then combine the answers into pixels.</td></tr>
+          <tr><th scope="row">3D Gaussians</th><td>A Gaussian renderer, such as <a href="https://docs.gsplat.studio/main/apis/rasterization.html">gsplat</a>{{cite:ye2025gsplat}}.</td><td>Load the blobs and choose a camera. The renderer projects the blobs and blends their colors into the image.</td></tr>
+          <tr class="draft-addition"><th scope="row">A trained NeRF</th><td>A NeRF volume renderer, such as the one in the <a href="https://github.com/bmild/nerf">original NeRF implementation</a>{{cite:mildenhall2020nerfrepresentingscenesneural}}.</td><td>Load the trained network and choose a camera. Query color and density along camera rays, then combine the answers into pixels.</td></tr>
         </tbody>
       </table>
     </div>
@@ -41,6 +41,6 @@
     <li><strong>Calculate the color.</strong> Use the visible surface’s material, texture, direction, and lighting. Repeat across the image.</li>
   </ol>
   <p>Imagine walking around a real cabinet: the cabinet stays still, but you see a different side. A virtual camera works similarly. Keep the 3D cabinet in place, move the camera from the front to the side, and render again. The new image shows the surfaces visible from the side. We do not need to rebuild the mesh for that camera movement.</p>
-  <p>This is what the mesh contributes: <strong>the cabinet’s surfaces in 3D</strong>. The camera chooses the view, and the renderer calculates the picture. <a href="https://docs.blender.org/manual/en/4.0/render/introduction.html">More on rendering</a>.</p>
+  <p>This is what the mesh contributes: <strong>the cabinet’s surfaces in 3D</strong>. The camera chooses the view, and the renderer calculates the picture. <a href="https://docs.blender.org/manual/en/4.0/render/introduction.html">More on rendering</a>{{cite:blender_manual}}.</p>
   <p class="draft-addition">Renderers can also make pictures from other representations. For <strong>3D Gaussians</strong>, the renderer blends the blobs’ projected colors. For a <strong>NeRF radiance field</strong>, it asks a network about locations along each line of sight. <a href="gaussian-rendering.html">Section 2.6</a> shows Gaussian projection and blending; <a href="field-rendering.html">Section 2.7</a> follows a ray through a radiance field.</p>
 </section>

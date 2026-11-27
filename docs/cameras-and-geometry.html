@@ -6,10 +6,10 @@
   <title>Reconstruction: cameras, points, and meshes · Why Simulation?</title>
   <meta name="description" content="Reconstruction with COLMAP, DUSt3R, and VGGT: cameras, pointmaps, point clouds, and surface meshes.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=73fdf65e1c5e">
-  <script src="assets/book.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/articulation.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/frames.js?v=73fdf65e1c5e" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=bab7b102421a">
+  <script src="assets/book.js?v=bab7b102421a" defer></script>
+  <script src="assets/articulation.js?v=bab7b102421a" defer></script>
+  <script src="assets/frames.js?v=bab7b102421a" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -45,7 +45,7 @@
   <figure class="book-diagram" id="diagram-cameras-and-geometry-flow-1" data-diagram="cameras-and-geometry-flow-1" aria-labelledby="diagram-cameras-and-geometry-flow-1-title"><div class="diagram-panel"><div class="diagram-heading"><span class="diagram-kicker">Workflow</span><h3 id="diagram-cameras-and-geometry-flow-1-title">From photographs to cameras and geometry</h3></div><ol class="diagram-flow"><li><div class="diagram-card"><span class="diagram-card-label">01</span><strong class="diagram-card-title">2D photographs</strong><div class="diagram-card-text">Several views of the cabinet</div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">02</span><strong class="diagram-card-title">Choose a method</strong><div class="diagram-card-text">COLMAP, DUSt3R, or VGGT</div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">03</span><strong class="diagram-card-title">Cameras + 3D geometry</strong><div class="diagram-card-text">Camera settings + surface positions</div></div></li></ol></div></figure>
   <p>Each complete workflow can provide <strong>camera estimates and 3D surface positions</strong>. The methods differ in how they obtain these estimates and whether the geometry is represented by sparse points, dense pointmaps, or depth maps.</p>
   <p><a href="rendering.html#chapter-start">Section 2.5</a> supplies a scene and camera to make a picture. Here, the pictures are the evidence used to estimate those unknowns. A photograph does not uniquely determine the hidden surfaces, so reconstruction gives an estimate rather than an exact reversal.</p>
-  <p><strong>Inverse rendering</strong> describes inferring scene properties from images, often including shape, materials, and lighting. <a href="https://nvlabs.github.io/nvdiffrec/">One example recovers all three together.</a> This section focuses on <strong>camera and geometry reconstruction</strong>. COLMAP finds the same details in different photographs, then uses their image positions to estimate cameras and 3D points. DUSt3R predicts 3D points from image pairs and aligns the pair results. VGGT jointly processes images to predict cameras and geometry. These are <strong>three alternative methods</strong> for estimating the photographed scene.</p>
+  <p><strong>Inverse rendering</strong> describes inferring scene properties from images, often including shape, materials, and lighting. <a href="https://nvlabs.github.io/nvdiffrec/">One example recovers all three together.</a><sup class="citation">[<a href="#ref-Munkberg_2022_CVPR">1</a>]</sup> This section focuses on <strong>camera and geometry reconstruction</strong>. COLMAP<sup class="citation">[<a href="#ref-schoenberger2016sfm">2</a>]</sup> finds the same details in different photographs, then uses their image positions to estimate cameras and 3D points. DUSt3R<sup class="citation">[<a href="#ref-wang2024dust3rgeometric3dvision">3</a>]</sup> predicts 3D points from image pairs and aligns the pair results. VGGT<sup class="citation">[<a href="#ref-wang2025vggtvisualgeometrygrounded">4</a>]</sup> jointly processes images to predict cameras and geometry. These are <strong>three alternative methods</strong> for estimating the photographed scene.</p>
 </header>
 
 <section class="representation-lesson draft-addition" id="rendering-to-reconstruction" data-title="Reconstruction and generation: the workflow">
@@ -163,7 +163,7 @@
 </div>
 <p><strong>The depth and point predictions already describe geometry.</strong> Displaying the predicted surface points in a 3D viewer gives a point-cloud reconstruction of the cabinet. The <a href="https://github.com/facebookresearch/vggt#interactive-3d-visualization">official VGGT viewer</a> provides examples of inspecting these results.</p>
 <p>For the next stages in this book, we keep the photographs and export the estimated cameras and 3D points. VGGT’s <a href="https://github.com/facebookresearch/vggt#exporting-to-colmap-format">export tool</a> writes them in COLMAP’s file format, which reconstruction software can read.</p>
-<p><strong>To obtain a Gaussian scene, continue with a Gaussian training method.</strong> The <a href="https://github.com/facebookresearch/vggt#integration-with-gaussian-splatting">official VGGT integration</a> passes the images, estimated cameras, and points to gsplat, a Gaussian rendering and training library. Training then adjusts the Gaussians to match the cabinet photographs.</p>
+<p><strong>To obtain a Gaussian scene, continue with a Gaussian training method.</strong> The <a href="https://github.com/facebookresearch/vggt#integration-with-gaussian-splatting">official VGGT integration</a> passes the images, estimated cameras, and points to gsplat<sup class="citation">[<a href="#ref-ye2025gsplat">5</a>]</sup>, a Gaussian rendering and training library. Training then adjusts the Gaussians to match the cabinet photographs.</p>
 <h3 id="compare-reconstruction-methods">Three methods for the same reconstruction task</h3>
 <p><strong>All three workflows can recover cameras and 3D geometry from photographs.</strong> Given the same cabinet views, COLMAP calculates these estimates from matches within the supplied photographs. VGGT applies what its network learned during pretraining to predict them. DUSt3R also uses a pretrained network, with image-pair prediction followed by alignment and camera recovery. Their steps and outputs are:</p>
 <table class="learning-table">
@@ -188,8 +188,8 @@
 <p><strong>The 3D points play different roles.</strong> In the 3DGS route, estimated surface points provide starting locations for blobs. In the original NeRF route, the renderer chooses query locations along camera rays, including in empty space. Each query position and viewing direction is sent to the NeRF network; the samples span the ray rather than just the estimated surfaces.</p>
 <p>The 3DGS and NeRF worked examples use COLMAP-style camera preparation. The VGGT export offers another way to supply camera and point estimates; the later rendering and fitting stages still need to be carried out.</p>
 <p>DUSt3R estimates can serve a similar preparation role when converted for the chosen implementation. This involves checking camera conventions, image sizes, scene scale, and file format. The pointmap or point cloud is a geometry result; fitting a Gaussian scene or NeRF is a separate stage.</p>
-<p>A mesh is another possible reconstruction output. A workflow can estimate denser geometry and build connected surfaces from it; <a href="https://colmap.github.io/tutorial.html#multi-view-stereo">COLMAP’s dense reconstruction tools</a> support that route.</p>
-<p>Further details: <a href="https://github.com/graphdeco-inria/gaussian-splatting">original 3DGS inputs</a> and <a href="https://github.com/bmild/nerf#generating-poses-for-your-own-scenes">original NeRF camera preparation</a>.</p>
+<p>A mesh is another possible reconstruction output. A workflow can estimate denser geometry and build connected surfaces from it; <a href="https://colmap.github.io/tutorial.html#multi-view-stereo">COLMAP’s dense reconstruction tools</a><sup class="citation">[<a href="#ref-schoenberger2016mvs">6</a>]</sup> support that route.</p>
+<p>Further details: <a href="https://github.com/graphdeco-inria/gaussian-splatting">original 3DGS inputs</a><sup class="citation">[<a href="#ref-kerbl20233dgaussiansplattingrealtime">7</a>]</sup> and <a href="https://github.com/bmild/nerf#generating-poses-for-your-own-scenes">original NeRF camera preparation</a><sup class="citation">[<a href="#ref-mildenhall2020nerfrepresentingscenesneural">8</a>]</sup>.</p>
 </section>
 <section class="representation-lesson" id="points-to-surfaces" data-title="Reconstruct a mesh from cabinet photographs">
 <h2><span class="section-number">2.8.7</span> From points to a mesh</h2>
@@ -202,7 +202,23 @@
 </ol>
 <p>For example, the dense points may mark many locations on the drawer front. The mesh adds surface patches covering the panel between those locations. Around the handle, the reconstructed surface should follow the grip and preserve the opening behind it.</p>
 <p><strong>COLMAP’s dense route: photographs + cameras → depth estimates → dense 3D points → a surface mesh.</strong> Predicted pointmaps offer another source of dense points for surface reconstruction. The Gaussian and NeRF routes in Sections <a href="gaussian-splatting.html">2.9</a> and <a href="nerf.html">2.10</a> fit blobs or a network to the photographs.</p>
-<p>Photo coverage and the surface-reconstruction method affect which details can be recovered. <a href="https://colmap.github.io/tutorial.html#multi-view-stereo">COLMAP’s dense reconstruction tools</a> and <a href="https://www.open3d.org/docs/release/tutorial/geometry/surface_reconstruction.html">Open3D’s surface-reconstruction examples</a> show implementations of this route.</p>
+<p>Photo coverage and the surface-reconstruction method affect which details can be recovered. <a href="https://colmap.github.io/tutorial.html#multi-view-stereo">COLMAP’s dense reconstruction tools</a> and <a href="https://www.open3d.org/docs/release/tutorial/geometry/surface_reconstruction.html">Open3D’s surface-reconstruction examples</a><sup class="citation">[<a href="#ref-Zhou2018">9</a>]</sup> show implementations of this route.</p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-Munkberg_2022_CVPR">Jacob Munkberg, Jon Hasselgren, Tianchang Shen et al. <em>Extracting Triangular 3D Models, Materials, and Lighting From Images</em>. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2022.</li>
+  <li id="ref-schoenberger2016sfm">Johannes Lutz Schönberger, Jan-Michael Frahm. <em>Structure-from-Motion Revisited</em>. Conference on Computer Vision and Pattern Recognition (CVPR), 2016.</li>
+  <li id="ref-wang2024dust3rgeometric3dvision">Shuzhe Wang, Vincent Leroy, Yohann Cabon et al. <em>DUSt3R: Geometric 3D Vision Made Easy</em>. arXiv preprint arXiv:2312.14132, 2024. <a href="https://arxiv.org/abs/2312.14132">arXiv</a></li>
+  <li id="ref-wang2025vggtvisualgeometrygrounded">Jianyuan Wang, Minghao Chen, Nikita Karaev et al. <em>VGGT: Visual Geometry Grounded Transformer</em>. arXiv preprint arXiv:2503.11651, 2025. <a href="https://arxiv.org/abs/2503.11651">arXiv</a></li>
+  <li id="ref-ye2025gsplat">Vickie Ye, Ruilong Li, Justin Kerr et al. <em>gsplat: An open-source library for Gaussian splatting</em>. Journal of Machine Learning Research 26(34):1–17, 2025.</li>
+  <li id="ref-schoenberger2016mvs">Johannes Lutz Schönberger, Enliang Zheng, Marc Pollefeys, Jan-Michael Frahm. <em>Pixelwise View Selection for Unstructured Multi-View Stereo</em>. European Conference on Computer Vision (ECCV), 2016.</li>
+  <li id="ref-kerbl20233dgaussiansplattingrealtime">Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler, George Drettakis. <em>3D Gaussian Splatting for Real-Time Radiance Field Rendering</em>. arXiv preprint arXiv:2308.04079, 2023. <a href="https://arxiv.org/abs/2308.04079">arXiv</a></li>
+  <li id="ref-mildenhall2020nerfrepresentingscenesneural">Ben Mildenhall, Pratul P. Srinivasan, Matthew Tancik et al. <em>NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis</em>. arXiv preprint arXiv:2003.08934, 2020. <a href="https://arxiv.org/abs/2003.08934">arXiv</a></li>
+  <li id="ref-Zhou2018">Qian-Yi Zhou, Jaesik Park, Vladlen Koltun. <em>Open3D: A Modern Library for 3D Data Processing</em>. arXiv:1801.09847, 2018. <a href="https://arxiv.org/abs/1801.09847">arXiv</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="field-rendering.html">← Radiance fields: rendering with NeRF</a><a class="page-next" rel="next" href="gaussian-splatting.html">Gaussians: reconstruction with 3DGS and 2DGS →</a></nav>

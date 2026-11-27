@@ -6,10 +6,10 @@
   <title>3D software · Why Simulation?</title>
   <meta name="description" content="An introduction to Blender, Maya, and MeshLab, illustrated with modeling, rendering, animation, and rigid-body physics examples.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=73fdf65e1c5e">
-  <script src="assets/book.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/articulation.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/frames.js?v=73fdf65e1c5e" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=bab7b102421a">
+  <script src="assets/book.js?v=bab7b102421a" defer></script>
+  <script src="assets/articulation.js?v=bab7b102421a" defer></script>
+  <script src="assets/frames.js?v=bab7b102421a" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -45,17 +45,17 @@
 
 <section id="blender-introduction" data-title="Blender" class="overview-section">
   <h2>Blender</h2>
-  <p><a href="https://docs.blender.org/manual/en/4.4/getting_started/about/index.html">Blender</a> is a free, open-source application for creating 3D content. We can build and edit meshes, add materials and lights, animate objects, run physics simulations, and render camera images. For a cabinet, it can handle everything from shaping the drawer to making a video of its movement.</p>
+  <p><a href="https://docs.blender.org/manual/en/4.4/getting_started/about/index.html">Blender</a><sup class="citation">[<a href="#ref-blender_manual">1</a>]</sup> is a free, open-source application for creating 3D content. We can build and edit meshes, add materials and lights, animate objects, run physics simulations, and render camera images. For a cabinet, it can handle everything from shaping the drawer to making a video of its movement.</p>
 </section>
 
 <section id="maya-introduction" data-title="Maya" class="overview-section">
   <h2>Maya</h2>
-  <p><a href="https://www.autodesk.com/products/maya/overview">Autodesk Maya</a> is a 3D creation application with tools for modeling, rigging, animation, rendering, and simulation. We can use it to build a cabinet, set up controls for its moving parts, and produce images or animation. <strong>The rigging, keyframe, and animation-curve tools illustrated below are available in both Maya and Blender.</strong></p>
+  <p><a href="https://www.autodesk.com/products/maya/overview">Autodesk Maya</a><sup class="citation">[<a href="#ref-autodesk_maya">2</a>]</sup> is a 3D creation application with tools for modeling, rigging, animation, rendering, and simulation. We can use it to build a cabinet, set up controls for its moving parts, and produce images or animation. <strong>The rigging, keyframe, and animation-curve tools illustrated below are available in both Maya and Blender.</strong></p>
 </section>
 
 <section id="meshlab" data-title="MeshLab" class="overview-section">
   <h2>MeshLab</h2>
-  <p><a href="https://www.meshlab.net/">MeshLab</a> focuses on inspecting and processing triangle meshes. We can use it to clean up a reconstructed cabinet, remove stray fragments, and reduce the number of faces. After simplifying a model, check that the handle keeps its shape and the opening behind it remains clear.</p>
+  <p><a href="https://www.meshlab.net/">MeshLab</a><sup class="citation">[<a href="#ref-LocalChapterEvents-ItalChap-ItalianChapConf2008-129-136">3</a>]</sup> focuses on inspecting and processing triangle meshes. We can use it to clean up a reconstructed cabinet, remove stray fragments, and reduce the number of faces. After simplifying a model, check that the handle keeps its shape and the opening behind it remains clear.</p>
   <p>MeshLab’s role here is to prepare the geometry. For the rigging and keyframe animation shown below, we use Blender or Maya. A mesh cleaned in MeshLab can be exported and opened in either application.</p>
   <p>The following examples illustrate <a href="#what-is-blender">modeling and rendering</a>, <a href="#maya">animation</a>, and <a href="#software-physics">physics simulation</a>. The screenshots identify the application used; the animation diagrams explain concepts shared by Blender and Maya.</p>
 </section>
@@ -212,6 +212,16 @@
   </ol>
   <p>Exported meshes describe the shapes. The <a href="reading-urdf.html">URDF model</a> describes their connections and allowed motion. A <a href="preparing-simulation.html">simulation model</a> also needs contact shapes and physical properties.</p>
   <p>These applications are alternatives for preparing geometry; a cabinet does not need to pass through all three.</p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-blender_manual">Blender Foundation. <em>Blender Reference Manual</em>. Online documentation, 2026. Accessed 25 November 2026. <a href="https://docs.blender.org/manual/">link</a></li>
+  <li id="ref-autodesk_maya">Autodesk, Inc. <em>Maya</em>. Software product page and online help, 2026. Accessed 25 November 2026. <a href="https://www.autodesk.com/products/maya/overview">link</a></li>
+  <li id="ref-LocalChapterEvents-ItalChap-ItalianChapConf2008-129-136">Paolo Cignoni, Marco Callieri, Massimiliano Corsini et al. <em>MeshLab: an Open-Source Mesh Processing Tool</em>. Eurographics Italian Chapter Conference, 2008. <a href="https://doi.org/10.2312/LocalChapterEvents/ItalChap/ItalianChapConf2008/129-136">DOI</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="generating-3d-assets.html">← Generation: TRELLIS and Hunyuan3D</a><a class="page-next" rel="next" href="articulated-objects.html">Parts, joints, and motion →</a></nav>

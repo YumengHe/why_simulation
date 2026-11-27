@@ -6,10 +6,10 @@
   <title>Robot interaction and control · Why Simulation?</title>
   <meta name="description" content="Connect robot actions, a controller, simulated contact, and new camera observations.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=73fdf65e1c5e">
-  <script src="assets/book.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/articulation.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/frames.js?v=73fdf65e1c5e" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=bab7b102421a">
+  <script src="assets/book.js?v=bab7b102421a" defer></script>
+  <script src="assets/articulation.js?v=bab7b102421a" defer></script>
+  <script src="assets/frames.js?v=bab7b102421a" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -45,20 +45,20 @@
 
 <section class="simulation-lesson" id="robot-pull-control" data-title="Add the robot to the scene">
   <h2><span class="section-number">4.4.1</span> Add the robot to the scene</h2>
-<p>The direct test supplies a force to the drawer without modeling a hand. To study a grasp, add a robot arm and gripper to the same scene, with their joints, physical properties, and collision shapes. <strong>MuJoCo then simulates both the robot and the cabinet, including contact between them.</strong></p>
+<p>The direct test supplies a force to the drawer without modeling a hand. To study a grasp, add a robot arm and gripper to the same scene, with their joints, physical properties, and collision shapes. <strong>MuJoCo<sup class="citation">[<a href="#ref-todorov2012mujoco">1</a>]</sup> then simulates both the robot and the cabinet, including contact between them.</strong></p>
 </section>
 
 <section class="simulation-lesson" id="robot-controller" data-title="From an action to a physical response">
   <h2><span class="section-number">4.4.2</span> From an action to a physical response</h2>
 <p>A <strong>controller</strong> is the program that tries to carry out a requested robot movement. For example, “move the gripper 10 cm outward while keeping it closed” must become control signals for the simulated robot’s motors. The controller uses the robot’s current state to update those signals.</p>
   <figure class="book-diagram" id="diagram-robot-interaction-flow-1" data-diagram="robot-interaction-flow-1" aria-labelledby="diagram-robot-interaction-flow-1-title"><div class="diagram-panel"><div class="diagram-heading"><span class="diagram-kicker">Workflow</span><h3 id="diagram-robot-interaction-flow-1-title">From an action to a physical response</h3></div><ol class="diagram-flow diagram-flow--vertical"><li><div class="diagram-card"><span class="diagram-card-label">01</span><strong class="diagram-card-title">Choose an action.</strong><div class="diagram-card-text">A predefined program can request the movement. A VLA can instead propose it from the camera image and an instruction, as in <a href="llm-vlm-vla.html#vision-language-action-models">Section 1.3</a>.</div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">02</span><strong class="diagram-card-title">The controller tries to execute it.</strong><div class="diagram-card-text">It sends control signals to move the arm and keep the gripper closed.</div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">03</span><strong class="diagram-card-title">MuJoCo calculates the response.</strong><div class="diagram-card-text">The simulated motors move the robot; contact with the handle can transfer the pull to the drawer. The grip may hold or slip, and the drawer may move or stay stuck.</div></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">04</span><strong class="diagram-card-title">Observe the result.</strong><div class="diagram-card-text">Read the new robot and drawer positions. A renderer can make the next camera image for a VLA to use when choosing another action.</div></div></li></ol></div></figure>
-  <p><strong>A VLA is optional.</strong> It is one way to choose actions; a simple programmed sequence can also drive this test. A requested action can span many physics steps, so a new VLA prediction is not required at every step. <a href="https://openvla.github.io/">OpenVLA</a> is an example action model; <a href="https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model">MuJoCo’s actuation model</a> describes how control inputs produce simulated forces.</p>
+  <p><strong>A VLA is optional.</strong> It is one way to choose actions; a simple programmed sequence can also drive this test. A requested action can span many physics steps, so a new VLA prediction is not required at every step. <a href="https://openvla.github.io/">OpenVLA</a><sup class="citation">[<a href="#ref-kim2024openvlaopensourcevisionlanguageactionmodel">2</a>]</sup> is an example action model; <a href="https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model">MuJoCo’s actuation model</a> describes how control inputs produce simulated forces.</p>
   <p>The robot test also needs a stopping rule, such as reaching the desired opening or running out of allotted simulated time. Both tests produce motion over time; in the robot test, the pull comes through the modeled robot and its contact with the handle.</p>
 </section>
 
 <section class="simulation-lesson" id="articulate-anymesh-example" data-title="A research example: reconstruction to robot motion">
   <h2><span class="section-number">4.4.3</span> A research example: reconstruction to robot motion</h2>
-  <p>The <a href="https://articulate-anymesh.github.io/">Articulate AnyMesh project’s real-to-sim-to-real demonstration</a> connects several steps introduced in this book:</p>
+  <p>The <a href="https://articulate-anymesh.github.io/">Articulate AnyMesh project’s real-to-sim-to-real demonstration</a><sup class="citation">[<a href="#ref-qiu2025articulateanymeshopenvocabulary3d">3</a>]</sup> connects several steps introduced in this book:</p>
   <ol>
     <li><strong>Recover a surface.</strong> Use 2DGS to reconstruct a real object and extract a mesh, as described in <a href="gaussian-splatting.html#surface-gaussians">Section 2.9</a>.</li>
     <li><strong>Add articulation.</strong> Articulate AnyMesh converts the mesh into an articulated URDF; see <a href="automatic-articulation.html#articulate-anymesh">Section 3.6</a>.</li>
@@ -70,6 +70,16 @@
 
 <p class="section-connection">This returns to the task in <a href="llm-vlm-vla.html#vision-language-action-models">Chapter 1</a>: a model can propose an action, a controller tries to carry it out, and the simulated scene determines the resulting motion. The next camera image shows the outcome of that interaction.</p>
 <p><a href="simulation-platforms.html">Section 4.5</a> places these jobs in software: physics engines, scene frameworks, and the ManiSkill and RoboCasa task environments used for learning and evaluation.</p>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-todorov2012mujoco">Emanuel Todorov, Tom Erez, Yuval Tassa. <em>MuJoCo: A physics engine for model-based control</em>. 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems, 2012. <a href="https://doi.org/10.1109/IROS.2012.6386109">DOI</a></li>
+  <li id="ref-kim2024openvlaopensourcevisionlanguageactionmodel">Moo Jin Kim, Karl Pertsch, Siddharth Karamcheti et al. <em>OpenVLA: An Open-Source Vision-Language-Action Model</em>. arXiv preprint arXiv:2406.09246, 2024. <a href="https://arxiv.org/abs/2406.09246">arXiv</a></li>
+  <li id="ref-qiu2025articulateanymeshopenvocabulary3d">Xiaowen Qiu, Jincheng Yang, Yian Wang et al. <em>Articulate AnyMesh: Open-Vocabulary 3D Articulated Objects Modeling</em>. arXiv preprint arXiv:2502.02590, 2025. <a href="https://arxiv.org/abs/2502.02590">arXiv</a></li>
+</ol>
+</section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="mujoco-experiments.html">← MuJoCo experiments</a><a class="page-next" rel="next" href="simulation-platforms.html">From physics engines to robot learning tasks →</a></nav>
       <footer class="page-footer"><a href="#chapter-start">Back to top ↑</a></footer>

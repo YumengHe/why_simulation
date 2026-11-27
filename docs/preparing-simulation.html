@@ -6,10 +6,10 @@
   <title>Preparing a simulation model · Why Simulation?</title>
   <meta name="description" content="Prepare a cabinet’s parts, collision shapes, physical properties, and starting pose.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=73fdf65e1c5e">
-  <script src="assets/book.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/articulation.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/frames.js?v=73fdf65e1c5e" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=bab7b102421a">
+  <script src="assets/book.js?v=bab7b102421a" defer></script>
+  <script src="assets/articulation.js?v=bab7b102421a" defer></script>
+  <script src="assets/frames.js?v=bab7b102421a" defer></script>
 
 </head>
 <body data-review-additions="false">
@@ -47,7 +47,7 @@
   <h2>Choose useful shape detail</h2>
   <p><strong>Mesh resolution</strong> refers to how finely the surface is divided into vertices and faces. Image resolution describes the number of pixels in a picture. More closely spaced faces can follow a curved handle, while a flat cabinet wall can be represented with a few large faces.</p>
   <p>A detailed visible mesh can make the cabinet look convincing. For contact calculations, we can supply a simpler <strong>collision shape</strong>: the geometry the simulator uses to decide where objects touch. More complex collision geometry can increase calculation time, so it is useful to keep only the detail needed for the task. The visible mesh can remain detailed.</p>
-  <p>For a drawer-opening test, the collision shapes represent the cabinet walls, drawer, and handle, with open space for the drawer to slide and a finger to reach behind the grip. Small decorative grooves can be kept in the visible mesh. <strong>Collision geometry preserves the details that affect contact and movement; visual geometry preserves the details needed for the picture.</strong> Using separate shapes lets us choose an appropriate level of detail for each purpose. <a href="https://mujoco.readthedocs.io/en/stable/modeling.html">MuJoCo’s modeling guide</a> describes how to configure them.</p>
+  <p>For a drawer-opening test, the collision shapes represent the cabinet walls, drawer, and handle, with open space for the drawer to slide and a finger to reach behind the grip. Small decorative grooves can be kept in the visible mesh. <strong>Collision geometry preserves the details that affect contact and movement; visual geometry preserves the details needed for the picture.</strong> Using separate shapes lets us choose an appropriate level of detail for each purpose. <a href="https://mujoco.readthedocs.io/en/stable/modeling.html">MuJoCo’s modeling guide</a><sup class="citation">[<a href="#ref-todorov2012mujoco">1</a>]</sup> describes how to configure them.</p>
 </section>
 
 <section class="simulation-lesson" id="simulation-parts" data-title="Separate the cabinet into bodies and joints">
@@ -111,6 +111,14 @@
   </dl>
   <p>For a simple test, we might choose a <strong>2 kg drawer</strong> with a <strong>50 cm travel limit</strong>. These are teaching values. To represent a real cabinet, measure or estimate its properties and check them against observed movement. A nice reconstruction alone does not tell us its mass or rail friction.</p>
   <p>Store the bodies, joints, geometry, and physical settings in the simulator’s model description. MuJoCo uses <strong>MJCF</strong>, an XML model format. <strong>URDF</strong>, introduced in <a href="frames-and-urdf.html#tree-to-urdf">Chapter 3</a>, is another format for describing links and joints; importing a URDF can still require simulator-specific preparation. <a href="https://mujoco.readthedocs.io/en/stable/overview.html">MuJoCo’s model formats.</a></p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-todorov2012mujoco">Emanuel Todorov, Tom Erez, Yuval Tassa. <em>MuJoCo: A physics engine for model-based control</em>. 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems, 2012. <a href="https://doi.org/10.1109/IROS.2012.6386109">DOI</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="animation-and-simulation.html">← From animation to simulation</a><a class="page-next" rel="next" href="mujoco-experiments.html">MuJoCo experiments →</a></nav>

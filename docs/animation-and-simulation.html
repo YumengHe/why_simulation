@@ -6,11 +6,11 @@
   <title>From animation to simulation · Why Simulation?</title>
   <meta name="description" content="Compare chosen positions with simulated motion, then see how pulling force, mass, friction, and letting go change a drawer’s movement.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/book.css?v=73fdf65e1c5e">
-  <script src="assets/book.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/articulation.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/frames.js?v=73fdf65e1c5e" defer></script>
-  <script src="assets/physics-demo.js?v=73fdf65e1c5e" defer></script>
+  <link rel="stylesheet" href="assets/book.css?v=bab7b102421a">
+  <script src="assets/book.js?v=bab7b102421a" defer></script>
+  <script src="assets/articulation.js?v=bab7b102421a" defer></script>
+  <script src="assets/frames.js?v=bab7b102421a" defer></script>
+  <script src="assets/physics-demo.js?v=bab7b102421a" defer></script>
 </head>
 <body data-review-additions="false">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -41,7 +41,7 @@
       <article><header class="chapter-header" id="chapter-start">
   <h1><span class="chapter-number">4.1</span> From animation to simulation</h1>
   <p class="lead">A box moves down toward a table. We can create that movement in two different ways.</p>
-  <p>This chapter develops physical motion, scene preparation, and robot control. The <a href="simulation-platforms.html#chapter-start">software map in Section 4.5</a> shows how physics engines such as MuJoCo connect to task environments such as ManiSkill and RoboCasa.</p>
+  <p>This chapter develops physical motion, scene preparation, and robot control. The <a href="simulation-platforms.html#chapter-start">software map in Section 4.5</a> shows how physics engines such as MuJoCo<sup class="citation">[<a href="#ref-todorov2012mujoco">1</a>]</sup> connect to task environments such as ManiSkill and RoboCasa.</p>
   <p>Simulation also involves choosing useful shape detail. A cabinet can have a detailed mesh for its appearance and simpler <strong>collision shapes</strong> for calculating where objects touch. <a href="preparing-simulation.html#simulation-detail">Section 4.2 explains this choice</a>: simplify where possible while preserving the drawer cavity and the opening behind the handle.</p>
 </header>
 
@@ -164,7 +164,16 @@
   </figure>
   <p>The drawer does not automatically close when we let go. That would need something else, such as a spring or a closing force. Here, each replay simply restarts the example.</p>
   <p>The sliding joint still has <strong>one degree of freedom</strong>: q tells us the opening distance. The force changes how q develops over time; it does not add another degree of freedom.</p>
-  <p class="urdf-source-links"><a href="https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law">Force and mass ↗</a><a href="https://openstax.org/books/university-physics-volume-1/pages/6-2-friction">Friction ↗</a><a href="https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law">Motion after release ↗</a></p>
+  <p class="urdf-source-links"><a href="https://openstax.org/books/university-physics-volume-1/pages/5-3-newtons-second-law">Force and mass ↗</a><a href="https://openstax.org/books/university-physics-volume-1/pages/6-2-friction">Friction ↗</a><a href="https://openstax.org/books/university-physics-volume-1/pages/5-2-newtons-first-law">Motion after release ↗</a><sup class="citation">[<a href="#ref-moebs2016universityphysics">2</a>]</sup></p>
+</section>
+
+
+<section id="references" data-title="References">
+<h2>References</h2>
+<ol class="reference-list">
+  <li id="ref-todorov2012mujoco">Emanuel Todorov, Tom Erez, Yuval Tassa. <em>MuJoCo: A physics engine for model-based control</em>. 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems, 2012. <a href="https://doi.org/10.1109/IROS.2012.6386109">DOI</a></li>
+  <li id="ref-moebs2016universityphysics">William Moebs, Samuel J. Ling, Jeff Sanny. <em>University Physics Volume 1</em>. OpenStax, Houston, Texas, 2016. Access for free at the given URL. <a href="https://openstax.org/books/university-physics-volume-1/pages/1-introduction">link</a></li>
+</ol>
 </section>
 </article>
       <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="automatic-articulation.html">← Automatically build articulated models</a><a class="page-next" rel="next" href="preparing-simulation.html">Preparing a simulation model →</a></nav>
