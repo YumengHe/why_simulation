@@ -21,7 +21,7 @@
       "title": "Overview: 3D representations",
       "source": "chapters/3d-generation.html",
       "output": "3d-generation.html",
-      "description": "How do we represent a 3D cabinet? — what is stored in 3D.",
+      "description": "How do we represent a 3D cabinet? \u2014 what is stored in 3D.",
       "group": "3d-generation",
       "review_added": true,
       "subgroup": "representation"
@@ -31,36 +31,45 @@
       "title": "Meshes: representation",
       "source": "chapters/meshes.html",
       "output": "meshes.html",
-      "description": "Meshes: surfaces and useful detail — what is stored in 3D.",
+      "description": "Meshes: surfaces and useful detail \u2014 what is stored in 3D.",
+      "group": "3d-generation",
+      "subgroup": "representation"
+    },
+    {
+      "number": "2.3",
+      "title": "CAD: functions, surfaces, and meshes",
+      "source": "chapters/cad.html",
+      "output": "cad.html",
+      "description": "Describe the cabinet handle with a function, form bounded CAD surfaces, generate meshes, and change design dimensions.",
       "group": "3d-generation",
       "subgroup": "representation"
     },
     {
       "source": "chapters/gaussians-and-fields.html",
       "output": "gaussians-and-fields.html",
-      "number": "2.3",
+      "number": "2.4",
       "title": "Gaussians and fields: representation",
       "subgroup": "representation",
       "group": "3d-generation",
-      "description": "Gaussians and spatial fields — what is stored in 3D."
+      "description": "Gaussians and spatial fields \u2014 what is stored in 3D."
     },
     {
-      "number": "2.4",
+      "number": "2.5",
       "title": "Meshes: rendering with a camera",
       "source": "chapters/rendering.html",
       "output": "rendering.html",
-      "description": "Cameras and mesh rendering — how a camera view is calculated.",
+      "description": "Cameras and mesh rendering \u2014 how a camera view is calculated.",
       "group": "3d-generation",
       "subgroup": "rendering"
     },
     {
       "source": "chapters/gaussian-rendering.html",
       "output": "gaussian-rendering.html",
-      "number": "2.5",
+      "number": "2.6",
       "title": "Gaussians: rendering",
       "subgroup": "rendering",
       "group": "3d-generation",
-      "description": "Gaussian projection and blending — how a camera view is calculated.",
+      "description": "Gaussian projection and blending \u2014 how a camera view is calculated.",
       "scripts": [
         "representation-demo.js"
       ]
@@ -68,14 +77,14 @@
     {
       "source": "chapters/field-rendering.html",
       "output": "field-rendering.html",
-      "number": "2.6",
+      "number": "2.7",
       "title": "Radiance fields: rendering with NeRF",
       "subgroup": "rendering",
       "group": "3d-generation",
-      "description": "Radiance fields: rays to pixels — how a camera view is calculated."
+      "description": "Radiance fields: rays to pixels \u2014 how a camera view is calculated."
     },
     {
-      "number": "2.7",
+      "number": "2.8",
       "title": "Reconstruction: cameras, points, and meshes",
       "source": "chapters/cameras-and-geometry.html",
       "output": "cameras-and-geometry.html",
@@ -85,7 +94,7 @@
       "subgroup": "reconstruction"
     },
     {
-      "number": "2.8",
+      "number": "2.9",
       "title": "Gaussians: reconstruction with 3DGS and 2DGS",
       "source": "chapters/gaussian-splatting.html",
       "output": "gaussian-splatting.html",
@@ -95,16 +104,16 @@
       "subgroup": "reconstruction"
     },
     {
-      "number": "2.9",
+      "number": "2.10",
       "title": "Radiance fields: reconstruction with NeRF",
       "source": "chapters/nerf.html",
       "output": "nerf.html",
-      "description": "Reconstruct a cabinet with NeRF — how photographs or pretrained models produce 3D data.",
+      "description": "Reconstruct a cabinet with NeRF \u2014 how photographs or pretrained models produce 3D data.",
       "group": "3d-generation",
       "subgroup": "reconstruction"
     },
     {
-      "number": "2.10",
+      "number": "2.11",
       "title": "Generation: TRELLIS and Hunyuan3D",
       "source": "chapters/generating-3d-assets.html",
       "output": "generating-3d-assets.html",
@@ -132,7 +141,7 @@
       "title": "From 3D shape to a movable object",
       "source": "chapters/visual-to-simulation.html",
       "output": "visual-to-simulation.html",
-      "description": "Prepare a cabinet’s visible parts and describe the joints that make it movable.",
+      "description": "Prepare a cabinet\u2019s visible parts and describe the joints that make it movable.",
       "group": "articulated-objects"
     },
     {
@@ -156,7 +165,7 @@
       "title": "Changing a URDF",
       "source": "chapters/changing-urdf.html",
       "output": "changing-urdf.html",
-      "description": "Watch what happens when we change a drawer’s direction, turn a hinge into a slide, remove a part, or swap shapes while keeping the joints.",
+      "description": "Watch what happens when we change a drawer\u2019s direction, turn a hinge into a slide, remove a part, or swap shapes while keeping the joints.",
       "group": "articulated-objects"
     },
     {
@@ -175,7 +184,7 @@
       "scripts": [
         "physics-demo.js"
       ],
-      "description": "Compare chosen positions with simulated motion, then see how pulling force, mass, friction, and letting go change a drawer’s movement.",
+      "description": "Compare chosen positions with simulated motion, then see how pulling force, mass, friction, and letting go change a drawer\u2019s movement.",
       "group": "simulation"
     },
     {
@@ -183,7 +192,7 @@
       "title": "Preparing a simulation model",
       "source": "chapters/preparing-simulation.html",
       "output": "preparing-simulation.html",
-      "description": "Prepare a cabinet’s parts, collision shapes, physical properties, and starting pose.",
+      "description": "Prepare a cabinet\u2019s parts, collision shapes, physical properties, and starting pose.",
       "group": "simulation"
     },
     {

@@ -1,12 +1,12 @@
 <header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">2.3</span> Gaussians and fields: representation</h1>
+  <h1><span class="chapter-number">2.4</span> Gaussians and fields: representation</h1>
   <p class="chapter-purpose"><strong>A. Representation</strong></p>
   <p class="lead">A mesh records connected surfaces. Gaussians and fields describe the cabinet with other kinds of 3D data. First consider what they contain; the rendering group will show how that data produces a picture.</p>
 </header>
 
 <section class="representation-lesson gaussian-parts-lesson" id="gaussian-data" data-title="What a Gaussian representation stores">
-<h2><span class="section-number">2.3.1</span> Store soft 3D blobs</h2>
-<nav class="representation-trail" aria-label="Gaussian reading route"><strong>3D Gaussians:</strong> <a href="gaussians-and-fields.html#gaussian-data">Representation · 2.3.1</a><span> · </span><a href="gaussian-rendering.html">Rendering · 2.5</a><span> · </span><a href="gaussian-splatting.html">Reconstruction with 3DGS · 2.8</a></nav>
+<h2><span class="section-number">2.4.1</span> Store soft 3D blobs</h2>
+<nav class="representation-trail" aria-label="Gaussian reading route"><strong>3D Gaussians:</strong> <a href="gaussians-and-fields.html#gaussian-data">Representation · 2.4.1</a><span> · </span><a href="gaussian-rendering.html">Rendering · 2.6</a><span> · </span><a href="gaussian-splatting.html">Reconstruction with 3DGS · 2.9</a></nav>
   <p><strong>A 3D Gaussian representation</strong> stores many soft 3D blobs. Each has a position, size, orientation, opacity, and appearance.</p>
   <p><strong>The cabinet picture combines many blobs.</strong> One blue blob describes a small region near the drawer front. It can be wide along that panel but thin from front to back. Its contribution is strongest near its center and fades gradually toward the edges.</p>
   <div class="gs-grid gs-three gaussian-parts-grid">
@@ -16,11 +16,11 @@
   </div>
   <p>The first two views show shape guides so we can distinguish the blobs; their influence fades beyond those guides. The last view blends the blobs as a renderer does. This count belongs to our scripted teaching cabinet; different scenes use different numbers of Gaussians.</p>
 <p><strong>3D Gaussians</strong> names the stored elements. <strong>3D Gaussian Splatting (3DGS)</strong> names the method studied later, which fits these elements to photographs and renders them by splatting. A generator can also produce Gaussian data. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3DGS project.</a></p>
-<p>For now, keep the blobs fixed. <a href="gaussian-rendering.html">Section 2.5</a> shows their projection and opacity with the two-blob and cabinet videos.</p>
-<p>A related method, <strong>2D Gaussian Splatting (2DGS)</strong>, uses flat Gaussian disks placed and oriented in 3D. The <a href="gaussian-splatting.html#surface-gaussians">cabinet comparison in Section 2.8</a> shows how these surface elements differ from 3D Gaussian volumes.</p>
+<p>For now, keep the blobs fixed. <a href="gaussian-rendering.html">Section 2.6</a> shows their projection and opacity with the two-blob and cabinet videos.</p>
+<p>A related method, <strong>2D Gaussian Splatting (2DGS)</strong>, uses flat Gaussian disks placed and oriented in 3D. The <a href="gaussian-splatting.html#surface-gaussians">cabinet comparison in Section 2.9</a> shows how these surface elements differ from 3D Gaussian volumes.</p>
 </section>
 <section class="representation-lesson" id="spatial-fields" data-title="Fields: ask about a location in space">
-<h2><span class="section-number">2.3.2</span> Ask a field about a location</h2>
+<h2><span class="section-number">2.4.2</span> Ask a field about a location</h2>
 <p>A <strong>field</strong> assigns information to locations in space. Imagine selecting a point inside a wooden cabinet panel, then another point in the empty drawer cavity. What the field answers depends on what it describes:</p>
 <dl class="nerf-answers">
 <div><dt>Occupancy</dt><dd>Is this point inside the solid shape? For a cabinet modeled with separate walls, a point inside the wood is occupied, while a point in the empty cavity is outside the solid material. A learned occupancy field can give a probability of being inside.</dd></div>
@@ -30,15 +30,15 @@
 <p>These three fields answer different questions about the same cabinet. Occupancy and signed distance describe its shape; a radiance field supplies information for making pictures. Its density describes how a region affects visibility.</p>
 <p>Each kind of field can be implemented in different ways. Examples include <a href="https://github.com/autonomousvision/occupancy_networks">Occupancy Networks</a> for occupancy, <a href="https://github.com/facebookresearch/DeepSDF">DeepSDF</a> for signed distance, and <a href="https://www.matthewtancik.com/nerf">NeRF</a> for radiance fields.</p>
 <div id="nerf-network">
-<nav class="representation-trail" aria-label="Radiance field reading route"><strong>Radiance field:</strong> <a href="gaussians-and-fields.html#spatial-fields">Representation · 2.3.2</a><span> · </span><a href="field-rendering.html">Rendering · 2.6</a><span> · </span><a href="nerf.html">Reconstruction with NeRF · 2.9</a></nav>
+<nav class="representation-trail" aria-label="Radiance field reading route"><strong>Radiance field:</strong> <a href="gaussians-and-fields.html#spatial-fields">Representation · 2.4.2</a><span> · </span><a href="field-rendering.html">Rendering · 2.7</a><span> · </span><a href="nerf.html">Reconstruction with NeRF · 2.10</a></nav>
   <h3>Example: NeRF represents a radiance field</h3>
   <p><strong>NeRF</strong> stands for <strong>Neural Radiance Field</strong>. It uses a neural network to supply the field’s answers: give it a 3D position and viewing direction, and it returns color and density. For our cabinet, samples near the drawer front can return blue with high density, while samples in the air return low density.</p>
-  <p>This is one specific way to represent a radiance field. <a href="field-rendering.html#rendering-a-field">Section 2.6</a> follows how its answers become image pixels; <a href="nerf.html#nerf-training">Section 2.9</a> explains how photographs teach the network those answers.</p>
+  <p>This is one specific way to represent a radiance field. <a href="field-rendering.html#rendering-a-field">Section 2.7</a> follows how its answers become image pixels; <a href="nerf.html#nerf-training">Section 2.10</a> explains how photographs teach the network those answers.</p>
 </div>
 </section>
 
 <section class="representation-lesson" id="representation-map" data-title="Summary of A: a map of 3D representations">
-  <h2><span class="section-number">2.3.3</span> Summary: a map of 3D representations</h2>
+  <h2><span class="section-number">2.4.3</span> Summary: a map of 3D representations</h2>
   <p>We have described the same cabinet using <strong>points, connected faces, soft blobs, or answers at locations in space</strong>. This map brings those choices together.</p>
   <p>The <a href="3d-generation.html#voxel-grid">voxel grid introduced in Section 2.1</a> stores values in small 3D cells. It also connects to fields: each cell can keep an occupancy or distance value.</p>
   {{diagram:representation-map}}

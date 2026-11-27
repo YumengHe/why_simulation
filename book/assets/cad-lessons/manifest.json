@@ -1,0 +1,21 @@
+{
+  "generator": "scripts/draw_cad_lessons.py",
+  "source_geometry": "scripts/shared_cabinet.py",
+  "units": "millimeters in diagram labels",
+  "grip_radius_mm": 50,
+  "grip_length_mm": 500,
+  "support_center_spacing_mm": 420,
+  "center_slice_clearance_mm": 110,
+  "variant_radii_mm": [
+    35,
+    50,
+    65
+  ],
+  "research_illustrations": "Authored workflow examples, not model outputs. No named model, CAD kernel, or robot simulation was run.",
+  "works": {
+    "Text2CAD": "https://sadilkhan.github.io/text2cad-project/",
+    "CAD-Recode": "https://github.com/filaPro/cad-recode",
+    "Img2CAD": "https://qq456cvb.github.io/projects/img2cad",
+    "ConCAD": "https://arxiv.org/abs/2609.34494"
+  }
+}

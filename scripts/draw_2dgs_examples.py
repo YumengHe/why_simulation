@@ -177,7 +177,7 @@ def workflow():
     text(500,77,'Choose a route; each column fits its own 3D representation.',23)
     box(130,105,740,92)
     text(500,140,'1 · Prepare the inputs',26,True)
-    text(500,176,'Photographs + cameras + sparse 3D points (Section 2.7)',23)
+    text(500,176,'Photographs + cameras + sparse 3D points (Section 2.8)',23)
     path('M500 197V216H270V247')
     path('M500 216H730V247')
     text(270,278,'3DGS',31,True)

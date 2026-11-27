@@ -1,23 +1,23 @@
 <header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">2.6</span> Radiance fields: rendering with NeRF</h1>
+  <h1><span class="chapter-number">2.7</span> Radiance fields: rendering with NeRF</h1>
   <p class="chapter-purpose"><strong>B. Rendering</strong></p>
   <p class="lead">To draw the cabinet, choose a camera and query color and density along its lines of sight. Follow one ray through P1, P2, and P3, then repeat the calculation to form the whole image.</p>
-<nav class="representation-trail" aria-label="Radiance field reading route"><strong>Radiance field:</strong> <a href="gaussians-and-fields.html#spatial-fields">Representation · 2.3.2</a><span> · </span><a href="field-rendering.html">Rendering · 2.6</a><span> · </span><a href="nerf.html">Reconstruction with NeRF · 2.9</a></nav>
+<nav class="representation-trail" aria-label="Radiance field reading route"><strong>Radiance field:</strong> <a href="gaussians-and-fields.html#spatial-fields">Representation · 2.4.2</a><span> · </span><a href="field-rendering.html">Rendering · 2.7</a><span> · </span><a href="nerf.html">Reconstruction with NeRF · 2.10</a></nav>
 </header>
 
 <section class="representation-lesson draft-addition" id="rendering-a-field" data-title="Rendering a radiance field">
-  <h2><span class="section-number">2.6.1</span> Rendering a radiance field</h2>
+  <h2><span class="section-number">2.7.1</span> Rendering a radiance field</h2>
 <p>For a radiance field, begin with one image pixel. The camera defines a line of sight through that pixel into the scene. The renderer samples locations along that line and asks the field for color and density there.</p>
 <p>Along a line toward the drawer, empty air contributes little. Locations near the blue front panel contribute blue and reduce the contribution from behind. Combining the answers produces the pixel’s color. Repeating this across the image produces a view of the cabinet.</p>
 
-<p>Here we use the NeRF example introduced in <a href="gaussians-and-fields.html#nerf-network">Section 2.3.2</a>. The network supplies color and density; the renderer supplies the sample locations and combines the answers.</p>
+<p>Here we use the NeRF example introduced in <a href="gaussians-and-fields.html#nerf-network">Section 2.4.2</a>. The network supplies color and density; the renderer supplies the sample locations and combines the answers.</p>
   {{diagram:field-rendering-flow-1}}
 <p>The network’s saved numerical settings are called <strong>weights</strong>. They determine its answers. During this rendering step, we keep those settings fixed and query the network at different positions.</p>
 </section>
 
 <section class="nerf-lesson" id="nerf-query-inputs" data-title="How the renderer generates 3D positions and viewing directions from a pixel">
-  <h2><span class="section-number">2.6.2</span> Generate the 3D positions from a camera pixel</h2>
-  <p>Start with the camera’s <strong>position, orientation, and lens parameters</strong>. A virtual camera can supply these settings directly. When matching a photograph, COLMAP can estimate them, as described in <a href="cameras-and-geometry.html#colmap-cabinet">Section 2.7.3</a>. In either case, the renderer uses the camera settings to calculate sample positions and viewing directions:</p>
+  <h2><span class="section-number">2.7.2</span> Generate the 3D positions from a camera pixel</h2>
+  <p>Start with the camera’s <strong>position, orientation, and lens parameters</strong>. A virtual camera can supply these settings directly. When matching a photograph, COLMAP can estimate them, as described in <a href="cameras-and-geometry.html#colmap-cabinet">Section 2.8.3</a>. In either case, the renderer uses the camera settings to calculate sample positions and viewing directions:</p>
   <ol class="nerf-instructions">
     <li>It selects a pixel in the image to be rendered.</li>
     <li>It uses <strong>the camera position, orientation, and lens parameters</strong> to calculate the pixel’s <strong>ray</strong>: a line of sight extending into the scene.</li>
@@ -41,18 +41,18 @@
     </table>
   </div>
   <p>For P2, start at the camera and move 2 m along +Y: the Y coordinate changes from −3 to −1. X and Z stay the same. Other pixels generally produce rays pointing in different directions. In practice, the renderer uses many samples, not just these three.</p>
-  <p><strong>Each sampled 3D position, together with the ray’s viewing direction, forms an input to the NeRF neural network.</strong> For P2, the input is position <code>(0, −1, 0.64)</code> and direction <code>(0, 1, 0)</code>. The network predicts a color and density for each sample. <a href="#nerf-rendering">Section 2.6.3</a> explains how the renderer combines these predictions along the ray to produce one pixel’s color.</p>
+  <p><strong>Each sampled 3D position, together with the ray’s viewing direction, forms an input to the NeRF neural network.</strong> For P2, the input is position <code>(0, −1, 0.64)</code> and direction <code>(0, 1, 0)</code>. The network predicts a color and density for each sample. <a href="#nerf-rendering">Section 2.7.3</a> explains how the renderer combines these predictions along the ray to produce one pixel’s color.</p>
 </section>
 
 <section class="nerf-lesson" id="nerf-rendering" data-title="How NeRF renders cabinet samples into one pixel and then an image">
-  <h2><span class="section-number">2.6.3</span> From network outputs to the selected pixel</h2>
-  <p><a href="#nerf-query-inputs">Section 2.6.2</a> calculated P1, P2, and P3 along the ray for one selected image pixel. Each position and the shared viewing direction are supplied <strong>as input</strong> to the same NeRF network. The network uses its current weights to calculate a color and density for each sample <strong>as output</strong>.</p>
+  <h2><span class="section-number">2.7.3</span> From network outputs to the selected pixel</h2>
+  <p><a href="#nerf-query-inputs">Section 2.7.2</a> calculated P1, P2, and P3 along the ray for one selected image pixel. Each position and the shared viewing direction are supplied <strong>as input</strong> to the same NeRF network. The network uses its current weights to calculate a color and density for each sample <strong>as output</strong>.</p>
   <p>For example, a prediction at P3, near the blue drawer front, could be:</p>
   {{diagram:field-rendering-flow-2}}
   <p>These outputs describe individual samples. The renderer still needs to combine them into <strong>one color for the original selected pixel</strong>. The diagram continues with the same camera, ray, and sample positions:</p>
   <figure class="nerf-wide-figure">
-    <a href="assets/nerf-cabinet/one-pixel.png" data-enlarge aria-label="Enlarge the same P1–P3 ray and its resulting pixel"><img src="assets/nerf-cabinet/one-pixel.png" width="1200" height="700" alt="The same ray as Section 2.6.2 passes P1 and P2 in air, then P3 at the blue drawer front. The corresponding central pixel in the rendered camera view is marked blue." loading="lazy"></a>
-    <figcaption>P1–P3 keep the positions defined in Section 2.6.2. The marked pixel on the right is the pixel whose ray supplied those positions.</figcaption>
+    <a href="assets/nerf-cabinet/one-pixel.png" data-enlarge aria-label="Enlarge the same P1–P3 ray and its resulting pixel"><img src="assets/nerf-cabinet/one-pixel.png" width="1200" height="700" alt="The same ray as Section 2.7.2 passes P1 and P2 in air, then P3 at the blue drawer front. The corresponding central pixel in the rendered camera view is marked blue." loading="lazy"></a>
+    <figcaption>P1–P3 keep the positions defined in Section 2.7.2. The marked pixel on the right is the pixel whose ray supplied those positions.</figcaption>
   </figure>
   <p>A prediction that represents this cabinet well assigns low density to the air and blue color with high density near the drawer front:</p>
   <dl class="nerf-answers">
@@ -75,5 +75,5 @@
       <p><strong>Color and density work together.</strong> Color supplies the possible colors along a ray. Density helps determine how much each sample contributes and how much is hidden behind it. After combining them, the finished pixel contains a single color.</p>
     </div>
   </div>
-  <p>This completes one render: the field and camera have produced a 2D image. During reconstruction, the same calculation becomes part of a training loop. <a href="nerf.html#nerf-training">Section 2.9.3</a> compares the rendered pixels with a photograph and updates the network.</p>
+  <p>This completes one render: the field and camera have produced a 2D image. During reconstruction, the same calculation becomes part of a training loop. <a href="nerf.html#nerf-training">Section 2.10.3</a> compares the rendered pixels with a photograph and updates the network.</p>
 </section>

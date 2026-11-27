@@ -1,0 +1,35 @@
+{
+  "generator": "scripts/draw_cad_examples.py",
+  "canonical_component": {
+    "kind": "cylinder",
+    "name": "drawer-handle-grip",
+    "start": [
+      -0.25,
+      -0.65,
+      0.53
+    ],
+    "end": [
+      0.25,
+      -0.65,
+      0.53
+    ],
+    "radius": 0.05,
+    "color": [
+      207,
+      216,
+      215
+    ],
+    "group": "drawer"
+  },
+  "radius_m": 0.05,
+  "length_m": 0.5,
+  "surface_local": "S(u,v)=(v,r*cos(u),r*sin(u))",
+  "domain": "0 <= u <= 2*pi; 0 <= v <= L",
+  "local_to_world": "(x,y,z) -> (x-0.25,y-0.65,z+0.53)",
+  "display_note": "Analytic teaching geometry. Surface pictures use samples to draw pixels; no CAD kernel or reconstruction is run.",
+  "variant_radius_m": 0.035,
+  "radial_error_m": {
+    "8": 0.0038060233744356634,
+    "32": 0.00024076366639015357
+  }
+}

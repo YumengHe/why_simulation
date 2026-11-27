@@ -396,6 +396,11 @@
             "text": "Vertices and connected triangle or quad faces."
           },
           {
+            "title": "CAD boundary representation",
+            "text": "Mathematical curves and surfaces, their boundaries, and their connections.",
+            "href": "cad.html"
+          },
+          {
             "title": "Voxel grid",
             "text": "Values in small 3D cells, such as occupied or empty."
           },
@@ -912,5 +917,29 @@
         "body": "Produce action values. Here, a possible result is an outward movement with the gripper kept closed."
       }
     ]
+  },
+  "cad-conversion": {
+    "kind": "flow",
+    "kicker": "From design inputs to mesh",
+    "title": "One design, different mesh resolutions",
+    "nodes": [
+      {
+        "title": "Choose the shape and dimensions",
+        "text": "We choose a cylindrical grip with radius 50 mm and length 500 mm."
+      },
+      {
+        "title": "CAD constructs the surfaces",
+        "text": "The software uses these inputs to build the cylindrical side, end faces, and their connections."
+      },
+      {
+        "title": "Generate a mesh",
+        "text": "We choose a tolerance. The software samples the surfaces and connects the points into triangles."
+      },
+      {
+        "title": "Use the mesh",
+        "text": "Render a view or prepare simulation geometry."
+      }
+    ],
+    "caption": "The same CAD surfaces can produce meshes at different resolutions. Keep the CAD source to edit the design dimensions later."
   }
 }

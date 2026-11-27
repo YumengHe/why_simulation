@@ -1,29 +1,29 @@
 <header class="chapter-header draft-addition" id="chapter-start">
-  <h1><span class="chapter-number">2.10</span> Generation: TRELLIS and Hunyuan3D</h1>
+  <h1><span class="chapter-number">2.11</span> Generation: TRELLIS and Hunyuan3D</h1>
   <p class="chapter-purpose draft-addition"><strong>C. Reconstruction and generation</strong> · Pretrained 3D generators</p>
   <p class="lead">A <strong>pretrained 3D generator</strong> offers another route to a 3D asset, the object’s digital model. Give the system a cabinet image, and it uses knowledge learned from many objects to propose the cabinet’s shape and appearance in 3D.</p>
   <p>We follow two examples: <strong>TRELLIS</strong> creates a shared 3D description that can be decoded into several representations; <strong>Hunyuan3D 2.0</strong> creates a mesh, then generates its texture. Both use the shape, appearance, and rendering concepts from Parts A and B.</p>
-  <p>The routes in <a href="gaussian-splatting.html">2.8</a> and <a href="nerf.html">2.9</a> fit a cabinet’s representation to photographs of that scene. Here, pretrained systems use an input image to guide the creation of a new asset. The examples below refer to the original TRELLIS and Hunyuan3D 2.0 releases.</p>
+  <p>The routes in <a href="gaussian-splatting.html">2.9</a> and <a href="nerf.html">2.10</a> fit a cabinet’s representation to photographs of that scene. Here, pretrained systems use an input image to guide the creation of a new asset. The examples below refer to the original TRELLIS and Hunyuan3D 2.0 releases.</p>
 </header>
 
 <section class="representation-lesson draft-addition" id="creating-an-object" data-title="TRELLIS: generate a 3D asset from one image">
   <span id="image-to-3d-to-image" aria-hidden="true"></span>
-  <h2><span class="section-number">2.10.1</span> TRELLIS: generate a 3D asset from one image</h2>
+  <h2><span class="section-number">2.11.1</span> TRELLIS: generate a 3D asset from one image</h2>
 <p><strong>TRELLIS</strong> is the first generator we examine. Its image-based model takes a cabinet picture and uses knowledge learned during prior training to propose the cabinet’s shape and appearance in 3D. The result can be output as a <strong>mesh, 3D Gaussians, or a radiance field</strong>. <a href="https://microsoft.github.io/TRELLIS/">TRELLIS project.</a></p>
 <p>Suppose the input photograph shows the cabinet’s front. It provides little direct evidence about the back or interior. TRELLIS uses patterns learned during training to propose those unseen regions. The result is a plausible asset; hidden details still need inspection if we want to reproduce a particular real cabinet.</p>
 <div id="building-and-storing"><p><strong>TRELLIS creates the asset; its output representation determines how the 3D information is stored.</strong> The three options below use the representations introduced in <a href="3d-generation.html#what-is-a-representation">Section 2.1</a>.</p></div>
 <div class="method-branches"><div><h3>Mesh output</h3><p>Vertices and connected faces describe surfaces. Appearance can be supplied with textures and materials.</p></div><div><h3>Gaussian output</h3><p>Positions, shapes, opacity, and appearance describe blobs that a Gaussian renderer blends into views.</p></div></div>
 <div id="radiance-field-output">
   <h3>Radiance field output</h3>
-  <p>Color and density describe the scene at locations in 3D. To make a picture, provide the field and a virtual camera to a compatible <strong>volume renderer</strong>. It reads color and density along camera rays and combines them into pixels, as in <a href="field-rendering.html#nerf-rendering">Section 2.6.3</a>.</p>
+  <p>Color and density describe the scene at locations in 3D. To make a picture, provide the field and a virtual camera to a compatible <strong>volume renderer</strong>. It reads color and density along camera rays and combines them into pixels, as in <a href="field-rendering.html#nerf-rendering">Section 2.7.3</a>.</p>
   <p>For the cabinet, choose a camera on its right to render a right-side view. Keep the field unchanged; choose another camera to make another view.</p>
 </div>
-<p>To use a TRELLIS result, choose software that supports its output: a mesh editor or mesh renderer for meshes, a Gaussian viewer or renderer for Gaussians, and a compatible volume renderer for radiance fields. <strong>TRELLIS provides a renderer for its own radiance-field output.</strong> Its <a href="https://github.com/microsoft/TRELLIS/blob/main/example.py">official example</a> uses it to make a video from a sequence of camera views. The field’s saved form can differ from the original NeRF network described in Section 2.9.</p>
+<p>To use a TRELLIS result, choose software that supports its output: a mesh editor or mesh renderer for meshes, a Gaussian viewer or renderer for Gaussians, and a compatible volume renderer for radiance fields. <strong>TRELLIS provides a renderer for its own radiance-field output.</strong> Its <a href="https://github.com/microsoft/TRELLIS/blob/main/example.py">official example</a> uses it to make a video from a sequence of camera views. The field’s saved form can differ from the original NeRF network described in Section 2.10.</p>
 </section>
 
 
 <section class="representation-lesson" id="one-image-two-outputs" data-title="TRELLIS: choosing an output for the cabinet">
-    <h2><span class="section-number">2.10.2</span> TRELLIS: choosing an output for the cabinet</h2>
+    <h2><span class="section-number">2.11.2</span> TRELLIS: choosing an output for the cabinet</h2>
     <p>Two of <strong>TRELLIS’s output options</strong> are a mesh and 3D Gaussians. The cabinet illustrations below show what those representations look like and help explain when each is useful. They are rendered from the book’s scripted cabinet; published TRELLIS predictions are available in the <a href="https://microsoft.github.io/TRELLIS/">authors’ gallery</a>.</p>
     <div class="trellis-comparison">
       <figure><img src="assets/examples/cabinet-representations/reference.png" width="528" height="700" alt="Front view rendered from the scripted cabinet: a blue drawer, gold door, and teal body"><figcaption><h3>One cabinet picture</h3><p>A front view is a flat image. It does not show the cabinet’s hidden sides.</p></figcaption></figure>
@@ -38,7 +38,7 @@
 </section>
 
 <section class="representation-lesson" id="hunyuan3d" data-title="Hunyuan3D: first shape, then texture">
-  <h2><span class="section-number">2.10.3</span> Hunyuan3D: first shape, then texture</h2>
+  <h2><span class="section-number">2.11.3</span> Hunyuan3D: first shape, then texture</h2>
   <p><strong>Hunyuan3D 2.0</strong> separates asset creation into two stages: generate the surface shape, then generate its appearance. Its image-based pipeline takes a reference picture and produces a textured mesh. <a href="https://github.com/Tencent-Hunyuan/Hunyuan3D-2#architecture">Official architecture overview.</a></p>
   <div class="trellis-comparison generation-stages">
     <figure>
@@ -61,11 +61,11 @@
   <p><strong>Hunyuan3D-Paint</strong> receives that mesh together with the reference picture and generates its texture. For the cabinet, this supplies colors such as the blue drawer front and gold door, along with surface patterns shown in the picture. The texture is saved as an image whose regions are placed on the corresponding mesh surfaces. <a href="https://arxiv.org/html/2501.12202v1#S4">Texture-generation method.</a></p>
   <p>For the cabinet, the texture supplies the blue paint or wood grain; the mesh supplies the handle’s shape. Paint can also texture a mesh prepared in <a href="3d-software.html#what-is-blender">Blender</a>, so an existing model can enter directly at the appearance stage. The <a href="https://github.com/Tencent-Hunyuan/Hunyuan3D-2/blob/main/docs/source/started/code.md">official code example</a> shows the mesh and image passed into the texture pipeline.</p>
   <h3>Use the saved asset</h3>
-  <p>The mesh and its texture can be opened in compatible 3D software. Place a virtual camera in the scene to render a front or side view, as in <a href="rendering.html">Section 2.4</a>. Preparing this asset for drawer-opening experiments then involves organizing the movable parts and their joints, introduced in <a href="visual-to-simulation.html">Section 3.2</a>.</p>
+  <p>The mesh and its texture can be opened in compatible 3D software. Place a virtual camera in the scene to render a front or side view, as in <a href="rendering.html">Section 2.5</a>. Preparing this asset for drawer-opening experiments then involves organizing the movable parts and their joints, introduced in <a href="visual-to-simulation.html">Section 3.2</a>.</p>
 </section>
 
 <section class="representation-lesson" id="trellis-and-hunyuan" data-title="Compare the workflows and outputs">
-  <h2><span class="section-number">2.10.4</span> Compare the workflows and outputs</h2>
+  <h2><span class="section-number">2.11.4</span> Compare the workflows and outputs</h2>
   <p>Suppose we give each system the same picture of a cabinet with a blue drawer and a gold door. Both use knowledge learned during training to propose a 3D cabinet. We can compare <strong>the steps that create it</strong> and <strong>the kind of 3D data we receive</strong>.</p>
   <h3>Hunyuan3D: build the shape, then add a texture</h3>
   <p>The first stage creates the cabinet’s mesh: surfaces describe its panels, depth, and raised handles. The second stage uses this mesh and the input picture to generate colors and surface patterns. The result is a <strong>mesh with a texture</strong>, ready to open in compatible 3D software and render from a chosen camera.</p>

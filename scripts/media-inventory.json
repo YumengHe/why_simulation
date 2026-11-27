@@ -30,7 +30,7 @@
       "asset": "book/assets/2dgs/workflow.svg",
       "source": "scripts/draw_2dgs_examples.py",
       "kind": "script-rendered",
-      "sha256": "064ce550dc207071d737237ccc0b77ab01e5515613ccddeaab3f59264ca0fcf4"
+      "sha256": "a17571c13635b381f2e9451b3f134a69fd49329b512e460f4867eaa3cd9e2961"
     },
     {
       "asset": "book/assets/automatic-articulation/anymesh-cabinet-mobile.png",
@@ -229,6 +229,126 @@
       "source": "scripts/preview_shared_cabinet.py",
       "kind": "script-rendered",
       "sha256": "4bd229a2680dee1d44b4b9f26a28b7e737ab3a150e78d1a9e2125218b6c88eab"
+    },
+    {
+      "asset": "book/assets/cad/cabinet.png",
+      "source": "scripts/draw_cad_examples.py",
+      "kind": "script-rendered",
+      "sha256": "4073d574155d370ca4ac1727487b4dcee42139cd0bf5b6056fe0f61bd76d0560"
+    },
+    {
+      "asset": "book/assets/cad/circle.svg",
+      "source": "scripts/draw_cad_examples.py",
+      "kind": "script-rendered",
+      "sha256": "d916d6d07ff5b7881ac6aeb667654a7193e82225a21faa88ed2f8a7a2b33e1ac"
+    },
+    {
+      "asset": "book/assets/cad/handle-thinner.png",
+      "source": "scripts/draw_cad_examples.py",
+      "kind": "script-rendered",
+      "sha256": "fbab283d6c0b9d2b48591f6e93bfc080f9730071f3fe563a732d6a6ebe8d1332"
+    },
+    {
+      "asset": "book/assets/cad/handle.png",
+      "source": "scripts/draw_cad_examples.py",
+      "kind": "script-rendered",
+      "sha256": "4a51adf87d9dba0f19ae1f2e6ffa9d56564b7ed5c178116a2bacb229a01f8db1"
+    },
+    {
+      "asset": "book/assets/cad/mesh-32.png",
+      "source": "scripts/draw_cad_examples.py",
+      "kind": "script-rendered",
+      "sha256": "4c595414bbdd61f70e5feaa0320200d7693e746d23502f91ddf87605e0c6ff59"
+    },
+    {
+      "asset": "book/assets/cad/mesh-8.png",
+      "source": "scripts/draw_cad_examples.py",
+      "kind": "script-rendered",
+      "sha256": "e8fcb721d9c07a01adc07cdf9206766e99ede6c51a0f89b0d92fd2b5265068c5"
+    },
+    {
+      "asset": "book/assets/cad/section-32.svg",
+      "source": "scripts/draw_cad_examples.py",
+      "kind": "script-rendered",
+      "sha256": "ce0ea996a8a6d7fa49b53704ca410eaac4a1df3c16a3d4ceb36d2a4828b82b07"
+    },
+    {
+      "asset": "book/assets/cad/section-8.svg",
+      "source": "scripts/draw_cad_examples.py",
+      "kind": "script-rendered",
+      "sha256": "8776801fdff30cfd5f67c84fc4085fbaa1a7aa25df11cc55011885bb70d012f3"
+    },
+    {
+      "asset": "book/assets/cad/surface.svg",
+      "source": "scripts/draw_cad_examples.py",
+      "kind": "script-rendered",
+      "sha256": "4c7d5f077718256c48eea3a09d5e26327926dbc90ac4b1eb4cf7d64cb4eaf0a3"
+    },
+    {
+      "asset": "book/assets/cad-learning/automate.png",
+      "source": "scripts/draw_cad_learning.py",
+      "kind": "script-rendered",
+      "sha256": "4219dd588abd21cd33cc4f089f9d2ba2c9ae3540b0d43c6000ff2a0a34388305"
+    },
+    {
+      "asset": "book/assets/cad-learning/uvnet.png",
+      "source": "scripts/draw_cad_learning.py",
+      "kind": "script-rendered",
+      "sha256": "fe20eb5e86cdc7c021467209648d626d0c6f69bbb47f37b54df2235c98fe823a"
+    },
+    {
+      "asset": "book/assets/cad-lessons/cad-recode.png",
+      "source": "scripts/draw_cad_lessons.py",
+      "kind": "script-rendered",
+      "sha256": "90300fb45c933fab4f08932545288b739f6415c79dafeed78a606b99f456f98c"
+    },
+    {
+      "asset": "book/assets/cad-lessons/clearance.svg",
+      "source": "scripts/draw_cad_lessons.py",
+      "kind": "script-rendered",
+      "sha256": "077d104128ccaf7c9d1dbc4f5ccde5d5421ac87c6d274fedb0bd09d4732802f0"
+    },
+    {
+      "asset": "book/assets/cad-lessons/concad.png",
+      "source": "scripts/draw_cad_lessons.py",
+      "kind": "script-rendered",
+      "sha256": "62ff028281a0760414393a42a325b277f2df15dcb3cd13b6dadae89de7eded19"
+    },
+    {
+      "asset": "book/assets/cad-lessons/img2cad.png",
+      "source": "scripts/draw_cad_lessons.py",
+      "kind": "script-rendered",
+      "sha256": "120111ae19c271061f7caf9ef3119700f11aaab804f40139c6e630a6a71592e8"
+    },
+    {
+      "asset": "book/assets/cad-lessons/replacement.svg",
+      "source": "scripts/draw_cad_lessons.py",
+      "kind": "script-rendered",
+      "sha256": "98b48ff679d4f5421b713aedb0b8d3c2db98222d85dc9de472fab7930abf3719"
+    },
+    {
+      "asset": "book/assets/cad-lessons/representations.png",
+      "source": "scripts/draw_cad_lessons.py",
+      "kind": "script-rendered",
+      "sha256": "2e71d7fde42486dfea1fcb5e03e1f98515b9874330709476c8bbb563c98ebd2a"
+    },
+    {
+      "asset": "book/assets/cad-lessons/surface-analysis.svg",
+      "source": "scripts/draw_cad_lessons.py",
+      "kind": "script-rendered",
+      "sha256": "cbb3217c007ffe2be4bd110dea16a35d5097a0c908d6152dfd2fabe5991e01f9"
+    },
+    {
+      "asset": "book/assets/cad-lessons/text2cad.png",
+      "source": "scripts/draw_cad_lessons.py",
+      "kind": "script-rendered",
+      "sha256": "a3ebc42521f5d21c4d5f1ee4bea3753bc904667db1c9f5211baf2edbfa5c5a46"
+    },
+    {
+      "asset": "book/assets/cad-lessons/variants.png",
+      "source": "scripts/draw_cad_lessons.py",
+      "kind": "script-rendered",
+      "sha256": "a940f071b9b2184fda31a2fa9294ac178af42d50696a2e5c42e7cc498fbc5b3b"
     },
     {
       "asset": "book/assets/colmap/matched-details.png",

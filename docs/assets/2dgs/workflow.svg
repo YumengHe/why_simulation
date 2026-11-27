@@ -7,7 +7,7 @@
 <text x="500" y="77" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" fill="#293632">Choose a route; each column fits its own 3D representation.</text>
 <rect x="130" y="105" width="740" height="92" rx="7" fill="#f3f7f5" stroke="#d3ddd8" stroke-width="2"/>
 <text x="500" y="140" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="600" fill="#293632">1 · Prepare the inputs</text>
-<text x="500" y="176" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" fill="#293632">Photographs + cameras + sparse 3D points (Section 2.7)</text>
+<text x="500" y="176" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="400" fill="#293632">Photographs + cameras + sparse 3D points (Section 2.8)</text>
 <path d="M500 197V216H270V247" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
 <path d="M500 216H730V247" fill="none" stroke="#64736c" stroke-width="2" marker-end="url(#arrow)"/>
 <text x="270" y="278" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="600" fill="#293632">3DGS</text>

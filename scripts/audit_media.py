@@ -16,6 +16,9 @@ ASSETS=ROOT/'book/assets'
 MANIFEST=ROOT/'scripts/media-inventory.json'
 SUFFIXES={'.svg','.png','.jpg','.jpeg','.webp','.gif','.mp4','.webm'}
 DIRECTORIES={
+    'cad':'draw_cad_examples.py',
+    'cad-lessons':'draw_cad_lessons.py',
+    'cad-learning':'draw_cad_learning.py',
     'diagram-panels':'draw_diagram_panels.py',
     'cabinet-model':'preview_shared_cabinet.py',
     'experiments':'animate_urdf_examples.py',

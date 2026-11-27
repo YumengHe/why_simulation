@@ -4,9 +4,9 @@
   <p class="lead">A photograph stores an image from one viewpoint. A 3D representation stores information about the cabinet in space, so software can inspect it or calculate views from other positions.</p>
   <p>This chapter separates three questions: <strong>what 3D data is stored</strong>, <strong>how that data becomes a picture</strong>, and <strong>how we obtain the data from photographs or a prompt</strong>. The same cabinet appears throughout.</p>
   <nav class="chapter-roadmap" aria-label="Three groups in Chapter 2">
-    <a href="#what-is-a-representation"><strong>A. Representation</strong><span>2.1–2.3 · What do we store?</span></a>
-    <a href="rendering.html"><strong>B. Rendering</strong><span>2.4–2.6 · How do we make a view?</span></a>
-    <a href="cameras-and-geometry.html"><strong>C. Reconstruction and generation</strong><span>2.7–2.10 · How do we create the 3D data?</span></a>
+    <a href="#what-is-a-representation"><strong>A. Representation</strong><span>2.1–2.4 · What do we store?</span></a>
+    <a href="rendering.html"><strong>B. Rendering</strong><span>2.5–2.7 · How do we make a view?</span></a>
+    <a href="cameras-and-geometry.html"><strong>C. Reconstruction and generation</strong><span>2.8–2.11 · How do we create the 3D data?</span></a>
   </nav>
 </header>
 
@@ -14,18 +14,19 @@
 
 <section class="representation-lesson draft-addition" id="what-is-a-representation" data-title="What is stored?">
   <h2><span class="section-number">2.1.1</span> What is stored?</h2>
-<p>A <strong>representation</strong> is a way of describing an object with data. For the same cabinet, we might save individual 3D points, connected surface patches, values in grid cells, soft colored blobs, or a function that answers questions about locations in space.</p>
-<p>The five examples below can describe the cabinet in 3D, but they store different information. Start with what each contains; the rendering group then explains how software uses it to draw a picture.</p>
+<p>A <strong>representation</strong> is a way of describing an object with data. For the same cabinet, we might save individual 3D points, connected surface patches, values in grid cells, soft colored blobs, or a function that answers questions about locations in space. CAD models can describe bounded surfaces with mathematical functions and keep design dimensions.</p>
+<p>The examples below can describe the cabinet in 3D, but they store different information. Start with what each contains; the rendering group then explains how software uses it to draw a picture.</p>
 <p>The drawings below use one teaching cabinet: a teal body, a blue drawer, and a gold door. <strong>Both pull handles are fixed to their parts.</strong> The silver handle moves with the drawer; the gold handle moves with the door. We use these same parts in <a href="articulated-objects.html#chapter-start">Chapter 3</a>.</p>
 <div class="representation-overview-grid">
   <figure><img src="assets/diagrams/cabinet-representation-points.png" width="340" height="320" alt="Separate colored 3D points outline the teaching cabinet without connecting faces"><figcaption><h3>Point cloud</h3><p><strong>Store:</strong> a list of 3D positions, sometimes with colors.</p><p>Points can outline the drawer and handle. The list does not specify which points form a continuous surface.</p></figcaption></figure>
   <figure><img src="assets/diagrams/cabinet-representation-triangles.png" width="340" height="320" alt="The same cabinet represented by connected triangular surface patches"><figcaption><h3>Mesh</h3><p><strong>Store:</strong> 3D corner positions, called vertices, and surface patches, called faces, connecting them.</p><p>The faces describe the cabinet’s surfaces. A face can have three sides (a triangle) or four (a quad).</p></figcaption></figure>
+  <figure><img src="assets/cad/cabinet.png" width="600" height="590" alt="The shared cabinet with its round handle highlighted for the CAD example"><figcaption><h3>CAD surfaces</h3><p><strong>Store:</strong> mathematical surfaces, their boundaries, and connections. A design can also retain dimensions and construction steps.</p><p>A radius and a surface function describe the round grip. <a href="cad.html">Section 2.3</a> explains how this becomes a mesh.</p></figcaption></figure>
   <figure id="voxel-grid"><img src="assets/diagrams/cabinet-representation-voxels.png" width="340" height="320" alt="The same cabinet represented by occupied cells of a 3D grid, with stepped outlines around the handles"><figcaption><h3>Voxel grid</h3><p><strong>Store:</strong> values in small 3D cells, called voxels. Think of a pixel grid extended into depth.</p><p>For this cabinet, each cell records whether its center lies in the cabinet material. We draw occupied cells as little boxes and leave empty cells clear. Smaller cells can capture thinner details, with more cells to store and process.</p></figcaption></figure>
   <figure><img src="assets/diagrams/cabinet-representation-gaussians.png" width="340" height="320" alt="Soft overlapping colored marks illustrate a Gaussian representation of the same cabinet"><figcaption><h3>3D Gaussians</h3><p><strong>Store:</strong> each blob’s position, size, orientation, opacity, and appearance.</p><p>Each blob is a soft shape in 3D. Its opacity controls how strongly its color contributes and hides what is behind it. Many blue blobs can form the drawer’s image.</p></figcaption></figure>
   <figure><img src="assets/diagrams/cabinet-representation-field.png" width="340" height="320" alt="Three query locations on a faint cabinet illustrate asking a field for color and density"><figcaption><h3>Radiance field</h3><p><strong>Describe:</strong> the color seen from a direction and the density at locations in 3D. Density controls how strongly a small region blocks the view.</p><p>Near the drawer front, the answers may be blue and strongly blocking; in the air, almost no blocking. The dots mark example queries, not a stored point cloud.</p></figcaption></figure>
 </div>
 <p>The voxel view uses the same cabinet geometry as the other examples. Its stepped outline comes from the size of the grid cells.</p>
-<p>These representations contain information in 3D. The image-making steps are grouped under <a href="rendering.html">Rendering, Sections 2.4–2.6</a>.</p>
+<p>These representations contain information in 3D. The image-making steps are grouped under <a href="rendering.html">Rendering, Sections 2.5–2.7</a>.</p>
 <p>Further reading: <a href="https://www.open3d.org/docs/release/tutorial/geometry/pointcloud.html">point clouds</a>, <a href="https://docs.blender.org/manual/en/4.5/modeling/meshes/structure.html">mesh structure</a>, <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">3D Gaussians</a>, <a href="https://www.open3d.org/docs/release/tutorial/geometry/voxelization.html">voxel grids</a>, and <a href="https://www.matthewtancik.com/nerf">NeRF’s radiance field</a>.</p>
 </section>
 
@@ -38,21 +39,22 @@
   <div><dt>Renderer</dt><dd><strong>How do we make a picture from it?</strong> Software uses the representation and a camera to calculate a 2D image.</dd></div>
 </dl>
 <p>A method’s supported outputs depend on its design. Some methods produce surface geometry; some produce Gaussians; others support several representations. We first learn what those outputs contain, then follow how methods create them.</p>
-<p>For example: a method creates the cabinet as a mesh → we save its surface data → a mesh renderer draws a front view. The saved 3D data can also be used to draw a side view. A single method can support several output representations; <a href="generating-3d-assets.html">TRELLIS in Section 2.10</a> is one example.</p>
-<p>The <a href="cameras-and-geometry.html#reconstruction-workflow">workflow map in Section 2.7</a> connects these roles and shows where rendering is reused during reconstruction.</p>
+<p>For example: a method creates the cabinet as a mesh → we save its surface data → a mesh renderer draws a front view. The saved 3D data can also be used to draw a side view. A single method can support several output representations; <a href="generating-3d-assets.html">TRELLIS in Section 2.11</a> is one example.</p>
+<p>The <a href="cameras-and-geometry.html#reconstruction-workflow">workflow map in Section 2.8</a> connects these roles and shows where rendering is reused during reconstruction.</p>
 </section>
 
 <section class="representation-lesson" id="chapter-reading-map" data-title="Follow the same representation across A, B, and C">
   <h2><span class="section-number">2.1.3</span> Follow the same representation across the chapter</h2>
   <p>Read across a row to find the same representation in all three groups: <strong>what it contains</strong>, <strong>how it makes an image</strong>, and <strong>how photographs can help build it</strong>.</p>
   <div class="learning-table-wrap"><table class="learning-table">
-    <thead><tr><th scope="col">Representation</th><th scope="col">A · What is stored?</th><th scope="col">B · How is it rendered?</th><th scope="col">C · How is it reconstructed?</th></tr></thead>
+    <thead><tr><th scope="col">Representation</th><th scope="col">A · What is stored?</th><th scope="col">B · How is it rendered?</th><th scope="col">C · How is it obtained?</th></tr></thead>
     <tbody>
-      <tr><th scope="row">Mesh</th><td><a href="meshes.html">2.2 · Surfaces</a></td><td><a href="rendering.html">2.4 · Camera and visible faces</a></td><td><a href="cameras-and-geometry.html#points-to-surfaces">2.7.7 · Points to surfaces</a></td></tr>
-      <tr><th scope="row">3D Gaussians</th><td><a href="gaussians-and-fields.html#gaussian-data">2.3.1 · Blobs</a></td><td><a href="gaussian-rendering.html">2.5 · Project and blend</a></td><td><a href="gaussian-splatting.html">2.8 · Fit with 3DGS</a></td></tr>
-      <tr><th scope="row">Radiance field</th><td><a href="gaussians-and-fields.html#spatial-fields">2.3.2 · Color and density</a></td><td><a href="field-rendering.html">2.6 · Rays to pixels</a></td><td><a href="nerf.html">2.9 · Train a NeRF</a></td></tr>
+      <tr><th scope="row">Mesh</th><td><a href="meshes.html">2.2 · Surfaces</a></td><td><a href="rendering.html">2.5 · Camera and visible faces</a></td><td><a href="cameras-and-geometry.html#points-to-surfaces">2.8.7 · Points to surfaces</a></td></tr>
+      <tr><th scope="row">CAD</th><td><a href="cad.html">2.3 · Functions and bounded surfaces</a></td><td><a href="cad.html#cad-to-mesh">Generate a mesh for rendering</a></td><td><a href="cad.html#cad-design-edit">Author dimensions and design relationships</a></td></tr>
+      <tr><th scope="row">3D Gaussians</th><td><a href="gaussians-and-fields.html#gaussian-data">2.4.1 · Blobs</a></td><td><a href="gaussian-rendering.html">2.6 · Project and blend</a></td><td><a href="gaussian-splatting.html">2.9 · Fit with 3DGS</a></td></tr>
+      <tr><th scope="row">Radiance field</th><td><a href="gaussians-and-fields.html#spatial-fields">2.4.2 · Color and density</a></td><td><a href="field-rendering.html">2.7 · Rays to pixels</a></td><td><a href="nerf.html">2.10 · Train a NeRF</a></td></tr>
     </tbody>
   </table></div>
-  <p>The shared camera concepts appear in <a href="rendering.html">2.4</a>; camera and geometry estimation from photographs appears in <a href="cameras-and-geometry.html">2.7</a>. Point clouds and voxel grids are introduced alongside meshes in this overview. The later worked examples focus on meshes, Gaussians, and radiance fields.</p>
-  <p><a href="generating-3d-assets.html">2.10 · Generation with TRELLIS</a> introduces another way to create these representations: a pretrained system proposes an asset from an input image. Its supported outputs connect back to the representation and rendering groups.</p>
+  <p>The shared camera concepts appear in <a href="rendering.html">2.5</a>; camera and geometry estimation from photographs appears in <a href="cameras-and-geometry.html">2.8</a>. Point clouds and voxel grids are introduced alongside meshes in this overview. The worked examples cover CAD design, mesh surfaces, Gaussians, and radiance fields.</p>
+  <p><a href="generating-3d-assets.html">2.11 · Generation with TRELLIS</a> introduces another way to create these representations: a pretrained system proposes an asset from an input image. Its supported outputs connect back to the representation and rendering groups.</p>
 </section>

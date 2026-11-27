@@ -1,13 +1,13 @@
 <header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">2.5</span> Gaussians: rendering</h1>
+  <h1><span class="chapter-number">2.6</span> Gaussians: rendering</h1>
   <p class="chapter-purpose"><strong>B. Rendering</strong></p>
   <p class="lead">Choose a camera and draw the same Gaussian cabinet from that viewpoint. The videos follow the 3D blobs onto a flat image; the sliders show how opacity affects the result.</p>
-<nav class="representation-trail" aria-label="Gaussian reading route"><strong>3D Gaussians:</strong> <a href="gaussians-and-fields.html#gaussian-data">Representation · 2.3.1</a><span> · </span><a href="gaussian-rendering.html">Rendering · 2.5</a><span> · </span><a href="gaussian-splatting.html">Reconstruction with 3DGS · 2.8</a></nav>
+<nav class="representation-trail" aria-label="Gaussian reading route"><strong>3D Gaussians:</strong> <a href="gaussians-and-fields.html#gaussian-data">Representation · 2.4.1</a><span> · </span><a href="gaussian-rendering.html">Rendering · 2.6</a><span> · </span><a href="gaussian-splatting.html">Reconstruction with 3DGS · 2.9</a></nav>
 </header>
 
 <section class="representation-lesson" id="rendering-gaussians" data-title="Rendering Gaussians: projection, videos, and opacity">
-  <h2 class="draft-addition"><span class="section-number">2.5.1</span> Gaussian rendering: project and blend</h2>
-  <p>Start with the fixed 3D blobs introduced in <a href="gaussians-and-fields.html#gaussian-data">Section 2.3.1</a>. A camera determines where their colors land in the picture.</p>
+  <h2 class="draft-addition"><span class="section-number">2.6.1</span> Gaussian rendering: project and blend</h2>
+  <p>Start with the fixed 3D blobs introduced in <a href="gaussians-and-fields.html#gaussian-data">Section 2.4.1</a>. A camera determines where their colors land in the picture.</p>
   <h2 class="lesson-heading">How do the 3D blobs become an image?</h2>
   <p class="draft-addition">A Gaussian renderer projects each 3D blob onto the flat image as a soft oval mark. Where marks overlap, it combines their colors, taking account of which blob is nearer the camera. Placing and blending these projected marks is called <strong>splatting</strong>. <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/">Original 3D Gaussian Splatting (3DGS) project</a>.</p>
   <div class="projection-film" id="projection-video">

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAD: functions, surfaces, and meshes · Why Simulation?</title>
+  <meta name="description" content="Describe the cabinet handle with a function, form bounded CAD surfaces, generate meshes, and change design dimensions.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/book.css?v=73fdf65e1c5e">
+  <script src="assets/book.js?v=73fdf65e1c5e" defer></script>
+  <script src="assets/articulation.js?v=73fdf65e1c5e" defer></script>
+  <script src="assets/frames.js?v=73fdf65e1c5e" defer></script>
+
+</head>
+<body data-review-additions="false">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside id="sidebar" class="sidebar" aria-label="Book contents">
+    <a class="book-name" href="overview.html">Why Simulation?</a>
+    <nav aria-label="Chapters"><ol class="chapter-list"><li><a class="chapter-link" href="overview.html#chapter-start">Overview</a></li><li><a class="chapter-link draft-addition" href="llm-vlm-vla.html#chapter-start"><span class="nav-number">1.</span>Language, vision, and robot actions</a></li><li class="chapter-group"><span class="chapter-group-title draft-addition"><span class="nav-number">2.</span>3D representation, rendering, reconstruction &amp; generation</span><ol class="chapter-children"><li class="chapter-subgroup"><span class="chapter-subgroup-title">A. Representation</span><ol class="chapter-subpages"><li><a class="chapter-link draft-addition" href="3d-generation.html#chapter-start"><span class="nav-number">2.1</span>Overview: 3D representations</a></li><li><a class="chapter-link" href="meshes.html#chapter-start"><span class="nav-number">2.2</span>Meshes: representation</a></li><li><a class="chapter-link" href="#chapter-start"><span class="nav-number">2.3</span>CAD: functions, surfaces, and meshes</a></li><li><a class="chapter-link" href="gaussians-and-fields.html#chapter-start"><span class="nav-number">2.4</span>Gaussians and fields: representation</a></li></ol></li><li class="chapter-subgroup"><span class="chapter-subgroup-title">B. Rendering</span><ol class="chapter-subpages"><li><a class="chapter-link" href="rendering.html#chapter-start"><span class="nav-number">2.5</span>Meshes: rendering with a camera</a></li><li><a class="chapter-link" href="gaussian-rendering.html#chapter-start"><span class="nav-number">2.6</span>Gaussians: rendering</a></li><li><a class="chapter-link" href="field-rendering.html#chapter-start"><span class="nav-number">2.7</span>Radiance fields: rendering with NeRF</a></li></ol></li><li class="chapter-subgroup"><span class="chapter-subgroup-title">C. Reconstruction and generation</span><ol class="chapter-subpages"><li><a class="chapter-link draft-addition" href="cameras-and-geometry.html#chapter-start"><span class="nav-number">2.8</span>Reconstruction: cameras, points, and meshes</a></li><li><a class="chapter-link draft-addition" href="gaussian-splatting.html#chapter-start"><span class="nav-number">2.9</span>Gaussians: reconstruction with 3DGS and 2DGS</a></li><li><a class="chapter-link" href="nerf.html#chapter-start"><span class="nav-number">2.10</span>Radiance fields: reconstruction with NeRF</a></li><li><a class="chapter-link draft-addition" href="generating-3d-assets.html#chapter-start"><span class="nav-number">2.11</span>Generation: TRELLIS and Hunyuan3D</a></li></ol></li></ol></li><li><a class="chapter-link" href="3d-software.html#chapter-start">3D software</a></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">3.</span>Articulated objects</span><ol class="chapter-children"><li><a class="chapter-link" href="articulated-objects.html#chapter-start"><span class="nav-number">3.1</span>Parts, joints, and motion</a></li><li><a class="chapter-link" href="visual-to-simulation.html#chapter-start"><span class="nav-number">3.2</span>From 3D shape to a movable object</a></li><li><a class="chapter-link" href="frames-and-urdf.html#chapter-start"><span class="nav-number">3.3</span>Frames, orientation &amp; URDF</a></li><li><a class="chapter-link" href="reading-urdf.html#chapter-start"><span class="nav-number">3.4</span>Reading a URDF file</a></li><li><a class="chapter-link" href="changing-urdf.html#chapter-start"><span class="nav-number">3.5</span>Changing a URDF</a></li><li><a class="chapter-link" href="automatic-articulation.html#chapter-start"><span class="nav-number">3.6</span>Automatically build articulated models</a></li></ol></li><li class="chapter-group"><span class="chapter-group-title"><span class="nav-number">4.</span>Simulation</span><ol class="chapter-children"><li><a class="chapter-link" href="animation-and-simulation.html#chapter-start"><span class="nav-number">4.1</span>From animation to simulation</a></li><li><a class="chapter-link" href="preparing-simulation.html#chapter-start"><span class="nav-number">4.2</span>Preparing a simulation model</a></li><li><a class="chapter-link" href="mujoco-experiments.html#chapter-start"><span class="nav-number">4.3</span>MuJoCo experiments</a></li><li><a class="chapter-link" href="robot-interaction.html#chapter-start"><span class="nav-number">4.4</span>Robot interaction and control</a></li><li><a class="chapter-link" href="simulation-platforms.html#chapter-start"><span class="nav-number">4.5</span>From physics engines to robot learning tasks</a></li></ol></li></ol></nav>
+    <div class="sidebar-links">
+      <a href="https://heyumeng.com/ArticulateArena-web/">ArticulateArena ↗</a>
+      <a href="https://github.com/YumengHe/why_simulation">Code ↗</a>
+    </div>
+  </aside>
+  <div class="book-body">
+    <header class="toolbar">
+      <div class="toolbar-left">
+        <button id="menu-toggle" class="icon-button" type="button" aria-label="Toggle contents" aria-controls="sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button id="search-toggle" class="icon-button" type="button" aria-label="Search the book" aria-controls="book-search" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      </div>
+      <a href="overview.html" class="toolbar-title">Why Simulation?</a>
+      <button id="print" class="icon-button" type="button" aria-label="Print this page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8V3h12v5M6 17H3V9h18v8h-3M6 14h12v7H6Z"/><path d="M17 11h1"/></svg></button>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="book-search" class="search-panel" hidden>
+        <label for="search-input">Search the book</label>
+        <div class="search-input-row"><input id="search-input" type="search" placeholder="Try “joint” or “drawer”" autocomplete="off"><button id="search-close" class="text-button" type="button">Close</button></div>
+        <p id="search-status" role="status"></p>
+        <ul id="search-results"></ul>
+      </div>
+      <article><header class="chapter-header" id="chapter-start">
+  <h1><span class="chapter-number">2.3</span> CAD: functions, surfaces, and meshes</h1>
+  <p class="chapter-purpose"><strong>A. Representation</strong></p>
+  <p class="lead">Our cabinet’s round handle can be described by a radius, a length, and a mathematical rule for its surface. We can then generate a mesh from that description, choosing how closely its small faces follow the curve.</p>
+  <p class="cad-note"><a href="#cad-handle">CAD descriptions</a> · <a href="#cad-uses">Four uses</a> · <a href="#cad-comparison">Comparison</a> · <a href="#cad-research">Generating CAD</a> · <a href="#cad-understanding-assembly">Understanding and assembly</a></p>
+</header>
+
+<section id="cad-handle" data-title="Start with the same handle">
+  <h2><span class="section-number">2.3.1</span> Start with the same handle</h2>
+  <p><strong>CAD</strong> means <strong>computer-aided design</strong>. CAD software supports several ways to build models; here we focus on describing solid parts with mathematical curves and surfaces. A design can also keep editable dimensions and the steps used to build it.</p>
+  <h3>How can a CAD model describe a part?</h3>
+  <p>Three useful descriptions are <strong>boundary representation (B-rep)</strong>, <strong>constructive solid geometry (CSG)</strong>, and <strong>a parametric construction history</strong>. They record different aspects of a design and can work together.</p>
+  <div class="cad-application">
+    <div>
+      <p><strong>B-rep stores the boundary of the solid.</strong> For the grip, this means a curved cylindrical side, two flat end faces, and the edges joining them. Mathematical surfaces describe the shape of those faces.</p>
+      <p><strong>CSG describes operations on solids.</strong> We can combine a cylindrical grip and two cylindrical supports using a union. Other operations remove one volume from another or keep their shared volume.</p>
+      <p><strong>A parametric history stores the construction steps and their inputs.</strong> For example: draw a circle with radius r, extrude it to length L, and add the supports at chosen positions. A sketch is a 2D drawing; extrusion extends it into a solid.</p>
+    </div>
+    <figure><img src="assets/cad-lessons/representations.png" width="600" height="770" alt="Three descriptions of the same handle: connected boundary faces, a union of solid cylinders, and a circle-extrusion-support construction history."><figcaption>A saved construction can build a B-rep solid. We can keep both the recipe and the resulting geometry.</figcaption></figure>
+  </div>
+  <p>The CAD software supplies mathematical building blocks such as cylinders and planes. When we choose a circle and an extrusion distance, it constructs the corresponding surfaces. We usually work with shapes and dimensions in the interface; the software maintains their equations. See <a href="https://cadquery.readthedocs.io/en/stable/primer.html">CadQuery’s introduction to boundaries and construction operations</a>.</p>
+  <p><strong>In this example, we build the handle by choosing its shape and dimensions.</strong> The CAD software uses these choices to construct the mathematical surfaces. We can supply them through drawing tools, dimension fields, or a script.</p>
+  <div class="cad-context">
+    <figure><img src="assets/cad/cabinet.png" width="600" height="590" alt="The shared teal cabinet, blue drawer, and gold door, with the silver drawer handle outlined."><figcaption>The same cabinet and its fixed drawer handle.</figcaption></figure>
+    <div><h3>Look at the round grip</h3><p>The handle has a horizontal grip and two supports. We will first describe the grip’s curved side, then add its ends and connect it to the supports.</p><img src="assets/cad/handle.png" width="680" height="300" alt="The same silver cylindrical grip and its two supports, enlarged."><p>For this teaching model, we choose a <strong>cylindrical grip</strong> with radius <strong>50 mm</strong> and length <strong>500 mm</strong>. These choices are the inputs used to build its geometry.</p></div>
+  </div>
+</section>
+
+<section id="cad-surface-function" data-title="A function returns a surface point">
+  <h2><span class="section-number">2.3.2</span> A function returns a surface point</h2>
+  <p>A <strong>function</strong> is a rule that turns inputs into an answer. To locate a point on this grip, choose two inputs: <strong>an angle around it</strong> and <strong>a distance along it</strong>. The function returns that point’s 3D coordinates.</p>
+  <div class="cad-pair">
+    <figure><img src="assets/cad/circle.svg" width="600" height="420" alt="A circular cross-section of the grip, with its radius r marked."><figcaption>At one position along the grip, the surface follows a circle.</figcaption></figure>
+    <figure><img src="assets/cad/surface.svg" width="600" height="420" alt="Circular guides along a horizontal cylinder, with one queried surface point highlighted."><figcaption>Moving along the grip sweeps out its cylindrical side. The guide lines mark selected input values.</figcaption></figure>
+  </div>
+  <p>For a simple formula, give the grip its own <strong>local coordinates</strong>: the x-axis runs along its length, starting at the center of one end. The y- and z-axes span the circular cross-section.</p>
+  <div class="cad-equation" aria-label="Surface function: S of u and v equals v, r cosine u, r sine u"><strong>S(u, v) = (v, r cos u, r sin u)</strong><span>angle u + distance v → one point (x, y, z)</span></div>
+  <ul>
+    <li><strong>u</strong> goes around the circle, from 0 to 2π radians: one full turn.</li>
+    <li><strong>v</strong> runs from 0 to the grip length L.</li>
+    <li><strong>r</strong> is the radius. The cosine and sine terms give the point’s two coordinates around the circle.</li>
+  </ul>
+  <p>For example, with r = 50 mm, choosing u = 0 and v = 300 mm gives <strong>(300, 50, 0) mm</strong>. Choosing u = π/2 at the same distance gives <strong>(300, 0, 50) mm</strong>: a quarter-turn around the same cross-section.</p>
+  <p><strong>Changing u and v explores the same surface; changing r or L changes its shape.</strong> The part’s placement then locates this local shape on the cabinet. CAD systems also use spline surfaces, including NURBS, to describe more complex curves. See <a href="https://dev.opencascade.org/doc/overview/html/occt_user_guides__modeling_data.html">Open CASCADE’s curves and surfaces</a>.</p>
+</section>
+
+<section id="cad-boundaries" data-title="From a surface to a solid part">
+  <h2><span class="section-number">2.3.3</span> From a surface to a solid part</h2>
+  <p>The formula describes the grip’s curved side. Restricting v to 0–L gives it a finite length. Add a circular face at each end, and the side and end faces enclose a solid grip.</p>
+  <p>A common CAD description is <strong>boundary representation (B-rep)</strong>. It stores the surfaces, the edges that bound their faces, and how those faces connect. For the grip, the two end circles connect the cylindrical side to the two flat end faces. Each support can be described as another solid part. <a href="https://cadquery.readthedocs.io/en/stable/primer.html">CadQuery’s B-rep introduction</a> explains these building blocks.</p>
+  <p>This gives us two useful layers: <strong>geometry describes the surfaces; connections describe how they form a part</strong>. A CAD design may additionally store a recipe such as “draw a circle, extrude it to length L, then add the supports.”</p>
+</section>
+
+<section id="cad-to-mesh" data-title="Generate a mesh from the surface">
+  <h2><span class="section-number">2.3.4</span> Generate a mesh from the surface</h2>
+  <p>To make a triangle mesh, sample points on the surfaces and connect nearby samples into faces. This conversion is called <strong>tessellation</strong>. On the grip’s curved side, the triangles span between sampled points and approximate the cylinder.</p>
+  <figure class="book-diagram" id="diagram-cad-conversion" data-diagram="cad-conversion" aria-labelledby="diagram-cad-conversion-title" aria-describedby="diagram-cad-conversion-caption"><div class="diagram-panel"><div class="diagram-heading"><span class="diagram-kicker">From design inputs to mesh</span><h3 id="diagram-cad-conversion-title">One design, different mesh resolutions</h3></div><ol class="diagram-flow diagram-flow--vertical"><li><div class="diagram-card"><span class="diagram-card-label">01</span><strong class="diagram-card-title">Choose the shape and dimensions</strong><span class="diagram-card-text">We choose a cylindrical grip with radius 50 mm and length 500 mm.</span></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">02</span><strong class="diagram-card-title">CAD constructs the surfaces</strong><span class="diagram-card-text">The software uses these inputs to build the cylindrical side, end faces, and their connections.</span></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">03</span><strong class="diagram-card-title">Generate a mesh</strong><span class="diagram-card-text">We choose a tolerance. The software samples the surfaces and connects the points into triangles.</span></div><svg class="diagram-arrow diagram-arrow--down" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path d="M8 1V23m-5-5 5 5 5-5"/></svg></li><li><div class="diagram-card"><span class="diagram-card-label">04</span><strong class="diagram-card-title">Use the mesh</strong><span class="diagram-card-text">Render a view or prepare simulation geometry.</span></div></li></ol></div><figcaption id="diagram-cad-conversion-caption">The same CAD surfaces can produce meshes at different resolutions. Keep the CAD source to edit the design dimensions later.</figcaption></figure>
+  <div class="cad-pair">
+    <figure><img src="assets/cad/mesh-8.png" width="680" height="300" loading="lazy" alt="The shared handle with eight samples around each cylindrical part; broad flat mesh faces are visible."><img src="assets/cad/section-8.svg" width="600" height="420" loading="lazy" alt="An eight-sided polygon inside the exact circular cross-section, with a maximum radial gap of 3.81 millimeters."><figcaption><strong>8 samples around.</strong> Wide faces cut across the curve.</figcaption></figure>
+    <figure><img src="assets/cad/mesh-32.png" width="680" height="300" loading="lazy" alt="The same handle with thirty-two samples around each cylindrical part and finer mesh faces."><img src="assets/cad/section-32.svg" width="600" height="420" loading="lazy" alt="A thirty-two-sided polygon closely follows the same circle, with a maximum radial gap of 0.24 millimeters."><figcaption><strong>32 samples around.</strong> Narrower faces follow the curve more closely.</figcaption></figure>
+  </div>
+  <p>Both meshes come from the <strong>same radius and length</strong>. In the cross-section, the greatest gap lies halfway along each polygon edge. For this 50 mm radius, it is about 3.81 mm with 8 sides and 0.24 mm with 32 sides.</p>
+  <p>A CAD exporter can use a <strong>tolerance</strong> to control this approximation. The tolerance specifies the allowed geometric deviation. A tighter tolerance generally produces more faces on curved regions. The source surface remains available for another export at a different resolution. <a href="https://cadquery.readthedocs.io/en/stable/importexport.html">CadQuery’s export guide</a> describes mesh tolerances and output formats.</p>
+  <p class="cad-note">These figures are generated by script from the shared cabinet and the cylinder function. Even the smooth teaching view uses samples to draw its pixels; the continuous surface is the mathematical description behind that view.</p>
+</section>
+
+<section id="cad-design-edit" data-title="Change the design, then rebuild">
+  <h2><span class="section-number">2.3.5</span> Change the design, then rebuild</h2>
+  <p><strong>Parametric CAD lets us edit design parameters and rebuild the geometry from them.</strong> For our grip, the design keeps the radius, length, and the operation that constructs the cylinder. To make it thinner, we change the saved radius from <strong>50 mm to 35 mm</strong>. The software rebuilds the grip using that value, while keeping its length and axis fixed.</p>
+  <div class="cad-pair">
+    <figure><img src="assets/cad/handle.png" width="680" height="300" loading="lazy" alt="Original handle with a 50 millimeter grip radius."><figcaption><strong>Original: r = 50 mm.</strong></figcaption></figure>
+    <figure><img src="assets/cad/handle-thinner.png" width="680" height="300" loading="lazy" alt="The same handle with a thinner 35 millimeter grip, keeping its length, axis, and supports fixed."><figcaption><strong>Variant: r = 35 mm.</strong> The supports keep their original dimensions.</figcaption></figure>
+  </div>
+  <p><strong>The surface function changes with the radius.</strong> In the formula from Section 2.3.2, replacing r = 50 mm with r = 35 mm changes the coordinates returned for each pair of inputs u and v. The general cylinder formula stays the same, and the new parameter value defines a thinner cylindrical surface. Changing the grip to a different kind of shape would also require changing its construction and surface description.</p>
+  <p>When we export this updated part as a mesh, the software samples the new surfaces and creates new triangles. The workflow is <strong>edit the radius → rebuild the CAD geometry → generate an updated mesh</strong>.</p>
+  <p><strong>The benefit comes from retaining the design information.</strong> We can select a meaningful dimension such as “grip radius” and let the saved construction rebuild the shape. We can also define relationships that keep the handle centered on the drawer or place both supports the same distance from its ends. When a relevant dimension changes, the software updates the geometry according to those rules. <a href="https://cadquery.readthedocs.io/en/stable/assy.html">CadQuery’s assembly example</a> shows dimensions, reusable parts, and constraints working together.</p>
+  <p><strong>Design parameters</strong> set the intended shape. <strong>Meshing settings</strong> set how closely a mesh follows that shape. Increasing the mesh resolution approximates the existing surface more closely; changing the radius defines a new surface.</p>
+  <p>A mesh workflow can also support parameter changes when it retains a generator or procedural rules. In both cases, keeping the editable recipe makes it possible to rebuild the result after a design change.</p>
+</section>
+
+<section id="cad-uses" data-title="Four uses of the same CAD handle">
+  <h2><span class="section-number">2.3.6</span> Four uses of the same CAD handle</h2>
+  <p>CAD is especially useful when a task depends on <strong>dimensions, design relationships, or surface geometry</strong>. Each example below uses the same handle. Its dimensions are chosen for this teaching model.</p>
+
+  <h3>Design a replacement handle</h3>
+  <div class="cad-application">
+    <div><p>Suppose the replacement must attach at the same two mounting positions. We keep the support centers <strong>420 mm apart</strong>, and specify the grip’s length and radius.</p><p>These dimensions give the manufacturer a defined target shape. Material, manufacturing tolerances, and fastening details complete the production design.</p></div>
+    <figure><img src="assets/cad-lessons/replacement.svg" width="600" height="430" loading="lazy" alt="Front view of the handle labeled with a 500 mm grip length, 420 mm support-center spacing, and 50 mm grip radius."><figcaption>Keep the mounting positions while choosing the grip dimensions.</figcaption></figure>
+  </div>
+
+  <h3>Check a fit or clearance</h3>
+  <div class="cad-application">
+    <div><p>Look through the middle of the grip, between its supports. In this design, the grip axis is <strong>160 mm</strong> in front of the drawer. Its radius is <strong>50 mm</strong>, leaving <strong>110 mm</strong> of open space behind it.</p><p>We can compare that gap with a robot finger’s dimensions, then check its full approach path against the handle, supports, and drawer. CAD supplies surfaces and distances for these geometric checks.</p></div>
+    <figure><img src="assets/cad-lessons/clearance.svg" width="600" height="430" loading="lazy" alt="Cross-section showing the 110 mm gap between the back of the round grip and the drawer front."><figcaption>At the center slice: gap = axis distance − radius = 160 − 50 = 110 mm. The slice lies between the supports.</figcaption></figure>
+  </div>
+
+  <h3>Analyze the surface</h3>
+  <div class="cad-application">
+    <div><p>Choose a point on the curved grip. A <strong>normal</strong> points outward, perpendicular to the surface. A <strong>tangent</strong> follows the surface locally. These directions help describe how a tool or finger would approach a contact point.</p><p><strong>Curvature</strong> describes bending. Around a circular cross-section it equals 1/r, so a thinner grip bends more sharply. Along the cylinder’s straight axis the curvature is zero. The surface function lets software calculate these properties at a chosen point. See <a href="https://dev.opencascade.org/doc/overview/html/occt_user_guides__modeling_data.html">Open CASCADE’s surface geometry documentation</a>.</p></div>
+    <figure><img src="assets/cad-lessons/surface-analysis.svg" width="600" height="430" loading="lazy" alt="A point on a grip cross-section with a radial outward normal and a perpendicular tangent; curvature around the grip is one over the radius."><figcaption>One point, two useful directions. The diagram shows one tangent direction around the grip.</figcaption></figure>
+  </div>
+
+  <h3>Create controlled experiment variants</h3>
+  <div class="cad-application">
+    <div><p>To study grip thickness, rebuild the design with radii of <strong>35, 50, and 65 mm</strong>. Keep its length, axis, and support dimensions fixed. The same recipe produces all three variants.</p><p>Export each part for the <a href="preparing-simulation.html">simulation setup</a>, then run the same robot task with each handle. Compare outcomes such as successful grasps or unintended contacts. The changed radius also changes the gap behind the grip, which should be recorded as part of the experiment.</p></div>
+    <figure><img src="assets/cad-lessons/variants.png" width="600" height="600" loading="lazy" alt="Three rendered versions of the same handle, with grip radii 35, 50, and 65 mm and identical length, axis, and supports."><figcaption>These are design variants prepared for testing. The figures show their geometry.</figcaption></figure>
+  </div>
+</section>
+
+<section id="cad-comparison" data-title="CAD, meshes, points, and Gaussians">
+  <h2><span class="section-number">2.3.7</span> CAD, meshes, points, and Gaussians</h2>
+  <p>Each description keeps useful information about the same handle. The task determines which information we want to work with.</p>
+  <p><strong>CAD keeps defined surfaces and, when retained, a construction recipe.</strong> The grip’s radius and axis are available directly. A parametric design also keeps dimensions and relationships that we can edit and rebuild. This is convenient for fitting a replacement part, specifying a design, and making controlled variants.</p>
+  <p><strong>A mesh keeps vertices and connected faces.</strong> It is convenient for surface editing, rendering, and preparing simulation geometry. Accurate meshes also support measurement. If we need a cylinder radius from a plain mesh, we can fit a cylinder to its surface samples. A procedural mesh workflow can keep editable parameters in its generator, too.</p>
+  <p><strong>A point cloud keeps sampled positions.</strong> It provides evidence about an observed object, such as points measured on a real handle. Fitting surfaces or a CAD construction to those samples can turn that evidence into an editable design.</p>
+  <p><strong>Gaussian splatting keeps spatial Gaussian elements and appearance parameters.</strong> It is useful for rendering the observed handle from different viewpoints. Tasks that need explicit surface dimensions can use a recovered surface or CAD model alongside this appearance representation.</p>
+  <p>A practical workflow can use several forms: <strong>measure a handle as points → recover a CAD design → edit its dimensions → export a mesh</strong>. Keeping the editable source preserves the construction. STEP commonly exchanges CAD geometry, while mesh formats serve downstream tools. <a href="https://cadquery.readthedocs.io/en/stable/importexport.html">CadQuery’s format guide</a> explains what its exports retain.</p>
+</section>
+
+<section id="cad-research" data-title="Research: learning to create CAD descriptions">
+  <h2><span class="section-number">2.3.8</span> Research: learning to create CAD descriptions</h2>
+  <p>In our worked example, we supplied the shape and dimensions. Research systems learn to propose a CAD construction from <strong>text, sampled points, or an image</strong>. The predicted instructions are then executed by CAD software to build geometry.</p>
+  <p>The examples below use our handle to explain each workflow. <strong>The diagrams are scripted teaching illustrations.</strong> The linked projects show the researchers’ actual predictions. Predicted dimensions and hidden surfaces need checking against measurements when the goal is a replacement for a real part.</p>
+
+  <h3 id="text2cad">Text2CAD: describe a part in words</h3>
+  <div class="cad-application">
+    <div><p><strong>Input:</strong> a text description, ranging from a general shape to detailed construction instructions.</p><p><strong>Steps:</strong> a trained model predicts a sequence of sketches and extrusions. CAD software executes those steps.</p><p><strong>Output:</strong> a proposed CAD model with a construction sequence. For our teaching example, a request could describe a round grip with two supports. The useful idea is that language can specify a design to build.</p><p><a href="https://sadilkhan.github.io/text2cad-project/">Text2CAD, NeurIPS 2024: project and examples</a>.</p></div>
+    <figure><img src="assets/cad-lessons/text2cad.png" width="600" height="625" loading="lazy" alt="Text2CAD teaching workflow: a description of the handle leads to predicted sketch and extrusion steps, then an executed CAD part."><figcaption>Text supplies the requested design.</figcaption></figure>
+  </div>
+
+  <h3 id="cad-recode">CAD-Recode: turn sampled geometry into code</h3>
+  <div class="cad-application">
+    <div><p><strong>Input:</strong> a point cloud representing a part’s shape.</p><p><strong>Steps:</strong> a trained model predicts Python code using the CadQuery library. Running that code constructs the CAD geometry.</p><p><strong>Output:</strong> a CAD program and the solid it builds. Imagine supplying points sampled from our handle: the aim is to recover a construction that explains its shape. The saved code provides a way to inspect and change the construction.</p><p><a href="https://github.com/filaPro/cad-recode">CAD-Recode, ICCV 2025: implementation and paper</a>.</p></div>
+    <figure><img src="assets/cad-lessons/cad-recode.png" width="600" height="625" loading="lazy" alt="CAD-Recode teaching workflow: sampled points on the handle lead to predicted CadQuery code, which is run to build a solid."><figcaption>Points supply evidence about the geometry.</figcaption></figure>
+  </div>
+
+  <h3 id="img2cad">Img2CAD: infer the structure, then its dimensions</h3>
+  <div class="cad-application">
+    <div><p><strong>Input:</strong> an image of an object.</p><p><strong>Steps:</strong> a vision-language model proposes named parts and CAD command types. A second model, TrAssembler, predicts numerical attributes such as coordinates and extrusion distances. CAD software executes the completed program.</p><p><strong>Output:</strong> an editable CAD construction. With our handle as an illustration, one decision is which pieces and operations to use; another is how large those pieces are and where they belong.</p><p><a href="https://qq456cvb.github.io/projects/img2cad">Img2CAD, SIGGRAPH Asia 2025: method and results</a>.</p></div>
+    <figure><img src="assets/cad-lessons/img2cad.png" width="600" height="625" loading="lazy" alt="Img2CAD teaching workflow: a handle image leads to predicted part and command structure, then numerical attributes, then a constructed CAD model."><figcaption>The method separates construction structure from numerical values.</figcaption></figure>
+  </div>
+
+  <h3 id="concad">ConCAD: learn geometric relationships as well as shape</h3>
+  <div class="cad-application">
+    <div><p><strong>Input:</strong> a rendered image of a part.</p><p><strong>Steps:</strong> the model generates a CadQuery program. During training, it receives feedback about patterns in the code and the 3D shape obtained by executing it, using reference programs and solids.</p><p><strong>Output:</strong> an executable CAD program. This work investigates preserving geometric relationships as well as overall shape. For our handle, an analogous design intention is to place the two supports symmetrically about the grip’s center.</p><p><a href="https://arxiv.org/abs/2609.34494">ConCAD, September 2026 preprint</a>. Its training and evaluation study how well generated designs recover such relationships.</p></div>
+    <figure><img src="assets/cad-lessons/concad.png" width="600" height="625" loading="lazy" alt="ConCAD teaching diagram: a rendered part image conditions CAD code generation; training feedback considers code relationships and the executed shape."><figcaption>The main path shows generation. The separate note explains the feedback used during training.</figcaption></figure>
+  </div>
+  <p>For these methods, the learned model proposes the construction; the CAD system evaluates the resulting geometry. For robot use, we can then organize the parts and joints as in <a href="visual-to-simulation.html">Chapter 3</a>, and supply collision geometry and physical settings as in <a href="preparing-simulation.html">Chapter 4</a>.</p>
+</section>
+
+<section id="cad-understanding-assembly" data-title="Research: using CAD to understand and assemble parts">
+  <h2><span class="section-number">2.3.9</span> Research: using CAD to understand and assemble parts</h2>
+  <p>Once a CAD model exists, its surfaces and connections can become inputs to a learning system. <strong>UV-Net learns to understand a part’s shape. AutoMate helps a user assemble separate parts.</strong> Both use the geometry and structure stored in a <a href="#cad-boundaries">B-rep</a>.</p>
+  <p>The following diagrams use our cabinet and its handle as scripted teaching examples. The linked papers show the methods’ evaluated results.</p>
+
+  <h3 id="uv-net">UV-Net: recognize a CAD part and label its faces</h3>
+  <p><strong>Input:</strong> an existing CAD model. Imagine giving the system our cabinet’s complete handle, including its round grip and two supports. The CAD file already describes the surfaces and how they connect.</p>
+  <p><strong>Output:</strong> information identifying the part or its faces. A <strong>label</strong> is a category name attached to the model. There are two possible tasks:</p>
+  <ul>
+    <li><strong>Recognize the whole part.</strong> A model trained to distinguish handles from other kinds of parts could assign the category <strong>“handle”</strong> to this entire CAD model. This task is called <strong>shape classification</strong>.</li>
+    <li><strong>Label the faces.</strong> A model trained to distinguish regions of a handle could assign <strong>“grip surface”</strong> to faces on the horizontal grip and <strong>“support surface”</strong> to faces on the two supports. Each CAD face receives a category. This task is called <strong>face segmentation</strong>.</li>
+  </ul>
+  <p><strong>These handle labels are teaching examples.</strong> A model would need training data with those categories to predict them. The authors evaluate tasks including recognizing CAD solids shaped like letters and labeling faces by modeling or machining features. See the <a href="https://arxiv.org/abs/2006.10211">UV-Net paper, CVPR 2021</a> and <a href="https://github.com/AutodeskAILab/UV-Net">implementation</a>.</p>
+  <figure class="cad-learning-figure">
+    <img src="assets/cad-learning/uvnet.png" width="600" height="580" loading="lazy" alt="Teaching example with the same CAD handle as input. One possible task assigns the whole part the category handle; another labels the grip faces teal and the support faces gold. These labels are authored examples requiring suitable training data.">
+    <figcaption>The geometry stays the same; the output adds identification information. The colors illustrate “grip surface” and “support surface” labels. These are scripted examples of possible outputs for a suitably trained model.</figcaption>
+  </figure>
+  <p><strong>How CAD helps:</strong> UV-Net samples positions on surfaces and boundary curves. The <a href="#cad-surface-function">surface function</a> supplies those positions. It also reads which faces share boundary edges, combining information about each face’s shape with information from its neighbors. Together these help the model recognize the part or label its faces.</p>
+  <p>A whole-part label can help organize a CAD collection. Face labels can highlight regions for inspection or further processing. In both cases, the result adds information to an existing design.</p>
+
+  <h3 id="automate">AutoMate: suggest how separate parts attach</h3>
+  <p><strong>What comes out?</strong> AutoMate suggests assembly relationships for the user to choose. In the demonstrated CAD tool, the user selects parts and nearby faces, reviews ranked suggestions, and accepts a connection. The CAD system then uses the selected constraint to position the parts.</p>
+  <p><strong>Input:</strong> existing CAD parts. In its interactive workflow, the user chooses two parts and points to nearby faces where they should connect. For our example, choose the handle and the blue drawer front, then indicate their mounting regions.</p>
+  <p><strong>How it uses CAD:</strong> AutoMate reads geometric information, such as surface types and parameters, together with the connections between faces, their boundary loops, edges, and vertices. A boundary loop is a connected chain of edges around a face. A graph network learns features from this structure.</p>
+  <p>CAD geometry also supplies possible attachment references: a point and a set of directions on each part. For example, a circular face has a center and a perpendicular direction. AutoMate ranks candidate pairs of these references and predicts an assembly constraint type. Such a constraint is called a <strong>mate</strong>: it describes how the two parts are positioned and what relative movement is allowed. The user chooses among the suggestions. See the <a href="https://grail.cs.washington.edu/projects/automate/">AutoMate project, SIGGRAPH Asia 2021</a> and <a href="https://arxiv.org/abs/2105.12238">paper</a>.</p>
+  <figure class="cad-learning-figure">
+    <img src="assets/cad-learning/automate.png" width="600" height="790" loading="lazy" alt="The same handle and drawer front shown apart, with mounting regions marked in gold; B-rep geometry and connections inform assembly suggestions, and the illustrated user choice fixes the handle to the drawer.">
+    <figcaption>The handle is moved outward to reveal the mounting regions. The fixed connection is an authored example of a user’s choice. The topology sketch shows faces, edges, and vertices; boundary loops are omitted for clarity.</figcaption>
+  </figure>
+  <p><strong>Output and use:</strong> a suggested attachment location, orientation, and mate type that the user can accept in the CAD assembly. In our example, a <strong>fixed mate keeps the handle attached to the drawer</strong>. When the drawer slides, the handle travels with it. The drawer’s sliding connection to the cabinet body is a separate relationship, introduced in <a href="articulated-objects.html">Chapter 3: parts, joints, and motion</a>.</p>
+
+  <p><strong>The two kinds of connection serve different purposes.</strong> B-rep connections describe how faces and edges form each solid part. Assembly mates describe how separate parts fit and move relative to one another. UV-Net uses the first to learn shape features; AutoMate uses part geometry and structure to help propose the second.</p>
+</section>
+</article>
+      <nav class="chapter-pagination" aria-label="Chapter navigation"><a class="page-previous" rel="prev" href="meshes.html">← Meshes: representation</a><a class="page-next" rel="next" href="gaussians-and-fields.html">Gaussians and fields: representation →</a></nav>
+      <footer class="page-footer"><a href="#chapter-start">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <button class="sidebar-backdrop" id="sidebar-backdrop" aria-label="Close contents" type="button" hidden></button>
+</body>
+</html>

@@ -1,9 +1,9 @@
 <header class="chapter-header draft-addition" id="chapter-start">
-  <h1><span class="chapter-number">2.8</span> Gaussians: reconstruction with 3DGS and 2DGS</h1>
+  <h1><span class="chapter-number">2.9</span> Gaussians: reconstruction with 3DGS and 2DGS</h1>
   <p class="chapter-purpose draft-addition"><strong>C. Reconstruction and generation</strong> · 3DGS and 2DGS</p>
   <p class="lead"><strong>3DGS and 2DGS are two ways to reconstruct the same cabinet from photographs.</strong> Both first fit a 3D representation to multiple views, then use the saved result and a virtual camera to render new views.</p>
   <p>Choose either method for a reconstruction. To compare them, run each on the same prepared photographs and cameras, producing two separate results. Each result uses its corresponding renderer.</p>
-<nav class="representation-trail" aria-label="Gaussian reading route"><strong>3D Gaussians:</strong> <a href="gaussians-and-fields.html#gaussian-data">Representation · 2.3.1</a><span> · </span><a href="gaussian-rendering.html">Rendering · 2.5</a><span> · </span><a href="gaussian-splatting.html">Reconstruction with 3DGS · 2.8</a></nav>
+<nav class="representation-trail" aria-label="Gaussian reading route"><strong>3D Gaussians:</strong> <a href="gaussians-and-fields.html#gaussian-data">Representation · 2.4.1</a><span> · </span><a href="gaussian-rendering.html">Rendering · 2.6</a><span> · </span><a href="gaussian-splatting.html">Reconstruction with 3DGS · 2.9</a></nav>
 </header>
 
 <section class="representation-lesson" id="gaussian-comparison" data-title="3DGS and 2DGS: the shared task and different emphasis">
@@ -49,13 +49,13 @@
 <section class="representation-lesson draft-addition" id="gaussian-example" data-title="Reconstruct the cabinet with 3DGS">
   <h2>Reconstruct the cabinet with 3DGS</h2>
   <ol class="gaussian-method-steps">
-    <li><strong>Prepare the inputs.</strong> Collect overlapping cabinet photographs. Use the <a href="cameras-and-geometry.html#colmap-cabinet">COLMAP workflow in Section 2.7.3</a> to estimate cameras and sparse 3D points. The points provide starting locations for the Gaussians.</li>
+    <li><strong>Prepare the inputs.</strong> Collect overlapping cabinet photographs. Use the <a href="cameras-and-geometry.html#colmap-cabinet">COLMAP workflow in Section 2.8.3</a> to estimate cameras and sparse 3D points. The points provide starting locations for the Gaussians.</li>
     <li><strong>Initialize the elements.</strong> Place a soft 3D ellipsoid at each starting point. Give it a position, orientation, three sizes, opacity, and appearance.</li>
     <li><strong>Render, compare, and adjust.</strong> Render from a training photograph’s camera and compare the pixels. Adjust the ellipsoids to reduce the image differences, repeating across the views. The method can also add, split, or remove elements. At the blue drawer, the fit is guided by how well the rendered panel and handle match the photographs.</li>
     <li><strong>Save the fitted representation.</strong> Keep the ellipsoids’ positions, orientations, sizes, opacity, and appearance. Together they describe this cabinet in 3D.</li>
     <li><strong>Use the result.</strong> Give the saved ellipsoids and a new virtual camera to a 3DGS renderer to make another image. Surface reconstruction is an additional operation when a mesh is needed.</li>
   </ol>
-  <p><a href="gaussian-rendering.html#rendering-gaussians">Section 2.5.1</a> explains the rendering operation used in Step 3: project the ellipsoids into soft image marks and blend them. The <a href="https://arxiv.org/html/2308.04079v1#S5">original paper</a> explains the updates. The <a href="cameras-and-geometry.html#vggt-cabinet">VGGT export in Section 2.7.5</a> provides another source of cameras and starting points for a supported Gaussian training pipeline.</p>
+  <p><a href="gaussian-rendering.html#rendering-gaussians">Section 2.6.1</a> explains the rendering operation used in Step 3: project the ellipsoids into soft image marks and blend them. The <a href="https://arxiv.org/html/2308.04079v1#S5">original paper</a> explains the updates. The <a href="cameras-and-geometry.html#vggt-cabinet">VGGT export in Section 2.8.5</a> provides another source of cameras and starting points for a supported Gaussian training pipeline.</p>
 </section>
 
 <section class="representation-lesson" id="surface-gaussians" data-title="2DGS: reconstruct with surface Gaussians">
@@ -84,7 +84,7 @@
 
   <h3 id="2dgs-workflow">Reconstruct the cabinet with 2DGS</h3>
   <ol class="gaussian-method-steps">
-    <li><strong>Prepare the inputs.</strong> Collect overlapping cabinet photographs. Use the same <a href="cameras-and-geometry.html#colmap-cabinet">COLMAP workflow in Section 2.7.3</a> to estimate cameras and sparse 3D points. The official 2DGS implementation accepts this preparation.</li>
+    <li><strong>Prepare the inputs.</strong> Collect overlapping cabinet photographs. Use the same <a href="cameras-and-geometry.html#colmap-cabinet">COLMAP workflow in Section 2.8.3</a> to estimate cameras and sparse 3D points. The official 2DGS implementation accepts this preparation.</li>
     <li><strong>Initialize the elements.</strong> Place a soft disk at each starting point. Give it a position, orientation, two sizes within its plane, opacity, and appearance.</li>
     <li><strong>Render, compare, and adjust.</strong> Render from a training photograph’s camera and compare the pixels. Adjust the disks using both image differences and the surface constraints above, repeating across the views. The method can also add, split, or remove elements. At the blue drawer, both its photographed appearance and the consistency of its recovered panel guide the fit.</li>
     <li><strong>Save the fitted representation.</strong> Keep the disks’ positions, orientations, sizes, opacity, and appearance. Together they describe this cabinet in 3D.</li>

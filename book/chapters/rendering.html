@@ -1,13 +1,13 @@
 <header class="chapter-header" id="chapter-start">
-  <h1><span class="chapter-number">2.4</span> Meshes: rendering with a camera</h1>
+  <h1><span class="chapter-number">2.5</span> Meshes: rendering with a camera</h1>
   <p class="chapter-purpose draft-addition"><strong>B. Rendering</strong></p>
   <p class="lead"><strong>Rendering goes from 3D to 2D.</strong> Start with a stored 3D cabinet, choose a virtual camera, and use a renderer to calculate the picture from that viewpoint.</p>
   {{diagram:rendering-flow-1}}
-<nav class="representation-trail" aria-label="Mesh reading route"><strong>Mesh:</strong> <a href="meshes.html">Representation · 2.2</a><span> · </span><a href="rendering.html">Rendering · 2.4</a><span> · </span><a href="cameras-and-geometry.html#points-to-surfaces">Reconstruction · 2.7.7</a></nav>
+<nav class="representation-trail" aria-label="Mesh reading route"><strong>Mesh:</strong> <a href="meshes.html">Representation · 2.2</a><span> · </span><a href="rendering.html">Rendering · 2.5</a><span> · </span><a href="cameras-and-geometry.html#points-to-surfaces">Reconstruction · 2.8.7</a></nav>
 </header>
 
 <section class="split-chapter" id="gaussians-and-nerf" data-title="Render mesh surfaces">
-  <h2 class="draft-addition"><span class="section-number">2.4.1</span> Render mesh surfaces</h2>
+  <h2 class="draft-addition"><span class="section-number">2.5.1</span> Render mesh surfaces</h2>
 
   <p class="draft-addition">Sections <a href="3d-generation.html">2.1</a> and <a href="meshes.html">2.2</a> described the stored data. Rendering starts with that data already available and asks what a camera would see.</p>
   <p>A mesh supplies <strong>the surfaces of objects in a scene</strong>. A scene also specifies where those objects are placed, where the camera looks, and how surfaces are colored and lit. The renderer uses that information to calculate an image.</p>
@@ -42,5 +42,5 @@
   </ol>
   <p>Imagine walking around a real cabinet: the cabinet stays still, but you see a different side. A virtual camera works similarly. Keep the 3D cabinet in place, move the camera from the front to the side, and render again. The new image shows the surfaces visible from the side. We do not need to rebuild the mesh for that camera movement.</p>
   <p>This is what the mesh contributes: <strong>the cabinet’s surfaces in 3D</strong>. The camera chooses the view, and the renderer calculates the picture. <a href="https://docs.blender.org/manual/en/4.0/render/introduction.html">More on rendering</a>.</p>
-  <p class="draft-addition">Renderers can also make pictures from other representations. For <strong>3D Gaussians</strong>, the renderer blends the blobs’ projected colors. For a <strong>NeRF radiance field</strong>, it asks a network about locations along each line of sight. <a href="gaussian-rendering.html">Section 2.5</a> shows Gaussian projection and blending; <a href="field-rendering.html">Section 2.6</a> follows a ray through a radiance field.</p>
+  <p class="draft-addition">Renderers can also make pictures from other representations. For <strong>3D Gaussians</strong>, the renderer blends the blobs’ projected colors. For a <strong>NeRF radiance field</strong>, it asks a network about locations along each line of sight. <a href="gaussian-rendering.html">Section 2.6</a> shows Gaussian projection and blending; <a href="field-rendering.html">Section 2.7</a> follows a ray through a radiance field.</p>
 </section>

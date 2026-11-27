@@ -1,20 +1,20 @@
 <header class="chapter-header draft-addition" id="chapter-start">
-  <h1><span class="chapter-number">2.7</span> Reconstruction: cameras, points, and meshes</h1>
+  <h1><span class="chapter-number">2.8</span> Reconstruction: cameras, points, and meshes</h1>
   <p class="chapter-purpose draft-addition"><strong>C. Reconstruction and generation</strong> · COLMAP, DUSt3R, and VGGT</p>
   <p class="lead"><strong>Reconstruction estimates a 3D description from photographs.</strong> Given overlapping views of the same cabinet, estimate its shape and where the cameras were when the photographs were taken.</p>
   {{diagram:cameras-and-geometry-flow-1}}
   <p>Each complete workflow can provide <strong>camera estimates and 3D surface positions</strong>. The methods differ in how they obtain these estimates and whether the geometry is represented by sparse points, dense pointmaps, or depth maps.</p>
-  <p><a href="rendering.html#chapter-start">Section 2.4</a> supplies a scene and camera to make a picture. Here, the pictures are the evidence used to estimate those unknowns. A photograph does not uniquely determine the hidden surfaces, so reconstruction gives an estimate rather than an exact reversal.</p>
+  <p><a href="rendering.html#chapter-start">Section 2.5</a> supplies a scene and camera to make a picture. Here, the pictures are the evidence used to estimate those unknowns. A photograph does not uniquely determine the hidden surfaces, so reconstruction gives an estimate rather than an exact reversal.</p>
   <p><strong>Inverse rendering</strong> describes inferring scene properties from images, often including shape, materials, and lighting. <a href="https://nvlabs.github.io/nvdiffrec/">One example recovers all three together.</a> This section focuses on <strong>camera and geometry reconstruction</strong>. COLMAP finds the same details in different photographs, then uses their image positions to estimate cameras and 3D points. DUSt3R predicts 3D points from image pairs and aligns the pair results. VGGT jointly processes images to predict cameras and geometry. These are <strong>three alternative methods</strong> for estimating the photographed scene.</p>
 </header>
 
 <section class="representation-lesson draft-addition" id="rendering-to-reconstruction" data-title="Reconstruction and generation: the workflow">
-  <h2><span class="section-number">2.7.1</span> Reconstruction and generation: the workflow</h2>
+  <h2><span class="section-number">2.8.1</span> Reconstruction and generation: the workflow</h2>
 <div id="reconstruction-workflow">
 <h3>Where the methods fit</h3>
 <p><strong>Reconstruction</strong> uses observations to estimate the scene that was photographed. <strong>Generation</strong> uses a pretrained model to propose an asset from an image or prompt. Both can produce data in the representations introduced earlier; which output is available depends on the method.</p>
 {{diagram:reconstruction-map}}
-<p>COLMAP, DUSt3R, and VGGT offer different routes to camera and geometry estimates. Those geometry estimates are already reconstruction results. With appropriate preparation, they can support surface reconstruction, Gaussian fitting, or NeRF training. The downstream method determines which data and file formats we need. TRELLIS illustrates a pretrained generation route in <a href="generating-3d-assets.html">Section 2.10</a>.</p>
+<p>COLMAP, DUSt3R, and VGGT offer different routes to camera and geometry estimates. Those geometry estimates are already reconstruction results. With appropriate preparation, they can support surface reconstruction, Gaussian fitting, or NeRF training. The downstream method determines which data and file formats we need. TRELLIS illustrates a pretrained generation route in <a href="generating-3d-assets.html">Section 2.11</a>.</p>
 </div>
 <h3>Use rendering to check an estimate</h3><p>In 3DGS and NeRF, rendering checks how well the current 3D description explains the photographs.</p>
 {{diagram:cameras-and-geometry-flow-2}}
@@ -22,7 +22,7 @@
 <p>The photographs are the evidence; the 3D representation is what we adjust. Rendering is the check that connects them: it lets us compare a picture made from the estimate with an actual input picture.</p>
 </section>
 <section class="representation-lesson draft-addition" id="camera-and-geometry-inputs" data-title="What information do we need?">
-  <h2><span class="section-number">2.7.2</span> What information do we need?</h2>
+  <h2><span class="section-number">2.8.2</span> What information do we need?</h2>
 <p>Keep the cabinet, door, and drawer still while photographing from different positions. The images are the observations we want the reconstruction to explain.</p>
 <dl class="nerf-answers">
   <div><dt>Camera parameters</dt><dd>Where was the camera, which way did it point, and what were its lens settings for each image? These determine the line of sight for each pixel.</dd></div>
@@ -33,7 +33,7 @@
 </section>
 
 <section class="representation-lesson" id="colmap-cabinet" data-title="COLMAP: match details across views">
-  <h2 class="draft-addition"><span class="section-number">2.7.3</span> COLMAP: match details across views</h2>
+  <h2 class="draft-addition"><span class="section-number">2.8.3</span> COLMAP: match details across views</h2>
 <p class="draft-addition"><strong>COLMAP computes a reconstruction from matching details in the current photographs.</strong> For the cabinet, it finds corners and handle details that appear in several views. Their positions in the images provide geometric relationships that COLMAP uses to calculate where the cameras were and where those details lie in 3D. It carries out this calculation for each new set of photographs. Follow the drawer corner marked A:</p>
 
     <div class="gs-grid gs-three gs-photos">
@@ -56,11 +56,11 @@
     <p>COLMAP projects each estimated 3D point back into its photographs. The projected A should land on the observed A. It refines the camera and point estimates to reduce these image-position differences. As more photographs are added, the reconstruction grows and is refined again.</p>
     <p>This camera-and-point reconstruction is called <strong>Structure from Motion (SfM)</strong>. The result is <strong>camera parameters plus a sparse point cloud</strong>: sampled locations on recognizable details. Textured areas often supply more matches than plain panels. <a href="https://colmap.github.io/tutorial.html#structure-from-motion">COLMAP’s illustrated workflow.</a></p>
 
-<p>Keep the photographs together with these camera and point estimates. They can be prepared for 3DGS or NeRF, as described in <a href="#inputs-to-3dgs-and-nerf">Section 2.7.6</a>. COLMAP’s dense reconstruction tools can instead continue toward depth maps and denser surfaces, as described in <a href="#points-to-surfaces">Section 2.7.7</a>.</p>
+<p>Keep the photographs together with these camera and point estimates. They can be prepared for 3DGS or NeRF, as described in <a href="#inputs-to-3dgs-and-nerf">Section 2.8.6</a>. COLMAP’s dense reconstruction tools can instead continue toward depth maps and denser surfaces, as described in <a href="#points-to-surfaces">Section 2.8.7</a>.</p>
 </section>
 
 <section class="representation-lesson" id="dust3r-cabinet" data-title="DUSt3R: from image pixels to 3D points">
-  <h2><span class="section-number">2.7.4</span> DUSt3R: from image pixels to 3D points</h2>
+  <h2><span class="section-number">2.8.4</span> DUSt3R: from image pixels to 3D points</h2>
   <p><strong>DUSt3R</strong> is a pretrained model that predicts where photographed surfaces lie in 3D. Its starting inputs are RGB images with overlapping views. For this cabinet, we use left, front, and right views while the drawer and door remain still. The model predicts geometry from image pairs; camera information can then be recovered from those predictions. <a href="https://arxiv.org/abs/2312.14132">DUSt3R paper.</a></p>
   <div class="gs-grid gs-three dust3r-figures">
     <figure><img src="assets/dust3r/view-left.png" width="600" height="680" loading="lazy" alt="Scripted left view of the shared cabinet, showing its teal body, blue drawer, gold door, and fixed handles"><figcaption>Left view</figcaption></figure>
@@ -99,12 +99,12 @@
   <p class="media-note">Blue and gold identify the two image pairs. The script deliberately offsets one point set and aligns it using known shared points. This illustrates the purpose of alignment; actual DUSt3R estimates can retain errors.</p>
   {{diagram:cameras-and-geometry-flow-3}}
   <h3>Keep the reconstruction</h3>
-  <p>The aligned positions give a point-cloud reconstruction to inspect. The DUSt3R workflow can also recover camera poses, focal lengths, and depth maps. Keep the original images with these estimates. Building connected surfaces is a further step, described in <a href="#points-to-surfaces">Section 2.7.7</a>; Gaussian or NeRF fitting requires the data preparation described in <a href="#inputs-to-3dgs-and-nerf">Section 2.7.6</a>. The <a href="https://github.com/naver/dust3r#usage">official example</a> shows how to retrieve the cameras and points.</p>
+  <p>The aligned positions give a point-cloud reconstruction to inspect. The DUSt3R workflow can also recover camera poses, focal lengths, and depth maps. Keep the original images with these estimates. Building connected surfaces is a further step, described in <a href="#points-to-surfaces">Section 2.8.7</a>; Gaussian or NeRF fitting requires the data preparation described in <a href="#inputs-to-3dgs-and-nerf">Section 2.8.6</a>. The <a href="https://github.com/naver/dust3r#usage">official example</a> shows how to retrieve the cameras and points.</p>
   <p>For more on confidence, alignment, and scale, see the <a href="https://arxiv.org/abs/2312.14132">DUSt3R paper</a> and <a href="https://github.com/naver/dust3r#usage">official implementation</a>.</p>
 </section>
 
 <section class="representation-lesson draft-addition" id="vggt-cabinet" data-title="VGGT: predict cameras and geometry">
-  <h2><span class="section-number">2.7.5</span> VGGT: predict cameras and geometry</h2>
+  <h2><span class="section-number">2.8.5</span> VGGT: predict cameras and geometry</h2>
 <p><strong>VGGT</strong> (Visual Geometry Grounded Transformer) uses a <strong>pretrained neural network to predict cameras and geometry directly from images</strong>. During pretraining, the network learned from many scenes how image information relates to camera viewpoints and 3D surfaces. Its design and training give it specific outputs: camera parameters, depth maps, pointmaps, and tracks for selected image points. <a href="https://vgg-t.github.io/">VGGT project.</a></p>
 <p>For this cabinet, we load the trained model and provide the left, front, and right photographs together. The model uses its learned settings to predict the camera information and visible surface geometry for <em>this</em> cabinet. Those settings stay fixed while it makes the predictions; the same trained model can then process photographs of another object. This use of a trained model is called <strong>inference</strong>. VGGT accepts one or multiple images; this example uses three overlapping views. <a href="https://github.com/facebookresearch/vggt#quick-start">Official inference example.</a></p>
 <div class="gs-grid gs-three vggt-figures">
@@ -138,12 +138,12 @@
 </section>
 
 <section class="representation-lesson draft-addition" id="inputs-to-3dgs-and-nerf" data-title="Where do these outputs go next?">
-  <h2><span class="section-number">2.7.6</span> Where do these outputs go next?</h2>
-<p><strong>Section 2.7 prepares photographs, camera parameters, and initial geometry estimates.</strong> Sections <a href="gaussian-splatting.html">2.8</a> and <a href="nerf.html">2.9</a> use that preparation in two alternative reconstruction methods: fitting 3D Gaussians or training a NeRF network. Each method builds a 3D representation whose rendered views match the cabinet photographs.</p>
-<p>Both methods repeatedly use <strong>3D → 2D rendering</strong>, introduced in <a href="rendering.html">Section 2.4</a>: render the current representation, compare it with a photograph from the same camera, and use the differences to improve the representation.</p>
+  <h2><span class="section-number">2.8.6</span> Where do these outputs go next?</h2>
+<p><strong>Section 2.8 prepares photographs, camera parameters, and initial geometry estimates.</strong> Sections <a href="gaussian-splatting.html">2.9</a> and <a href="nerf.html">2.10</a> use that preparation in two alternative reconstruction methods: fitting 3D Gaussians or training a NeRF network. Each method builds a 3D representation whose rendered views match the cabinet photographs.</p>
+<p>Both methods repeatedly use <strong>3D → 2D rendering</strong>, introduced in <a href="rendering.html">Section 2.5</a>: render the current representation, compare it with a photograph from the same camera, and use the differences to improve the representation.</p>
 <div class="method-branches">
-  <div><h3>Continue with 3DGS</h3><p><strong>Inputs:</strong> photographs, camera parameters, and estimated 3D points.</p><ol><li>Use estimated 3D points as starting locations for Gaussians.</li><li>Use each camera to render the current Gaussians from its photograph’s viewpoint.</li><li>Compare with that photograph and adjust the Gaussians.</li></ol><p><strong>Saved result:</strong> the fitted Gaussian parameters.</p><a href="gaussian-splatting.html#gaussian-learning">Follow the cabinet in Section 2.8</a></div>
-  <div><h3>Continue with NeRF</h3><p><strong>Inputs:</strong> photographs and camera parameters.</p><ol><li>Use each camera to construct rays through image pixels.</li><li>Sample positions along those rays and query a network for color and density.</li><li>Render pixels, compare with the photographs, and adjust the network.</li></ol><p><strong>Saved result:</strong> a trained network that describes the cabinet.</p><a href="nerf.html#nerf-cameras">Follow the cabinet in Section 2.9</a></div>
+  <div><h3>Continue with 3DGS</h3><p><strong>Inputs:</strong> photographs, camera parameters, and estimated 3D points.</p><ol><li>Use estimated 3D points as starting locations for Gaussians.</li><li>Use each camera to render the current Gaussians from its photograph’s viewpoint.</li><li>Compare with that photograph and adjust the Gaussians.</li></ol><p><strong>Saved result:</strong> the fitted Gaussian parameters.</p><a href="gaussian-splatting.html#gaussian-learning">Follow the cabinet in Section 2.9</a></div>
+  <div><h3>Continue with NeRF</h3><p><strong>Inputs:</strong> photographs and camera parameters.</p><ol><li>Use each camera to construct rays through image pixels.</li><li>Sample positions along those rays and query a network for color and density.</li><li>Render pixels, compare with the photographs, and adjust the network.</li></ol><p><strong>Saved result:</strong> a trained network that describes the cabinet.</p><a href="nerf.html#nerf-cameras">Follow the cabinet in Section 2.10</a></div>
 </div>
 <p><strong>The 3D points play different roles.</strong> In the 3DGS route, estimated surface points provide starting locations for blobs. In the original NeRF route, the renderer chooses query locations along camera rays, including in empty space. Each query position and viewing direction is sent to the NeRF network; the samples span the ray rather than just the estimated surfaces.</p>
 <p>The 3DGS and NeRF worked examples use COLMAP-style camera preparation. The VGGT export offers another way to supply camera and point estimates; the later rendering and fitting stages still need to be carried out.</p>
@@ -152,8 +152,8 @@
 <p>Further details: <a href="https://github.com/graphdeco-inria/gaussian-splatting">original 3DGS inputs</a> and <a href="https://github.com/bmild/nerf#generating-poses-for-your-own-scenes">original NeRF camera preparation</a>.</p>
 </section>
 <section class="representation-lesson" id="points-to-surfaces" data-title="Reconstruct a mesh from cabinet photographs">
-<h2><span class="section-number">2.7.7</span> From points to a mesh</h2>
-<nav class="representation-trail" aria-label="Mesh reading route"><strong>Mesh:</strong> <a href="meshes.html">Representation · 2.2</a><span> · </span><a href="rendering.html">Rendering · 2.4</a><span> · </span><a href="cameras-and-geometry.html#points-to-surfaces">Reconstruction · 2.7.7</a></nav>
+<h2><span class="section-number">2.8.7</span> From points to a mesh</h2>
+<nav class="representation-trail" aria-label="Mesh reading route"><strong>Mesh:</strong> <a href="meshes.html">Representation · 2.2</a><span> · </span><a href="rendering.html">Rendering · 2.5</a><span> · </span><a href="cameras-and-geometry.html#points-to-surfaces">Reconstruction · 2.8.7</a></nav>
 <p>To obtain a <strong>mesh of the photographed cabinet</strong>, we need surface faces as well as 3D positions. This route builds on the cameras and geometry estimated earlier:</p>
 <ol class="representation-steps">
   <li><strong>Prepare dense surface points.</strong> Starting from sparse COLMAP output, estimate depth across the photographs and combine the results into a dense point cloud. With DUSt3R or VGGT, collect reliable positions from the predicted pointmaps in a shared coordinate frame. These routes supply samples on the cabinet’s panels and handle.</li>
@@ -161,6 +161,6 @@
   <li><strong>Save and inspect the mesh.</strong> The result contains vertices and faces, as introduced in <a href="meshes.html">Section 2.2</a>. Check that the panel shapes, handle, and spaces around moving parts have been captured.</li>
 </ol>
 <p>For example, the dense points may mark many locations on the drawer front. The mesh adds surface patches covering the panel between those locations. Around the handle, the reconstructed surface should follow the grip and preserve the opening behind it.</p>
-<p><strong>COLMAP’s dense route: photographs + cameras → depth estimates → dense 3D points → a surface mesh.</strong> Predicted pointmaps offer another source of dense points for surface reconstruction. The Gaussian and NeRF routes in Sections <a href="gaussian-splatting.html">2.8</a> and <a href="nerf.html">2.9</a> fit blobs or a network to the photographs.</p>
+<p><strong>COLMAP’s dense route: photographs + cameras → depth estimates → dense 3D points → a surface mesh.</strong> Predicted pointmaps offer another source of dense points for surface reconstruction. The Gaussian and NeRF routes in Sections <a href="gaussian-splatting.html">2.9</a> and <a href="nerf.html">2.10</a> fit blobs or a network to the photographs.</p>
 <p>Photo coverage and the surface-reconstruction method affect which details can be recovered. <a href="https://colmap.github.io/tutorial.html#multi-view-stereo">COLMAP’s dense reconstruction tools</a> and <a href="https://www.open3d.org/docs/release/tutorial/geometry/surface_reconstruction.html">Open3D’s surface-reconstruction examples</a> show implementations of this route.</p>
 </section>

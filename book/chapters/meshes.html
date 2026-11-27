@@ -1,7 +1,7 @@
 <header class="chapter-header" id="chapter-start">
   <h1><span class="chapter-number">2.2</span> Meshes: representation</h1>
   <p class="chapter-purpose draft-addition"><strong>A. Representation</strong></p>
-<nav class="representation-trail" aria-label="Mesh reading route"><strong>Mesh:</strong> <a href="meshes.html">Representation · 2.2</a><span> · </span><a href="rendering.html">Rendering · 2.4</a><span> · </span><a href="cameras-and-geometry.html#points-to-surfaces">Reconstruction · 2.7.7</a></nav>
+<nav class="representation-trail" aria-label="Mesh reading route"><strong>Mesh:</strong> <a href="meshes.html">Representation · 2.2</a><span> · </span><a href="rendering.html">Rendering · 2.5</a><span> · </span><a href="cameras-and-geometry.html#points-to-surfaces">Reconstruction · 2.8.7</a></nav>
 </header>
 
 <section class="split-chapter" id="points-and-meshes" data-title="Meshes: surfaces and useful detail">
@@ -24,7 +24,7 @@
     <p><strong>Quads are useful for editing:</strong> rows of four-sided faces make it easier to select a strip of the cabinet surface and reshape it. <strong>Triangles are useful for rendering:</strong> three corners define a flat patch that software can project and draw. A common workflow is to edit with quads and let the software divide them into triangles for rendering. <a href="https://docs.blender.org/manual/en/4.5/modeling/modifiers/generate/triangulate.html">Blender’s triangulation tool.</a></p>
     <p><strong>Face type and amount of detail are two separate choices.</strong> A mesh can have a few large triangles or many small triangles; the same applies to quads. More, well-placed corners can follow a curved handle more closely, while more faces generally require more storage and processing. In the two cabinets above, splitting each flat quad into two triangles leaves the surface in exactly the same place.</p>
   </div>
-  <p>Measured points can be turned into a mesh by estimating a connected surface. <a href="cameras-and-geometry.html#points-to-surfaces">Section 2.7.7</a> explains where this surface-reconstruction step fits.</p>
+  <p>Measured points can be turned into a mesh by estimating a connected surface. <a href="cameras-and-geometry.html#points-to-surfaces">Section 2.8.7</a> explains where this surface-reconstruction step fits.</p>
 
   <div class="representation-lesson" id="same-four-corners">
     <h2>Why can a mesh look angular?</h2>
@@ -52,5 +52,6 @@
       <p>The camera and colors are the same in both pictures. The lines mark the edges of the triangular faces. <strong>The extra faces improve the curved handles; the flat cabinet panels stay unchanged.</strong></p>
     </div>
   </div>
+  <p>A round grip can also be described by a mathematical surface and then converted into mesh faces. <a href="cad.html">CAD: functions, surfaces, and meshes</a> develops this example.</p>
   <p>For software used to inspect and edit these surfaces, see the <a href="3d-software.html">3D software guide</a>.</p>
 </section>

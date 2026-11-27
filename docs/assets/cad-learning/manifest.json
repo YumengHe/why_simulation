@@ -1,0 +1,11 @@
+{
+  "generator": "scripts/draw_cad_learning.py",
+  "geometry": "scripts/shared_cabinet.py",
+  "role": "Authored explanations of UV-Net and AutoMate. No model inference or CAD kernel execution.",
+  "uvnet": "The full canonical handle is shown as input and with two possible output types. Handle, grip surface, and support surface are hypothetical training labels authored for teaching, not predictions from the published model. Colors identify surface regions; rendering uses the shared primitive geometry rather than a CAD-kernel boolean union.",
+  "automate": "The handle is moved outward only for illustration. Gold marks mounting regions. The fixed mate is an authored example of a user choice, not a model prediction. The face-edge-vertex sketch omits loops for clarity.",
+  "sources": [
+    "https://arxiv.org/html/2006.10211v2",
+    "https://arxiv.org/html/2105.12238v2"
+  ]
+}
